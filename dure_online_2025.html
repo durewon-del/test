@@ -1,0 +1,576 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>두레 온라인 연말감사제 보고</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        html, body {
+            font-family: 'Apple SD Gothic Neo', 'Malgun Gothic', sans-serif;
+            background: #1a5f2a;
+            height: 100%;
+            overflow: hidden;
+        }
+        
+        .card-container {
+            height: 100%;
+            overflow-y: scroll;
+            scroll-snap-type: y mandatory;
+            scroll-behavior: smooth;
+            -webkit-overflow-scrolling: touch;
+        }
+        
+        .card {
+            min-height: 100vh;
+            min-height: 100dvh;
+            scroll-snap-align: start;
+            scroll-snap-stop: always;
+            padding: 16px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+        
+        .card-inner {
+            width: 100%;
+            max-width: 400px;
+            background: white;
+            border-radius: 24px;
+            padding: 24px 20px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.3);
+            max-height: 88vh;
+            overflow-y: auto;
+        }
+        
+        .card:nth-child(odd) { background: linear-gradient(180deg, #1a5f2a, #2d8a3e); }
+        .card:nth-child(even) { background: linear-gradient(180deg, #166534, #1a5f2a); }
+        
+        .card-header { text-align: center; margin-bottom: 16px; }
+        .card-header .logo { font-size: 11px; color: #1a5f2a; font-weight: 600; margin-bottom: 4px; }
+        .card-header h1 { font-size: 20px; color: #1a5f2a; font-weight: 800; margin-bottom: 4px; }
+        .card-header .subtitle { font-size: 13px; color: #666; }
+        .card-header .period {
+            display: inline-block; background: #1a5f2a; color: white;
+            padding: 5px 14px; border-radius: 20px; font-size: 10px; margin-top: 8px;
+        }
+        
+        .card-title {
+            font-size: 17px; font-weight: 800; color: #1a5f2a; margin-bottom: 16px;
+            text-align: center; display: flex; align-items: center; justify-content: center; gap: 8px;
+        }
+        .card-title .icon { font-size: 22px; }
+        
+        .coop-selector { margin-bottom: 16px; }
+        .coop-selector label { display: block; font-size: 12px; color: #666; margin-bottom: 6px; font-weight: 600; }
+        .coop-selector select {
+            width: 100%; padding: 12px 14px; font-size: 15px;
+            border: 2px solid #1a5f2a; border-radius: 12px; background: white;
+            color: #1a5f2a; font-weight: 700; appearance: none;
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24' fill='none' stroke='%231a5f2a' stroke-width='2'%3E%3Cpath d='M6 9l6 6 6-6'/%3E%3C/svg%3E");
+            background-repeat: no-repeat; background-position: right 10px center; cursor: pointer;
+        }
+        
+        .compare-box { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 14px; }
+        .compare-item { padding: 14px 10px; border-radius: 12px; text-align: center; }
+        .compare-item.total { background: linear-gradient(135deg, #f0fdf4, #dcfce7); border: 2px solid #86efac; }
+        .compare-item.coop { background: linear-gradient(135deg, #eff6ff, #dbeafe); border: 2px solid #93c5fd; }
+        .compare-item .label { font-size: 10px; color: #666; margin-bottom: 4px; font-weight: 600; }
+        .compare-item .name { font-size: 11px; font-weight: 700; color: #333; margin-bottom: 8px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+        .compare-item .value { font-size: 24px; font-weight: 800; }
+        .compare-item.total .value { color: #1a5f2a; }
+        .compare-item.coop .value { color: #2563eb; }
+        .compare-item .sub { font-size: 10px; color: #888; margin-top: 4px; }
+        
+        .stats-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 8px; margin-bottom: 14px; }
+        .stat-box { background: #f8fafc; border-radius: 10px; padding: 12px 8px; text-align: center; border: 1px solid #e2e8f0; }
+        .stat-box .label { font-size: 10px; color: #64748b; margin-bottom: 3px; font-weight: 600; }
+        .stat-box .value { font-size: 20px; font-weight: 800; }
+        .stat-box .value.red { color: #dc2626; }
+        .stat-box .value.green { color: #1a5f2a; }
+        .stat-box .sub { font-size: 9px; color: #94a3b8; margin-top: 2px; }
+        
+        .data-table { width: 100%; border-collapse: collapse; margin: 10px 0; font-size: 12px; }
+        .data-table th { background: #1a5f2a; color: white; padding: 8px 5px; font-weight: 600; }
+        .data-table th:first-child { border-radius: 8px 0 0 0; }
+        .data-table th:last-child { border-radius: 0 8px 0 0; }
+        .data-table td { padding: 8px 5px; text-align: center; border-bottom: 1px solid #e5e7eb; }
+        .data-table td:first-child { text-align: left; font-weight: 600; }
+        .data-table .red { color: #dc2626; font-weight: 700; }
+        .data-table .green { color: #1a5f2a; font-weight: 700; }
+        
+        .progress-item { margin-bottom: 12px; }
+        .progress-label { display: flex; justify-content: space-between; margin-bottom: 5px; font-size: 12px; }
+        .progress-label .name { font-weight: 600; color: #374151; }
+        .progress-label .value { font-weight: 700; }
+        .progress-bar { height: 24px; background: #e5e7eb; border-radius: 12px; overflow: hidden; }
+        .progress-fill {
+            height: 100%; border-radius: 12px;
+            display: flex; align-items: center; justify-content: flex-end;
+            padding-right: 8px; font-size: 11px; font-weight: 700; color: white;
+        }
+        .progress-fill.green { background: linear-gradient(90deg, #1a5f2a, #22c55e); }
+        .progress-fill.orange { background: linear-gradient(90deg, #ea580c, #f97316); }
+        .progress-fill.blue { background: linear-gradient(90deg, #2563eb, #3b82f6); }
+        
+        .retention-item { display: flex; align-items: center; margin-bottom: 7px; gap: 6px; }
+        .retention-item .order { width: 45px; font-size: 11px; font-weight: 600; color: #666; }
+        .retention-item .bar-bg { flex: 1; height: 22px; background: #f1f5f9; border-radius: 6px; overflow: hidden; }
+        .retention-item .bar {
+            height: 100%; display: flex; align-items: center; justify-content: flex-end;
+            padding-right: 6px; font-size: 11px; font-weight: 700; color: white; border-radius: 6px;
+        }
+        .retention-item .bar.low { background: #94a3b8; color: #374151; }
+        .retention-item .bar.medium { background: #3b82f6; }
+        .retention-item .bar.high { background: linear-gradient(90deg, #1a5f2a, #22c55e); }
+        
+        .insight-box {
+            background: linear-gradient(135deg, #fef9c3, #fef08a);
+            border-radius: 10px; padding: 12px; margin-top: 12px; border-left: 4px solid #eab308;
+        }
+        .insight-box p { font-size: 12px; color: #854d0e; line-height: 1.5; font-weight: 600; }
+        
+        .vs-cards { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin: 10px 0; }
+        .vs-card { padding: 12px 8px; border-radius: 10px; text-align: center; }
+        .vs-card.left { background: linear-gradient(135deg, #fef2f2, #fecaca); border: 1px solid #fca5a5; }
+        .vs-card.right { background: linear-gradient(135deg, #f0fdf4, #bbf7d0); border: 1px solid #86efac; }
+        .vs-card .card-label { font-size: 10px; font-weight: 700; margin-bottom: 8px; }
+        .vs-card.left .card-label { color: #991b1b; }
+        .vs-card.right .card-label { color: #166534; }
+        .vs-card .stat { margin-bottom: 6px; }
+        .vs-card .stat-name { font-size: 9px; color: #666; margin-bottom: 1px; }
+        .vs-card .stat-value { font-size: 14px; font-weight: 700; color: #1f2937; }
+        
+        .conclusion-list { list-style: none; }
+        .conclusion-list li {
+            padding: 10px 0; padding-left: 24px; position: relative;
+            font-size: 13px; line-height: 1.4; border-bottom: 1px solid #e5e7eb; color: #374151;
+        }
+        .conclusion-list li:last-child { border-bottom: none; }
+        .conclusion-list li::before { content: "✓"; position: absolute; left: 0; color: #1a5f2a; font-weight: 800; font-size: 14px; }
+        
+        .scroll-hint { text-align: center; margin-top: 14px; color: #94a3b8; font-size: 11px; animation: bounce 2s infinite; }
+        .scroll-hint .arrow { display: block; font-size: 18px; margin-bottom: 2px; }
+        @keyframes bounce { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(5px); } }
+        
+        .page-indicator {
+            position: fixed; right: 8px; top: 50%; transform: translateY(-50%);
+            display: flex; flex-direction: column; gap: 6px; z-index: 100;
+        }
+        .page-dot { width: 6px; height: 6px; border-radius: 50%; background: rgba(255,255,255,0.4); transition: all 0.3s; }
+        .page-dot.active { background: white; transform: scale(1.4); }
+        
+        .task-item {
+            display: flex; align-items: flex-start; gap: 10px;
+            padding: 12px; background: #f0fdf4; border-radius: 10px;
+            margin-bottom: 8px; border-left: 3px solid #1a5f2a;
+        }
+        .task-item.warning { background: #fef2f2; border-left-color: #dc2626; }
+        .task-item .num {
+            background: #1a5f2a; color: white; width: 22px; height: 22px;
+            border-radius: 50%; display: flex; align-items: center; justify-content: center;
+            font-size: 11px; font-weight: 700; flex-shrink: 0;
+        }
+        .task-item.warning .num { background: #dc2626; }
+        .task-item .text { font-size: 13px; color: #374151; font-weight: 500; line-height: 1.4; }
+        .task-item .text small { color: #666; font-size: 11px; }
+        .task-item.warning .text small { color: #dc2626; }
+    </style>
+</head>
+<body>
+    <div class="page-indicator" id="pageIndicator"></div>
+    
+    <div class="card-container" id="cardContainer">
+        <!-- 카드 1: 표지 -->
+        <div class="card">
+            <div class="card-inner">
+                <div class="card-header">
+                    <div class="logo">두레생협연합회</div>
+                    <h1>온라인 연말감사제 보고</h1>
+                    <div class="subtitle">24년 vs 25년 비교 분석</div>
+                    <div class="period">2024.12.02~15 vs 2025.12.01~14</div>
+                </div>
+                
+                <div class="coop-selector">
+                    <label>👆 회원생협을 선택하세요</label>
+                    <select id="coopSelect" onchange="updateAllCards()">
+                        <option value="전체">전체 (단협 합계)</option>
+                    </select>
+                </div>
+                
+                <div class="stats-grid">
+                    <div class="stat-box">
+                        <div class="label">매출 변화</div>
+                        <div class="value red" id="cover-sales">-1.4%</div>
+                        <div class="sub" id="cover-sales-sub">12.53억→12.35억</div>
+                    </div>
+                    <div class="stat-box">
+                        <div class="label">조합원 유지율</div>
+                        <div class="value green">60.5%</div>
+                        <div class="sub">24년→25년</div>
+                    </div>
+                    <div class="stat-box">
+                        <div class="label">재구매율</div>
+                        <div class="value green">48.4%</div>
+                        <div class="sub">2주간 2회+</div>
+                    </div>
+                    <div class="stat-box">
+                        <div class="label">충성조합원 유지</div>
+                        <div class="value green">84~98%</div>
+                        <div class="sub">24년 3회+</div>
+                    </div>
+                </div>
+                
+                <div class="insight-box">
+                    <p>📌 타임세일 폐지 후 매출 소폭 감소, 충성조합원은 84~98% 유지!</p>
+                </div>
+                
+                <div class="scroll-hint"><span class="arrow">↓</span>위로 스와이프</div>
+            </div>
+        </div>
+        
+        <!-- 카드 2: 내 생협 vs 전체 -->
+        <div class="card">
+            <div class="card-inner">
+                <div class="card-title"><span class="icon">📊</span>내 생협 vs 전체</div>
+                
+                <div class="compare-box">
+                    <div class="compare-item total">
+                        <div class="label">전체 단협</div>
+                        <div class="name">24개 단협 합계</div>
+                        <div class="value">-1.4%</div>
+                        <div class="sub">12.53억→12.35억</div>
+                    </div>
+                    <div class="compare-item coop">
+                        <div class="label">우리 생협</div>
+                        <div class="name" id="card2-coop-name">전체</div>
+                        <div class="value" id="card2-coop-change">-1.4%</div>
+                        <div class="sub" id="card2-coop-sales">12.53억→12.35억</div>
+                    </div>
+                </div>
+                
+                <table class="data-table">
+                    <tr><th>지표</th><th>전체</th><th id="card2-th-coop">우리생협</th></tr>
+                    <tr><td>24년 조합원</td><td>6,077명</td><td id="card2-cust24">6,077명</td></tr>
+                    <tr><td>25년 조합원</td><td>6,038명</td><td id="card2-cust25">6,038명</td></tr>
+                    <tr><td>조합원 증감</td><td>-0.6%</td><td id="card2-cust-change">-0.6%</td></tr>
+                    <tr><td>객단가</td><td>204,605원</td><td id="card2-avg">204,605원</td></tr>
+                    <tr><td>평균 주문</td><td>2.04회</td><td id="card2-orders">2.04회</td></tr>
+                </table>
+                
+                <div class="scroll-hint"><span class="arrow">↓</span>위로 스와이프</div>
+            </div>
+        </div>
+        
+        <!-- 카드 3: 매출 현황 -->
+        <div class="card">
+            <div class="card-inner">
+                <div class="card-title"><span class="icon">💰</span>매출은 어떻게 됐나?</div>
+                
+                <table class="data-table">
+                    <tr><th>구분</th><th>24년</th><th>25년</th><th>증감</th></tr>
+                    <tr><td>매출</td><td>12.53억</td><td>12.35억</td><td class="red">-1.4%</td></tr>
+                    <tr><td>조합원</td><td>6,077명</td><td>6,038명</td><td>-0.6%</td></tr>
+                </table>
+                
+                <div class="insight-box">
+                    <p>💡 24년: 타임세일 + 추가 5% 할인<br>
+                    25년: 할인 없이 기본 마진 유지<br><br>
+                    → 매출 소폭 감소, 수익성은 개선!</p>
+                </div>
+                
+                <div class="scroll-hint"><span class="arrow">↓</span>위로 스와이프</div>
+            </div>
+        </div>
+        
+        <!-- 카드 4: 어린이집 vs 일반 -->
+        <div class="card">
+            <div class="card-inner">
+                <div class="card-title"><span class="icon">👥</span>어린이집 vs 일반</div>
+                
+                <table class="data-table">
+                    <tr><th>구분</th><th>24년</th><th>25년</th><th>증감</th></tr>
+                    <tr><td>어린이집</td><td>2.19억</td><td>2.14억</td><td class="red">-2.6%</td></tr>
+                    <tr><td>일반</td><td>10.33억</td><td>10.22억</td><td class="red">-1.1%</td></tr>
+                </table>
+                
+                <div class="vs-cards">
+                    <div class="vs-card left">
+                        <div class="card-label">어린이집</div>
+                        <div class="stat"><div class="stat-name">객단가</div><div class="stat-value">69만원</div></div>
+                        <div class="stat"><div class="stat-name">주문</div><div class="stat-value">5.2회</div></div>
+                        <div class="stat"><div class="stat-name">재구매율</div><div class="stat-value">86%</div></div>
+                    </div>
+                    <div class="vs-card right">
+                        <div class="card-label">일반 조합원</div>
+                        <div class="stat"><div class="stat-name">객단가</div><div class="stat-value">18만원</div></div>
+                        <div class="stat"><div class="stat-name">주문</div><div class="stat-value">1.9회</div></div>
+                        <div class="stat"><div class="stat-name">재구매율</div><div class="stat-value">46%</div></div>
+                    </div>
+                </div>
+                
+                <div class="insight-box">
+                    <p>🏫 어린이집은 급식 특성상 객단가 4배, 재구매율 2배</p>
+                </div>
+                
+                <div class="scroll-hint"><span class="arrow">↓</span>위로 스와이프</div>
+            </div>
+        </div>
+        
+        <!-- 카드 5: 유지/이탈 -->
+        <div class="card">
+            <div class="card-inner">
+                <div class="card-title"><span class="icon">🔄</span>조합원 유지/이탈</div>
+                
+                <div class="progress-item">
+                    <div class="progress-label">
+                        <span class="name">유지</span>
+                        <span class="value" style="color:#1a5f2a;">3,484명 (60.5%)</span>
+                    </div>
+                    <div class="progress-bar"><div class="progress-fill green" style="width:60.5%;">72%매출</div></div>
+                </div>
+                
+                <div class="progress-item">
+                    <div class="progress-label">
+                        <span class="name">이탈</span>
+                        <span class="value" style="color:#dc2626;">2,270명 (39.5%)</span>
+                    </div>
+                    <div class="progress-bar"><div class="progress-fill orange" style="width:39.5%;"></div></div>
+                </div>
+                
+                <div class="progress-item">
+                    <div class="progress-label">
+                        <span class="name">신규</span>
+                        <span class="value" style="color:#2563eb;">2,244명</span>
+                    </div>
+                    <div class="progress-bar"><div class="progress-fill blue" style="width:39%;">28%매출</div></div>
+                </div>
+                
+                <div class="insight-box">
+                    <p>📊 유지 조합원이 25년 매출의 72% 차지!</p>
+                </div>
+                
+                <div class="scroll-hint"><span class="arrow">↓</span>위로 스와이프</div>
+            </div>
+        </div>
+        
+        <!-- 카드 6: 이탈자 특성 -->
+        <div class="card">
+            <div class="card-inner">
+                <div class="card-title"><span class="icon">🔍</span>떠난 조합원은?</div>
+                
+                <div class="vs-cards">
+                    <div class="vs-card left">
+                        <div class="card-label">이탈 조합원</div>
+                        <div class="stat"><div class="stat-name">객단가</div><div class="stat-value">11.3만원</div></div>
+                        <div class="stat"><div class="stat-name">주문</div><div class="stat-value">1.33회</div></div>
+                        <div class="stat"><div class="stat-name">1회구매</div><div class="stat-value">77.4%</div></div>
+                    </div>
+                    <div class="vs-card right">
+                        <div class="card-label">유지 조합원</div>
+                        <div class="stat"><div class="stat-name">객단가</div><div class="stat-value">22.3만원</div></div>
+                        <div class="stat"><div class="stat-name">주문</div><div class="stat-value">2.17회</div></div>
+                        <div class="stat"><div class="stat-name">1회구매</div><div class="stat-value">39.4%</div></div>
+                    </div>
+                </div>
+                
+                <div class="insight-box">
+                    <p>⚠️ 이탈자의 77%가 1회만 구매한 저관여 조합원!<br><br>
+                    특가세일로 한 번 사고 떠남 → 떠나도 괜찮음</p>
+                </div>
+                
+                <div class="scroll-hint"><span class="arrow">↓</span>위로 스와이프</div>
+            </div>
+        </div>
+        
+        <!-- 카드 7: 충성조합원 -->
+        <div class="card">
+            <div class="card-inner">
+                <div class="card-title"><span class="icon">⭐</span>충성조합원은 남았나?</div>
+                
+                <div class="retention-item"><span class="order">1회</span><div class="bar-bg"><div class="bar low" style="width:43.9%;">43.9%</div></div></div>
+                <div class="retention-item"><span class="order">2회</span><div class="bar-bg"><div class="bar medium" style="width:75%;">75.0%</div></div></div>
+                <div class="retention-item"><span class="order">3회</span><div class="bar-bg"><div class="bar high" style="width:84.2%;">84.2%</div></div></div>
+                <div class="retention-item"><span class="order">4회</span><div class="bar-bg"><div class="bar high" style="width:91.4%;">91.4%</div></div></div>
+                <div class="retention-item"><span class="order">5회</span><div class="bar-bg"><div class="bar high" style="width:89.3%;">89.3%</div></div></div>
+                <div class="retention-item"><span class="order">6회</span><div class="bar-bg"><div class="bar high" style="width:98%;">98.0%</div></div></div>
+                
+                <div class="insight-box">
+                    <p>🎯 3회+ 충성조합원 84~98% 유지!<br><br>
+                    <strong>할인 없어도 떠나지 않음!</strong></p>
+                </div>
+                
+                <div class="scroll-hint"><span class="arrow">↓</span>위로 스와이프</div>
+            </div>
+        </div>
+        
+        <!-- 카드 8: 재구매율 -->
+        <div class="card">
+            <div class="card-inner">
+                <div class="card-title"><span class="icon">📈</span>재구매율 변화</div>
+                
+                <p style="font-size:10px;color:#666;margin-bottom:12px;text-align:center;">※ 2주간 2회 이상 구매 비율</p>
+                
+                <table class="data-table">
+                    <tr><th>구분</th><th>24년</th><th>25년</th><th>변화</th></tr>
+                    <tr><td>2회+ 재구매</td><td>47.7%</td><td>48.4%</td><td class="green">+0.6%p</td></tr>
+                    <tr><td>3회+ 충성</td><td>22.2%</td><td>23.0%</td><td class="green">+0.7%p</td></tr>
+                    <tr><td>충성 매출</td><td>52.0%</td><td>54.2%</td><td class="green">+2.2%p</td></tr>
+                </table>
+                
+                <div class="insight-box">
+                    <p>📈 재구매율·충성비율 모두 상승!<br>충성조합원이 매출의 54% 책임</p>
+                </div>
+                
+                <div class="scroll-hint"><span class="arrow">↓</span>위로 스와이프</div>
+            </div>
+        </div>
+        
+        <!-- 카드 9: 결론 -->
+        <div class="card">
+            <div class="card-inner">
+                <div class="card-title"><span class="icon">📋</span>결론</div>
+                
+                <ul class="conclusion-list">
+                    <li>매출 -1.4% 소폭 감소<br><small style="color:#666;font-size:11px;">할인비용 고려시 수익성 개선</small></li>
+                    <li>일반 -1.1%, 어린이집 -2.6%<br><small style="color:#666;font-size:11px;">어린이집 별도 관리 필요</small></li>
+                    <li>이탈자는 1회성 저관여 조합원<br><small style="color:#666;font-size:11px;">떠나도 괜찮음</small></li>
+                    <li>충성조합원 84~98% 유지<br><small style="color:#666;font-size:11px;">핵심 조합원은 떠나지 않음</small></li>
+                    <li>재구매율·충성비율 모두 상승</li>
+                </ul>
+                
+                <div class="scroll-hint"><span class="arrow">↓</span>위로 스와이프</div>
+            </div>
+        </div>
+        
+        <!-- 카드 10: 향후 과제 -->
+        <div class="card">
+            <div class="card-inner">
+                <div class="card-title"><span class="icon">🎯</span>향후 과제</div>
+                
+                <div class="task-item">
+                    <span class="num">1</span>
+                    <div class="text">타임세일 폐지 전략 유지<br><small>수익성 개선 효과</small></div>
+                </div>
+                <div class="task-item">
+                    <span class="num">2</span>
+                    <div class="text">어린이집 이탈 방지<br><small>-2.6% 원인 분석</small></div>
+                </div>
+                <div class="task-item">
+                    <span class="num">3</span>
+                    <div class="text">충성조합원 VIP 관리<br><small>매출 54% 책임</small></div>
+                </div>
+                <div class="task-item warning">
+                    <span class="num">4</span>
+                    <div class="text">하락 단협 원인 분석<br><small>경기두레-14.5%, 안성두레-31.9%</small></div>
+                </div>
+                
+                <div style="text-align:center;padding:14px;background:#1a5f2a;border-radius:10px;color:white;margin-top:14px;">
+                    <div style="font-size:11px;opacity:0.8;">두레생협연합회 온라인사업팀</div>
+                    <div style="font-size:13px;font-weight:600;margin-top:3px;">2025년 12월</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const coopData = {
+            "전체": { sales24: 125269, sales25: 123540, cust24: 6077, cust25: 6038, avg: 204605, orders: 2.04 },
+            "수도권생태유아공동체": { sales24: 14853, sales25: 15149, cust24: 190, cust25: 185, avg: 818890, orders: 6.19 },
+            "푸른두레생협": { sales24: 13988, sales25: 13805, cust24: 711, cust25: 725, avg: 190410, orders: 1.98 },
+            "울림두레생협": { sales24: 11058, sales25: 11985, cust24: 587, cust25: 572, avg: 209536, orders: 1.98 },
+            "에코생협": { sales24: 9537, sales25: 8625, cust24: 522, cust25: 498, avg: 173199, orders: 1.91 },
+            "서울남부두레생협": { sales24: 7497, sales25: 7790, cust24: 413, cust25: 453, avg: 171956, orders: 1.91 },
+            "참좋은두레생협": { sales24: 7823, sales25: 7361, cust24: 441, cust25: 441, avg: 166923, orders: 1.93 },
+            "팔당생명살림생협": { sales24: 6485, sales25: 7023, cust24: 277, cust25: 286, avg: 245568, orders: 1.93 },
+            "경기두레생협": { sales24: 8024, sales25: 6858, cust24: 448, cust25: 447, avg: 153412, orders: 1.83 },
+            "고양파주두레생협": { sales24: 6486, sales25: 6695, cust24: 385, cust25: 370, avg: 180933, orders: 1.84 },
+            "경기남부두레생협": { sales24: 6382, sales25: 6476, cust24: 376, cust25: 358, avg: 180896, orders: 1.84 },
+            "바른두레생협": { sales24: 6623, sales25: 6216, cust24: 428, cust25: 394, avg: 157774, orders: 1.83 },
+            "주민두레생협": { sales24: 5799, sales25: 5299, cust24: 270, cust25: 260, avg: 203806, orders: 1.99 },
+            "은평두레생협": { sales24: 4125, sales25: 3969, cust24: 252, cust25: 258, avg: 153819, orders: 1.78 },
+            "춘천두레생협": { sales24: 2882, sales25: 3006, cust24: 115, cust25: 126, avg: 238606, orders: 2.11 },
+            "서울북부두레생협": { sales24: 2553, sales25: 2906, cust24: 156, cust25: 158, avg: 183950, orders: 1.99 },
+            "원주생협": { sales24: 2045, sales25: 2189, cust24: 76, cust25: 80, avg: 273620, orders: 2.17 },
+            "평택두레생협": { sales24: 2543, sales25: 2048, cust24: 120, cust25: 107, avg: 191416, orders: 1.81 },
+            "안양YMCA등대두레": { sales24: 1635, sales25: 1638, cust24: 71, cust25: 76, avg: 215565, orders: 1.99 },
+            "안성두레생협": { sales24: 1888, sales25: 1285, cust24: 69, cust25: 71, avg: 181003, orders: 1.79 },
+            "한울안생협": { sales24: 864, sales25: 989, cust24: 38, cust25: 44, avg: 224810, orders: 2.23 },
+            "아름다운생협": { sales24: 910, sales25: 895, cust24: 48, cust25: 51, avg: 175543, orders: 1.73 },
+            "성동두레생협": { sales24: 684, sales25: 747, cust24: 43, cust25: 43, avg: 173826, orders: 1.74 },
+            "시흥YMCA생협": { sales24: 471, sales25: 409, cust24: 32, cust25: 21, avg: 194800, orders: 2.24 },
+            "(사)두레생산자회": { sales24: 115, sales25: 175, cust24: 9, cust25: 14, avg: 124982, orders: 1.43 }
+        };
+        
+        const select = document.getElementById('coopSelect');
+        Object.keys(coopData).forEach(name => {
+            if (name !== "전체") {
+                const option = document.createElement('option');
+                option.value = name;
+                option.textContent = name;
+                select.appendChild(option);
+            }
+        });
+        
+        function formatSales(num) {
+            if (num >= 10000) return (num / 10000).toFixed(2) + '억';
+            return num.toLocaleString() + '만';
+        }
+        
+        function formatChange(s24, s25) {
+            const c = ((s25 / s24) - 1) * 100;
+            return (c >= 0 ? '+' : '') + c.toFixed(1) + '%';
+        }
+        
+        function formatNumber(num) { return num.toLocaleString(); }
+        
+        function updateAllCards() {
+            const sel = select.value;
+            const d = coopData[sel];
+            const chg = ((d.sales25 / d.sales24) - 1) * 100;
+            const salesChg = formatChange(d.sales24, d.sales25);
+            const custChg = formatChange(d.cust24, d.cust25);
+            
+            // 카드1
+            const cs = document.getElementById('cover-sales');
+            cs.textContent = salesChg;
+            cs.className = 'value ' + (chg >= 0 ? 'green' : 'red');
+            document.getElementById('cover-sales-sub').textContent = formatSales(d.sales24) + '→' + formatSales(d.sales25);
+            
+            // 카드2
+            document.getElementById('card2-coop-name').textContent = sel === "전체" ? "전체" : sel;
+            const c2c = document.getElementById('card2-coop-change');
+            c2c.textContent = salesChg;
+            c2c.style.color = chg >= 0 ? '#1a5f2a' : '#dc2626';
+            document.getElementById('card2-coop-sales').textContent = formatSales(d.sales24) + '→' + formatSales(d.sales25);
+            document.getElementById('card2-th-coop').textContent = sel === "전체" ? "전체" : "우리생협";
+            document.getElementById('card2-cust24').textContent = formatNumber(d.cust24) + '명';
+            document.getElementById('card2-cust25').textContent = formatNumber(d.cust25) + '명';
+            const cc = document.getElementById('card2-cust-change');
+            cc.textContent = custChg;
+            cc.className = parseFloat(custChg) >= 0 ? 'green' : 'red';
+            document.getElementById('card2-avg').textContent = formatNumber(d.avg) + '원';
+            document.getElementById('card2-orders').textContent = d.orders.toFixed(2) + '회';
+        }
+        
+        // 페이지 인디케이터
+        const cards = document.querySelectorAll('.card');
+        const indicator = document.getElementById('pageIndicator');
+        cards.forEach((_, i) => {
+            const dot = document.createElement('div');
+            dot.className = 'page-dot' + (i === 0 ? ' active' : '');
+            indicator.appendChild(dot);
+        });
+        
+        const dots = document.querySelectorAll('.page-dot');
+        const container = document.getElementById('cardContainer');
+        container.addEventListener('scroll', () => {
+            const pos = container.scrollTop;
+            const h = window.innerHeight;
+            const cur = Math.round(pos / h);
+            dots.forEach((dot, i) => dot.classList.toggle('active', i === cur));
+        });
+    </script>
+</body>
+</html>
