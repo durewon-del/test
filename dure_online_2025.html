@@ -153,7 +153,7 @@
             background-position: right 16px center;
         }
         
-        /* 비교 박스 - 핵심 */
+        /* 비교 박스 */
         .compare-section {
             background: #f5f5f5;
             border-radius: 16px;
@@ -235,6 +235,21 @@
         .result-badge.neutral {
             background: #fff9c4;
             color: #f57f17;
+        }
+        
+        /* 특이사항 박스 */
+        .note-box {
+            background: linear-gradient(135deg, #fff3e0, #ffe0b2);
+            border-radius: 12px;
+            padding: 16px;
+            margin-top: 16px;
+            border-left: 5px solid #ff9800;
+        }
+        .note-box p {
+            font-size: 16px;
+            color: #e65100;
+            font-weight: 600;
+            line-height: 1.6;
         }
         
         /* 큰 통계 그리드 */
@@ -645,6 +660,10 @@
                     <div class="result-badge neutral" id="c1-badge">전체와 동일합니다</div>
                 </div>
                 
+                <div class="note-box" id="c1-note" style="display:none;">
+                    <p id="c1-note-text"></p>
+                </div>
+                
                 <div class="calc-box">
                     <div class="calc-title">📐 분석 기간 안내</div>
                     <div class="calc-content">
@@ -687,18 +706,16 @@
                     <div class="result-badge neutral" id="c2-badge">전체와 동일합니다</div>
                 </div>
                 
+                <div class="note-box" id="c2-note" style="display:none;">
+                    <p id="c2-note-text"></p>
+                </div>
+                
                 <table class="data-table">
                     <tr><th>구분</th><th>전체</th><th id="c2-th">우리생협</th></tr>
                     <tr><td>24년 매출</td><td>12.53억</td><td id="c2-s24">12.53억</td></tr>
                     <tr><td>25년 매출</td><td>12.35억</td><td id="c2-s25">12.35억</td></tr>
                     <tr><td>증감률</td><td class="red">-1.4%</td><td id="c2-chg" class="red">-1.4%</td></tr>
                 </table>
-                
-                <div class="insight-box">
-                    <p>💡 <strong>24년:</strong> 타임세일 + 추가 5% 할인<br>
-                    <strong>25년:</strong> 할인 없이 기본 마진 유지<br><br>
-                    → 매출은 소폭 감소, <strong>수익성은 개선!</strong></p>
-                </div>
                 
                 <div class="calc-box">
                     <div class="calc-title">📐 계산 방법</div>
@@ -904,8 +921,8 @@
                     <p style="color:#b71c1c;">
                         ⚠️ 이탈자의 <strong>77%가 1회만 구매</strong>한<br>
                         저관여 조합원입니다!<br><br>
-                        특가세일로 한 번 사고 떠난 조합원 →<br>
-                        <strong>떠나도 수익에 큰 영향 없음</strong>
+                        한 번 구매 후 떠난 조합원 →<br>
+                        <strong>이탈해도 매출 영향 적음</strong>
                     </p>
                 </div>
                 
@@ -948,7 +965,7 @@
                     <p style="color:#1b5e20;">
                         🎯 <strong>3회 이상 구매한 충성조합원</strong>의<br>
                         <strong>84~98%</strong>가 올해도 구매!<br><br>
-                        할인이 없어도 <strong>충성조합원은 떠나지 않습니다</strong>
+                        <strong>충성조합원은 떠나지 않습니다</strong>
                     </p>
                 </div>
                 
@@ -994,7 +1011,6 @@
                 
                 <div class="insight-box">
                     <p>📈 재구매율·충성비율 <strong>모두 상승!</strong><br><br>
-                    타임세일 없어도 충성조합원이 늘었습니다.<br>
                     <strong>매출의 54%를 충성조합원이 책임</strong></p>
                 </div>
                 
@@ -1023,17 +1039,16 @@
                 <div class="card-title"><span class="icon">📋</span>결론</div>
                 
                 <ul class="conclusion-list">
-                    <li>매출 -1.4% 소폭 감소<small>할인 비용 절감으로 수익성은 개선</small></li>
-                    <li>이탈자는 1회성 저관여 조합원<small>77%가 1회만 구매 → 떠나도 괜찮음</small></li>
-                    <li>충성조합원 84~98% 유지<small>할인 없어도 핵심 조합원은 안 떠남</small></li>
+                    <li>전체 매출 -1.4% 소폭 감소<small>대부분 회원생협이 비슷한 수준</small></li>
+                    <li>이탈자는 1회성 저관여 조합원<small>77%가 1회만 구매 → 이탈해도 영향 적음</small></li>
+                    <li>충성조합원 84~98% 유지<small>핵심 조합원은 떠나지 않음</small></li>
                     <li>재구매율 모두 상승<small>충성조합원이 매출의 54% 책임</small></li>
                 </ul>
                 
                 <div class="insight-box" style="background:linear-gradient(135deg,#e8f5e9,#c8e6c9);border-color:#43a047;">
                     <p style="color:#1b5e20;font-size:20px;">
-                        ✅ <strong>타임세일 폐지 전략은 성공!</strong><br><br>
+                        ✅ <strong>충성조합원 중심의 안정적 운영!</strong><br><br>
                         매출 감소는 미미하고,<br>
-                        떠난 조합원은 저관여층,<br>
                         핵심 충성조합원은 그대로입니다.
                     </p>
                 </div>
@@ -1056,7 +1071,7 @@
                 
                 <div class="task-item">
                     <span class="num">1</span>
-                    <div class="text">타임세일 폐지 전략 유지<small>수익성 개선 효과 확인됨</small></div>
+                    <div class="text">충성조합원 VIP 관리<small>매출의 54%를 책임지는 핵심 고객</small></div>
                 </div>
                 
                 <div class="task-item warning">
@@ -1066,12 +1081,12 @@
                 
                 <div class="task-item">
                     <span class="num">3</span>
-                    <div class="text">충성조합원 VIP 관리<small>매출의 54%를 책임지는 핵심 고객</small></div>
+                    <div class="text">신규 조합원 재구매 유도<small>1회 구매 후 이탈 방지 전략</small></div>
                 </div>
                 
-                <div class="task-item danger">
-                    <span class="num">4</span>
-                    <div class="text">하락 단협 원인 분석<small>경기두레 -14.5%, 안성두레 -31.9%</small></div>
+                <div class="task-item danger" id="task-special" style="display:none;">
+                    <span class="num">!</span>
+                    <div class="text" id="task-special-text"></div>
                 </div>
                 
                 <div class="footer">
@@ -1084,31 +1099,31 @@
 
     <script>
         const coopData = {
-            "전체": { sales24: 125269, sales25: 123540, cust24: 6077, cust25: 6038, avg: 204605, orders: 2.04 },
-            "수도권생태유아공동체": { sales24: 14853, sales25: 15149, cust24: 190, cust25: 185, avg: 818890, orders: 6.19 },
-            "푸른두레생협": { sales24: 13988, sales25: 13805, cust24: 711, cust25: 725, avg: 190410, orders: 1.98 },
-            "울림두레생협": { sales24: 11058, sales25: 11985, cust24: 587, cust25: 572, avg: 209536, orders: 1.98 },
-            "에코생협": { sales24: 9537, sales25: 8625, cust24: 522, cust25: 498, avg: 173199, orders: 1.91 },
-            "서울남부두레생협": { sales24: 7497, sales25: 7790, cust24: 413, cust25: 453, avg: 171956, orders: 1.91 },
-            "참좋은두레생협": { sales24: 7823, sales25: 7361, cust24: 441, cust25: 441, avg: 166923, orders: 1.93 },
-            "팔당생명살림생협": { sales24: 6485, sales25: 7023, cust24: 277, cust25: 286, avg: 245568, orders: 1.93 },
-            "경기두레생협": { sales24: 8024, sales25: 6858, cust24: 448, cust25: 447, avg: 153412, orders: 1.83 },
-            "고양파주두레생협": { sales24: 6486, sales25: 6695, cust24: 385, cust25: 370, avg: 180933, orders: 1.84 },
-            "경기남부두레생협": { sales24: 6382, sales25: 6476, cust24: 376, cust25: 358, avg: 180896, orders: 1.84 },
-            "바른두레생협": { sales24: 6623, sales25: 6216, cust24: 428, cust25: 394, avg: 157774, orders: 1.83 },
-            "주민두레생협": { sales24: 5799, sales25: 5299, cust24: 270, cust25: 260, avg: 203806, orders: 1.99 },
-            "은평두레생협": { sales24: 4125, sales25: 3969, cust24: 252, cust25: 258, avg: 153819, orders: 1.78 },
-            "춘천두레생협": { sales24: 2882, sales25: 3006, cust24: 115, cust25: 126, avg: 238606, orders: 2.11 },
-            "서울북부두레생협": { sales24: 2553, sales25: 2906, cust24: 156, cust25: 158, avg: 183950, orders: 1.99 },
-            "원주생협": { sales24: 2045, sales25: 2189, cust24: 76, cust25: 80, avg: 273620, orders: 2.17 },
-            "평택두레생협": { sales24: 2543, sales25: 2048, cust24: 120, cust25: 107, avg: 191416, orders: 1.81 },
-            "안양YMCA등대두레": { sales24: 1635, sales25: 1638, cust24: 71, cust25: 76, avg: 215565, orders: 1.99 },
-            "안성두레생협": { sales24: 1888, sales25: 1285, cust24: 69, cust25: 71, avg: 181003, orders: 1.79 },
-            "한울안생협": { sales24: 864, sales25: 989, cust24: 38, cust25: 44, avg: 224810, orders: 2.23 },
-            "아름다운생협": { sales24: 910, sales25: 895, cust24: 48, cust25: 51, avg: 175543, orders: 1.73 },
-            "성동두레생협": { sales24: 684, sales25: 747, cust24: 43, cust25: 43, avg: 173826, orders: 1.74 },
-            "시흥YMCA생협": { sales24: 471, sales25: 409, cust24: 32, cust25: 21, avg: 194800, orders: 2.24 },
-            "(사)두레생산자회": { sales24: 115, sales25: 175, cust24: 9, cust25: 14, avg: 124982, orders: 1.43 }
+            "전체": { sales24: 125269, sales25: 123540, cust24: 6077, cust25: 6038, avg: 204605, orders: 2.04, note: "" },
+            "수도권생태유아공동체": { sales24: 14853, sales25: 15149, cust24: 190, cust25: 185, avg: 818890, orders: 6.19, note: "" },
+            "푸른두레생협": { sales24: 13988, sales25: 13805, cust24: 711, cust25: 725, avg: 190410, orders: 1.98, note: "" },
+            "울림두레생협": { sales24: 11058, sales25: 11985, cust24: 587, cust25: 572, avg: 209536, orders: 1.98, note: "" },
+            "에코생협": { sales24: 9537, sales25: 8625, cust24: 522, cust25: 498, avg: 173199, orders: 1.91, note: "" },
+            "서울남부두레생협": { sales24: 7497, sales25: 7790, cust24: 413, cust25: 453, avg: 171956, orders: 1.91, note: "" },
+            "참좋은두레생협": { sales24: 7823, sales25: 7361, cust24: 441, cust25: 441, avg: 166923, orders: 1.93, note: "" },
+            "팔당생명살림생협": { sales24: 6485, sales25: 7023, cust24: 277, cust25: 286, avg: 245568, orders: 1.93, note: "" },
+            "경기두레생협": { sales24: 8024, sales25: 6858, cust24: 448, cust25: 447, avg: 153412, orders: 1.83, note: "⚠️ 충성조합원 대상 오프라인 추가 10% 할인 행사로 인해 온라인 매출이 오프라인으로 이동한 것으로 분석됩니다." },
+            "고양파주두레생협": { sales24: 6486, sales25: 6695, cust24: 385, cust25: 370, avg: 180933, orders: 1.84, note: "" },
+            "경기남부두레생협": { sales24: 6382, sales25: 6476, cust24: 376, cust25: 358, avg: 180896, orders: 1.84, note: "" },
+            "바른두레생협": { sales24: 6623, sales25: 6216, cust24: 428, cust25: 394, avg: 157774, orders: 1.83, note: "" },
+            "주민두레생협": { sales24: 5799, sales25: 5299, cust24: 270, cust25: 260, avg: 203806, orders: 1.99, note: "" },
+            "은평두레생협": { sales24: 4125, sales25: 3969, cust24: 252, cust25: 258, avg: 153819, orders: 1.78, note: "" },
+            "춘천두레생협": { sales24: 2882, sales25: 3006, cust24: 115, cust25: 126, avg: 238606, orders: 2.11, note: "" },
+            "서울북부두레생협": { sales24: 2553, sales25: 2906, cust24: 156, cust25: 158, avg: 183950, orders: 1.99, note: "" },
+            "원주생협": { sales24: 2045, sales25: 2189, cust24: 76, cust25: 80, avg: 273620, orders: 2.17, note: "" },
+            "평택두레생협": { sales24: 2543, sales25: 2048, cust24: 120, cust25: 107, avg: 191416, orders: 1.81, note: "" },
+            "안양YMCA등대두레": { sales24: 1635, sales25: 1638, cust24: 71, cust25: 76, avg: 215565, orders: 1.99, note: "" },
+            "안성두레생협": { sales24: 1888, sales25: 1285, cust24: 69, cust25: 71, avg: 181003, orders: 1.79, note: "" },
+            "한울안생협": { sales24: 864, sales25: 989, cust24: 38, cust25: 44, avg: 224810, orders: 2.23, note: "" },
+            "아름다운생협": { sales24: 910, sales25: 895, cust24: 48, cust25: 51, avg: 175543, orders: 1.73, note: "" },
+            "성동두레생협": { sales24: 684, sales25: 747, cust24: 43, cust25: 43, avg: 173826, orders: 1.74, note: "" },
+            "시흥YMCA생협": { sales24: 471, sales25: 409, cust24: 32, cust25: 21, avg: 194800, orders: 2.24, note: "" },
+            "(사)두레생산자회": { sales24: 115, sales25: 175, cust24: 9, cust25: 14, avg: 124982, orders: 1.43, note: "" }
         };
         
         const select = document.getElementById('coopSelect');
@@ -1166,6 +1181,16 @@
             document.getElementById('c1-badge').className = 'result-badge ' + badge1.cls;
             document.getElementById('c1-badge').textContent = sel === "전체" ? "전체 현황입니다" : badge1.txt;
             
+            // 특이사항 노트
+            const note1 = document.getElementById('c1-note');
+            const note1Text = document.getElementById('c1-note-text');
+            if (d.note) {
+                note1.style.display = 'block';
+                note1Text.textContent = d.note;
+            } else {
+                note1.style.display = 'none';
+            }
+            
             // 카드2
             document.getElementById('c2-selected').textContent = sel;
             document.getElementById('c2-value').textContent = salesChgStr;
@@ -1178,6 +1203,15 @@
             document.getElementById('c2-chg').className = myChg >= 0 ? 'green' : 'red';
             document.getElementById('c2-badge').className = 'result-badge ' + badge1.cls;
             document.getElementById('c2-badge').textContent = sel === "전체" ? "전체 현황입니다" : badge1.txt;
+            
+            const note2 = document.getElementById('c2-note');
+            const note2Text = document.getElementById('c2-note-text');
+            if (d.note) {
+                note2.style.display = 'block';
+                note2Text.textContent = d.note;
+            } else {
+                note2.style.display = 'none';
+            }
             
             // 카드3
             document.getElementById('c3-selected').textContent = sel;
@@ -1197,6 +1231,19 @@
                 const el = document.getElementById(id + '-selected');
                 if (el) el.textContent = sel;
             });
+            
+            // 향후 과제 특이사항
+            const taskSpecial = document.getElementById('task-special');
+            const taskSpecialText = document.getElementById('task-special-text');
+            if (sel === "경기두레생협") {
+                taskSpecial.style.display = 'flex';
+                taskSpecialText.innerHTML = "오프라인 할인 행사 조정 검토<small>충성조합원 10% 추가 할인이 온라인 매출에 영향</small>";
+            } else if (myChg < -10) {
+                taskSpecial.style.display = 'flex';
+                taskSpecialText.innerHTML = "매출 하락 원인 분석 필요<small>" + sel + " " + salesChgStr + " → 원인 파악 및 개선 방안 수립</small>";
+            } else {
+                taskSpecial.style.display = 'none';
+            }
         }
         
         // 페이지 인디케이터
