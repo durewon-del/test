@@ -609,6 +609,58 @@
         }
         .footer .org { font-size: 16px; opacity: 0.9; }
         .footer .date { font-size: 18px; font-weight: 700; margin-top: 6px; }
+        
+        /* 단협별 현황표 */
+        .coop-table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 14px;
+            min-width: 320px;
+        }
+        .coop-table thead th {
+            background: #1a6b35;
+            color: white;
+            padding: 10px 6px;
+            font-weight: 700;
+            font-size: 13px;
+            position: sticky;
+            top: 0;
+        }
+        .coop-table thead th:first-child {
+            border-radius: 8px 0 0 0;
+            text-align: left;
+            padding-left: 10px;
+        }
+        .coop-table thead th:last-child {
+            border-radius: 0 8px 0 0;
+        }
+        .coop-table tbody td {
+            padding: 10px 6px;
+            text-align: center;
+            border-bottom: 1px solid #e0e0e0;
+            font-size: 14px;
+        }
+        .coop-table tbody td:first-child {
+            text-align: left;
+            font-weight: 600;
+            padding-left: 10px;
+            white-space: nowrap;
+        }
+        .coop-table tbody tr:nth-child(even) {
+            background: #fafafa;
+        }
+        .coop-table .red { color: #d32f2f; font-weight: 700; }
+        .coop-table .green { color: #2e7d32; font-weight: 700; }
+        .coop-table .highlight-row {
+            background: #e8f5e9 !important;
+            font-weight: 700;
+        }
+        .coop-table .highlight-row td {
+            border-bottom: 2px solid #1a6b35;
+        }
+        .coop-table .warning-row {
+            background: #fff3e0 !important;
+        }
     </style>
 </head>
 <body>
@@ -620,7 +672,7 @@
         <div class="card">
             <div class="header-bar">
                 <span class="logo-text">🌿 두레생협</span>
-                <span class="page-num">1 / 9</span>
+                <span class="page-num">1 / 12</span>
             </div>
             <div class="card-inner">
                 <div class="card-title"><span class="icon">📊</span>연말감사제 보고</div>
@@ -680,7 +732,7 @@
         <div class="card">
             <div class="header-bar">
                 <span class="logo-text">🌿 두레생협</span>
-                <span class="page-num">2 / 9</span>
+                <span class="page-num">2 / 12</span>
             </div>
             <div class="selected-coop-bar">
                 <span class="label">선택된 생협</span>
@@ -732,7 +784,7 @@
         <div class="card">
             <div class="header-bar">
                 <span class="logo-text">🌿 두레생협</span>
-                <span class="page-num">3 / 9</span>
+                <span class="page-num">3 / 12</span>
             </div>
             <div class="selected-coop-bar">
                 <span class="label">선택된 생협</span>
@@ -781,7 +833,7 @@
         <div class="card">
             <div class="header-bar">
                 <span class="logo-text">🌿 두레생협</span>
-                <span class="page-num">4 / 9</span>
+                <span class="page-num">4 / 12</span>
             </div>
             <div class="selected-coop-bar">
                 <span class="label">선택된 생협</span>
@@ -832,7 +884,7 @@
         <div class="card">
             <div class="header-bar">
                 <span class="logo-text">🌿 두레생협</span>
-                <span class="page-num">5 / 9</span>
+                <span class="page-num">5 / 12</span>
             </div>
             <div class="selected-coop-bar">
                 <span class="label">선택된 생협</span>
@@ -893,7 +945,7 @@
         <div class="card">
             <div class="header-bar">
                 <span class="logo-text">🌿 두레생협</span>
-                <span class="page-num">6 / 9</span>
+                <span class="page-num">6 / 12</span>
             </div>
             <div class="selected-coop-bar">
                 <span class="label">선택된 생협</span>
@@ -941,7 +993,7 @@
         <div class="card">
             <div class="header-bar">
                 <span class="logo-text">🌿 두레생협</span>
-                <span class="page-num">7 / 9</span>
+                <span class="page-num">7 / 12</span>
             </div>
             <div class="selected-coop-bar">
                 <span class="label">선택된 생협</span>
@@ -984,7 +1036,7 @@
         <div class="card">
             <div class="header-bar">
                 <span class="logo-text">🌿 두레생협</span>
-                <span class="page-num">8 / 9</span>
+                <span class="page-num">8 / 12</span>
             </div>
             <div class="selected-coop-bar">
                 <span class="label">선택된 생협</span>
@@ -1029,7 +1081,7 @@
         <div class="card">
             <div class="header-bar">
                 <span class="logo-text">🌿 두레생협</span>
-                <span class="page-num">9 / 9</span>
+                <span class="page-num">9 / 12</span>
             </div>
             <div class="selected-coop-bar">
                 <span class="label">선택된 생협</span>
@@ -1039,21 +1091,187 @@
                 <div class="card-title"><span class="icon">📋</span>결론</div>
                 
                 <ul class="conclusion-list">
-                    <li>전체 매출 -1.4% 소폭 감소<small>대부분 회원생협이 비슷한 수준</small></li>
-                    <li>이탈자는 1회성 저관여 조합원<small>77%가 1회만 구매 → 이탈해도 영향 적음</small></li>
-                    <li>충성조합원 84~98% 유지<small>핵심 조합원은 떠나지 않음</small></li>
-                    <li>재구매율 모두 상승<small>충성조합원이 매출의 54% 책임</small></li>
+                    <li>전체 매출 -1.4% 소폭 감소<small>12.53억 → 12.35억</small></li>
+                    <li>조합원 유지율 60.5%<small>유지 조합원이 25년 매출의 72% 차지</small></li>
+                    <li>이탈자 77%는 1회 구매자<small>저관여 조합원 → 이탈 영향 적음</small></li>
+                    <li>충성조합원 84~98% 유지<small>3회 이상 구매자는 계속 구매</small></li>
+                    <li>재구매율 상승<small>47.7% → 48.4% (+0.7%p)</small></li>
+                    <li>충성조합원 매출비중 증가<small>52% → 54% (+2%p)</small></li>
                 </ul>
                 
                 <div class="insight-box" style="background:linear-gradient(135deg,#e8f5e9,#c8e6c9);border-color:#43a047;">
                     <p style="color:#1b5e20;font-size:20px;">
-                        ✅ <strong>충성조합원 중심의 안정적 운영!</strong><br><br>
-                        매출 감소는 미미하고,<br>
-                        핵심 충성조합원은 그대로입니다.
+                        ✅ <strong>충성조합원 중심의 안정적 운영</strong><br><br>
+                        핵심 조합원은 유지되고 있으며,<br>
+                        매출의 54%를 책임지고 있습니다.
+                    </p>
+                </div>
+            </div>
+            <div class="scroll-hint"><div class="scroll-hint-inner">↑ 위로 밀어서 다음 페이지</div></div>
+        </div>
+        
+        <!-- 카드 10: 판매수량 분석 -->
+        <div class="card">
+            <div class="header-bar">
+                <span class="logo-text">🌿 두레생협</span>
+                <span class="page-num">10 / 12</span>
+            </div>
+            <div class="card-inner">
+                <div class="card-title"><span class="icon">📦</span>판매수량 분석</div>
+                
+                <div class="compare-section">
+                    <div class="section-title">📊 전체 주문수량 비교</div>
+                    <div class="compare-row">
+                        <div class="compare-card total">
+                            <div class="card-label">24년</div>
+                            <div class="card-value" style="font-size:28px;">295,627</div>
+                            <div class="card-sub">총 주문수량</div>
+                        </div>
+                        <div class="compare-card mine" style="background:linear-gradient(135deg,#ffebee,#ffcdd2);border-color:#ef9a9a;">
+                            <div class="card-label">25년</div>
+                            <div class="card-value" style="font-size:28px;color:#d32f2f;">224,452</div>
+                            <div class="card-sub">-24.1% 감소</div>
+                        </div>
+                    </div>
+                </div>
+                
+                <p style="font-size:15px;color:#666;margin:16px 0 12px;font-weight:700;">📉 대분류별 증감 현황</p>
+                <div style="overflow-x:auto;margin:0 -10px;">
+                    <table class="coop-table">
+                        <thead><tr><th>대분류</th><th>24년</th><th>25년</th><th>증감</th></tr></thead>
+                        <tbody>
+                            <tr><td>채소/버섯</td><td>72,741</td><td>49,746</td><td class="red">-31.6%</td></tr>
+                            <tr><td>반찬</td><td>31,308</td><td>25,987</td><td class="red">-17.0%</td></tr>
+                            <tr><td>정육/유정란</td><td>26,807</td><td>19,738</td><td class="red">-26.4%</td></tr>
+                            <tr><td>음료/차/유제품</td><td>25,640</td><td>19,137</td><td class="red">-25.4%</td></tr>
+                            <tr style="background:#e8f5e9;"><td>식사대용/간편식</td><td>25,448</td><td>25,865</td><td class="green">+1.6%</td></tr>
+                            <tr><td>간식</td><td>30,945</td><td>21,732</td><td class="red">-29.8%</td></tr>
+                            <tr><td>쌀/잡곡</td><td>17,227</td><td>12,242</td><td class="red">-28.9%</td></tr>
+                            <tr><td>과일/견과</td><td>13,025</td><td>8,562</td><td class="red">-34.3%</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+                
+                <div class="insight-box" style="margin-top:16px;">
+                    <p>📌 <strong>식사대용/간편식</strong>만 유일하게 증가!<br>
+                    감자라면, 훈제오리, 떡갈비 등 간편식 수요 ↑</p>
+                </div>
+            </div>
+            <div class="scroll-hint"><div class="scroll-hint-inner">↑ 위로 밀어서 다음 페이지</div></div>
+        </div>
+        
+        <!-- 카드 11: 인기상품 변동 -->
+        <div class="card">
+            <div class="header-bar">
+                <span class="logo-text">🌿 두레생협</span>
+                <span class="page-num">11 / 12</span>
+            </div>
+            <div class="card-inner">
+                <div class="card-title"><span class="icon">🏆</span>인기상품 변동</div>
+                
+                <p style="font-size:15px;color:#d32f2f;margin-bottom:12px;font-weight:700;">📉 판매 감소 TOP 5</p>
+                <div style="overflow-x:auto;margin:0 -10px 20px;">
+                    <table class="coop-table">
+                        <thead><tr><th>상품명</th><th>24년</th><th>25년</th><th>증감</th></tr></thead>
+                        <tbody>
+                            <tr class="warning-row"><td>대추방울토마토</td><td>3,016</td><td>720</td><td class="red">-76%</td></tr>
+                            <tr><td>산안유정란(15알)</td><td>1,369</td><td>1</td><td class="red">-99%</td></tr>
+                            <tr><td>무우(1kg)</td><td>1,753</td><td>452</td><td class="red">-74%</td></tr>
+                            <tr><td>부침용두부</td><td>4,602</td><td>3,319</td><td class="red">-28%</td></tr>
+                            <tr><td>감자(1kg)</td><td>1,736</td><td>577</td><td class="red">-67%</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+                
+                <p style="font-size:15px;color:#2e7d32;margin-bottom:12px;font-weight:700;">📈 판매 증가 상품</p>
+                <div style="overflow-x:auto;margin:0 -10px 20px;">
+                    <table class="coop-table">
+                        <thead><tr><th>상품명</th><th>24년</th><th>25년</th><th>증감</th></tr></thead>
+                        <tbody>
+                            <tr style="background:#e8f5e9;"><td>달구네유정란(15구)</td><td>1,332</td><td>2,070</td><td class="green">+55%</td></tr>
+                            <tr style="background:#e8f5e9;"><td>찌개용두부</td><td>1,879</td><td>2,246</td><td class="green">+20%</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+                
+                <p style="font-size:15px;color:#1565c0;margin-bottom:12px;font-weight:700;">🆕 25년 신규 인기상품</p>
+                <div style="overflow-x:auto;margin:0 -10px;">
+                    <table class="coop-table">
+                        <thead><tr><th>상품명</th><th>25년 수량</th></tr></thead>
+                        <tbody>
+                            <tr><td>햅쌀 수향미(4kg/무농약)</td><td>1,496</td></tr>
+                            <tr><td>떡갈비1000(10개)</td><td>1,015</td></tr>
+                            <tr><td>느타리버섯(200g)</td><td>997</td></tr>
+                            <tr><td>친환경 감귤(1kg)</td><td>941</td></tr>
+                            <tr><td>전통팥죽</td><td>690</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+                
+                <div class="insight-box" style="margin-top:16px;background:linear-gradient(135deg,#fff3e0,#ffe0b2);border-color:#ff9800;">
+                    <p style="color:#e65100;">⚠️ <strong>대추방울토마토</strong> 수량 급감(-76%)<br>
+                    → 작황 또는 공급 문제 확인 필요</p>
+                </div>
+            </div>
+            <div class="scroll-hint"><div class="scroll-hint-inner">↑ 위로 밀어서 다음 페이지</div></div>
+        </div>
+        
+        <!-- 카드 12: 단협별 현황표 -->
+        <div class="card">
+            <div class="header-bar">
+                <span class="logo-text">🌿 두레생협</span>
+                <span class="page-num">12 / 12</span>
+            </div>
+            <div class="card-inner" style="padding-bottom:30px;">
+                <div class="card-title"><span class="icon">📊</span>단협별 현황</div>
+                
+                <div style="overflow-x:auto; margin:0 -10px;">
+                    <table class="coop-table">
+                        <thead>
+                            <tr>
+                                <th>회원생협</th>
+                                <th>24년</th>
+                                <th>25년</th>
+                                <th>증감</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr class="highlight-row"><td>전체 합계</td><td>12.53억</td><td>12.35억</td><td class="red">-1.4%</td></tr>
+                            <tr><td>수도권생태유아</td><td>1.49억</td><td>1.51억</td><td class="green">+2.0%</td></tr>
+                            <tr><td>푸른두레</td><td>1.40억</td><td>1.38억</td><td class="red">-1.3%</td></tr>
+                            <tr><td>울림두레</td><td>1.11억</td><td>1.20억</td><td class="green">+8.4%</td></tr>
+                            <tr><td>에코생협</td><td>0.95억</td><td>0.86억</td><td class="red">-9.6%</td></tr>
+                            <tr><td>서울남부두레</td><td>0.75억</td><td>0.78억</td><td class="green">+3.9%</td></tr>
+                            <tr><td>참좋은두레</td><td>0.78억</td><td>0.74억</td><td class="red">-5.9%</td></tr>
+                            <tr><td>팔당생명살림</td><td>0.65억</td><td>0.70억</td><td class="green">+8.3%</td></tr>
+                            <tr class="warning-row"><td>경기두레 ⚠️</td><td>0.80억</td><td>0.69억</td><td class="red">-14.5%</td></tr>
+                            <tr><td>고양파주두레</td><td>0.65억</td><td>0.67억</td><td class="green">+3.2%</td></tr>
+                            <tr><td>경기남부두레</td><td>0.64억</td><td>0.65억</td><td class="green">+1.5%</td></tr>
+                            <tr><td>바른두레</td><td>0.66억</td><td>0.62억</td><td class="red">-6.1%</td></tr>
+                            <tr><td>주민두레</td><td>0.58억</td><td>0.53억</td><td class="red">-8.6%</td></tr>
+                            <tr><td>은평두레</td><td>0.41억</td><td>0.40억</td><td class="red">-3.8%</td></tr>
+                            <tr><td>춘천두레</td><td>0.29억</td><td>0.30억</td><td class="green">+4.3%</td></tr>
+                            <tr><td>서울북부두레</td><td>0.26억</td><td>0.29억</td><td class="green">+13.8%</td></tr>
+                            <tr><td>원주생협</td><td>0.20억</td><td>0.22억</td><td class="green">+7.0%</td></tr>
+                            <tr><td>평택두레</td><td>0.25억</td><td>0.20억</td><td class="red">-19.5%</td></tr>
+                            <tr><td>안양YMCA등대</td><td>0.16억</td><td>0.16억</td><td class="green">+0.2%</td></tr>
+                            <tr class="warning-row"><td>안성두레 ⚠️</td><td>0.19억</td><td>0.13억</td><td class="red">-31.9%</td></tr>
+                            <tr><td>한울안생협</td><td>0.09억</td><td>0.10억</td><td class="green">+14.5%</td></tr>
+                            <tr><td>아름다운생협</td><td>0.09억</td><td>0.09억</td><td class="red">-1.6%</td></tr>
+                            <tr><td>성동두레</td><td>0.07억</td><td>0.07억</td><td class="green">+9.2%</td></tr>
+                            <tr><td>시흥YMCA</td><td>0.05억</td><td>0.04억</td><td class="red">-13.2%</td></tr>
+                            <tr><td>두레생산자회</td><td>0.01억</td><td>0.02억</td><td class="green">+52.2%</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+                
+                <div style="margin-top:16px; padding:12px; background:#fff3e0; border-radius:10px; border-left:4px solid #ff9800;">
+                    <p style="font-size:14px; color:#e65100; font-weight:600; margin:0;">
+                        ⚠️ 경기두레: 오프라인 추가 10% 할인으로 온라인 매출 이동
                     </p>
                 </div>
                 
-                <div class="footer">
+                <div class="footer" style="margin-top:20px;">
                     <div class="org">두레생협연합회 온라인사업팀</div>
                     <div class="date">2025년 12월</div>
                 </div>
