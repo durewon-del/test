@@ -5,12 +5,15 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>두레 온라인 연말감사제 보고</title>
     <style>
+        @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;600;700;800&display=swap');
+        
         * { margin: 0; padding: 0; box-sizing: border-box; }
         html, body {
-            font-family: 'Apple SD Gothic Neo', 'Malgun Gothic', sans-serif;
-            background: #1a5f2a;
+            font-family: 'Noto Sans KR', 'Apple SD Gothic Neo', sans-serif;
+            background: #2d7d46;
             height: 100%;
             overflow: hidden;
+            color: #333;
         }
         
         .card-container {
@@ -26,156 +29,573 @@
             min-height: 100dvh;
             scroll-snap-align: start;
             scroll-snap-stop: always;
-            padding: 16px;
+            padding: 0;
             display: flex;
             flex-direction: column;
-            justify-content: center;
-            align-items: center;
         }
         
         .card-inner {
-            width: 100%;
-            max-width: 400px;
+            flex: 1;
             background: white;
-            border-radius: 24px;
             padding: 24px 20px;
-            box-shadow: 0 10px 40px rgba(0,0,0,0.3);
-            max-height: 88vh;
+            padding-bottom: 80px;
             overflow-y: auto;
+            display: flex;
+            flex-direction: column;
         }
         
-        .card:nth-child(odd) { background: linear-gradient(180deg, #1a5f2a, #2d8a3e); }
-        .card:nth-child(even) { background: linear-gradient(180deg, #166534, #1a5f2a); }
-        
-        .card-header { text-align: center; margin-bottom: 16px; }
-        .card-header .logo { font-size: 11px; color: #1a5f2a; font-weight: 600; margin-bottom: 4px; }
-        .card-header h1 { font-size: 20px; color: #1a5f2a; font-weight: 800; margin-bottom: 4px; }
-        .card-header .subtitle { font-size: 13px; color: #666; }
-        .card-header .period {
-            display: inline-block; background: #1a5f2a; color: white;
-            padding: 5px 14px; border-radius: 20px; font-size: 10px; margin-top: 8px;
+        /* 헤더 바 */
+        .header-bar {
+            background: linear-gradient(135deg, #2d7d46 0%, #3d9956 100%);
+            padding: 16px 20px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+        .header-bar img, .header-bar .logo-text {
+            height: 28px;
+        }
+        .logo-text {
+            color: white;
+            font-size: 18px;
+            font-weight: 700;
+            letter-spacing: -0.5px;
+        }
+        .header-bar .page-num {
+            margin-left: auto;
+            background: rgba(255,255,255,0.2);
+            padding: 4px 12px;
+            border-radius: 12px;
+            color: white;
+            font-size: 13px;
+            font-weight: 600;
         }
         
+        /* 카드 타이틀 */
         .card-title {
-            font-size: 17px; font-weight: 800; color: #1a5f2a; margin-bottom: 16px;
-            text-align: center; display: flex; align-items: center; justify-content: center; gap: 8px;
+            font-size: 22px;
+            font-weight: 800;
+            color: #2d7d46;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            letter-spacing: -0.5px;
         }
-        .card-title .icon { font-size: 22px; }
+        .card-title .icon {
+            font-size: 26px;
+        }
         
-        .coop-selector { margin-bottom: 16px; }
-        .coop-selector label { display: block; font-size: 12px; color: #666; margin-bottom: 6px; font-weight: 600; }
+        /* 사용 팁 */
+        .tip-box {
+            background: linear-gradient(135deg, #e8f5e9, #c8e6c9);
+            border-radius: 12px;
+            padding: 14px 16px;
+            margin-bottom: 20px;
+            border: 1px solid #a5d6a7;
+        }
+        .tip-box .tip-title {
+            font-size: 13px;
+            font-weight: 700;
+            color: #2e7d32;
+            margin-bottom: 8px;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+        .tip-box ul {
+            list-style: none;
+            font-size: 13px;
+            color: #1b5e20;
+            line-height: 1.6;
+        }
+        .tip-box ul li {
+            padding-left: 16px;
+            position: relative;
+            margin-bottom: 4px;
+        }
+        .tip-box ul li::before {
+            content: "•";
+            position: absolute;
+            left: 0;
+            color: #43a047;
+        }
+        
+        /* 선택 박스 */
+        .coop-selector {
+            margin-bottom: 20px;
+        }
+        .coop-selector label {
+            display: block;
+            font-size: 14px;
+            color: #555;
+            margin-bottom: 8px;
+            font-weight: 600;
+        }
         .coop-selector select {
-            width: 100%; padding: 12px 14px; font-size: 15px;
-            border: 2px solid #1a5f2a; border-radius: 12px; background: white;
-            color: #1a5f2a; font-weight: 700; appearance: none;
-            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24' fill='none' stroke='%231a5f2a' stroke-width='2'%3E%3Cpath d='M6 9l6 6 6-6'/%3E%3C/svg%3E");
-            background-repeat: no-repeat; background-position: right 10px center; cursor: pointer;
+            width: 100%;
+            padding: 16px;
+            font-size: 17px;
+            border: 2px solid #2d7d46;
+            border-radius: 12px;
+            background: white;
+            color: #2d7d46;
+            font-weight: 700;
+            appearance: none;
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24' fill='none' stroke='%232d7d46' stroke-width='2'%3E%3Cpath d='M6 9l6 6 6-6'/%3E%3C/svg%3E");
+            background-repeat: no-repeat;
+            background-position: right 14px center;
+            cursor: pointer;
         }
         
-        .compare-box { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 14px; }
-        .compare-item { padding: 14px 10px; border-radius: 12px; text-align: center; }
-        .compare-item.total { background: linear-gradient(135deg, #f0fdf4, #dcfce7); border: 2px solid #86efac; }
-        .compare-item.coop { background: linear-gradient(135deg, #eff6ff, #dbeafe); border: 2px solid #93c5fd; }
-        .compare-item .label { font-size: 10px; color: #666; margin-bottom: 4px; font-weight: 600; }
-        .compare-item .name { font-size: 11px; font-weight: 700; color: #333; margin-bottom: 8px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
-        .compare-item .value { font-size: 24px; font-weight: 800; }
-        .compare-item.total .value { color: #1a5f2a; }
-        .compare-item.coop .value { color: #2563eb; }
-        .compare-item .sub { font-size: 10px; color: #888; margin-top: 4px; }
+        /* 맞춤 분석 메시지 */
+        .analysis-message {
+            background: linear-gradient(135deg, #fff8e1, #ffecb3);
+            border-radius: 14px;
+            padding: 18px;
+            margin-bottom: 20px;
+            border-left: 5px solid #ff9800;
+        }
+        .analysis-message .msg-title {
+            font-size: 14px;
+            font-weight: 700;
+            color: #e65100;
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+        .analysis-message .msg-content {
+            font-size: 16px;
+            font-weight: 600;
+            color: #333;
+            line-height: 1.6;
+        }
+        .analysis-message .msg-content strong {
+            color: #e65100;
+        }
         
-        .stats-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 8px; margin-bottom: 14px; }
-        .stat-box { background: #f8fafc; border-radius: 10px; padding: 12px 8px; text-align: center; border: 1px solid #e2e8f0; }
-        .stat-box .label { font-size: 10px; color: #64748b; margin-bottom: 3px; font-weight: 600; }
-        .stat-box .value { font-size: 20px; font-weight: 800; }
-        .stat-box .value.red { color: #dc2626; }
-        .stat-box .value.green { color: #1a5f2a; }
-        .stat-box .sub { font-size: 9px; color: #94a3b8; margin-top: 2px; }
+        /* 핵심 지표 그리드 */
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 12px;
+            margin-bottom: 20px;
+        }
+        .stat-box {
+            background: #f8f9fa;
+            border-radius: 14px;
+            padding: 18px 14px;
+            text-align: center;
+            border: 1px solid #e9ecef;
+        }
+        .stat-box .label {
+            font-size: 13px;
+            color: #666;
+            margin-bottom: 6px;
+            font-weight: 600;
+        }
+        .stat-box .value {
+            font-size: 28px;
+            font-weight: 800;
+            letter-spacing: -1px;
+        }
+        .stat-box .value.red { color: #e53935; }
+        .stat-box .value.green { color: #2d7d46; }
+        .stat-box .value.blue { color: #1976d2; }
+        .stat-box .sub {
+            font-size: 12px;
+            color: #888;
+            margin-top: 4px;
+        }
         
-        .data-table { width: 100%; border-collapse: collapse; margin: 10px 0; font-size: 12px; }
-        .data-table th { background: #1a5f2a; color: white; padding: 8px 5px; font-weight: 600; }
-        .data-table th:first-child { border-radius: 8px 0 0 0; }
-        .data-table th:last-child { border-radius: 0 8px 0 0; }
-        .data-table td { padding: 8px 5px; text-align: center; border-bottom: 1px solid #e5e7eb; }
-        .data-table td:first-child { text-align: left; font-weight: 600; }
-        .data-table .red { color: #dc2626; font-weight: 700; }
-        .data-table .green { color: #1a5f2a; font-weight: 700; }
+        /* 비교 박스 */
+        .compare-box {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 12px;
+            margin-bottom: 20px;
+        }
+        .compare-item {
+            padding: 18px 14px;
+            border-radius: 14px;
+            text-align: center;
+        }
+        .compare-item.total {
+            background: linear-gradient(135deg, #e8f5e9, #c8e6c9);
+            border: 2px solid #81c784;
+        }
+        .compare-item.coop {
+            background: linear-gradient(135deg, #e3f2fd, #bbdefb);
+            border: 2px solid #64b5f6;
+        }
+        .compare-item .label {
+            font-size: 12px;
+            color: #666;
+            margin-bottom: 4px;
+            font-weight: 600;
+        }
+        .compare-item .name {
+            font-size: 14px;
+            font-weight: 700;
+            color: #333;
+            margin-bottom: 10px;
+            min-height: 20px;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+        }
+        .compare-item .value {
+            font-size: 30px;
+            font-weight: 800;
+            letter-spacing: -1px;
+        }
+        .compare-item.total .value { color: #2d7d46; }
+        .compare-item.coop .value { color: #1976d2; }
+        .compare-item .sub {
+            font-size: 12px;
+            color: #666;
+            margin-top: 6px;
+        }
         
-        .progress-item { margin-bottom: 12px; }
-        .progress-label { display: flex; justify-content: space-between; margin-bottom: 5px; font-size: 12px; }
-        .progress-label .name { font-weight: 600; color: #374151; }
+        /* 데이터 테이블 */
+        .data-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 16px 0;
+            font-size: 14px;
+        }
+        .data-table th {
+            background: #2d7d46;
+            color: white;
+            padding: 12px 8px;
+            font-weight: 600;
+            font-size: 13px;
+        }
+        .data-table th:first-child { border-radius: 10px 0 0 0; }
+        .data-table th:last-child { border-radius: 0 10px 0 0; }
+        .data-table td {
+            padding: 14px 8px;
+            text-align: center;
+            border-bottom: 1px solid #e5e7eb;
+            font-size: 15px;
+        }
+        .data-table td:first-child {
+            text-align: left;
+            font-weight: 600;
+        }
+        .data-table .red { color: #e53935; font-weight: 700; }
+        .data-table .green { color: #2d7d46; font-weight: 700; }
+        .data-table tr:last-child td:first-child { border-radius: 0 0 0 10px; }
+        .data-table tr:last-child td:last-child { border-radius: 0 0 10px 0; }
+        
+        /* 프로그레스 바 */
+        .progress-item { margin-bottom: 16px; }
+        .progress-label {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 8px;
+            font-size: 14px;
+        }
+        .progress-label .name { font-weight: 600; color: #333; }
         .progress-label .value { font-weight: 700; }
-        .progress-bar { height: 24px; background: #e5e7eb; border-radius: 12px; overflow: hidden; }
+        .progress-bar {
+            height: 32px;
+            background: #e9ecef;
+            border-radius: 16px;
+            overflow: hidden;
+        }
         .progress-fill {
-            height: 100%; border-radius: 12px;
-            display: flex; align-items: center; justify-content: flex-end;
-            padding-right: 8px; font-size: 11px; font-weight: 700; color: white;
+            height: 100%;
+            border-radius: 16px;
+            display: flex;
+            align-items: center;
+            justify-content: flex-end;
+            padding-right: 12px;
+            font-size: 13px;
+            font-weight: 700;
+            color: white;
         }
-        .progress-fill.green { background: linear-gradient(90deg, #1a5f2a, #22c55e); }
-        .progress-fill.orange { background: linear-gradient(90deg, #ea580c, #f97316); }
-        .progress-fill.blue { background: linear-gradient(90deg, #2563eb, #3b82f6); }
+        .progress-fill.green { background: linear-gradient(90deg, #43a047, #66bb6a); }
+        .progress-fill.orange { background: linear-gradient(90deg, #fb8c00, #ffa726); }
+        .progress-fill.blue { background: linear-gradient(90deg, #1e88e5, #42a5f5); }
         
-        .retention-item { display: flex; align-items: center; margin-bottom: 7px; gap: 6px; }
-        .retention-item .order { width: 45px; font-size: 11px; font-weight: 600; color: #666; }
-        .retention-item .bar-bg { flex: 1; height: 22px; background: #f1f5f9; border-radius: 6px; overflow: hidden; }
+        /* 유지율 바 */
+        .retention-item {
+            display: flex;
+            align-items: center;
+            margin-bottom: 10px;
+            gap: 10px;
+        }
+        .retention-item .order {
+            width: 55px;
+            font-size: 14px;
+            font-weight: 600;
+            color: #555;
+        }
+        .retention-item .bar-bg {
+            flex: 1;
+            height: 30px;
+            background: #e9ecef;
+            border-radius: 8px;
+            overflow: hidden;
+        }
         .retention-item .bar {
-            height: 100%; display: flex; align-items: center; justify-content: flex-end;
-            padding-right: 6px; font-size: 11px; font-weight: 700; color: white; border-radius: 6px;
+            height: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: flex-end;
+            padding-right: 10px;
+            font-size: 14px;
+            font-weight: 700;
+            color: white;
+            border-radius: 8px;
         }
-        .retention-item .bar.low { background: #94a3b8; color: #374151; }
-        .retention-item .bar.medium { background: #3b82f6; }
-        .retention-item .bar.high { background: linear-gradient(90deg, #1a5f2a, #22c55e); }
+        .retention-item .bar.low { background: #9e9e9e; }
+        .retention-item .bar.medium { background: #42a5f5; }
+        .retention-item .bar.high { background: linear-gradient(90deg, #43a047, #66bb6a); }
         
+        /* VS 카드 */
+        .vs-cards {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 12px;
+            margin: 16px 0;
+        }
+        .vs-card {
+            padding: 16px 12px;
+            border-radius: 14px;
+            text-align: center;
+        }
+        .vs-card.left {
+            background: linear-gradient(135deg, #ffebee, #ffcdd2);
+            border: 1px solid #ef9a9a;
+        }
+        .vs-card.right {
+            background: linear-gradient(135deg, #e8f5e9, #c8e6c9);
+            border: 1px solid #a5d6a7;
+        }
+        .vs-card .card-label {
+            font-size: 13px;
+            font-weight: 700;
+            margin-bottom: 12px;
+        }
+        .vs-card.left .card-label { color: #c62828; }
+        .vs-card.right .card-label { color: #2e7d32; }
+        .vs-card .stat { margin-bottom: 10px; }
+        .vs-card .stat-name {
+            font-size: 11px;
+            color: #666;
+            margin-bottom: 2px;
+        }
+        .vs-card .stat-value {
+            font-size: 17px;
+            font-weight: 700;
+            color: #333;
+        }
+        
+        /* 인사이트 박스 */
         .insight-box {
-            background: linear-gradient(135deg, #fef9c3, #fef08a);
-            border-radius: 10px; padding: 12px; margin-top: 12px; border-left: 4px solid #eab308;
+            background: linear-gradient(135deg, #fff8e1, #ffecb3);
+            border-radius: 12px;
+            padding: 16px;
+            margin-top: 16px;
+            border-left: 4px solid #ffc107;
         }
-        .insight-box p { font-size: 12px; color: #854d0e; line-height: 1.5; font-weight: 600; }
+        .insight-box p {
+            font-size: 14px;
+            color: #5d4037;
+            line-height: 1.6;
+            font-weight: 500;
+        }
+        .insight-box strong {
+            color: #e65100;
+            font-weight: 700;
+        }
         
-        .vs-cards { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin: 10px 0; }
-        .vs-card { padding: 12px 8px; border-radius: 10px; text-align: center; }
-        .vs-card.left { background: linear-gradient(135deg, #fef2f2, #fecaca); border: 1px solid #fca5a5; }
-        .vs-card.right { background: linear-gradient(135deg, #f0fdf4, #bbf7d0); border: 1px solid #86efac; }
-        .vs-card .card-label { font-size: 10px; font-weight: 700; margin-bottom: 8px; }
-        .vs-card.left .card-label { color: #991b1b; }
-        .vs-card.right .card-label { color: #166534; }
-        .vs-card .stat { margin-bottom: 6px; }
-        .vs-card .stat-name { font-size: 9px; color: #666; margin-bottom: 1px; }
-        .vs-card .stat-value { font-size: 14px; font-weight: 700; color: #1f2937; }
+        /* 계산 설명 박스 */
+        .calc-box {
+            background: #f5f5f5;
+            border-radius: 12px;
+            padding: 16px;
+            margin-top: 20px;
+            border: 1px solid #e0e0e0;
+        }
+        .calc-box .calc-title {
+            font-size: 13px;
+            font-weight: 700;
+            color: #666;
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+        .calc-box .calc-content {
+            font-size: 12px;
+            color: #555;
+            line-height: 1.7;
+        }
+        .calc-box .calc-content p {
+            margin-bottom: 6px;
+            padding-left: 12px;
+            position: relative;
+        }
+        .calc-box .calc-content p::before {
+            content: "•";
+            position: absolute;
+            left: 0;
+            color: #999;
+        }
+        .calc-box .formula {
+            background: white;
+            padding: 10px 12px;
+            border-radius: 8px;
+            font-family: monospace;
+            font-size: 12px;
+            color: #333;
+            margin: 8px 0;
+            border: 1px solid #e0e0e0;
+        }
         
+        /* 결론 리스트 */
         .conclusion-list { list-style: none; }
         .conclusion-list li {
-            padding: 10px 0; padding-left: 24px; position: relative;
-            font-size: 13px; line-height: 1.4; border-bottom: 1px solid #e5e7eb; color: #374151;
+            padding: 14px 0;
+            padding-left: 30px;
+            position: relative;
+            font-size: 15px;
+            line-height: 1.5;
+            border-bottom: 1px solid #e5e7eb;
+            color: #333;
         }
         .conclusion-list li:last-child { border-bottom: none; }
-        .conclusion-list li::before { content: "✓"; position: absolute; left: 0; color: #1a5f2a; font-weight: 800; font-size: 14px; }
-        
-        .scroll-hint { text-align: center; margin-top: 14px; color: #94a3b8; font-size: 11px; animation: bounce 2s infinite; }
-        .scroll-hint .arrow { display: block; font-size: 18px; margin-bottom: 2px; }
-        @keyframes bounce { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(5px); } }
-        
-        .page-indicator {
-            position: fixed; right: 8px; top: 50%; transform: translateY(-50%);
-            display: flex; flex-direction: column; gap: 6px; z-index: 100;
+        .conclusion-list li::before {
+            content: "✓";
+            position: absolute;
+            left: 0;
+            color: #2d7d46;
+            font-weight: 800;
+            font-size: 16px;
         }
-        .page-dot { width: 6px; height: 6px; border-radius: 50%; background: rgba(255,255,255,0.4); transition: all 0.3s; }
-        .page-dot.active { background: white; transform: scale(1.4); }
+        .conclusion-list li small {
+            display: block;
+            color: #666;
+            font-size: 13px;
+            margin-top: 4px;
+        }
         
+        /* 과제 아이템 */
         .task-item {
-            display: flex; align-items: flex-start; gap: 10px;
-            padding: 12px; background: #f0fdf4; border-radius: 10px;
-            margin-bottom: 8px; border-left: 3px solid #1a5f2a;
+            display: flex;
+            align-items: flex-start;
+            gap: 14px;
+            padding: 16px;
+            background: #f8f9fa;
+            border-radius: 12px;
+            margin-bottom: 12px;
+            border-left: 4px solid #2d7d46;
         }
-        .task-item.warning { background: #fef2f2; border-left-color: #dc2626; }
+        .task-item.warning {
+            background: #fff3e0;
+            border-left-color: #ff9800;
+        }
+        .task-item.danger {
+            background: #ffebee;
+            border-left-color: #e53935;
+        }
         .task-item .num {
-            background: #1a5f2a; color: white; width: 22px; height: 22px;
-            border-radius: 50%; display: flex; align-items: center; justify-content: center;
-            font-size: 11px; font-weight: 700; flex-shrink: 0;
+            background: #2d7d46;
+            color: white;
+            width: 28px;
+            height: 28px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 14px;
+            font-weight: 700;
+            flex-shrink: 0;
         }
-        .task-item.warning .num { background: #dc2626; }
-        .task-item .text { font-size: 13px; color: #374151; font-weight: 500; line-height: 1.4; }
-        .task-item .text small { color: #666; font-size: 11px; }
-        .task-item.warning .text small { color: #dc2626; }
+        .task-item.warning .num { background: #ff9800; }
+        .task-item.danger .num { background: #e53935; }
+        .task-item .text {
+            font-size: 15px;
+            color: #333;
+            font-weight: 500;
+            line-height: 1.5;
+        }
+        .task-item .text small {
+            display: block;
+            color: #666;
+            font-size: 13px;
+            margin-top: 4px;
+        }
+        .task-item.danger .text small { color: #c62828; }
+        
+        /* 스크롤 힌트 */
+        .scroll-hint {
+            text-align: center;
+            padding: 16px;
+            color: #999;
+            font-size: 13px;
+            animation: bounce 2s infinite;
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: linear-gradient(transparent, white 30%);
+            pointer-events: none;
+        }
+        .scroll-hint .arrow {
+            display: block;
+            font-size: 20px;
+            margin-bottom: 4px;
+        }
+        @keyframes bounce {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-5px); }
+        }
+        
+        /* 페이지 인디케이터 */
+        .page-indicator {
+            position: fixed;
+            right: 8px;
+            top: 50%;
+            transform: translateY(-50%);
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+            z-index: 100;
+        }
+        .page-dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: rgba(45,125,70,0.3);
+            transition: all 0.3s;
+        }
+        .page-dot.active {
+            background: #2d7d46;
+            transform: scale(1.4);
+        }
+        
+        /* 푸터 */
+        .footer {
+            text-align: center;
+            padding: 20px;
+            background: #2d7d46;
+            color: white;
+            margin-top: auto;
+        }
+        .footer .org {
+            font-size: 13px;
+            opacity: 0.9;
+        }
+        .footer .date {
+            font-size: 15px;
+            font-weight: 600;
+            margin-top: 4px;
+        }
     </style>
 </head>
 <body>
@@ -184,19 +604,32 @@
     <div class="card-container" id="cardContainer">
         <!-- 카드 1: 표지 -->
         <div class="card">
+            <div class="header-bar">
+                <span class="logo-text">🌿 두레생협</span>
+                <span class="page-num">1 / 10</span>
+            </div>
             <div class="card-inner">
-                <div class="card-header">
-                    <div class="logo">두레생협연합회</div>
-                    <h1>온라인 연말감사제 보고</h1>
-                    <div class="subtitle">24년 vs 25년 비교 분석</div>
-                    <div class="period">2024.12.02~15 vs 2025.12.01~14</div>
+                <div class="card-title"><span class="icon">📊</span>온라인 연말감사제 보고</div>
+                
+                <div class="tip-box">
+                    <div class="tip-title">💡 사용 방법</div>
+                    <ul>
+                        <li>아래에서 <strong>회원생협을 선택</strong>하면 맞춤 분석을 볼 수 있어요</li>
+                        <li><strong>위로 스와이프</strong>하면 다음 페이지로 넘어가요</li>
+                        <li>총 <strong>10페이지</strong>로 구성되어 있어요</li>
+                    </ul>
                 </div>
                 
                 <div class="coop-selector">
-                    <label>👆 회원생협을 선택하세요</label>
+                    <label>📍 우리 회원생협 선택</label>
                     <select id="coopSelect" onchange="updateAllCards()">
-                        <option value="전체">전체 (단협 합계)</option>
+                        <option value="전체">전체 (24개 단협 합계)</option>
                     </select>
+                </div>
+                
+                <div class="analysis-message" id="cover-analysis">
+                    <div class="msg-title">📢 전체 현황</div>
+                    <div class="msg-content">타임세일 폐지 후 <strong>매출 -1.4% 소폭 감소</strong>했지만, 할인 비용 절감으로 <strong>수익성은 개선</strong>되었습니다.</div>
                 </div>
                 
                 <div class="stats-grid">
@@ -208,32 +641,46 @@
                     <div class="stat-box">
                         <div class="label">조합원 유지율</div>
                         <div class="value green">60.5%</div>
-                        <div class="sub">24년→25년</div>
+                        <div class="sub">24년→25년 재구매</div>
                     </div>
                     <div class="stat-box">
                         <div class="label">재구매율</div>
                         <div class="value green">48.4%</div>
-                        <div class="sub">2주간 2회+</div>
+                        <div class="sub">2주간 2회 이상</div>
                     </div>
                     <div class="stat-box">
                         <div class="label">충성조합원 유지</div>
                         <div class="value green">84~98%</div>
-                        <div class="sub">24년 3회+</div>
+                        <div class="sub">24년 3회+ 구매자</div>
                     </div>
                 </div>
                 
-                <div class="insight-box">
-                    <p>📌 타임세일 폐지 후 매출 소폭 감소, 충성조합원은 84~98% 유지!</p>
+                <div class="calc-box">
+                    <div class="calc-title">📐 지표 계산 방법</div>
+                    <div class="calc-content">
+                        <p><strong>분석 기간:</strong> 24년(12.02~15) vs 25년(12.01~14)</p>
+                        <p><strong>매출 변화:</strong> (25년 매출 - 24년 매출) ÷ 24년 매출 × 100</p>
+                        <p><strong>조합원 유지율:</strong> 24년과 25년 모두 구매한 조합원 ÷ 24년 구매 조합원</p>
+                        <p><strong>재구매율:</strong> 2주간 2회 이상 구매 조합원 ÷ 전체 구매 조합원</p>
+                    </div>
                 </div>
-                
-                <div class="scroll-hint"><span class="arrow">↓</span>위로 스와이프</div>
             </div>
+            <div class="scroll-hint"><span class="arrow">↑</span>위로 스와이프</div>
         </div>
         
         <!-- 카드 2: 내 생협 vs 전체 -->
         <div class="card">
+            <div class="header-bar">
+                <span class="logo-text">🌿 두레생협</span>
+                <span class="page-num">2 / 10</span>
+            </div>
             <div class="card-inner">
-                <div class="card-title"><span class="icon">📊</span>내 생협 vs 전체</div>
+                <div class="card-title"><span class="icon">⚖️</span>내 생협 vs 전체</div>
+                
+                <div class="analysis-message" id="card2-analysis">
+                    <div class="msg-title">📢 우리 생협 분석</div>
+                    <div class="msg-content" id="card2-msg">전체와 동일한 결과입니다.</div>
+                </div>
                 
                 <div class="compare-box">
                     <div class="compare-item total">
@@ -259,135 +706,215 @@
                     <tr><td>평균 주문</td><td>2.04회</td><td id="card2-orders">2.04회</td></tr>
                 </table>
                 
-                <div class="scroll-hint"><span class="arrow">↓</span>위로 스와이프</div>
+                <div class="calc-box">
+                    <div class="calc-title">📐 지표 설명</div>
+                    <div class="calc-content">
+                        <p><strong>조합원 증감:</strong> (25년 조합원수 - 24년 조합원수) ÷ 24년 조합원수 × 100</p>
+                        <p><strong>객단가:</strong> 25년 총매출 ÷ 25년 구매 조합원수 (1인당 평균 구매금액)</p>
+                        <p><strong>평균 주문:</strong> 25년 총 주문건수 ÷ 25년 구매 조합원수</p>
+                    </div>
+                </div>
             </div>
+            <div class="scroll-hint"><span class="arrow">↑</span>위로 스와이프</div>
         </div>
         
         <!-- 카드 3: 매출 현황 -->
         <div class="card">
+            <div class="header-bar">
+                <span class="logo-text">🌿 두레생협</span>
+                <span class="page-num">3 / 10</span>
+            </div>
             <div class="card-inner">
                 <div class="card-title"><span class="icon">💰</span>매출은 어떻게 됐나?</div>
+                
+                <div class="insight-box" style="margin-bottom:20px; background:linear-gradient(135deg,#e3f2fd,#bbdefb); border-left-color:#1976d2;">
+                    <p style="color:#0d47a1;">
+                        <strong>📌 24년 행사:</strong> 요일별 타임세일 + 10개 품목 추가 5% 할인<br>
+                        <strong>📌 25년 행사:</strong> 타임세일·추가할인 없이 기본 마진 유지
+                    </p>
+                </div>
                 
                 <table class="data-table">
                     <tr><th>구분</th><th>24년</th><th>25년</th><th>증감</th></tr>
                     <tr><td>매출</td><td>12.53억</td><td>12.35억</td><td class="red">-1.4%</td></tr>
-                    <tr><td>조합원</td><td>6,077명</td><td>6,038명</td><td>-0.6%</td></tr>
+                    <tr><td>구매 조합원</td><td>6,077명</td><td>6,038명</td><td>-0.6%</td></tr>
+                    <tr><td>객단가</td><td>206,185원</td><td>204,605원</td><td>-0.8%</td></tr>
                 </table>
                 
                 <div class="insight-box">
-                    <p>💡 24년: 타임세일 + 추가 5% 할인<br>
-                    25년: 할인 없이 기본 마진 유지<br><br>
-                    → 매출 소폭 감소, 수익성은 개선!</p>
+                    <p>💡 <strong>핵심 포인트:</strong> 매출은 소폭 감소했지만, 타임세일·추가할인 비용을 절감하여 <strong>수익성은 오히려 개선</strong>되었습니다!</p>
                 </div>
                 
-                <div class="scroll-hint"><span class="arrow">↓</span>위로 스와이프</div>
+                <div class="calc-box">
+                    <div class="calc-title">📐 매출 계산</div>
+                    <div class="calc-content">
+                        <p><strong>총매출:</strong> 기간 내 모든 주문금액의 합계 (단위: 만원)</p>
+                        <p><strong>매출 증감률:</strong> (12.35억 - 12.53억) ÷ 12.53억 × 100 = -1.4%</p>
+                        <p><strong>객단가:</strong> 총매출 ÷ 구매 조합원수</p>
+                        <div class="formula">매출증감 = (25년매출 - 24년매출) ÷ 24년매출 × 100</div>
+                    </div>
+                </div>
             </div>
+            <div class="scroll-hint"><span class="arrow">↑</span>위로 스와이프</div>
         </div>
         
         <!-- 카드 4: 어린이집 vs 일반 -->
         <div class="card">
+            <div class="header-bar">
+                <span class="logo-text">🌿 두레생협</span>
+                <span class="page-num">4 / 10</span>
+            </div>
             <div class="card-inner">
-                <div class="card-title"><span class="icon">👥</span>어린이집 vs 일반</div>
+                <div class="card-title"><span class="icon">👥</span>어린이집 vs 일반 조합원</div>
                 
                 <table class="data-table">
                     <tr><th>구분</th><th>24년</th><th>25년</th><th>증감</th></tr>
-                    <tr><td>어린이집</td><td>2.19억</td><td>2.14억</td><td class="red">-2.6%</td></tr>
-                    <tr><td>일반</td><td>10.33억</td><td>10.22억</td><td class="red">-1.1%</td></tr>
+                    <tr><td>어린이집/유치원</td><td>2.19억</td><td>2.14억</td><td class="red">-2.6%</td></tr>
+                    <tr><td>일반 조합원</td><td>10.33억</td><td>10.22억</td><td class="red">-1.1%</td></tr>
                 </table>
                 
                 <div class="vs-cards">
-                    <div class="vs-card left">
-                        <div class="card-label">어린이집</div>
+                    <div class="vs-card left" style="background:linear-gradient(135deg,#fff3e0,#ffe0b2); border-color:#ffb74d;">
+                        <div class="card-label" style="color:#e65100;">🏫 어린이집</div>
                         <div class="stat"><div class="stat-name">객단가</div><div class="stat-value">69만원</div></div>
-                        <div class="stat"><div class="stat-name">주문</div><div class="stat-value">5.2회</div></div>
+                        <div class="stat"><div class="stat-name">평균 주문</div><div class="stat-value">5.2회</div></div>
                         <div class="stat"><div class="stat-name">재구매율</div><div class="stat-value">86%</div></div>
                     </div>
                     <div class="vs-card right">
-                        <div class="card-label">일반 조합원</div>
+                        <div class="card-label">👤 일반 조합원</div>
                         <div class="stat"><div class="stat-name">객단가</div><div class="stat-value">18만원</div></div>
-                        <div class="stat"><div class="stat-name">주문</div><div class="stat-value">1.9회</div></div>
+                        <div class="stat"><div class="stat-name">평균 주문</div><div class="stat-value">1.9회</div></div>
                         <div class="stat"><div class="stat-name">재구매율</div><div class="stat-value">46%</div></div>
                     </div>
                 </div>
                 
                 <div class="insight-box">
-                    <p>🏫 어린이집은 급식 특성상 객단가 4배, 재구매율 2배</p>
+                    <p>🏫 <strong>어린이집/유치원</strong>은 급식 특성상 객단가가 일반의 <strong>약 4배</strong>, 재구매율도 <strong>약 2배</strong>로 구매 패턴이 완전히 다릅니다. 별도 관리가 필요합니다.</p>
                 </div>
                 
-                <div class="scroll-hint"><span class="arrow">↓</span>위로 스와이프</div>
+                <div class="calc-box">
+                    <div class="calc-title">📐 분류 기준</div>
+                    <div class="calc-content">
+                        <p><strong>어린이집/유치원:</strong> 주문자명에 '어린이집', '유치원', '유아', '아이' 등 포함</p>
+                        <p><strong>일반 조합원:</strong> 어린이집/유치원을 제외한 모든 조합원</p>
+                        <p><strong>재구매율:</strong> 2주간 2회 이상 구매한 비율</p>
+                    </div>
+                </div>
             </div>
+            <div class="scroll-hint"><span class="arrow">↑</span>위로 스와이프</div>
         </div>
         
         <!-- 카드 5: 유지/이탈 -->
         <div class="card">
+            <div class="header-bar">
+                <span class="logo-text">🌿 두레생협</span>
+                <span class="page-num">5 / 10</span>
+            </div>
             <div class="card-inner">
-                <div class="card-title"><span class="icon">🔄</span>조합원 유지/이탈</div>
+                <div class="card-title"><span class="icon">🔄</span>조합원 유지/이탈 분석</div>
                 
                 <div class="progress-item">
                     <div class="progress-label">
-                        <span class="name">유지</span>
-                        <span class="value" style="color:#1a5f2a;">3,484명 (60.5%)</span>
+                        <span class="name">✅ 유지 조합원</span>
+                        <span class="value" style="color:#2d7d46;">3,484명 (60.5%)</span>
                     </div>
-                    <div class="progress-bar"><div class="progress-fill green" style="width:60.5%;">72%매출</div></div>
+                    <div class="progress-bar">
+                        <div class="progress-fill green" style="width:60.5%;">72% 매출</div>
+                    </div>
                 </div>
                 
                 <div class="progress-item">
                     <div class="progress-label">
-                        <span class="name">이탈</span>
-                        <span class="value" style="color:#dc2626;">2,270명 (39.5%)</span>
+                        <span class="name">❌ 이탈 조합원</span>
+                        <span class="value" style="color:#e53935;">2,270명 (39.5%)</span>
                     </div>
-                    <div class="progress-bar"><div class="progress-fill orange" style="width:39.5%;"></div></div>
+                    <div class="progress-bar">
+                        <div class="progress-fill orange" style="width:39.5%;"></div>
+                    </div>
                 </div>
                 
                 <div class="progress-item">
                     <div class="progress-label">
-                        <span class="name">신규</span>
-                        <span class="value" style="color:#2563eb;">2,244명</span>
+                        <span class="name">🆕 신규 조합원</span>
+                        <span class="value" style="color:#1976d2;">2,244명</span>
                     </div>
-                    <div class="progress-bar"><div class="progress-fill blue" style="width:39%;">28%매출</div></div>
+                    <div class="progress-bar">
+                        <div class="progress-fill blue" style="width:39%;">28% 매출</div>
+                    </div>
                 </div>
                 
                 <div class="insight-box">
-                    <p>📊 유지 조합원이 25년 매출의 72% 차지!</p>
+                    <p>📊 <strong>유지 조합원</strong>이 25년 매출의 <strong>72%</strong>를 차지합니다. 기존 고객 유지가 매출의 핵심입니다!</p>
                 </div>
                 
-                <div class="scroll-hint"><span class="arrow">↓</span>위로 스와이프</div>
+                <div class="calc-box">
+                    <div class="calc-title">📐 유지/이탈 계산</div>
+                    <div class="calc-content">
+                        <p><strong>유지 조합원:</strong> 24년과 25년 모두 구매한 조합원</p>
+                        <p><strong>이탈 조합원:</strong> 24년에만 구매하고 25년에 구매하지 않은 조합원</p>
+                        <p><strong>신규 조합원:</strong> 25년에만 구매한 조합원 (24년 구매 이력 없음)</p>
+                        <div class="formula">유지율 = 유지 조합원 ÷ 24년 조합원 × 100<br>= 3,484 ÷ 5,754 × 100 = 60.5%</div>
+                        <p><strong>※ 일반 조합원 기준</strong> (어린이집 제외)</p>
+                    </div>
+                </div>
             </div>
+            <div class="scroll-hint"><span class="arrow">↑</span>위로 스와이프</div>
         </div>
         
         <!-- 카드 6: 이탈자 특성 -->
         <div class="card">
+            <div class="header-bar">
+                <span class="logo-text">🌿 두레생협</span>
+                <span class="page-num">6 / 10</span>
+            </div>
             <div class="card-inner">
-                <div class="card-title"><span class="icon">🔍</span>떠난 조합원은?</div>
+                <div class="card-title"><span class="icon">🔍</span>떠난 조합원은 누구인가?</div>
                 
                 <div class="vs-cards">
                     <div class="vs-card left">
-                        <div class="card-label">이탈 조합원</div>
-                        <div class="stat"><div class="stat-name">객단가</div><div class="stat-value">11.3만원</div></div>
-                        <div class="stat"><div class="stat-name">주문</div><div class="stat-value">1.33회</div></div>
-                        <div class="stat"><div class="stat-name">1회구매</div><div class="stat-value">77.4%</div></div>
+                        <div class="card-label">❌ 이탈 조합원</div>
+                        <div class="stat"><div class="stat-name">평균 객단가</div><div class="stat-value">11.3만원</div></div>
+                        <div class="stat"><div class="stat-name">평균 주문</div><div class="stat-value">1.33회</div></div>
+                        <div class="stat"><div class="stat-name">1회만 구매</div><div class="stat-value">77.4%</div></div>
                     </div>
                     <div class="vs-card right">
-                        <div class="card-label">유지 조합원</div>
-                        <div class="stat"><div class="stat-name">객단가</div><div class="stat-value">22.3만원</div></div>
-                        <div class="stat"><div class="stat-name">주문</div><div class="stat-value">2.17회</div></div>
-                        <div class="stat"><div class="stat-name">1회구매</div><div class="stat-value">39.4%</div></div>
+                        <div class="card-label">✅ 유지 조합원</div>
+                        <div class="stat"><div class="stat-name">평균 객단가</div><div class="stat-value">22.3만원</div></div>
+                        <div class="stat"><div class="stat-name">평균 주문</div><div class="stat-value">2.17회</div></div>
+                        <div class="stat"><div class="stat-name">1회만 구매</div><div class="stat-value">39.4%</div></div>
                     </div>
                 </div>
                 
-                <div class="insight-box">
-                    <p>⚠️ 이탈자의 77%가 1회만 구매한 저관여 조합원!<br><br>
-                    특가세일로 한 번 사고 떠남 → 떠나도 괜찮음</p>
+                <div class="insight-box" style="background:linear-gradient(135deg,#ffebee,#ffcdd2); border-left-color:#e53935;">
+                    <p style="color:#b71c1c;">
+                        ⚠️ <strong>이탈 조합원의 77%가 1회만 구매</strong>한 저관여 조합원입니다!<br><br>
+                        특가세일로 한 번 구매 후 떠난 것으로 추정됩니다. <strong>이런 조합원은 떠나도 수익에 큰 영향이 없습니다.</strong>
+                    </p>
                 </div>
                 
-                <div class="scroll-hint"><span class="arrow">↓</span>위로 스와이프</div>
+                <div class="calc-box">
+                    <div class="calc-title">📐 특성 비교 방법</div>
+                    <div class="calc-content">
+                        <p><strong>24년 구매 데이터 기준</strong>으로 이탈/유지 그룹의 특성을 비교</p>
+                        <p><strong>평균 객단가:</strong> 해당 그룹의 총매출 ÷ 해당 그룹 인원수</p>
+                        <p><strong>1회 구매 비율:</strong> 24년에 1회만 주문한 조합원 비율</p>
+                        <div class="formula">이탈자 1회 구매 비율 = 1,757명 ÷ 2,270명 = 77.4%</div>
+                    </div>
+                </div>
             </div>
+            <div class="scroll-hint"><span class="arrow">↑</span>위로 스와이프</div>
         </div>
         
-        <!-- 카드 7: 충성조합원 -->
+        <!-- 카드 7: 충성조합원 유지율 -->
         <div class="card">
+            <div class="header-bar">
+                <span class="logo-text">🌿 두레생협</span>
+                <span class="page-num">7 / 10</span>
+            </div>
             <div class="card-inner">
                 <div class="card-title"><span class="icon">⭐</span>충성조합원은 남았나?</div>
+                
+                <p style="font-size:13px;color:#666;margin-bottom:16px;text-align:center;">24년 주문횟수별 → 25년 재구매 비율</p>
                 
                 <div class="retention-item"><span class="order">1회</span><div class="bar-bg"><div class="bar low" style="width:43.9%;">43.9%</div></div></div>
                 <div class="retention-item"><span class="order">2회</span><div class="bar-bg"><div class="bar medium" style="width:75%;">75.0%</div></div></div>
@@ -396,79 +923,160 @@
                 <div class="retention-item"><span class="order">5회</span><div class="bar-bg"><div class="bar high" style="width:89.3%;">89.3%</div></div></div>
                 <div class="retention-item"><span class="order">6회</span><div class="bar-bg"><div class="bar high" style="width:98%;">98.0%</div></div></div>
                 
-                <div class="insight-box">
-                    <p>🎯 3회+ 충성조합원 84~98% 유지!<br><br>
-                    <strong>할인 없어도 떠나지 않음!</strong></p>
+                <div class="insight-box" style="background:linear-gradient(135deg,#e8f5e9,#c8e6c9); border-left-color:#43a047;">
+                    <p style="color:#1b5e20;">
+                        🎯 <strong>3회 이상 구매한 충성조합원의 84~98%가 올해도 구매!</strong><br><br>
+                        할인이 없어도 <strong>충성조합원은 떠나지 않습니다.</strong> 이들이 매출의 핵심입니다.
+                    </p>
                 </div>
                 
-                <div class="scroll-hint"><span class="arrow">↓</span>위로 스와이프</div>
+                <div class="calc-box">
+                    <div class="calc-title">📐 유지율 계산</div>
+                    <div class="calc-content">
+                        <p><strong>유지율:</strong> 24년 N회 구매자 중 25년에도 구매한 비율</p>
+                        <div class="formula">3회 구매자 유지율 = 516명 ÷ 613명 = 84.2%<br>6회 구매자 유지율 = 50명 ÷ 51명 = 98.0%</div>
+                    </div>
+                </div>
             </div>
+            <div class="scroll-hint"><span class="arrow">↑</span>위로 스와이프</div>
         </div>
         
         <!-- 카드 8: 재구매율 -->
         <div class="card">
+            <div class="header-bar">
+                <span class="logo-text">🌿 두레생협</span>
+                <span class="page-num">8 / 10</span>
+            </div>
             <div class="card-inner">
-                <div class="card-title"><span class="icon">📈</span>재구매율 변화</div>
-                
-                <p style="font-size:10px;color:#666;margin-bottom:12px;text-align:center;">※ 2주간 2회 이상 구매 비율</p>
+                <div class="card-title"><span class="icon">📈</span>재구매율은 어떻게 변했나?</div>
                 
                 <table class="data-table">
                     <tr><th>구분</th><th>24년</th><th>25년</th><th>변화</th></tr>
+                    <tr><td>1회 구매자</td><td>52.3%</td><td>51.6%</td><td>-0.6%p</td></tr>
                     <tr><td>2회+ 재구매</td><td>47.7%</td><td>48.4%</td><td class="green">+0.6%p</td></tr>
                     <tr><td>3회+ 충성</td><td>22.2%</td><td>23.0%</td><td class="green">+0.7%p</td></tr>
-                    <tr><td>충성 매출</td><td>52.0%</td><td>54.2%</td><td class="green">+2.2%p</td></tr>
                 </table>
                 
-                <div class="insight-box">
-                    <p>📈 재구매율·충성비율 모두 상승!<br>충성조합원이 매출의 54% 책임</p>
+                <div style="margin:20px 0;">
+                    <div class="stat-box" style="text-align:center;">
+                        <div class="label">충성조합원(3회+) 매출 비중</div>
+                        <div style="display:flex;justify-content:center;align-items:center;gap:20px;margin-top:10px;">
+                            <div>
+                                <div style="font-size:14px;color:#666;">24년</div>
+                                <div style="font-size:28px;font-weight:800;color:#666;">52.0%</div>
+                            </div>
+                            <div style="font-size:24px;color:#2d7d46;">→</div>
+                            <div>
+                                <div style="font-size:14px;color:#2d7d46;">25년</div>
+                                <div style="font-size:32px;font-weight:800;color:#2d7d46;">54.2%</div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
                 
-                <div class="scroll-hint"><span class="arrow">↓</span>위로 스와이프</div>
+                <div class="insight-box">
+                    <p>📈 <strong>재구매율과 충성조합원 비율 모두 상승!</strong><br><br>
+                    타임세일이 없어도 충성조합원 비중이 늘어났습니다. <strong>매출의 54%를 충성조합원이 책임</strong>지고 있습니다.</p>
+                </div>
+                
+                <div class="calc-box">
+                    <div class="calc-title">📐 재구매율 계산</div>
+                    <div class="calc-content">
+                        <p><strong>재구매율:</strong> 해당 연도 2주간 2회 이상 구매한 조합원 비율</p>
+                        <p><strong>충성조합원:</strong> 해당 연도 2주간 3회 이상 구매한 조합원</p>
+                        <div class="formula">25년 재구매율 = 2,924명 ÷ 6,038명 = 48.4%<br>충성조합원 매출비중 = 6.69억 ÷ 12.35억 = 54.2%</div>
+                    </div>
+                </div>
             </div>
+            <div class="scroll-hint"><span class="arrow">↑</span>위로 스와이프</div>
         </div>
         
         <!-- 카드 9: 결론 -->
         <div class="card">
+            <div class="header-bar">
+                <span class="logo-text">🌿 두레생협</span>
+                <span class="page-num">9 / 10</span>
+            </div>
             <div class="card-inner">
-                <div class="card-title"><span class="icon">📋</span>결론</div>
+                <div class="card-title"><span class="icon">📋</span>결론: 타임세일 폐지 효과</div>
                 
                 <ul class="conclusion-list">
-                    <li>매출 -1.4% 소폭 감소<br><small style="color:#666;font-size:11px;">할인비용 고려시 수익성 개선</small></li>
-                    <li>일반 -1.1%, 어린이집 -2.6%<br><small style="color:#666;font-size:11px;">어린이집 별도 관리 필요</small></li>
-                    <li>이탈자는 1회성 저관여 조합원<br><small style="color:#666;font-size:11px;">떠나도 괜찮음</small></li>
-                    <li>충성조합원 84~98% 유지<br><small style="color:#666;font-size:11px;">핵심 조합원은 떠나지 않음</small></li>
-                    <li>재구매율·충성비율 모두 상승</li>
+                    <li>
+                        매출 -1.4% 소폭 감소
+                        <small>할인 비용 절감으로 수익성은 오히려 개선</small>
+                    </li>
+                    <li>
+                        일반 조합원 -1.1%, 어린이집 -2.6%
+                        <small>어린이집은 별도 관리 전략 필요</small>
+                    </li>
+                    <li>
+                        이탈 조합원은 1회성 저관여 조합원
+                        <small>77%가 1회만 구매 → 떠나도 괜찮음</small>
+                    </li>
+                    <li>
+                        충성조합원(3회+) 84~98% 유지
+                        <small>핵심 조합원은 할인 없어도 떠나지 않음</small>
+                    </li>
+                    <li>
+                        재구매율·충성비율 모두 상승
+                        <small>충성조합원이 매출의 54% 책임</small>
+                    </li>
                 </ul>
                 
-                <div class="scroll-hint"><span class="arrow">↓</span>위로 스와이프</div>
+                <div class="insight-box" style="background:linear-gradient(135deg,#e8f5e9,#c8e6c9); border-left-color:#43a047;">
+                    <p style="color:#1b5e20;font-size:15px;">
+                        ✅ <strong>결론: 타임세일 폐지 전략은 성공!</strong><br>
+                        매출 감소는 미미하고, 떠난 조합원은 저관여층이며, 핵심 충성조합원은 그대로입니다.
+                    </p>
+                </div>
             </div>
+            <div class="scroll-hint"><span class="arrow">↑</span>위로 스와이프</div>
         </div>
         
         <!-- 카드 10: 향후 과제 -->
         <div class="card">
+            <div class="header-bar">
+                <span class="logo-text">🌿 두레생협</span>
+                <span class="page-num">10 / 10</span>
+            </div>
             <div class="card-inner">
                 <div class="card-title"><span class="icon">🎯</span>향후 과제</div>
                 
                 <div class="task-item">
                     <span class="num">1</span>
-                    <div class="text">타임세일 폐지 전략 유지<br><small>수익성 개선 효과</small></div>
-                </div>
-                <div class="task-item">
-                    <span class="num">2</span>
-                    <div class="text">어린이집 이탈 방지<br><small>-2.6% 원인 분석</small></div>
-                </div>
-                <div class="task-item">
-                    <span class="num">3</span>
-                    <div class="text">충성조합원 VIP 관리<br><small>매출 54% 책임</small></div>
-                </div>
-                <div class="task-item warning">
-                    <span class="num">4</span>
-                    <div class="text">하락 단협 원인 분석<br><small>경기두레-14.5%, 안성두레-31.9%</small></div>
+                    <div class="text">
+                        타임세일 폐지 전략 유지
+                        <small>수익성 개선 효과 확인, 내년에도 동일 전략 권장</small>
+                    </div>
                 </div>
                 
-                <div style="text-align:center;padding:14px;background:#1a5f2a;border-radius:10px;color:white;margin-top:14px;">
-                    <div style="font-size:11px;opacity:0.8;">두레생협연합회 온라인사업팀</div>
-                    <div style="font-size:13px;font-weight:600;margin-top:3px;">2025년 12월</div>
+                <div class="task-item warning">
+                    <span class="num">2</span>
+                    <div class="text">
+                        어린이집 이탈 방지 대책
+                        <small>매출 -2.6% 감소 원인 분석 및 맞춤 프로모션 필요</small>
+                    </div>
+                </div>
+                
+                <div class="task-item">
+                    <span class="num">3</span>
+                    <div class="text">
+                        충성조합원(3회+) VIP 관리
+                        <small>매출의 54%를 책임지는 핵심 조합원 관리 강화</small>
+                    </div>
+                </div>
+                
+                <div class="task-item danger">
+                    <span class="num">4</span>
+                    <div class="text">
+                        하락 단협 원인 분석 필요
+                        <small>경기두레 -14.5%, 안성두레 -31.9%, 평택두레 -19.5%</small>
+                    </div>
+                </div>
+                
+                <div class="footer">
+                    <div class="org">두레생협연합회 온라인사업팀</div>
+                    <div class="date">2025년 12월</div>
                 </div>
             </div>
         </div>
@@ -525,6 +1133,42 @@
         
         function formatNumber(num) { return num.toLocaleString(); }
         
+        function getAnalysisMessage(name, chg, avgPrice, orders) {
+            const totalChg = -1.4;
+            const totalAvg = 204605;
+            const totalOrders = 2.04;
+            
+            if (name === "전체") {
+                return "타임세일 폐지 후 <strong>매출 -1.4% 소폭 감소</strong>했지만, 할인 비용 절감으로 <strong>수익성은 개선</strong>되었습니다.";
+            }
+            
+            let msg = "";
+            
+            // 매출 증감 분석
+            if (chg > 5) {
+                msg += `🎉 <strong>${name}</strong>은 매출이 <strong>${chg.toFixed(1)}% 증가</strong>하여 전체 평균(-1.4%)을 크게 상회합니다! `;
+            } else if (chg > 0) {
+                msg += `👍 <strong>${name}</strong>은 매출이 <strong>${chg.toFixed(1)}% 증가</strong>하여 전체 평균(-1.4%)보다 좋은 성과입니다. `;
+            } else if (chg > -5) {
+                msg += `📊 <strong>${name}</strong>은 매출 <strong>${chg.toFixed(1)}%</strong>로 전체 평균(-1.4%)과 비슷한 수준입니다. `;
+            } else if (chg > -15) {
+                msg += `⚠️ <strong>${name}</strong>은 매출이 <strong>${chg.toFixed(1)}% 감소</strong>하여 전체 평균(-1.4%)보다 낮습니다. 원인 분석이 필요합니다. `;
+            } else {
+                msg += `🚨 <strong>${name}</strong>은 매출이 <strong>${chg.toFixed(1)}% 급감</strong>하여 긴급 점검이 필요합니다! `;
+            }
+            
+            // 객단가/주문횟수 분석
+            if (avgPrice > totalAvg * 1.5) {
+                msg += `객단가(${Math.round(avgPrice/10000)}만원)가 높아 <strong>고관여 조합원</strong> 비중이 높습니다.`;
+            } else if (orders > totalOrders * 1.2) {
+                msg += `주문횟수(${orders.toFixed(1)}회)가 높아 <strong>충성도가 높은</strong> 조합원이 많습니다.`;
+            } else if (avgPrice < totalAvg * 0.8) {
+                msg += `객단가 향상을 위한 <strong>추가 구매 유도</strong> 전략을 검토해보세요.`;
+            }
+            
+            return msg;
+        }
+        
         function updateAllCards() {
             const sel = select.value;
             const d = coopData[sel];
@@ -532,17 +1176,19 @@
             const salesChg = formatChange(d.sales24, d.sales25);
             const custChg = formatChange(d.cust24, d.cust25);
             
-            // 카드1
+            // 카드1: 표지
             const cs = document.getElementById('cover-sales');
             cs.textContent = salesChg;
             cs.className = 'value ' + (chg >= 0 ? 'green' : 'red');
             document.getElementById('cover-sales-sub').textContent = formatSales(d.sales24) + '→' + formatSales(d.sales25);
+            document.getElementById('cover-analysis').querySelector('.msg-content').innerHTML = getAnalysisMessage(sel, chg, d.avg, d.orders);
+            document.getElementById('cover-analysis').querySelector('.msg-title').textContent = sel === "전체" ? "📢 전체 현황" : "📢 " + sel + " 분석";
             
-            // 카드2
+            // 카드2: 비교
             document.getElementById('card2-coop-name').textContent = sel === "전체" ? "전체" : sel;
             const c2c = document.getElementById('card2-coop-change');
             c2c.textContent = salesChg;
-            c2c.style.color = chg >= 0 ? '#1a5f2a' : '#dc2626';
+            c2c.style.color = chg >= 0 ? '#2d7d46' : '#e53935';
             document.getElementById('card2-coop-sales').textContent = formatSales(d.sales24) + '→' + formatSales(d.sales25);
             document.getElementById('card2-th-coop').textContent = sel === "전체" ? "전체" : "우리생협";
             document.getElementById('card2-cust24').textContent = formatNumber(d.cust24) + '명';
@@ -552,6 +1198,8 @@
             cc.className = parseFloat(custChg) >= 0 ? 'green' : 'red';
             document.getElementById('card2-avg').textContent = formatNumber(d.avg) + '원';
             document.getElementById('card2-orders').textContent = d.orders.toFixed(2) + '회';
+            document.getElementById('card2-msg').innerHTML = getAnalysisMessage(sel, chg, d.avg, d.orders);
+            document.getElementById('card2-analysis').querySelector('.msg-title').textContent = sel === "전체" ? "📢 전체 분석" : "📢 우리 생협 분석";
         }
         
         // 페이지 인디케이터
