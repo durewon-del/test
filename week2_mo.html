@@ -1,0 +1,601 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>새해 첫 세탁 - 두레생협</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Nanum+Myeongjo:wght@400;700;800&family=Noto+Sans+KR:wght@400;500;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --pine-green: #4a6741;
+            --soft-green: #e8f0e4;
+            --cream: #faf8f3;
+            --warm-beige: #f5f0e6;
+            --ink-black: #2c2c2c;
+            --ink-gray: #666;
+            --warning-red: #c75050;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html, body {
+            font-family: 'Noto Sans KR', sans-serif;
+            background: var(--cream);
+            color: var(--ink-black);
+            overflow-x: hidden;
+        }
+
+        /* 카드 컨테이너 */
+        .card-container {
+            scroll-snap-type: y mandatory;
+            overflow-y: scroll;
+            height: 100vh;
+            scroll-behavior: smooth;
+        }
+
+        /* 개별 카드 */
+        .card {
+            scroll-snap-align: start;
+            min-height: 100vh;
+            padding: 60px 24px 100px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            position: relative;
+        }
+
+        /* 카드 배경 변형 */
+        .card-cream { background: var(--cream); }
+        .card-green { background: var(--pine-green); color: white; }
+        .card-soft { background: var(--soft-green); }
+        .card-beige { background: var(--warm-beige); }
+
+        /* 스크롤 인디케이터 */
+        .scroll-indicator {
+            position: absolute;
+            bottom: 30px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 8px;
+            opacity: 0.5;
+            animation: bounce 2s infinite;
+        }
+
+        .scroll-indicator span {
+            font-size: 0.75rem;
+            letter-spacing: 0.1em;
+        }
+
+        .scroll-indicator svg {
+            width: 24px;
+            height: 24px;
+        }
+
+        .card-green .scroll-indicator { color: white; }
+        .card-green .scroll-indicator svg { fill: white; }
+
+        @keyframes bounce {
+            0%, 100% { transform: translateX(-50%) translateY(0); }
+            50% { transform: translateX(-50%) translateY(8px); }
+        }
+
+        /* 타이포그래피 */
+        .card-number {
+            font-family: 'Nanum Myeongjo', serif;
+            font-size: 0.9rem;
+            color: var(--pine-green);
+            letter-spacing: 0.2em;
+            margin-bottom: 20px;
+            opacity: 0.7;
+        }
+
+        .card-green .card-number {
+            color: rgba(255,255,255,0.7);
+        }
+
+        .card-title {
+            font-family: 'Nanum Myeongjo', serif;
+            font-size: clamp(1.8rem, 7vw, 2.4rem);
+            font-weight: 700;
+            line-height: 1.4;
+            margin-bottom: 20px;
+            word-break: keep-all;
+        }
+
+        .card-title .highlight {
+            color: var(--pine-green);
+        }
+
+        .card-green .card-title .highlight {
+            color: #a8d4a0;
+        }
+
+        .card-subtitle {
+            font-size: clamp(1rem, 4vw, 1.2rem);
+            color: var(--ink-gray);
+            line-height: 1.8;
+            max-width: 320px;
+            word-break: keep-all;
+        }
+
+        .card-green .card-subtitle {
+            color: rgba(255,255,255,0.85);
+        }
+
+        /* 제품 이미지 카드 */
+        .product-image {
+            width: 200px;
+            height: 200px;
+            border-radius: 20px;
+            overflow: hidden;
+            margin-bottom: 30px;
+            background: white;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.1);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .product-image img {
+            max-width: 90%;
+            max-height: 90%;
+            object-fit: contain;
+        }
+
+        .product-name {
+            font-family: 'Nanum Myeongjo', serif;
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin-bottom: 15px;
+        }
+
+        /* 키포인트 리스트 */
+        .key-points {
+            text-align: left;
+            max-width: 300px;
+            margin-top: 25px;
+        }
+
+        .key-point {
+            display: flex;
+            align-items: flex-start;
+            gap: 12px;
+            margin-bottom: 16px;
+            font-size: 1rem;
+            line-height: 1.5;
+        }
+
+        .key-point .icon {
+            width: 24px;
+            height: 24px;
+            border-radius: 50%;
+            background: var(--pine-green);
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+            font-size: 0.8rem;
+        }
+
+        .key-point.negative .icon {
+            background: var(--warning-red);
+        }
+
+        /* 큰 인용구 */
+        .big-quote {
+            font-family: 'Nanum Myeongjo', serif;
+            font-size: clamp(1.3rem, 5.5vw, 1.8rem);
+            line-height: 1.8;
+            max-width: 340px;
+            word-break: keep-all;
+        }
+
+        .big-quote::before {
+            content: '"';
+            display: block;
+            font-size: 3rem;
+            color: var(--pine-green);
+            opacity: 0.3;
+            line-height: 1;
+            margin-bottom: 10px;
+        }
+
+        .card-green .big-quote::before {
+            color: white;
+        }
+
+        /* 팁 카드 */
+        .tip-number {
+            font-family: 'Nanum Myeongjo', serif;
+            font-size: 3rem;
+            color: var(--pine-green);
+            opacity: 0.3;
+            margin-bottom: 15px;
+        }
+
+        .tip-title {
+            font-size: 1.3rem;
+            font-weight: 700;
+            margin-bottom: 15px;
+        }
+
+        .tip-desc {
+            font-size: 1rem;
+            color: var(--ink-gray);
+            line-height: 1.7;
+            max-width: 300px;
+        }
+
+        /* 마무리 카드 */
+        .stamp {
+            width: 80px;
+            height: 80px;
+            border: 2px solid var(--pine-green);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-family: 'Nanum Myeongjo', serif;
+            font-size: 0.9rem;
+            color: var(--pine-green);
+            margin-top: 40px;
+            opacity: 0.7;
+        }
+
+        /* 페이지 인디케이터 */
+        .page-indicator {
+            position: fixed;
+            right: 15px;
+            top: 50%;
+            transform: translateY(-50%);
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+            z-index: 100;
+        }
+
+        .page-dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: var(--ink-black);
+            opacity: 0.2;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .page-dot.active {
+            opacity: 0.8;
+            transform: scale(1.3);
+        }
+
+        /* 데스크탑 대응 */
+        @media (min-width: 768px) {
+            .card {
+                padding: 80px 40px 120px;
+            }
+
+            .product-image {
+                width: 280px;
+                height: 280px;
+            }
+
+            .key-points {
+                max-width: 400px;
+            }
+
+            .big-quote {
+                max-width: 500px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+<div class="card-container" id="cardContainer">
+
+    <!-- 카드 1: 인트로 -->
+    <section class="card card-cream" data-index="0">
+        <p class="card-number">새해 첫 세탁</p>
+        <h1 class="card-title">
+            뽀송하게 마른 빨래처럼<br>
+            <span class="highlight">기분 좋은 새해</span>
+        </h1>
+        <p class="card-subtitle">올해도 조합원님의 곁을 지킬<br>두레지기입니다</p>
+        <div class="scroll-indicator">
+            <span>스크롤</span>
+            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M7.41,8.58L12,13.17L16.59,8.58L18,10L12,16L6,10L7.41,8.58Z"/></svg>
+        </div>
+    </section>
+
+    <!-- 카드 2: 메시지 -->
+    <section class="card card-soft" data-index="1">
+        <div class="big-quote">
+            묵은해의 먼지를 털어내고<br>
+            깨끗한 햇살 냄새를<br>
+            집안에 들이는 건<br>
+            <strong>저만의 새해 의식</strong>이에요
+        </div>
+        <div class="scroll-indicator">
+            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M7.41,8.58L12,13.17L16.59,8.58L18,10L12,16L6,10L7.41,8.58Z"/></svg>
+        </div>
+    </section>
+
+    <!-- 카드 3: 제로너스 소개 -->
+    <section class="card card-cream" data-index="2">
+        <p class="card-number">생활재 01</p>
+        <div class="product-image">
+            <img src="56702C.jpg" alt="식물성 세제 제로너스">
+        </div>
+        <h2 class="product-name">식물성 세제 제로너스</h2>
+        <p class="card-subtitle">진짜 식물성 세제가<br>궁금하셨다면</p>
+        <div class="scroll-indicator">
+            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M7.41,8.58L12,13.17L16.59,8.58L18,10L12,16L6,10L7.41,8.58Z"/></svg>
+        </div>
+    </section>
+
+    <!-- 카드 4: 제로너스 포인트 -->
+    <section class="card card-beige" data-index="3">
+        <h2 class="card-title" style="font-size: 1.5rem; margin-bottom: 30px;">
+            <span class="highlight">석유계 성분 없이</span><br>
+            식물에서 얻은 세정력
+        </h2>
+        <div class="key-points">
+            <div class="key-point">
+                <span class="icon">✓</span>
+                <span><strong>코코넛·팜</strong> 유래 계면활성제</span>
+            </div>
+            <div class="key-point">
+                <span class="icon">✓</span>
+                <span><strong>적은 거품</strong>으로 빠른 헹굼</span>
+            </div>
+            <div class="key-point">
+                <span class="icon">✓</span>
+                <span><strong>찬물 세탁</strong>에도 충분한 세정력</span>
+            </div>
+        </div>
+        <div class="scroll-indicator">
+            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M7.41,8.58L12,13.17L16.59,8.58L18,10L12,16L6,10L7.41,8.58Z"/></svg>
+        </div>
+    </section>
+
+    <!-- 카드 5: 액상세제 소개 -->
+    <section class="card card-cream" data-index="4">
+        <p class="card-number">생활재 02</p>
+        <div class="product-image">
+            <img src="57151C.png" alt="액상 세탁 세제">
+        </div>
+        <h2 class="product-name">액상 세탁 세제</h2>
+        <p class="card-subtitle">아기 옷도 걱정 없이<br>피부과 테스트 완료</p>
+        <div class="scroll-indicator">
+            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M7.41,8.58L12,13.17L16.59,8.58L18,10L12,16L6,10L7.41,8.58Z"/></svg>
+        </div>
+    </section>
+
+    <!-- 카드 6: 액상세제 포인트 -->
+    <section class="card card-soft" data-index="5">
+        <h2 class="card-title" style="font-size: 1.4rem; margin-bottom: 30px;">
+            이런 분께<br><span class="highlight">권합니다</span>
+        </h2>
+        <div class="key-points">
+            <div class="key-point">
+                <span class="icon">✓</span>
+                <span><strong>신생아·영유아</strong> 옷 세탁하시는 분</span>
+            </div>
+            <div class="key-point">
+                <span class="icon">✓</span>
+                <span><strong>아토피·민감성</strong> 피부 가족이 있는 분</span>
+            </div>
+            <div class="key-point">
+                <span class="icon">✓</span>
+                <span><strong>인공 향 없이</strong> 깨끗한 빨래 원하시는 분</span>
+            </div>
+        </div>
+        <div class="scroll-indicator">
+            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M7.41,8.58L12,13.17L16.59,8.58L18,10L12,16L6,10L7.41,8.58Z"/></svg>
+        </div>
+    </section>
+
+    <!-- 카드 7: 생협 철학 -->
+    <section class="card card-green" data-index="6">
+        <p class="card-number">생협이 만드는 차이</p>
+        <div class="big-quote" style="color: white;">
+            대형마트 세제는<br>
+            '더 강한 세정력'을 광고합니다<br><br>
+            우리는<br>
+            <strong>'충분한 세정력'</strong>을<br>
+            추구합니다
+        </div>
+        <div class="scroll-indicator">
+            <svg viewBox="0 0 24 24" fill="white"><path d="M7.41,8.58L12,13.17L16.59,8.58L18,10L12,16L6,10L7.41,8.58Z"/></svg>
+        </div>
+    </section>
+
+    <!-- 카드 8: 베이킹소다 -->
+    <section class="card card-cream" data-index="7">
+        <p class="card-number">생활재 03</p>
+        <div class="product-image">
+            <img src="41532C.png" alt="베이킹소다">
+        </div>
+        <h2 class="product-name">베이킹소다</h2>
+        <p class="card-subtitle">100년 전 할머니도 쓰던<br>가장 오래된 친환경 세제</p>
+        <div class="scroll-indicator">
+            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M7.41,8.58L12,13.17L16.59,8.58L18,10L12,16L6,10L7.41,8.58Z"/></svg>
+        </div>
+    </section>
+
+    <!-- 카드 9: 베이킹소다 활용 -->
+    <section class="card card-beige" data-index="8">
+        <h2 class="card-title" style="font-size: 1.4rem; margin-bottom: 30px;">
+            <span class="highlight">한 스푼</span>이면<br>충분합니다
+        </h2>
+        <div class="key-points">
+            <div class="key-point">
+                <span class="icon">✓</span>
+                <span><strong>수건·행주</strong> — 쉰내 제거</span>
+            </div>
+            <div class="key-point">
+                <span class="icon">✓</span>
+                <span><strong>세탁조</strong> — 곰팡이·냄새 예방</span>
+            </div>
+            <div class="key-point">
+                <span class="icon">✓</span>
+                <span><strong>배수구</strong> — 기름때 제거</span>
+            </div>
+        </div>
+        <div class="scroll-indicator">
+            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M7.41,8.58L12,13.17L16.59,8.58L18,10L12,16L6,10L7.41,8.58Z"/></svg>
+        </div>
+    </section>
+
+    <!-- 카드 10: 구연산 -->
+    <section class="card card-cream" data-index="9">
+        <p class="card-number">생활재 04</p>
+        <div class="product-image">
+            <img src="41530C.png" alt="구연산">
+        </div>
+        <h2 class="product-name">구연산</h2>
+        <p class="card-subtitle">섬유유연제를 대신할<br>자연의 선택</p>
+        <div class="scroll-indicator">
+            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M7.41,8.58L12,13.17L16.59,8.58L18,10L12,16L6,10L7.41,8.58Z"/></svg>
+        </div>
+    </section>
+
+    <!-- 카드 11: 구연산 vs 유연제 -->
+    <section class="card card-soft" data-index="10">
+        <h2 class="card-title" style="font-size: 1.3rem; margin-bottom: 30px;">
+            섬유유연제<br><span class="highlight" style="color: var(--warning-red);">이런 점이 걱정됩니다</span>
+        </h2>
+        <div class="key-points">
+            <div class="key-point negative">
+                <span class="icon">✕</span>
+                <span>양이온 계면활성제 — <strong>피부 자극</strong></span>
+            </div>
+            <div class="key-point negative">
+                <span class="icon">✕</span>
+                <span>인공 향료 — <strong>두통·알레르기</strong></span>
+            </div>
+            <div class="key-point negative">
+                <span class="icon">✕</span>
+                <span>코팅 성분 — <strong>수건 흡수력 저하</strong></span>
+            </div>
+        </div>
+        <div class="scroll-indicator">
+            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M7.41,8.58L12,13.17L16.59,8.58L18,10L12,16L6,10L7.41,8.58Z"/></svg>
+        </div>
+    </section>
+
+    <!-- 카드 12: 세탁 팁 1 -->
+    <section class="card card-green" data-index="11">
+        <p class="card-number">세탁 비법</p>
+        <span class="tip-number" style="color: rgba(255,255,255,0.3);">01</span>
+        <h3 class="tip-title" style="color: white;">베이킹소다 한 스푼</h3>
+        <p class="tip-desc" style="color: rgba(255,255,255,0.85);">
+            세탁기에 넣으면<br>
+            찌든 때와 냄새가<br>
+            자연스럽게 사라집니다
+        </p>
+        <div class="scroll-indicator">
+            <svg viewBox="0 0 24 24" fill="white"><path d="M7.41,8.58L12,13.17L16.59,8.58L18,10L12,16L6,10L7.41,8.58Z"/></svg>
+        </div>
+    </section>
+
+    <!-- 카드 13: 세탁 팁 2 -->
+    <section class="card card-beige" data-index="12">
+        <p class="card-number">세탁 비법</p>
+        <span class="tip-number">02</span>
+        <h3 class="tip-title">구연산으로 마무리</h3>
+        <p class="tip-desc">
+            헹굼 단계에서 1~2스푼<br>
+            인공 향료 없이<br>
+            섬유가 부드러워집니다
+        </p>
+        <div class="scroll-indicator">
+            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M7.41,8.58L12,13.17L16.59,8.58L18,10L12,16L6,10L7.41,8.58Z"/></svg>
+        </div>
+    </section>
+
+    <!-- 카드 14: 세탁 팁 3 -->
+    <section class="card card-soft" data-index="13">
+        <p class="card-number">세탁 비법</p>
+        <span class="tip-number">03</span>
+        <h3 class="tip-title">햇볕에 말려 완성</h3>
+        <p class="tip-desc">
+            억지스러운 향료가 아닌<br>
+            섬유 본연의<br>
+            <strong>'정직한 깨끗함'</strong>
+        </p>
+        <div class="scroll-indicator">
+            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M7.41,8.58L12,13.17L16.59,8.58L18,10L12,16L6,10L7.41,8.58Z"/></svg>
+        </div>
+    </section>
+
+    <!-- 카드 15: 마무리 -->
+    <section class="card card-cream" data-index="14">
+        <h2 class="card-title" style="font-size: 1.4rem; line-height: 2;">
+            새해에는<br>
+            복잡한 마음은 비워내고<br><br>
+            <span class="highlight">정갈하고 건강한 일상</span>으로<br>
+            채우시길 바랍니다
+        </h2>
+        <div class="stamp">두레<br>생협</div>
+        <p class="card-subtitle" style="margin-top: 20px; font-size: 0.9rem;">두레지기 드림</p>
+    </section>
+
+</div>
+
+<!-- 페이지 인디케이터 -->
+<div class="page-indicator" id="pageIndicator"></div>
+
+<script>
+    const container = document.getElementById('cardContainer');
+    const cards = document.querySelectorAll('.card');
+    const indicator = document.getElementById('pageIndicator');
+
+    // 인디케이터 생성
+    cards.forEach((_, index) => {
+        const dot = document.createElement('div');
+        dot.className = 'page-dot' + (index === 0 ? ' active' : '');
+        dot.addEventListener('click', () => {
+            cards[index].scrollIntoView({ behavior: 'smooth' });
+        });
+        indicator.appendChild(dot);
+    });
+
+    const dots = document.querySelectorAll('.page-dot');
+
+    // 스크롤 감지
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                const index = parseInt(entry.target.dataset.index);
+                dots.forEach((dot, i) => {
+                    dot.classList.toggle('active', i === index);
+                });
+                
+                // 마지막 카드에서 스크롤 인디케이터 숨기기
+                const scrollIndicator = entry.target.querySelector('.scroll-indicator');
+                if (index === cards.length - 1 && scrollIndicator) {
+                    scrollIndicator.style.display = 'none';
+                }
+            }
+        });
+    }, { threshold: 0.5 });
+
+    cards.forEach(card => observer.observe(card));
+</script>
+
+</body>
+</html>
