@@ -3,24 +3,22 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>두레지기의 생활 이야기 | 1화. 새해 첫 세탁</title>
+    <title>새해 첫 세탁 | 두레생협</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Nanum+Myeongjo:wght@400;700;800&family=Noto+Sans+KR:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Nanum+Myeongjo:wght@400;700;800&family=Noto+Sans+KR:wght@300;400;500;700;900&display=swap" rel="stylesheet">
     <style>
         :root {
-            --primary: #4a7c59;
-            --primary-dark: #3d6a4a;
-            --primary-light: #e9f0eb;
-            --accent: #d4a574;
-            --cream: #faf9f7;
+            --primary: #2d5a3d;
+            --primary-light: #e8f0eb;
+            --accent: #c9a66b;
             --white: #ffffff;
-            --black: #1a1a1a;
-            --gray-900: #2d2d2d;
-            --gray-700: #555555;
-            --gray-500: #888888;
-            --gray-300: #cccccc;
-            --gray-100: #f5f5f5;
+            --black: #111111;
+            --gray-900: #1a1a1a;
+            --gray-700: #444444;
+            --gray-500: #777777;
+            --gray-200: #e5e5e5;
+            --gray-100: #f7f7f7;
         }
 
         * {
@@ -34,153 +32,225 @@
         }
 
         body {
-            font-family: 'Noto Sans KR', -apple-system, sans-serif;
+            font-family: 'Noto Sans KR', sans-serif;
             background: var(--white);
             color: var(--gray-900);
-            line-height: 1.7;
-            font-weight: 400;
-            -webkit-font-smoothing: antialiased;
+            line-height: 1.6;
+            overflow-x: hidden;
         }
 
-        /* ========== 시리즈 네비게이션 ========== */
-        .series-nav {
-            position: fixed;
-            top: 0;
-            left: 0;
-            right: 0;
-            background: rgba(255,255,255,0.95);
-            backdrop-filter: blur(10px);
-            z-index: 1000;
-            padding: 14px 20px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            border-bottom: 1px solid rgba(0,0,0,0.06);
+        /* ========== 애니메이션 ========== */
+        .fade-in {
+            opacity: 0;
+            transform: translateY(40px);
+            transition: all 0.8s cubic-bezier(0.16, 1, 0.3, 1);
         }
 
-        .series-title {
-            font-size: 0.85rem;
-            color: var(--gray-700);
-            font-weight: 500;
-            letter-spacing: -0.02em;
+        .fade-in.visible {
+            opacity: 1;
+            transform: translateY(0);
         }
 
-        .episode-num {
-            font-size: 0.8rem;
-            color: var(--primary);
-            font-weight: 600;
-            background: var(--primary-light);
-            padding: 4px 12px;
-            border-radius: 20px;
+        .slide-left {
+            opacity: 0;
+            transform: translateX(-60px);
+            transition: all 0.8s cubic-bezier(0.16, 1, 0.3, 1);
         }
 
-        /* ========== 새해 히어로 (이미지만) ========== */
-        .newyear-hero {
-            margin-top: 52px;
-            height: 45vh;
-            min-height: 320px;
-            background: url('ti219a47306_l.jpg') center/cover no-repeat;
+        .slide-left.visible {
+            opacity: 1;
+            transform: translateX(0);
         }
 
-        /* ========== 메인 히어로 ========== */
-        .main-hero {
-            position: relative;
-            height: 80vh;
-            min-height: 500px;
-            background: linear-gradient(to bottom, rgba(0,0,0,0) 30%, rgba(0,0,0,0.5) 100%),
-                        url('Gemini_Generated_Image_hq1hd7hq1hd7hq1h.png') center/cover no-repeat;
+        .slide-right {
+            opacity: 0;
+            transform: translateX(60px);
+            transition: all 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        .slide-right.visible {
+            opacity: 1;
+            transform: translateX(0);
+        }
+
+        /* ========== 히어로 ========== */
+        .hero {
+            min-height: 100vh;
+            background: linear-gradient(135deg, var(--black) 0%, #1a2f1a 100%);
             display: flex;
             flex-direction: column;
-            justify-content: flex-end;
-            padding: 0 30px 70px;
-            color: white;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            padding: 60px 24px;
+            position: relative;
+            overflow: hidden;
         }
 
-        .hero-episode {
-            font-size: 0.9rem;
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            right: -30%;
+            width: 80%;
+            height: 150%;
+            background: url('Gemini_Generated_Image_hq1hd7hq1hd7hq1h.png') center/cover;
+            opacity: 0.25;
+            border-radius: 50%;
+            filter: blur(2px);
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 1;
+        }
+
+        .hero-label {
+            font-size: 0.85rem;
+            color: var(--accent);
+            letter-spacing: 0.2em;
+            margin-bottom: 30px;
             font-weight: 500;
-            letter-spacing: 0.15em;
-            text-transform: uppercase;
-            margin-bottom: 15px;
-            opacity: 0.9;
         }
 
-        .hero-title {
+        .hero-question {
             font-family: 'Nanum Myeongjo', serif;
-            font-size: clamp(2.5rem, 9vw, 3.5rem);
-            font-weight: 800;
-            line-height: 1.25;
-            margin-bottom: 20px;
-            letter-spacing: -0.03em;
-        }
-
-        .hero-subtitle {
-            font-size: 1.1rem;
-            font-weight: 300;
-            opacity: 0.9;
-            max-width: 320px;
-            line-height: 1.7;
-        }
-
-        /* ========== 섹션 공통 ========== */
-        section {
-            padding: 80px 24px;
-        }
-
-        .section-label {
-            font-size: 0.8rem;
-            font-weight: 600;
-            color: var(--primary);
-            letter-spacing: 0.1em;
-            text-transform: uppercase;
-            margin-bottom: 12px;
-            text-align: center;
-        }
-
-        .section-title {
-            font-family: 'Nanum Myeongjo', serif;
-            font-size: clamp(1.6rem, 5vw, 2rem);
-            text-align: center;
-            margin-bottom: 50px;
-            color: var(--black);
-            line-height: 1.5;
+            font-size: clamp(2rem, 8vw, 3.2rem);
+            color: var(--white);
             font-weight: 700;
+            line-height: 1.4;
+            margin-bottom: 25px;
             letter-spacing: -0.02em;
         }
 
-        /* ========== 인트로 섹션 ========== */
-        .intro-section {
-            background: var(--cream);
-            text-align: center;
-            padding: 90px 30px;
+        .hero-sub {
+            font-size: 1.1rem;
+            color: rgba(255,255,255,0.7);
+            font-weight: 300;
+            margin-bottom: 50px;
         }
 
-        .intro-quote {
-            font-family: 'Nanum Myeongjo', serif;
-            font-size: clamp(1.4rem, 4.5vw, 1.8rem);
-            line-height: 2.2;
-            color: var(--gray-900);
-            max-width: 380px;
+        .scroll-indicator {
+            position: absolute;
+            bottom: 40px;
+            left: 50%;
+            transform: translateX(-50%);
+            color: rgba(255,255,255,0.5);
+            font-size: 0.8rem;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 10px;
+            animation: bounce 2s infinite;
+        }
+
+        .scroll-indicator span {
+            width: 24px;
+            height: 40px;
+            border: 2px solid rgba(255,255,255,0.3);
+            border-radius: 20px;
+            position: relative;
+        }
+
+        .scroll-indicator span::before {
+            content: '';
+            position: absolute;
+            top: 8px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 4px;
+            height: 8px;
+            background: rgba(255,255,255,0.5);
+            border-radius: 2px;
+            animation: scrollDown 2s infinite;
+        }
+
+        @keyframes bounce {
+            0%, 100% { transform: translateX(-50%) translateY(0); }
+            50% { transform: translateX(-50%) translateY(10px); }
+        }
+
+        @keyframes scrollDown {
+            0% { opacity: 1; top: 8px; }
+            100% { opacity: 0; top: 20px; }
+        }
+
+        /* ========== Q&A 섹션 ========== */
+        .qa-section {
+            padding: 100px 24px;
+            background: var(--white);
+        }
+
+        .qa-container {
+            max-width: 600px;
             margin: 0 auto;
-            font-weight: 400;
         }
 
-        .intro-quote em {
-            color: var(--primary);
-            font-style: normal;
+        .question-block {
+            margin-bottom: 80px;
+        }
+
+        .q-label {
+            font-size: 0.8rem;
             font-weight: 700;
+            color: var(--primary);
+            letter-spacing: 0.1em;
+            margin-bottom: 15px;
+        }
+
+        .question {
+            font-family: 'Nanum Myeongjo', serif;
+            font-size: clamp(1.5rem, 6vw, 2.2rem);
+            font-weight: 700;
+            color: var(--black);
+            line-height: 1.5;
+            margin-bottom: 30px;
+        }
+
+        .answer {
+            font-size: 1.15rem;
+            color: var(--gray-700);
+            line-height: 2;
+            padding-left: 20px;
+            border-left: 3px solid var(--primary);
+        }
+
+        .answer strong {
+            color: var(--primary);
+            font-weight: 600;
+        }
+
+        .highlight-box {
+            background: var(--gray-100);
+            border-radius: 16px;
+            padding: 30px;
+            margin-top: 25px;
+        }
+
+        .highlight-box p {
+            font-size: 1.1rem;
+            color: var(--gray-700);
+            line-height: 1.8;
         }
 
         /* ========== 통계 섹션 ========== */
         .stats-section {
             background: var(--primary);
-            padding: 60px 24px;
+            padding: 80px 24px;
+        }
+
+        .stats-title {
+            text-align: center;
+            font-size: 1rem;
+            color: rgba(255,255,255,0.7);
+            margin-bottom: 50px;
+            letter-spacing: 0.1em;
         }
 
         .stats-grid {
             display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 20px;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 40px 20px;
             max-width: 500px;
             margin: 0 auto;
         }
@@ -191,262 +261,225 @@
         }
 
         .stat-number {
-            font-family: 'Nanum Myeongjo', serif;
-            font-size: clamp(2rem, 8vw, 2.8rem);
-            font-weight: 800;
+            font-family: 'Noto Sans KR', sans-serif;
+            font-size: clamp(3rem, 12vw, 4.5rem);
+            font-weight: 900;
             line-height: 1;
-            margin-bottom: 8px;
+            margin-bottom: 10px;
+            letter-spacing: -0.03em;
         }
 
-        .stat-unit {
-            font-size: 1rem;
-            font-weight: 400;
+        .stat-number .unit {
+            font-size: 0.5em;
+            font-weight: 500;
         }
 
         .stat-label {
-            font-size: 0.85rem;
+            font-size: 0.95rem;
             opacity: 0.85;
-            font-weight: 300;
-        }
-
-        /* ========== 고민 섹션 ========== */
-        .concern-section {
-            background: var(--white);
-        }
-
-        .concern-grid {
-            max-width: 600px;
-            margin: 0 auto;
-            display: grid;
-            gap: 16px;
-        }
-
-        .concern-card {
-            background: var(--gray-100);
-            border-radius: 16px;
-            padding: 24px 28px;
-            display: flex;
-            align-items: center;
-            gap: 18px;
-            transition: transform 0.2s ease;
-        }
-
-        .concern-card:hover {
-            transform: translateX(5px);
-        }
-
-        .concern-icon {
-            width: 48px;
-            height: 48px;
-            background: white;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 1.3rem;
-            flex-shrink: 0;
-        }
-
-        .concern-text {
-            font-size: 1.1rem;
-            color: var(--gray-700);
-            line-height: 1.5;
-        }
-
-        .concern-text strong {
-            color: var(--gray-900);
-            font-weight: 600;
+            font-weight: 400;
         }
 
         /* ========== 제품 섹션 ========== */
         .products-section {
-            background: var(--cream);
+            padding: 100px 24px;
+            background: var(--gray-100);
+        }
+
+        .section-header {
+            text-align: center;
+            margin-bottom: 60px;
+        }
+
+        .section-label {
+            font-size: 0.8rem;
+            font-weight: 600;
+            color: var(--primary);
+            letter-spacing: 0.15em;
+            margin-bottom: 15px;
+        }
+
+        .section-title {
+            font-family: 'Nanum Myeongjo', serif;
+            font-size: clamp(1.8rem, 6vw, 2.4rem);
+            font-weight: 700;
+            color: var(--black);
+            line-height: 1.4;
         }
 
         .products-grid {
             display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: 16px;
-            max-width: 600px;
+            grid-template-columns: 1fr;
+            gap: 20px;
+            max-width: 500px;
             margin: 0 auto;
         }
 
         .product-card {
             background: var(--white);
-            border-radius: 20px;
-            padding: 30px 20px 25px;
-            text-align: center;
-            box-shadow: 0 2px 20px rgba(0,0,0,0.04);
+            border-radius: 24px;
+            overflow: hidden;
+            box-shadow: 0 4px 30px rgba(0,0,0,0.06);
+            display: flex;
+            align-items: center;
+            padding: 20px;
+            gap: 20px;
             transition: all 0.3s ease;
-            border: 1px solid rgba(0,0,0,0.04);
         }
 
         .product-card:hover {
-            transform: translateY(-8px);
-            box-shadow: 0 15px 40px rgba(0,0,0,0.1);
+            transform: translateY(-5px);
+            box-shadow: 0 15px 50px rgba(0,0,0,0.12);
+        }
+
+        .product-img {
+            width: 120px;
+            height: 120px;
+            background: var(--gray-100);
+            border-radius: 16px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+        }
+
+        .product-img img {
+            max-width: 90%;
+            max-height: 90%;
+            object-fit: contain;
+        }
+
+        .product-info {
+            flex: 1;
         }
 
         .product-badge {
             display: inline-block;
             font-size: 0.7rem;
-            font-weight: 600;
-            color: var(--primary);
-            background: var(--primary-light);
+            font-weight: 700;
+            color: var(--white);
+            background: var(--primary);
             padding: 4px 10px;
             border-radius: 20px;
-            margin-bottom: 15px;
-            letter-spacing: 0.02em;
-        }
-
-        .product-img {
-            width: 100px;
-            height: 100px;
-            margin: 0 auto 18px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-
-        .product-img img {
-            max-width: 100%;
-            max-height: 100%;
-            object-fit: contain;
+            margin-bottom: 10px;
         }
 
         .product-name {
-            font-size: 1.05rem;
+            font-size: 1.2rem;
             font-weight: 700;
-            margin-bottom: 12px;
             color: var(--black);
-            line-height: 1.4;
+            margin-bottom: 8px;
         }
 
-        .product-features {
-            text-align: left;
-            font-size: 0.88rem;
+        .product-desc {
+            font-size: 0.95rem;
             color: var(--gray-500);
-            line-height: 1.7;
-            list-style: none;
-        }
-
-        .product-features li {
-            padding: 3px 0;
-            padding-left: 16px;
-            position: relative;
-        }
-
-        .product-features li::before {
-            content: '';
-            position: absolute;
-            left: 0;
-            top: 11px;
-            width: 5px;
-            height: 5px;
-            background: var(--primary);
-            border-radius: 50%;
+            line-height: 1.6;
         }
 
         /* ========== 비교 섹션 ========== */
         .compare-section {
+            padding: 100px 24px;
             background: var(--white);
         }
 
-        .compare-wrapper {
+        .compare-visual {
             max-width: 500px;
             margin: 0 auto;
         }
 
-        .compare-row {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            border-bottom: 1px solid var(--gray-100);
+        .compare-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 25px 0;
+            border-bottom: 1px solid var(--gray-200);
         }
 
-        .compare-row:last-child {
+        .compare-item:last-child {
             border-bottom: none;
         }
 
-        .compare-header {
-            background: var(--gray-100);
-            border-radius: 12px 12px 0 0;
-            overflow: hidden;
-        }
-
-        .compare-header .compare-cell {
-            padding: 16px;
-            font-weight: 600;
-            font-size: 0.9rem;
-        }
-
-        .compare-header .compare-cell:first-child {
+        .compare-label {
+            font-size: 1rem;
             color: var(--gray-500);
+            flex: 1;
         }
 
-        .compare-header .compare-cell:last-child {
-            background: var(--primary);
-            color: white;
+        .compare-values {
+            display: flex;
+            gap: 30px;
         }
 
-        .compare-cell {
-            padding: 18px 16px;
-            text-align: center;
-            font-size: 0.95rem;
-        }
-
-        .compare-cell:first-child {
+        .compare-old {
+            font-size: 1rem;
             color: var(--gray-500);
-            border-right: 1px solid var(--gray-100);
+            text-decoration: line-through;
+            opacity: 0.6;
         }
 
-        .compare-cell:last-child {
+        .compare-new {
+            font-size: 1.1rem;
             color: var(--primary);
-            font-weight: 500;
+            font-weight: 700;
         }
 
         /* ========== 철학 섹션 ========== */
         .philosophy-section {
+            min-height: 80vh;
             background: var(--black);
-            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
             text-align: center;
-            padding: 90px 30px;
+            padding: 80px 30px;
+        }
+
+        .philosophy-content {
+            max-width: 450px;
         }
 
         .philosophy-quote {
             font-family: 'Nanum Myeongjo', serif;
-            font-size: clamp(1.3rem, 4.5vw, 1.7rem);
-            line-height: 2.2;
-            max-width: 400px;
-            margin: 0 auto;
+            font-size: clamp(1.5rem, 5vw, 2rem);
+            color: var(--white);
+            line-height: 2;
             font-weight: 400;
         }
 
         .philosophy-quote strong {
             color: var(--accent);
+            font-weight: 700;
         }
 
-        .philosophy-quote .small {
-            font-size: 0.85em;
-            opacity: 0.7;
-            display: block;
-            margin-top: 30px;
+        .philosophy-divider {
+            width: 40px;
+            height: 2px;
+            background: var(--accent);
+            margin: 40px auto;
+        }
+
+        .philosophy-author {
+            font-size: 0.9rem;
+            color: rgba(255,255,255,0.5);
         }
 
         /* ========== 영상 섹션 ========== */
         .video-section {
-            background: var(--cream);
+            padding: 100px 24px;
+            background: var(--gray-100);
             text-align: center;
-            padding: 80px 24px 100px;
         }
 
         .video-intro {
-            font-size: 1rem;
+            font-size: 1.05rem;
             color: var(--gray-500);
-            margin-bottom: 35px;
+            margin-bottom: 40px;
             line-height: 1.8;
         }
 
         .video-wrapper {
-            max-width: 300px;
+            max-width: 320px;
             margin: 0 auto 50px;
         }
 
@@ -456,7 +489,7 @@
             padding-bottom: 177.78%;
             border-radius: 24px;
             overflow: hidden;
-            box-shadow: 0 20px 60px rgba(0,0,0,0.15);
+            box-shadow: 0 25px 80px rgba(0,0,0,0.2);
             background: var(--black);
         }
 
@@ -471,11 +504,11 @@
 
         .greeting-text {
             font-family: 'Nanum Myeongjo', serif;
-            font-size: clamp(1.2rem, 4vw, 1.4rem);
+            font-size: clamp(1.3rem, 4.5vw, 1.6rem);
             line-height: 2;
             color: var(--gray-900);
-            max-width: 350px;
-            margin: 0 auto 40px;
+            max-width: 380px;
+            margin: 0 auto 45px;
         }
 
         .greeting-text em {
@@ -484,51 +517,50 @@
             font-weight: 700;
         }
 
-        /* ========== CTA 버튼 ========== */
+        /* ========== CTA ========== */
         .cta-button {
             display: inline-flex;
             align-items: center;
-            gap: 8px;
+            gap: 10px;
             background: var(--primary);
             color: white;
-            font-size: 1.05rem;
+            font-size: 1.15rem;
             font-weight: 600;
-            padding: 16px 36px;
+            padding: 18px 45px;
             border-radius: 60px;
             text-decoration: none;
-            box-shadow: 0 4px 20px rgba(74, 124, 89, 0.35);
+            box-shadow: 0 8px 30px rgba(45, 90, 61, 0.4);
             transition: all 0.3s ease;
-            letter-spacing: -0.01em;
         }
 
         .cta-button:hover {
-            background: var(--primary-dark);
-            transform: translateY(-2px);
-            box-shadow: 0 8px 30px rgba(74, 124, 89, 0.45);
+            transform: translateY(-3px) scale(1.02);
+            box-shadow: 0 15px 45px rgba(45, 90, 61, 0.5);
         }
 
         .cta-button svg {
-            width: 20px;
-            height: 20px;
+            width: 22px;
+            height: 22px;
             fill: white;
             transition: transform 0.3s ease;
         }
 
         .cta-button:hover svg {
-            transform: translateX(3px);
+            transform: translateX(5px);
         }
 
         /* ========== 푸터 ========== */
         .footer {
-            background: var(--gray-100);
+            background: var(--white);
             text-align: center;
             padding: 50px 24px;
+            border-top: 1px solid var(--gray-200);
         }
 
         .footer-logo {
             font-family: 'Nanum Myeongjo', serif;
-            font-size: 1.1rem;
-            color: var(--gray-500);
+            font-size: 1.2rem;
+            color: var(--gray-700);
             margin-bottom: 8px;
         }
 
@@ -538,221 +570,250 @@
         }
 
         /* ========== 반응형 ========== */
-        @media (max-width: 500px) {
-            .products-grid {
-                grid-template-columns: 1fr;
-                max-width: 320px;
-            }
-
-            section {
-                padding: 70px 20px;
-            }
-
-            .video-wrapper {
-                max-width: 260px;
-            }
-
-            .stats-grid {
-                gap: 15px;
-            }
-
-            .stat-number {
-                font-size: 1.8rem;
-            }
-        }
-
         @media (min-width: 768px) {
             .products-grid {
-                grid-template-columns: repeat(4, 1fr);
-                max-width: 800px;
-                gap: 20px;
+                grid-template-columns: repeat(2, 1fr);
+                max-width: 700px;
             }
 
-            .video-wrapper {
-                max-width: 280px;
+            .product-card {
+                flex-direction: column;
+                text-align: center;
+                padding: 35px 25px;
+            }
+
+            .product-img {
+                width: 140px;
+                height: 140px;
             }
 
             .stats-grid {
-                max-width: 600px;
+                grid-template-columns: repeat(4, 1fr);
+                max-width: 800px;
+            }
+
+            .video-wrapper {
+                max-width: 300px;
             }
         }
     </style>
 </head>
 <body>
 
-    <!-- 시리즈 네비게이션 -->
-    <nav class="series-nav">
-        <span class="series-title">두레지기의 생활 이야기</span>
-        <span class="episode-num">EP.01</span>
-    </nav>
-
-    <!-- 새해 히어로 -->
-    <section class="newyear-hero"></section>
-
-    <!-- 메인 히어로 -->
-    <section class="main-hero">
-        <p class="hero-episode">Episode 01</p>
-        <h1 class="hero-title">새해 첫 세탁</h1>
-        <p class="hero-subtitle">뽀송하게 마른 빨래처럼<br>기분 좋은 한 해를 시작하세요</p>
+    <!-- 히어로 -->
+    <section class="hero">
+        <div class="hero-content">
+            <p class="hero-label">두레지기의 생활 이야기 EP.01</p>
+            <h1 class="hero-question">왜 새해에는<br>빨래를 할까요?</h1>
+            <p class="hero-sub">스크롤하면 답을 알 수 있어요</p>
+        </div>
+        <div class="scroll-indicator">
+            <span></span>
+        </div>
     </section>
 
-    <!-- 인트로 -->
-    <section class="intro-section">
-        <p class="intro-quote">
-            묵은해의 먼지를 털어내고<br>
-            햇살 냄새를 집안 가득 들이는 건<br><br>
-            <em>엄마의 마음</em>입니다
-        </p>
-    </section>
+    <!-- Q&A 1: 왜 설날에 세탁? -->
+    <section class="qa-section">
+        <div class="qa-container">
+            <div class="question-block fade-in">
+                <p class="q-label">QUESTION 01</p>
+                <h2 class="question">설 연휴 전에<br>빨래를 해야 하는 이유가 있나요?</h2>
+                <div class="answer">
+                    <p>
+                        우리 어머니들은 예로부터<br>
+                        <strong>새해 첫날엔 빨래를 하지 않았어요.</strong><br><br>
+                        복이 빠져나간다고 믿었거든요.<br><br>
+                        그래서 <strong>설 전에 미리</strong><br>
+                        묵은 빨래를 깨끗이 정리하고<br>
+                        새해를 맞이했습니다.
+                    </p>
+                </div>
+                <div class="highlight-box">
+                    <p>💡 설날 연휴는 최대 <strong>5일</strong><br>
+                    미리 세탁해두지 않으면<br>빨래가 산더미처럼 쌓여요</p>
+                </div>
+            </div>
 
-    <!-- 통계 -->
-    <section class="stats-section">
-        <div class="stats-grid">
-            <div class="stat-item">
-                <p class="stat-number">30<span class="stat-unit">년</span></p>
-                <p class="stat-label">두레생협 역사</p>
+            <div class="question-block fade-in">
+                <p class="q-label">QUESTION 02</p>
+                <h2 class="question">어떤 세제를 써야<br>마음이 편할까요?</h2>
+                <div class="answer">
+                    <p>
+                        설에는 온 가족이 모이잖아요.<br><br>
+                        <strong>어린 손주</strong>부터 <strong>연로하신 부모님</strong>까지<br>
+                        민감한 피부도 많고<br><br>
+                        그래서 두레생협은<br>
+                        <strong>식물성 성분</strong>으로 만든<br>
+                        순한 세탁 생활재를 권합니다.
+                    </p>
+                </div>
             </div>
-            <div class="stat-item">
-                <p class="stat-number">0<span class="stat-unit">%</span></p>
-                <p class="stat-label">석유계 성분</p>
-            </div>
-            <div class="stat-item">
-                <p class="stat-number">94<span class="stat-unit">%</span></p>
-                <p class="stat-label">재구매율</p>
+
+            <div class="question-block fade-in">
+                <p class="q-label">QUESTION 03</p>
+                <h2 class="question">일반 세제랑<br>뭐가 다른가요?</h2>
+                <div class="answer">
+                    <p>
+                        마트 세제는 <strong>석유</strong>에서 뽑은 성분으로<br>
+                        강한 세정력을 만들어요.<br><br>
+                        두레 생활재는 <strong>코코넛, 팜</strong> 같은<br>
+                        식물에서 성분을 추출해요.<br><br>
+                        <strong>피부에 남지 않을 만큼만</strong><br>
+                        충분히 깨끗하게.
+                    </p>
+                </div>
             </div>
         </div>
     </section>
 
-    <!-- 고민 -->
-    <section class="concern-section">
-        <p class="section-label">공감</p>
-        <h2 class="section-title">세제 고를 때,<br>이런 걱정 되셨죠?</h2>
-        
-        <div class="concern-grid">
-            <div class="concern-card">
-                <div class="concern-icon">👶</div>
-                <p class="concern-text"><strong>손주 옷</strong>에 세제가 남을까 걱정</p>
+    <!-- 통계 -->
+    <section class="stats-section">
+        <p class="stats-title fade-in">두레생협 세탁 생활재</p>
+        <div class="stats-grid">
+            <div class="stat-item fade-in">
+                <p class="stat-number"><span class="counter" data-target="30">0</span><span class="unit">년</span></p>
+                <p class="stat-label">두레생협 역사</p>
             </div>
-            <div class="concern-card">
-                <div class="concern-icon">🤲</div>
-                <p class="concern-text"><strong>피부 자극</strong>이 될까 걱정</p>
+            <div class="stat-item fade-in">
+                <p class="stat-number"><span class="counter" data-target="0">0</span><span class="unit">%</span></p>
+                <p class="stat-label">석유계 성분</p>
             </div>
-            <div class="concern-card">
-                <div class="concern-icon">🏭</div>
-                <p class="concern-text">성분표 봐도 <strong>뭐가 좋은지</strong> 모르겠고</p>
+            <div class="stat-item fade-in">
+                <p class="stat-number"><span class="counter" data-target="94">0</span><span class="unit">%</span></p>
+                <p class="stat-label">조합원 재구매율</p>
+            </div>
+            <div class="stat-item fade-in">
+                <p class="stat-number"><span class="counter" data-target="2">0</span><span class="unit">회</span></p>
+                <p class="stat-label">헹굼 횟수</p>
             </div>
         </div>
     </section>
 
     <!-- 제품 -->
     <section class="products-section">
-        <p class="section-label">추천 생활재</p>
-        <h2 class="section-title">두레가 검증한<br>세탁 생활재</h2>
+        <div class="section-header fade-in">
+            <p class="section-label">RECOMMEND</p>
+            <h2 class="section-title">두레가 검증한<br>세탁 생활재</h2>
+        </div>
         
         <div class="products-grid">
-            <div class="product-card">
-                <span class="product-badge">BEST</span>
+            <div class="product-card slide-left">
                 <div class="product-img">
                     <img src="56702C.jpg" alt="제로너스">
                 </div>
-                <h3 class="product-name">식물성 세제<br>제로너스</h3>
-                <ul class="product-features">
-                    <li>코코넛·팜 100%</li>
-                    <li>거품↓ 헹굼 1회↓</li>
-                    <li>찬물 OK</li>
-                </ul>
+                <div class="product-info">
+                    <span class="product-badge">BEST</span>
+                    <h3 class="product-name">식물성 세제 제로너스</h3>
+                    <p class="product-desc">코코넛·팜 100% / 거품↓ 헹굼↓ / 찬물 OK</p>
+                </div>
             </div>
             
-            <div class="product-card">
-                <span class="product-badge">민감피부</span>
+            <div class="product-card slide-right">
                 <div class="product-img">
                     <img src="57151C.png" alt="액상세제">
                 </div>
-                <h3 class="product-name">액상 세탁 세제</h3>
-                <ul class="product-features">
-                    <li>피부과 테스트 완료</li>
-                    <li>빠른 용해, 잔류 0</li>
-                    <li>아기옷·속옷 안심</li>
-                </ul>
+                <div class="product-info">
+                    <span class="product-badge">민감피부</span>
+                    <h3 class="product-name">액상 세탁 세제</h3>
+                    <p class="product-desc">피부과 테스트 완료 / 아기옷·속옷 안심</p>
+                </div>
             </div>
             
-            <div class="product-card">
-                <span class="product-badge">만능</span>
+            <div class="product-card slide-left">
                 <div class="product-img">
                     <img src="41532C.png" alt="베이킹소다">
                 </div>
-                <h3 class="product-name">베이킹소다</h3>
-                <ul class="product-features">
-                    <li>단일 성분 100%</li>
-                    <li>수건 쉰내 제거</li>
-                    <li>세탁조 청소</li>
-                </ul>
+                <div class="product-info">
+                    <span class="product-badge">만능</span>
+                    <h3 class="product-name">베이킹소다</h3>
+                    <p class="product-desc">단일 성분 100% / 수건 쉰내·세탁조 청소</p>
+                </div>
             </div>
             
-            <div class="product-card">
-                <span class="product-badge">유연제 대체</span>
+            <div class="product-card slide-right">
                 <div class="product-img">
                     <img src="41530C.png" alt="구연산">
                 </div>
-                <h3 class="product-name">구연산</h3>
-                <ul class="product-features">
-                    <li>감귤 추출 천연 성분</li>
-                    <li>인공향료 0%</li>
-                    <li>뻣뻣한 수건 해결</li>
-                </ul>
+                <div class="product-info">
+                    <span class="product-badge">유연제 대체</span>
+                    <h3 class="product-name">구연산</h3>
+                    <p class="product-desc">감귤 추출 / 인공향료 0% / 수건 부드럽게</p>
+                </div>
             </div>
         </div>
     </section>
 
     <!-- 비교 -->
     <section class="compare-section">
-        <p class="section-label">비교</p>
-        <h2 class="section-title">무엇이 다를까요?</h2>
+        <div class="section-header fade-in">
+            <p class="section-label">COMPARE</p>
+            <h2 class="section-title">확실히 다릅니다</h2>
+        </div>
         
-        <div class="compare-wrapper">
-            <div class="compare-row compare-header">
-                <div class="compare-cell">일반 세제</div>
-                <div class="compare-cell">두레 생활재</div>
+        <div class="compare-visual">
+            <div class="compare-item fade-in">
+                <span class="compare-label">원료</span>
+                <div class="compare-values">
+                    <span class="compare-old">석유계</span>
+                    <span class="compare-new">식물성</span>
+                </div>
             </div>
-            <div class="compare-row">
-                <div class="compare-cell">석유계 계면활성제</div>
-                <div class="compare-cell">식물성 계면활성제</div>
+            <div class="compare-item fade-in">
+                <span class="compare-label">형광증백제</span>
+                <div class="compare-values">
+                    <span class="compare-old">포함</span>
+                    <span class="compare-new">무첨가</span>
+                </div>
             </div>
-            <div class="compare-row">
-                <div class="compare-cell">형광증백제 ○</div>
-                <div class="compare-cell">형광증백제 ✕</div>
+            <div class="compare-item fade-in">
+                <span class="compare-label">인공향료</span>
+                <div class="compare-values">
+                    <span class="compare-old">포함</span>
+                    <span class="compare-new">무첨가</span>
+                </div>
             </div>
-            <div class="compare-row">
-                <div class="compare-cell">인공 향료</div>
-                <div class="compare-cell">무향 / 천연 향</div>
+            <div class="compare-item fade-in">
+                <span class="compare-label">헹굼 횟수</span>
+                <div class="compare-values">
+                    <span class="compare-old">3회</span>
+                    <span class="compare-new">2회</span>
+                </div>
             </div>
-            <div class="compare-row">
-                <div class="compare-cell">헹굼 3회</div>
-                <div class="compare-cell">헹굼 2회</div>
+            <div class="compare-item fade-in">
+                <span class="compare-label">물 사용량</span>
+                <div class="compare-values">
+                    <span class="compare-old">100%</span>
+                    <span class="compare-new">-33%</span>
+                </div>
             </div>
         </div>
     </section>
 
     <!-- 철학 -->
     <section class="philosophy-section">
-        <p class="philosophy-quote">
-            대형마트 세제는<br>
-            '더 강한 세정력'<br><br>
-            우리는<br>
-            <strong>'충분한 세정력'</strong><br><br>
-            피부에 남지 않을 만큼<br>
-            환경에 부담 주지 않을 만큼
-            <span class="small">— 두레생협이 지키는 기준</span>
-        </p>
+        <div class="philosophy-content fade-in">
+            <p class="philosophy-quote">
+                대형마트 세제는<br>
+                '더 강한 세정력'<br><br>
+                우리는<br>
+                <strong>'충분한 세정력'</strong><br><br>
+                피부에 남지 않을 만큼<br>
+                환경에 부담 주지 않을 만큼
+            </p>
+            <div class="philosophy-divider"></div>
+            <p class="philosophy-author">두레생협이 지키는 기준</p>
+        </div>
     </section>
 
     <!-- 영상 -->
     <section class="video-section">
-        <p class="section-label">인사</p>
-        <h2 class="section-title">새해 인사 드려요</h2>
-        <p class="video-intro">두레생협 사무실도 건강을 위해<br>매일 아침 체조를 하고 있어요</p>
+        <div class="section-header fade-in">
+            <p class="section-label">NEW YEAR</p>
+            <h2 class="section-title">새해 인사 드려요</h2>
+        </div>
+        <p class="video-intro fade-in">두레생협 사무실도 건강을 위해<br>매일 아침 체조를 하고 있어요</p>
         
-        <div class="video-wrapper">
+        <div class="video-wrapper fade-in">
             <div class="video-container">
                 <iframe src="https://player.vimeo.com/video/1150542917?autoplay=1&loop=1&muted=1&background=1" 
                         allow="autoplay; fullscreen; picture-in-picture" 
@@ -760,14 +821,14 @@
             </div>
         </div>
         
-        <p class="greeting-text">
+        <p class="greeting-text fade-in">
             가족 같은 조합원님<br>
             <em>건강하고 따뜻한 새해</em> 되세요<br><br>
             올해도 정직한 생활재로<br>
             곁을 지키겠습니다
         </p>
         
-        <a href="https://www.ecoop.or.kr" class="cta-button">
+        <a href="https://www.ecoop.or.kr" class="cta-button fade-in">
             <span>기획전 바로가기</span>
             <svg viewBox="0 0 24 24"><path d="M8.59,16.58L13.17,12L8.59,7.41L10,6L16,12L10,18L8.59,16.58Z"/></svg>
         </a>
@@ -778,6 +839,57 @@
         <p class="footer-logo">두레생협</p>
         <p class="footer-text">두레지기 드림</p>
     </footer>
+
+    <script>
+        // 스크롤 애니메이션
+        const observerOptions = {
+            threshold: 0.15,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                    
+                    // 카운터 애니메이션
+                    const counters = entry.target.querySelectorAll('.counter');
+                    counters.forEach(counter => {
+                        const target = parseInt(counter.dataset.target);
+                        const duration = 2000;
+                        const step = target / (duration / 16);
+                        let current = 0;
+                        
+                        const updateCounter = () => {
+                            current += step;
+                            if (current < target) {
+                                counter.textContent = Math.floor(current);
+                                requestAnimationFrame(updateCounter);
+                            } else {
+                                counter.textContent = target;
+                            }
+                        };
+                        
+                        updateCounter();
+                    });
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.fade-in, .slide-left, .slide-right').forEach(el => {
+            observer.observe(el);
+        });
+
+        // 스무스 스크롤
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
+                document.querySelector(this.getAttribute('href')).scrollIntoView({
+                    behavior: 'smooth'
+                });
+            });
+        });
+    </script>
 
 </body>
 </html>
