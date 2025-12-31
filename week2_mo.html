@@ -3,19 +3,21 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>새해 첫 세탁 - 두레생협</title>
+    <title>두레지기의 생활 이야기 | 1화. 새해 첫 세탁 - 두레생협</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Nanum+Myeongjo:wght@400;700;800&family=Noto+Sans+KR:wght@400;500;700&display=swap" rel="stylesheet">
     <style>
         :root {
             --dure-green: #6b8e23;
+            --dure-dark: #5a7a1e;
             --dure-light: #f5f7f0;
             --dure-soft: #e8eddf;
             --cream: #fdfbf7;
             --ink-black: #333;
             --ink-gray: #666;
             --warm-brown: #8b7355;
+            --sunrise-orange: #f5a962;
         }
 
         * {
@@ -35,55 +37,101 @@
             line-height: 1.8;
         }
 
-        /* 히어로 섹션 */
-        .hero {
+        /* ========== 시리즈 헤더 ========== */
+        .series-header {
+            background: var(--dure-green);
+            color: white;
+            text-align: center;
+            padding: 12px 20px;
+            font-size: 0.95rem;
+            letter-spacing: 0.1em;
+        }
+
+        .series-header span {
+            opacity: 0.85;
+        }
+
+        .series-header strong {
+            margin-left: 8px;
+        }
+
+        /* ========== 새해 인사 히어로 ========== */
+        .newyear-hero {
             position: relative;
-            height: 70vh;
-            min-height: 500px;
-            background: linear-gradient(to bottom, rgba(0,0,0,0.05) 0%, rgba(0,0,0,0.35) 100%),
+            height: 50vh;
+            min-height: 350px;
+            background: url('ti219a47306_l.jpg') center/cover no-repeat;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            color: #333;
+        }
+
+        .newyear-subtitle {
+            font-size: 1.1rem;
+            color: #666;
+            margin-top: 120px;
+            letter-spacing: 0.05em;
+        }
+
+        /* ========== 메인 히어로 ========== */
+        .main-hero {
+            position: relative;
+            height: 65vh;
+            min-height: 450px;
+            background: linear-gradient(to bottom, rgba(0,0,0,0) 0%, rgba(0,0,0,0.4) 100%),
                         url('Gemini_Generated_Image_hq1hd7hq1hd7hq1h.png') center/cover no-repeat;
             display: flex;
             flex-direction: column;
             justify-content: flex-end;
-            padding: 0 20px 60px;
+            padding: 0 24px 60px;
             text-align: center;
             color: white;
         }
 
-        .hero-label {
-            font-size: 1.1rem;
-            letter-spacing: 0.3em;
-            margin-bottom: 15px;
-            opacity: 0.9;
-        }
-
-        .hero-title {
-            font-family: 'Nanum Myeongjo', serif;
-            font-size: clamp(2.2rem, 7vw, 3rem);
-            font-weight: 700;
-            line-height: 1.4;
+        .episode-badge {
+            display: inline-block;
+            background: var(--dure-green);
+            color: white;
+            font-size: 0.9rem;
+            font-weight: 600;
+            padding: 8px 20px;
+            border-radius: 30px;
             margin-bottom: 20px;
-            text-shadow: 0 2px 20px rgba(0,0,0,0.3);
+            letter-spacing: 0.05em;
         }
 
-        .hero-desc {
+        .main-hero-title {
+            font-family: 'Nanum Myeongjo', serif;
+            font-size: clamp(2rem, 7vw, 2.8rem);
+            font-weight: 700;
+            line-height: 1.45;
+            margin-bottom: 15px;
+            text-shadow: 0 2px 25px rgba(0,0,0,0.35);
+        }
+
+        .main-hero-desc {
             font-size: 1.2rem;
             opacity: 0.95;
             max-width: 400px;
             margin: 0 auto;
+            line-height: 1.8;
         }
 
-        /* 섹션 공통 */
+        /* ========== 섹션 공통 ========== */
         section {
-            padding: 60px 20px;
+            padding: 70px 24px;
         }
 
         .section-title {
             font-family: 'Nanum Myeongjo', serif;
-            font-size: clamp(1.6rem, 5vw, 2rem);
+            font-size: clamp(1.6rem, 5.5vw, 2.1rem);
             text-align: center;
             margin-bottom: 15px;
             color: var(--ink-black);
+            line-height: 1.5;
         }
 
         .section-title .em {
@@ -92,30 +140,101 @@
 
         .section-desc {
             text-align: center;
-            font-size: 1.1rem;
+            font-size: 1.15rem;
             color: var(--ink-gray);
             margin-bottom: 40px;
+            line-height: 1.8;
         }
 
-        /* 제품 그리드 */
+        /* ========== 감성 인트로 ========== */
+        .intro-section {
+            background: var(--dure-soft);
+            text-align: center;
+            padding: 60px 24px;
+        }
+
+        .intro-quote {
+            font-family: 'Nanum Myeongjo', serif;
+            font-size: clamp(1.35rem, 5vw, 1.7rem);
+            line-height: 2;
+            color: var(--ink-black);
+            max-width: 420px;
+            margin: 0 auto;
+        }
+
+        .intro-quote .em {
+            color: var(--dure-green);
+            font-weight: 700;
+        }
+
+        /* ========== 고민 공감 섹션 ========== */
+        .concern-section {
+            background: var(--cream);
+        }
+
+        .concern-list {
+            max-width: 500px;
+            margin: 0 auto;
+        }
+
+        .concern-item {
+            background: white;
+            border-radius: 16px;
+            padding: 22px 25px;
+            margin-bottom: 15px;
+            box-shadow: 0 3px 15px rgba(0,0,0,0.05);
+            display: flex;
+            align-items: flex-start;
+            gap: 15px;
+        }
+
+        .concern-icon {
+            font-size: 1.5rem;
+            flex-shrink: 0;
+        }
+
+        .concern-text {
+            font-size: 1.15rem;
+            color: var(--ink-black);
+            line-height: 1.6;
+        }
+
+        .concern-text strong {
+            color: var(--dure-green);
+        }
+
+        /* ========== 제품 그리드 ========== */
         .products-section {
-            background: var(--dure-light);
+            background: url('cm08188911_l.jpg') center/cover no-repeat;
+            position: relative;
+        }
+
+        .products-section::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: rgba(255,255,255,0.92);
+        }
+
+        .products-section > * {
+            position: relative;
+            z-index: 1;
         }
 
         .products-grid {
             display: grid;
             grid-template-columns: repeat(2, 1fr);
             gap: 20px;
-            max-width: 800px;
+            max-width: 700px;
             margin: 0 auto;
         }
 
         .product-card {
             background: white;
-            border-radius: 16px;
-            padding: 25px 20px;
+            border-radius: 20px;
+            padding: 28px 20px;
             text-align: center;
-            box-shadow: 0 4px 20px rgba(0,0,0,0.06);
+            box-shadow: 0 6px 30px rgba(0,0,0,0.08);
             transition: transform 0.3s ease;
         }
 
@@ -124,9 +243,9 @@
         }
 
         .product-img {
-            width: 120px;
-            height: 120px;
-            margin: 0 auto 15px;
+            width: 110px;
+            height: 110px;
+            margin: 0 auto 18px;
             display: flex;
             align-items: center;
             justify-content: center;
@@ -142,72 +261,160 @@
             font-family: 'Nanum Myeongjo', serif;
             font-size: 1.2rem;
             font-weight: 700;
-            margin-bottom: 8px;
+            margin-bottom: 12px;
             color: var(--ink-black);
+            line-height: 1.4;
         }
 
-        .product-desc {
+        .product-features {
+            text-align: left;
             font-size: 0.95rem;
             color: var(--ink-gray);
-            line-height: 1.6;
+            line-height: 1.7;
         }
 
-        .product-desc strong {
+        .product-features li {
+            margin-bottom: 6px;
+            list-style: none;
+            padding-left: 18px;
+            position: relative;
+        }
+
+        .product-features li::before {
+            content: '✓';
+            position: absolute;
+            left: 0;
             color: var(--dure-green);
+            font-weight: 700;
         }
 
-        /* 생협 메시지 섹션 */
-        .message-section {
+        .product-highlight {
+            display: inline-block;
+            background: var(--dure-light);
+            color: var(--dure-green);
+            font-size: 0.85rem;
+            font-weight: 600;
+            padding: 5px 12px;
+            border-radius: 20px;
+            margin-top: 12px;
+        }
+
+        /* ========== 생협 철학 섹션 ========== */
+        .philosophy-section {
             background: var(--dure-green);
             color: white;
             text-align: center;
-            padding: 50px 20px;
+            padding: 65px 24px;
         }
 
-        .message-section .section-title {
+        .philosophy-section .section-title {
+            color: white;
+            margin-bottom: 30px;
+        }
+
+        .philosophy-section .section-title .em {
+            color: #d4e8a8;
+        }
+
+        .philosophy-quote {
+            font-family: 'Nanum Myeongjo', serif;
+            font-size: clamp(1.3rem, 4.5vw, 1.6rem);
+            line-height: 2.1;
+            max-width: 450px;
+            margin: 0 auto;
+            opacity: 0.97;
+        }
+
+        .philosophy-quote strong {
+            color: #d4e8a8;
+        }
+
+        /* ========== 비교 섹션 ========== */
+        .compare-section {
+            background: var(--dure-soft);
+        }
+
+        .compare-table {
+            max-width: 500px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 4px 25px rgba(0,0,0,0.06);
+        }
+
+        .compare-row {
+            display: flex;
+            border-bottom: 1px solid #eee;
+        }
+
+        .compare-row:last-child {
+            border-bottom: none;
+        }
+
+        .compare-header {
+            background: var(--dure-green);
             color: white;
         }
 
-        .message-section .section-title .em {
-            color: #c8e6c0;
+        .compare-cell {
+            flex: 1;
+            padding: 18px 15px;
+            text-align: center;
+            font-size: 1.05rem;
         }
 
-        .message-quote {
-            font-family: 'Nanum Myeongjo', serif;
-            font-size: clamp(1.3rem, 4vw, 1.6rem);
-            line-height: 2;
-            max-width: 500px;
-            margin: 0 auto;
-            opacity: 0.95;
+        .compare-cell:first-child {
+            border-right: 1px solid rgba(255,255,255,0.2);
         }
 
-        /* 영상 & 새해인사 섹션 */
-        .greeting-section {
+        .compare-row:not(.compare-header) .compare-cell:first-child {
+            border-right: 1px solid #eee;
+            color: #999;
+        }
+
+        .compare-row:not(.compare-header) .compare-cell:last-child {
+            color: var(--dure-green);
+            font-weight: 600;
+        }
+
+        /* ========== 영상 섹션 ========== */
+        .video-section {
             background: var(--cream);
             text-align: center;
         }
 
+        .video-wrapper {
+            max-width: 340px;
+            margin: 0 auto 40px;
+        }
+
         .video-container {
-            max-width: 640px;
-            margin: 0 auto 30px;
-            border-radius: 16px;
+            position: relative;
+            width: 100%;
+            padding-bottom: 177.78%;
+            border-radius: 20px;
             overflow: hidden;
-            box-shadow: 0 8px 30px rgba(0,0,0,0.1);
+            box-shadow: 0 10px 40px rgba(0,0,0,0.12);
+            background: #000;
         }
 
         .video-container iframe {
+            position: absolute;
+            top: 0;
+            left: 0;
             width: 100%;
-            aspect-ratio: 16/9;
+            height: 100%;
             border: none;
         }
 
         .greeting-text {
             font-family: 'Nanum Myeongjo', serif;
-            font-size: clamp(1.2rem, 4vw, 1.5rem);
+            font-size: clamp(1.25rem, 4.5vw, 1.5rem);
             line-height: 2;
             color: var(--ink-black);
-            max-width: 500px;
-            margin: 0 auto 30px;
+            max-width: 450px;
+            margin: 0 auto 35px;
         }
 
         .greeting-text .em {
@@ -215,76 +422,106 @@
             font-weight: 700;
         }
 
-        /* CTA 버튼 */
+        /* ========== CTA 버튼 ========== */
         .cta-button {
             display: inline-flex;
             align-items: center;
             gap: 10px;
             background: var(--dure-green);
             color: white;
-            font-size: 1.2rem;
+            font-size: 1.25rem;
             font-weight: 600;
-            padding: 16px 35px;
+            padding: 18px 40px;
             border-radius: 50px;
             text-decoration: none;
-            box-shadow: 0 6px 25px rgba(107, 142, 35, 0.35);
+            box-shadow: 0 6px 28px rgba(107, 142, 35, 0.4);
             transition: all 0.3s ease;
         }
 
         .cta-button:hover {
+            background: var(--dure-dark);
             transform: translateY(-3px);
-            box-shadow: 0 10px 35px rgba(107, 142, 35, 0.45);
+            box-shadow: 0 10px 35px rgba(107, 142, 35, 0.5);
         }
 
         .cta-button svg {
-            width: 22px;
-            height: 22px;
+            width: 24px;
+            height: 24px;
             fill: white;
         }
 
-        /* 푸터 */
+        /* ========== 다음 예고 ========== */
+        .next-episode {
+            background: var(--dure-light);
+            text-align: center;
+            padding: 50px 24px;
+        }
+
+        .next-episode-label {
+            font-size: 0.95rem;
+            color: var(--ink-gray);
+            margin-bottom: 10px;
+            letter-spacing: 0.1em;
+        }
+
+        .next-episode-title {
+            font-family: 'Nanum Myeongjo', serif;
+            font-size: 1.4rem;
+            color: var(--dure-green);
+            font-weight: 700;
+        }
+
+        /* ========== 푸터 ========== */
         .footer {
             background: var(--dure-soft);
             text-align: center;
-            padding: 40px 20px;
+            padding: 50px 24px;
         }
 
         .stamp {
-            width: 80px;
-            height: 80px;
+            width: 90px;
+            height: 90px;
             border: 2px solid var(--warm-brown);
             border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
             font-family: 'Nanum Myeongjo', serif;
-            font-size: 0.95rem;
+            font-size: 1rem;
             color: var(--warm-brown);
             line-height: 1.3;
             margin: 0 auto 15px;
-            opacity: 0.7;
+            opacity: 0.75;
         }
 
         .footer-text {
             font-family: 'Nanum Myeongjo', serif;
-            font-size: 1.1rem;
+            font-size: 1.15rem;
             color: var(--dure-green);
         }
 
-        /* 반응형 */
-        @media (max-width: 600px) {
+        /* ========== 반응형 ========== */
+        @media (max-width: 500px) {
             .products-grid {
                 grid-template-columns: 1fr;
-                max-width: 350px;
-            }
-
-            .product-img {
-                width: 100px;
-                height: 100px;
+                max-width: 340px;
             }
 
             section {
-                padding: 50px 15px;
+                padding: 55px 20px;
+            }
+
+            .video-wrapper {
+                max-width: 280px;
+            }
+
+            .newyear-hero {
+                height: 40vh;
+                min-height: 280px;
+            }
+
+            .newyear-subtitle {
+                margin-top: 80px;
             }
         }
 
@@ -298,21 +535,66 @@
                 width: 100px;
                 height: 100px;
             }
+
+            .video-wrapper {
+                max-width: 300px;
+            }
         }
     </style>
 </head>
 <body>
 
-    <!-- 히어로 -->
-    <section class="hero">
-        <p class="hero-label">새해 첫 세탁</p>
-        <h1 class="hero-title">뽀송하게 마른 빨래처럼<br>기분 좋은 새해</h1>
-        <p class="hero-desc">햇살과 바람이 선물하는<br>정직한 깨끗함을 전합니다</p>
+    <!-- 시리즈 헤더 -->
+    <header class="series-header">
+        <span>두레지기의 생활 이야기</span>
+        <strong>매주 새로운 생활재를 소개합니다</strong>
+    </header>
+
+    <!-- 새해 인사 히어로 -->
+    <section class="newyear-hero">
+        <p class="newyear-subtitle">을사년 새해, 건강과 행복이 가득하길 바랍니다</p>
+    </section>
+
+    <!-- 메인 히어로 -->
+    <section class="main-hero">
+        <span class="episode-badge">1화</span>
+        <h1 class="main-hero-title">새해 첫 세탁</h1>
+        <p class="main-hero-desc">뽀송하게 마른 빨래처럼<br>기분 좋은 새해를 시작하세요</p>
+    </section>
+
+    <!-- 감성 인트로 -->
+    <section class="intro-section">
+        <p class="intro-quote">
+            묵은해의 먼지를 털어내고<br>
+            깨끗한 햇살 냄새를<br>
+            집안 가득 들이는 건<br><br>
+            <span class="em">엄마의 마음</span>입니다
+        </p>
+    </section>
+
+    <!-- 고민 공감 -->
+    <section class="concern-section">
+        <h2 class="section-title">세제 고를 때<br><span class="em">이런 걱정</span> 되셨죠?</h2>
+        
+        <div class="concern-list">
+            <div class="concern-item">
+                <span class="concern-icon">😟</span>
+                <p class="concern-text"><strong>손주 옷</strong>에 세제가 남을까 걱정</p>
+            </div>
+            <div class="concern-item">
+                <span class="concern-icon">😟</span>
+                <p class="concern-text">피부가 약해서 <strong>자극</strong>이 될까 걱정</p>
+            </div>
+            <div class="concern-item">
+                <span class="concern-icon">😟</span>
+                <p class="concern-text">성분표 봐도 <strong>뭐가 좋은지</strong> 모르겠고</p>
+            </div>
+        </div>
     </section>
 
     <!-- 제품 소개 -->
     <section class="products-section">
-        <h2 class="section-title">새해맞이 <span class="em">세탁 생활재</span></h2>
+        <h2 class="section-title">두레가 추천하는<br><span class="em">세탁 생활재</span></h2>
         <p class="section-desc">식물에서 얻은 순한 성분으로 만들었습니다</p>
         
         <div class="products-grid">
@@ -320,8 +602,13 @@
                 <div class="product-img">
                     <img src="56702C.jpg" alt="식물성 세제 제로너스">
                 </div>
-                <h3 class="product-name">식물성 세제 제로너스</h3>
-                <p class="product-desc"><strong>100% 식물성</strong><br>거품 적고 헹굼 빠른</p>
+                <h3 class="product-name">식물성 세제<br>제로너스</h3>
+                <ul class="product-features">
+                    <li>코코넛·팜 100% 식물성</li>
+                    <li>거품 적어 헹굼 빠름</li>
+                    <li>찬물에도 세정력 유지</li>
+                </ul>
+                <span class="product-highlight">석유계 성분 ZERO</span>
             </div>
             
             <div class="product-card">
@@ -329,7 +616,12 @@
                     <img src="57151C.png" alt="액상 세탁 세제">
                 </div>
                 <h3 class="product-name">액상 세탁 세제</h3>
-                <p class="product-desc"><strong>피부과 테스트 완료</strong><br>아기 옷도 안심</p>
+                <ul class="product-features">
+                    <li>피부과 테스트 완료</li>
+                    <li>빠르게 녹아 잔류 없음</li>
+                    <li>아기 옷·속옷 안심</li>
+                </ul>
+                <span class="product-highlight">민감 피부 추천</span>
             </div>
             
             <div class="product-card">
@@ -337,7 +629,12 @@
                     <img src="41532C.png" alt="베이킹소다">
                 </div>
                 <h3 class="product-name">베이킹소다</h3>
-                <p class="product-desc"><strong>단일 성분</strong><br>수건 쉰내 제거</p>
+                <ul class="product-features">
+                    <li>탄산수소나트륨 단일 성분</li>
+                    <li>수건 쉰내 말끔 제거</li>
+                    <li>세탁조 곰팡이 예방</li>
+                </ul>
+                <span class="product-highlight">100년 검증 성분</span>
             </div>
             
             <div class="product-card">
@@ -345,31 +642,69 @@
                     <img src="41530C.png" alt="구연산">
                 </div>
                 <h3 class="product-name">구연산</h3>
-                <p class="product-desc"><strong>천연 산 성분</strong><br>섬유유연제 대신</p>
+                <ul class="product-features">
+                    <li>감귤 추출 천연 산 성분</li>
+                    <li>섬유유연제 대체</li>
+                    <li>뻣뻣한 수건 부드럽게</li>
+                </ul>
+                <span class="product-highlight">인공 향료 ZERO</span>
             </div>
         </div>
     </section>
 
-    <!-- 생협 메시지 -->
-    <section class="message-section">
+    <!-- 비교 섹션 -->
+    <section class="compare-section">
+        <h2 class="section-title">일반 세제와<br><span class="em">무엇이 다를까요?</span></h2>
+        
+        <div class="compare-table">
+            <div class="compare-row compare-header">
+                <div class="compare-cell">일반 세제</div>
+                <div class="compare-cell">두레 생활재</div>
+            </div>
+            <div class="compare-row">
+                <div class="compare-cell">석유계 계면활성제</div>
+                <div class="compare-cell">식물성 계면활성제</div>
+            </div>
+            <div class="compare-row">
+                <div class="compare-cell">형광증백제 포함</div>
+                <div class="compare-cell">형광증백제 무첨가</div>
+            </div>
+            <div class="compare-row">
+                <div class="compare-cell">인공 향료</div>
+                <div class="compare-cell">무향 또는 천연 향</div>
+            </div>
+            <div class="compare-row">
+                <div class="compare-cell">강한 세정력</div>
+                <div class="compare-cell">충분한 세정력</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 생협 철학 -->
+    <section class="philosophy-section">
         <h2 class="section-title"><span class="em">생협이 만드는 차이</span></h2>
-        <p class="message-quote">
-            대형마트 세제는 '더 강한 세정력'<br><br>
-            우리는 '<strong>충분한 세정력</strong>'<br><br>
+        <p class="philosophy-quote">
+            대형마트 세제는<br>
+            '더 강한 세정력'<br><br>
+            우리는<br>
+            <strong>'충분한 세정력'</strong><br><br>
             피부에 남지 않을 만큼<br>
             환경에 부담 주지 않을 만큼
         </p>
     </section>
 
     <!-- 영상 & 새해인사 -->
-    <section class="greeting-section">
-        <h2 class="section-title">조합원님께 <span class="em">새해 인사</span> 드려요</h2>
-        <p class="section-desc">두레생협 사무실은 건강을 위해 매일 아침 체조를 하고 있어요</p>
+    <section class="video-section">
+        <h2 class="section-title">조합원님께<br><span class="em">새해 인사</span> 드려요</h2>
+        <p class="section-desc">두레생협 사무실도 건강을 위해<br>매일 아침 체조를 하고 있어요 🌿</p>
         
-        <div class="video-container">
-            <iframe src="https://player.vimeo.com/video/1150542917?badge=0&autopause=0&player_id=0&app_id=58479" 
-                    allowfullscreen 
-                    title="두레생협 아침체조"></iframe>
+        <div class="video-wrapper">
+            <div class="video-container">
+                <iframe src="https://player.vimeo.com/video/1150542917?autoplay=1&loop=1&muted=1&background=1&quality=1080p" 
+                        allow="autoplay; fullscreen; picture-in-picture" 
+                        allowfullscreen 
+                        title="두레생협 아침체조"></iframe>
+            </div>
         </div>
         
         <p class="greeting-text">
@@ -383,6 +718,12 @@
             <span>기획전 바로가기</span>
             <svg viewBox="0 0 24 24"><path d="M8.59,16.58L13.17,12L8.59,7.41L10,6L16,12L10,18L8.59,16.58Z"/></svg>
         </a>
+    </section>
+
+    <!-- 다음 예고 -->
+    <section class="next-episode">
+        <p class="next-episode-label">다음 주 예고</p>
+        <p class="next-episode-title">2화. 설날 차례상, 정성을 담아</p>
     </section>
 
     <!-- 푸터 -->
