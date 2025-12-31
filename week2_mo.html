@@ -491,10 +491,15 @@
             transform: translateY(0);
         }
 
-        /* ========== 의견 작성 카드 ========== */
+        /* ========== 의견 작성 카드 (새로운 디자인) ========== */
+        .opinion-card {
+            padding: 70px 24px 100px;
+            overflow-y: auto;
+        }
+
         .opinion-section {
             width: 100%;
-            max-width: 360px;
+            max-width: 400px;
             opacity: 0;
             transform: translateY(20px);
             transition: all 0.6s cubic-bezier(0.4, 0, 0.2, 1) 0.2s;
@@ -505,105 +510,28 @@
             transform: translateY(0);
         }
 
-        .opinion-form {
-            background: white;
-            border-radius: 20px;
-            padding: 25px;
-            box-shadow: 0 10px 40px rgba(0,0,0,0.08);
-            margin-bottom: 20px;
+        /* 의견 목록 - 인용문 스타일 */
+        .voices-area {
+            margin-bottom: 30px;
+            min-height: 180px;
         }
 
-        .opinion-input {
-            width: 100%;
-            border: none;
-            font-family: 'Noto Sans KR', sans-serif;
-            font-size: 1rem;
-            line-height: 1.7;
-            resize: none;
-            outline: none;
-            min-height: 100px;
-            color: var(--black);
-        }
-
-        .opinion-input::placeholder {
-            color: var(--gray-light);
-        }
-
-        .opinion-footer {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-top: 15px;
-            padding-top: 15px;
-            border-top: 1px solid #eee;
-        }
-
-        .opinion-name {
-            flex: 1;
-            border: none;
-            font-family: 'Noto Sans KR', sans-serif;
-            font-size: 0.9rem;
-            outline: none;
-            color: var(--black);
-            margin-right: 10px;
-        }
-
-        .opinion-name::placeholder {
-            color: var(--gray-light);
-        }
-
-        .opinion-submit {
-            background: var(--green);
-            color: white;
-            border: none;
-            padding: 10px 20px;
-            border-radius: 20px;
-            font-family: 'Noto Sans KR', sans-serif;
-            font-size: 0.9rem;
-            font-weight: 600;
-            cursor: pointer;
-            transition: all 0.3s ease;
-        }
-
-        .opinion-submit:active {
-            transform: scale(0.97);
-        }
-
-        .opinion-submit:disabled {
-            background: var(--gray-light);
-            cursor: not-allowed;
-        }
-
-        /* 의견 목록 */
-        .opinion-list {
-            max-height: 200px;
-            overflow-y: auto;
-            padding-right: 5px;
-        }
-
-        .opinion-list::-webkit-scrollbar {
-            width: 4px;
-        }
-
-        .opinion-list::-webkit-scrollbar-thumb {
-            background: var(--gray-light);
-            border-radius: 4px;
-        }
-
-        .opinion-item {
-            background: white;
-            border-radius: 16px;
-            padding: 18px 20px;
-            margin-bottom: 12px;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+        .voice-item {
+            position: relative;
+            padding: 20px 0;
+            border-bottom: 1px solid rgba(74, 103, 65, 0.1);
             text-align: left;
-            animation: slideIn 0.4s ease;
+            animation: voiceFadeIn 0.6s ease;
         }
 
-        @keyframes slideIn {
+        .voice-item:last-child {
+            border-bottom: none;
+        }
+
+        @keyframes voiceFadeIn {
             from {
                 opacity: 0;
-                transform: translateY(10px);
+                transform: translateY(15px);
             }
             to {
                 opacity: 1;
@@ -611,25 +539,143 @@
             }
         }
 
-        .opinion-item-text {
-            font-size: 0.95rem;
+        .voice-text {
+            font-family: 'Nanum Myeongjo', serif;
+            font-size: 1.1rem;
             color: var(--black);
-            line-height: 1.6;
-            margin-bottom: 8px;
+            line-height: 1.8;
+            margin-bottom: 10px;
+            position: relative;
+            padding-left: 20px;
         }
 
-        .opinion-item-meta {
-            font-size: 0.8rem;
+        .voice-text::before {
+            content: '"';
+            position: absolute;
+            left: 0;
+            top: -5px;
+            font-size: 1.8rem;
+            color: var(--green);
+            opacity: 0.4;
+            font-family: 'Nanum Myeongjo', serif;
+        }
+
+        .voice-meta {
+            font-size: 0.85rem;
             color: var(--gray-light);
+            padding-left: 20px;
+        }
+
+        .voice-meta .name {
+            color: var(--green);
+            font-weight: 500;
+        }
+
+        .voice-empty {
+            text-align: center;
+            padding: 40px 20px;
+            color: var(--gray-light);
+        }
+
+        .voice-empty-icon {
+            font-size: 2.5rem;
+            margin-bottom: 15px;
+            opacity: 0.5;
+        }
+
+        .voice-empty-text {
+            font-size: 1rem;
+            line-height: 1.7;
+        }
+
+        /* 의견 입력 폼 */
+        .write-area {
+            background: white;
+            border-radius: 24px;
+            padding: 24px;
+            box-shadow: 0 8px 30px rgba(0,0,0,0.06);
+        }
+
+        .write-label {
+            font-size: 0.85rem;
+            color: var(--green);
+            font-weight: 600;
+            margin-bottom: 12px;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .write-input {
+            width: 100%;
+            border: none;
+            font-family: 'Noto Sans KR', sans-serif;
+            font-size: 1rem;
+            line-height: 1.7;
+            resize: none;
+            outline: none;
+            min-height: 80px;
+            color: var(--black);
+            background: transparent;
+        }
+
+        .write-input::placeholder {
+            color: #bbb;
+        }
+
+        .write-footer {
             display: flex;
             justify-content: space-between;
+            align-items: center;
+            margin-top: 15px;
+            padding-top: 15px;
+            border-top: 1px solid #f0f0f0;
         }
 
-        .opinion-empty {
-            text-align: center;
-            color: var(--gray-light);
+        .write-name {
+            flex: 1;
+            border: none;
+            font-family: 'Noto Sans KR', sans-serif;
             font-size: 0.9rem;
-            padding: 20px;
+            outline: none;
+            color: var(--black);
+            background: transparent;
+            margin-right: 15px;
+        }
+
+        .write-name::placeholder {
+            color: #bbb;
+        }
+
+        .write-submit {
+            background: var(--green);
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 24px;
+            font-family: 'Noto Sans KR', sans-serif;
+            font-size: 0.9rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .write-submit:active {
+            transform: scale(0.97);
+        }
+
+        .write-submit:disabled {
+            background: #ccc;
+            cursor: not-allowed;
+        }
+
+        .write-submit svg {
+            width: 16px;
+            height: 16px;
+            fill: white;
         }
 
         /* 토스트 메시지 */
@@ -638,14 +684,16 @@
             bottom: 120px;
             left: 50%;
             transform: translateX(-50%) translateY(20px);
-            background: var(--black);
+            background: var(--green);
             color: white;
             padding: 14px 28px;
             border-radius: 30px;
             font-size: 0.95rem;
+            font-weight: 500;
             opacity: 0;
             transition: all 0.3s ease;
             z-index: 2000;
+            box-shadow: 0 8px 25px rgba(74, 103, 65, 0.3);
         }
 
         .toast.show {
@@ -819,8 +867,12 @@
                 margin-bottom: 15px;
             }
 
-            .opinion-list {
-                max-height: 150px;
+            .voices-area {
+                min-height: 120px;
+            }
+
+            .voice-text {
+                font-size: 1rem;
             }
         }
     </style>
@@ -1008,27 +1060,36 @@
         </div>
 
         <!-- 10. 의견 작성 -->
-        <div class="card card-warm" data-index="9">
+        <div class="card card-cream opinion-card" data-index="9">
             <p class="card-eyebrow">Your Voice</p>
-            <h2 class="card-title"><em>조합원님의</em><br>이야기를 들려주세요</h2>
+            <h2 class="card-title"><em>조합원님</em> 목소리</h2>
             
             <div class="opinion-section">
-                <div class="opinion-form">
-                    <textarea class="opinion-input" id="opinionText" placeholder="새해 계획이나 두레생협에 바라는 점을 자유롭게 적어주세요 ✍️"></textarea>
-                    <div class="opinion-footer">
-                        <input type="text" class="opinion-name" id="opinionName" placeholder="이름 (선택)">
-                        <button class="opinion-submit" id="submitBtn" onclick="submitOpinion()">등록</button>
+                <!-- 의견 목록 (인용문 스타일) -->
+                <div class="voices-area" id="voicesArea">
+                    <div class="voice-empty">
+                        <div class="voice-empty-icon">💬</div>
+                        <p class="voice-empty-text">첫 번째 이야기를<br>들려주세요</p>
                     </div>
                 </div>
-                
-                <div class="opinion-list" id="opinionList">
-                    <div class="opinion-empty">첫 번째 의견을 남겨주세요 💚</div>
+
+                <!-- 의견 입력 -->
+                <div class="write-area">
+                    <div class="write-label">✍️ 자유롭게 남겨주세요</div>
+                    <textarea class="write-input" id="opinionText" placeholder="새해 다짐, 일상 이야기, 두레생협에 바라는 점 등 무엇이든 좋아요"></textarea>
+                    <div class="write-footer">
+                        <input type="text" class="write-name" id="opinionName" placeholder="이름 (선택)">
+                        <button class="write-submit" id="submitBtn" onclick="submitOpinion()">
+                            등록
+                            <svg viewBox="0 0 24 24"><path d="M2,21L23,12L2,3V10L17,12L2,14V21Z"/></svg>
+                        </button>
+                    </div>
                 </div>
             </div>
         </div>
 
         <!-- 11. 마무리 -->
-        <div class="card card-cream" data-index="10">
+        <div class="card card-warm" data-index="10">
             <p class="card-eyebrow">Thank You</p>
             <h2 class="card-title">올 한 해도<br><em>조합원님 곁에서</em><br>함께할게요</h2>
             <p class="card-desc">30년째 정직한 생활재로<br>24만 조합원과 함께합니다</p>
@@ -1052,7 +1113,7 @@
     </div>
 
     <!-- 토스트 메시지 -->
-    <div class="toast" id="toast">의견이 등록되었습니다 💚</div>
+    <div class="toast" id="toast">소중한 이야기 감사합니다 💚</div>
 
     <!-- Firebase SDK -->
     <script type="module">
@@ -1081,15 +1142,14 @@
             const submitBtn = document.getElementById('submitBtn');
             
             const text = textEl.value.trim();
-            const name = nameEl.value.trim() || '익명';
+            const name = nameEl.value.trim() || '익명의 조합원';
             
             if (!text) {
-                showToast('내용을 입력해주세요');
+                showToast('이야기를 입력해주세요');
                 return;
             }
             
             submitBtn.disabled = true;
-            submitBtn.textContent = '등록 중...';
             
             try {
                 await addDoc(collection(db, "opinions"), {
@@ -1100,13 +1160,12 @@
                 
                 textEl.value = '';
                 nameEl.value = '';
-                showToast('의견이 등록되었습니다 💚');
+                showToast('소중한 이야기 감사합니다 💚');
             } catch (error) {
                 console.error("Error:", error);
                 showToast('잠시 후 다시 시도해주세요');
             } finally {
                 submitBtn.disabled = false;
-                submitBtn.textContent = '등록';
             }
         };
 
@@ -1114,34 +1173,51 @@
         const q = query(
             collection(db, "opinions"), 
             orderBy("createdAt", "desc"), 
-            limit(20)
+            limit(5)
         );
 
         onSnapshot(q, (snapshot) => {
-            const listEl = document.getElementById('opinionList');
+            const voicesArea = document.getElementById('voicesArea');
             
             if (snapshot.empty) {
-                listEl.innerHTML = '<div class="opinion-empty">첫 번째 의견을 남겨주세요 💚</div>';
+                voicesArea.innerHTML = `
+                    <div class="voice-empty">
+                        <div class="voice-empty-icon">💬</div>
+                        <p class="voice-empty-text">첫 번째 이야기를<br>들려주세요</p>
+                    </div>
+                `;
                 return;
             }
             
-            listEl.innerHTML = '';
+            voicesArea.innerHTML = '';
             snapshot.forEach((doc) => {
                 const data = doc.data();
-                const date = data.createdAt ? new Date(data.createdAt.toDate()).toLocaleDateString('ko-KR') : '방금';
+                const date = data.createdAt ? formatDate(data.createdAt.toDate()) : '방금';
                 
                 const item = document.createElement('div');
-                item.className = 'opinion-item';
+                item.className = 'voice-item';
                 item.innerHTML = `
-                    <p class="opinion-item-text">${escapeHtml(data.text)}</p>
-                    <div class="opinion-item-meta">
-                        <span>${escapeHtml(data.name)}</span>
-                        <span>${date}</span>
-                    </div>
+                    <p class="voice-text">${escapeHtml(data.text)}</p>
+                    <p class="voice-meta"><span class="name">${escapeHtml(data.name)}</span> · ${date}</p>
                 `;
-                listEl.appendChild(item);
+                voicesArea.appendChild(item);
             });
         });
+
+        // 날짜 포맷
+        function formatDate(date) {
+            const now = new Date();
+            const diff = now - date;
+            const minutes = Math.floor(diff / 60000);
+            const hours = Math.floor(diff / 3600000);
+            const days = Math.floor(diff / 86400000);
+            
+            if (minutes < 1) return '방금';
+            if (minutes < 60) return `${minutes}분 전`;
+            if (hours < 24) return `${hours}시간 전`;
+            if (days < 7) return `${days}일 전`;
+            return date.toLocaleDateString('ko-KR');
+        }
 
         // HTML 이스케이프
         function escapeHtml(text) {
@@ -1216,8 +1292,7 @@
         nextBtn.addEventListener('click', () => goToCard(currentIndex + 1));
 
         container.addEventListener('touchstart', (e) => {
-            // 의견 입력 중일 때는 스와이프 비활성화
-            if (e.target.closest('.opinion-form')) return;
+            if (e.target.closest('.write-area')) return;
             isDragging = true;
             startX = e.touches[0].clientX;
             container.style.transition = 'none';
@@ -1249,7 +1324,7 @@
         });
 
         container.addEventListener('mousedown', (e) => {
-            if (e.target.closest('.opinion-form')) return;
+            if (e.target.closest('.write-area')) return;
             isDragging = true;
             startX = e.clientX;
             container.style.transition = 'none';
