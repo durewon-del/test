@@ -368,62 +368,6 @@
             color: var(--gray);
         }
 
-        /* ========== 큰 특징 카드 (가로형) ========== */
-        .feature-cards {
-            display: flex;
-            gap: 10px;
-            margin-bottom: 20px;
-            opacity: 0;
-            transform: translateY(20px);
-            transition: all 0.6s cubic-bezier(0.4, 0, 0.2, 1) 0.35s;
-        }
-
-        .card.active .feature-cards {
-            opacity: 1;
-            transform: translateY(0);
-        }
-
-        .feature-card {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            padding: 14px 18px;
-            background: white;
-            border-radius: 16px;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.06);
-        }
-
-        .feature-card-icon {
-            width: 40px;
-            height: 40px;
-            border-radius: 12px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 1.2rem;
-            flex-shrink: 0;
-        }
-
-        .feature-card-icon.green { background: var(--green-light); }
-        .feature-card-icon.blue { background: #e8eef4; }
-        .feature-card-icon.orange { background: #f7ece4; }
-
-        .feature-card-text {
-            text-align: left;
-        }
-
-        .feature-card-title {
-            font-size: 0.9rem;
-            font-weight: 700;
-            color: var(--black);
-            margin-bottom: 2px;
-        }
-
-        .feature-card-desc {
-            font-size: 0.75rem;
-            color: var(--gray);
-        }
-
         /* ========== 제품 링크 ========== */
         .product-link {
             display: inline-flex;
@@ -545,6 +489,168 @@
         .card.active .video-overlay .card-title {
             opacity: 1;
             transform: translateY(0);
+        }
+
+        /* ========== 의견 작성 카드 ========== */
+        .opinion-section {
+            width: 100%;
+            max-width: 360px;
+            opacity: 0;
+            transform: translateY(20px);
+            transition: all 0.6s cubic-bezier(0.4, 0, 0.2, 1) 0.2s;
+        }
+
+        .card.active .opinion-section {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .opinion-form {
+            background: white;
+            border-radius: 20px;
+            padding: 25px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.08);
+            margin-bottom: 20px;
+        }
+
+        .opinion-input {
+            width: 100%;
+            border: none;
+            font-family: 'Noto Sans KR', sans-serif;
+            font-size: 1rem;
+            line-height: 1.7;
+            resize: none;
+            outline: none;
+            min-height: 100px;
+            color: var(--black);
+        }
+
+        .opinion-input::placeholder {
+            color: var(--gray-light);
+        }
+
+        .opinion-footer {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: 15px;
+            padding-top: 15px;
+            border-top: 1px solid #eee;
+        }
+
+        .opinion-name {
+            flex: 1;
+            border: none;
+            font-family: 'Noto Sans KR', sans-serif;
+            font-size: 0.9rem;
+            outline: none;
+            color: var(--black);
+            margin-right: 10px;
+        }
+
+        .opinion-name::placeholder {
+            color: var(--gray-light);
+        }
+
+        .opinion-submit {
+            background: var(--green);
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 20px;
+            font-family: 'Noto Sans KR', sans-serif;
+            font-size: 0.9rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .opinion-submit:active {
+            transform: scale(0.97);
+        }
+
+        .opinion-submit:disabled {
+            background: var(--gray-light);
+            cursor: not-allowed;
+        }
+
+        /* 의견 목록 */
+        .opinion-list {
+            max-height: 200px;
+            overflow-y: auto;
+            padding-right: 5px;
+        }
+
+        .opinion-list::-webkit-scrollbar {
+            width: 4px;
+        }
+
+        .opinion-list::-webkit-scrollbar-thumb {
+            background: var(--gray-light);
+            border-radius: 4px;
+        }
+
+        .opinion-item {
+            background: white;
+            border-radius: 16px;
+            padding: 18px 20px;
+            margin-bottom: 12px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+            text-align: left;
+            animation: slideIn 0.4s ease;
+        }
+
+        @keyframes slideIn {
+            from {
+                opacity: 0;
+                transform: translateY(10px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .opinion-item-text {
+            font-size: 0.95rem;
+            color: var(--black);
+            line-height: 1.6;
+            margin-bottom: 8px;
+        }
+
+        .opinion-item-meta {
+            font-size: 0.8rem;
+            color: var(--gray-light);
+            display: flex;
+            justify-content: space-between;
+        }
+
+        .opinion-empty {
+            text-align: center;
+            color: var(--gray-light);
+            font-size: 0.9rem;
+            padding: 20px;
+        }
+
+        /* 토스트 메시지 */
+        .toast {
+            position: fixed;
+            bottom: 120px;
+            left: 50%;
+            transform: translateX(-50%) translateY(20px);
+            background: var(--black);
+            color: white;
+            padding: 14px 28px;
+            border-radius: 30px;
+            font-size: 0.95rem;
+            opacity: 0;
+            transition: all 0.3s ease;
+            z-index: 2000;
+        }
+
+        .toast.show {
+            opacity: 1;
+            transform: translateX(-50%) translateY(0);
         }
 
         /* ========== 네비게이션 ========== */
@@ -711,6 +817,10 @@
 
             .product-desc {
                 margin-bottom: 15px;
+            }
+
+            .opinion-list {
+                max-height: 150px;
             }
         }
     </style>
@@ -897,8 +1007,28 @@
             </div>
         </div>
 
-        <!-- 10. 마무리 -->
+        <!-- 10. 의견 작성 -->
         <div class="card card-warm" data-index="9">
+            <p class="card-eyebrow">Your Voice</p>
+            <h2 class="card-title"><em>조합원님의</em><br>이야기를 들려주세요</h2>
+            
+            <div class="opinion-section">
+                <div class="opinion-form">
+                    <textarea class="opinion-input" id="opinionText" placeholder="새해 계획이나 두레생협에 바라는 점을 자유롭게 적어주세요 ✍️"></textarea>
+                    <div class="opinion-footer">
+                        <input type="text" class="opinion-name" id="opinionName" placeholder="이름 (선택)">
+                        <button class="opinion-submit" id="submitBtn" onclick="submitOpinion()">등록</button>
+                    </div>
+                </div>
+                
+                <div class="opinion-list" id="opinionList">
+                    <div class="opinion-empty">첫 번째 의견을 남겨주세요 💚</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 11. 마무리 -->
+        <div class="card card-cream" data-index="10">
             <p class="card-eyebrow">Thank You</p>
             <h2 class="card-title">올 한 해도<br><em>조합원님 곁에서</em><br>함께할게요</h2>
             <p class="card-desc">30년째 정직한 생활재로<br>24만 조합원과 함께합니다</p>
@@ -920,6 +1050,115 @@
             <svg viewBox="0 0 24 24"><path d="M8.59,16.58L13.17,12L8.59,7.41L10,6L16,12L10,18L8.59,16.58Z"/></svg>
         </button>
     </div>
+
+    <!-- 토스트 메시지 -->
+    <div class="toast" id="toast">의견이 등록되었습니다 💚</div>
+
+    <!-- Firebase SDK -->
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
+        import { getFirestore, collection, addDoc, query, orderBy, limit, onSnapshot, serverTimestamp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
+
+        // Firebase 설정
+        const firebaseConfig = {
+            apiKey: "AIzaSyDrb6CvMBn9jSfDeuwWseJywFHLbChNr4U",
+            authDomain: "durunioncoop.firebaseapp.com",
+            projectId: "durunioncoop",
+            storageBucket: "durunioncoop.firebasestorage.app",
+            messagingSenderId: "439719435906",
+            appId: "1:439719435906:web:3d1d841ad6e80939eb5e9b",
+            measurementId: "G-NSEYF1TDCH"
+        };
+
+        // Firebase 초기화
+        const app = initializeApp(firebaseConfig);
+        const db = getFirestore(app);
+
+        // 의견 등록
+        window.submitOpinion = async function() {
+            const textEl = document.getElementById('opinionText');
+            const nameEl = document.getElementById('opinionName');
+            const submitBtn = document.getElementById('submitBtn');
+            
+            const text = textEl.value.trim();
+            const name = nameEl.value.trim() || '익명';
+            
+            if (!text) {
+                showToast('내용을 입력해주세요');
+                return;
+            }
+            
+            submitBtn.disabled = true;
+            submitBtn.textContent = '등록 중...';
+            
+            try {
+                await addDoc(collection(db, "opinions"), {
+                    text: text,
+                    name: name,
+                    createdAt: serverTimestamp()
+                });
+                
+                textEl.value = '';
+                nameEl.value = '';
+                showToast('의견이 등록되었습니다 💚');
+            } catch (error) {
+                console.error("Error:", error);
+                showToast('잠시 후 다시 시도해주세요');
+            } finally {
+                submitBtn.disabled = false;
+                submitBtn.textContent = '등록';
+            }
+        };
+
+        // 실시간 의견 목록
+        const q = query(
+            collection(db, "opinions"), 
+            orderBy("createdAt", "desc"), 
+            limit(20)
+        );
+
+        onSnapshot(q, (snapshot) => {
+            const listEl = document.getElementById('opinionList');
+            
+            if (snapshot.empty) {
+                listEl.innerHTML = '<div class="opinion-empty">첫 번째 의견을 남겨주세요 💚</div>';
+                return;
+            }
+            
+            listEl.innerHTML = '';
+            snapshot.forEach((doc) => {
+                const data = doc.data();
+                const date = data.createdAt ? new Date(data.createdAt.toDate()).toLocaleDateString('ko-KR') : '방금';
+                
+                const item = document.createElement('div');
+                item.className = 'opinion-item';
+                item.innerHTML = `
+                    <p class="opinion-item-text">${escapeHtml(data.text)}</p>
+                    <div class="opinion-item-meta">
+                        <span>${escapeHtml(data.name)}</span>
+                        <span>${date}</span>
+                    </div>
+                `;
+                listEl.appendChild(item);
+            });
+        });
+
+        // HTML 이스케이프
+        function escapeHtml(text) {
+            const div = document.createElement('div');
+            div.textContent = text;
+            return div.innerHTML;
+        }
+
+        // 토스트 메시지
+        function showToast(message) {
+            const toast = document.getElementById('toast');
+            toast.textContent = message;
+            toast.classList.add('show');
+            setTimeout(() => toast.classList.remove('show'), 2500);
+        }
+        window.showToast = showToast;
+    </script>
 
     <script>
         const container = document.getElementById('cardContainer');
@@ -977,6 +1216,8 @@
         nextBtn.addEventListener('click', () => goToCard(currentIndex + 1));
 
         container.addEventListener('touchstart', (e) => {
+            // 의견 입력 중일 때는 스와이프 비활성화
+            if (e.target.closest('.opinion-form')) return;
             isDragging = true;
             startX = e.touches[0].clientX;
             container.style.transition = 'none';
@@ -991,6 +1232,7 @@
         });
 
         container.addEventListener('touchend', () => {
+            if (!isDragging) return;
             isDragging = false;
             container.style.transition = 'transform 0.5s cubic-bezier(0.4, 0, 0.2, 1)';
             
@@ -1007,6 +1249,7 @@
         });
 
         container.addEventListener('mousedown', (e) => {
+            if (e.target.closest('.opinion-form')) return;
             isDragging = true;
             startX = e.clientX;
             container.style.transition = 'none';
