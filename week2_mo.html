@@ -11,12 +11,16 @@
         :root {
             --green: #4a6741;
             --green-light: #e8f0e4;
+            --green-pale: #f4f7f3;
             --cream: #fdfbf7;
             --warm: #f7f3ed;
             --black: #1a1a1a;
             --gray: #666;
             --gray-light: #999;
             --accent: #c9a66b;
+            --blue: #5b7a9d;
+            --orange: #d4915d;
+            --pink: #c97b8b;
         }
 
         * {
@@ -46,12 +50,7 @@
             justify-content: space-between;
             align-items: center;
             background: transparent;
-            transition: background 0.3s ease;
-        }
-
-        .magazine-header.scrolled {
-            background: rgba(255,255,255,0.95);
-            backdrop-filter: blur(10px);
+            transition: all 0.3s ease;
         }
 
         .magazine-logo {
@@ -91,24 +90,9 @@
             justify-content: center;
             align-items: center;
             text-align: center;
-            padding: 70px 28px 90px;
+            padding: 70px 24px 100px;
             position: relative;
             overflow: hidden;
-        }
-
-        /* ========== 장식 요소 ========== */
-        .deco-circle {
-            position: absolute;
-            border-radius: 50%;
-            opacity: 0.5;
-            pointer-events: none;
-        }
-
-        .deco-line {
-            position: absolute;
-            background: var(--green);
-            opacity: 0.1;
-            pointer-events: none;
         }
 
         /* ========== 카드 스타일 ========== */
@@ -132,7 +116,7 @@
 
         .card-video {
             background: #000;
-            padding: 70px 0 90px;
+            padding: 70px 0 100px;
         }
 
         /* ========== 타이포그래피 ========== */
@@ -272,15 +256,15 @@
 
         /* ========== 제품 카드 ========== */
         .product-image {
-            width: 240px;
-            height: 240px;
-            margin-bottom: 25px;
+            width: 200px;
+            height: 200px;
+            margin-bottom: 20px;
             display: flex;
             align-items: center;
             justify-content: center;
             background: white;
-            border-radius: 32px;
-            box-shadow: 0 20px 60px rgba(0,0,0,0.1);
+            border-radius: 30px;
+            box-shadow: 0 15px 50px rgba(0,0,0,0.08);
             opacity: 0;
             transform: scale(0.9);
             transition: all 0.7s cubic-bezier(0.4, 0, 0.2, 1);
@@ -292,17 +276,17 @@
         }
 
         .product-image img {
-            max-width: 80%;
-            max-height: 80%;
+            max-width: 75%;
+            max-height: 75%;
             object-fit: contain;
         }
 
         .product-name {
             font-family: 'Nanum Myeongjo', serif;
-            font-size: 1.5rem;
+            font-size: 1.4rem;
             font-weight: 700;
             color: var(--black);
-            margin-bottom: 12px;
+            margin-bottom: 8px;
             opacity: 0;
             transform: translateY(20px);
             transition: all 0.6s cubic-bezier(0.4, 0, 0.2, 1) 0.2s;
@@ -314,9 +298,9 @@
         }
 
         .product-desc {
-            font-size: 1.05rem;
+            font-size: 1rem;
             color: var(--gray);
-            line-height: 1.8;
+            line-height: 1.7;
             margin-bottom: 20px;
             opacity: 0;
             transform: translateY(20px);
@@ -328,20 +312,133 @@
             transform: translateY(0);
         }
 
+        /* ========== 특징 도형 ========== */
+        .feature-badges {
+            display: flex;
+            justify-content: center;
+            gap: 12px;
+            margin-bottom: 20px;
+            flex-wrap: wrap;
+            max-width: 340px;
+            opacity: 0;
+            transform: translateY(20px);
+            transition: all 0.6s cubic-bezier(0.4, 0, 0.2, 1) 0.35s;
+        }
+
+        .card.active .feature-badges {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .feature-badge {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 6px;
+            padding: 12px 16px;
+            background: var(--green-pale);
+            border-radius: 16px;
+            min-width: 90px;
+        }
+
+        .feature-icon {
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.1rem;
+        }
+
+        .feature-icon.green { background: var(--green); color: white; }
+        .feature-icon.blue { background: var(--blue); color: white; }
+        .feature-icon.orange { background: var(--orange); color: white; }
+        .feature-icon.accent { background: var(--accent); color: white; }
+
+        .feature-text {
+            font-size: 0.8rem;
+            font-weight: 600;
+            color: var(--black);
+            white-space: nowrap;
+        }
+
+        .feature-sub {
+            font-size: 0.7rem;
+            color: var(--gray);
+        }
+
+        /* ========== 큰 특징 카드 (가로형) ========== */
+        .feature-cards {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 20px;
+            opacity: 0;
+            transform: translateY(20px);
+            transition: all 0.6s cubic-bezier(0.4, 0, 0.2, 1) 0.35s;
+        }
+
+        .card.active .feature-cards {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .feature-card {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 14px 18px;
+            background: white;
+            border-radius: 16px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.06);
+        }
+
+        .feature-card-icon {
+            width: 40px;
+            height: 40px;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2rem;
+            flex-shrink: 0;
+        }
+
+        .feature-card-icon.green { background: var(--green-light); }
+        .feature-card-icon.blue { background: #e8eef4; }
+        .feature-card-icon.orange { background: #f7ece4; }
+
+        .feature-card-text {
+            text-align: left;
+        }
+
+        .feature-card-title {
+            font-size: 0.9rem;
+            font-weight: 700;
+            color: var(--black);
+            margin-bottom: 2px;
+        }
+
+        .feature-card-desc {
+            font-size: 0.75rem;
+            color: var(--gray);
+        }
+
+        /* ========== 제품 링크 ========== */
         .product-link {
             display: inline-flex;
             align-items: center;
             gap: 6px;
-            color: var(--green);
+            color: white;
+            background: var(--green);
             font-size: 0.95rem;
             font-weight: 600;
             text-decoration: none;
-            padding: 12px 24px;
-            border: 1.5px solid var(--green);
+            padding: 14px 28px;
             border-radius: 30px;
             opacity: 0;
             transform: translateY(20px);
-            transition: all 0.6s cubic-bezier(0.4, 0, 0.2, 1) 0.4s;
+            transition: all 0.6s cubic-bezier(0.4, 0, 0.2, 1) 0.45s;
         }
 
         .card.active .product-link {
@@ -350,8 +447,7 @@
         }
 
         .product-link:active {
-            background: var(--green);
-            color: white;
+            transform: scale(0.97);
         }
 
         .product-link svg {
@@ -497,8 +593,8 @@
         }
 
         .nav-arrow {
-            width: 36px;
-            height: 36px;
+            width: 40px;
+            height: 40px;
             border-radius: 50%;
             background: rgba(0,0,0,0.05);
             border: none;
@@ -515,8 +611,8 @@
         }
 
         .nav-arrow svg {
-            width: 18px;
-            height: 18px;
+            width: 20px;
+            height: 20px;
             fill: var(--black);
         }
 
@@ -569,28 +665,52 @@
         /* ========== 반응형 ========== */
         @media (min-width: 768px) {
             .product-image {
-                width: 300px;
-                height: 300px;
+                width: 240px;
+                height: 240px;
             }
 
             .card {
                 padding: 80px 50px 100px;
             }
+
+            .feature-badge {
+                min-width: 100px;
+                padding: 14px 20px;
+            }
         }
 
-        @media (max-height: 700px) {
+        @media (max-height: 750px) {
             .product-image {
-                width: 200px;
-                height: 200px;
+                width: 160px;
+                height: 160px;
             }
 
             .card-title {
-                font-size: clamp(1.5rem, 6vw, 2rem);
-                margin-bottom: 18px;
+                font-size: clamp(1.4rem, 6vw, 1.9rem);
+                margin-bottom: 15px;
             }
 
             .card {
-                padding: 60px 24px 80px;
+                padding: 60px 20px 90px;
+            }
+
+            .feature-badge {
+                padding: 10px 14px;
+                min-width: 80px;
+            }
+
+            .feature-icon {
+                width: 32px;
+                height: 32px;
+                font-size: 1rem;
+            }
+
+            .feature-text {
+                font-size: 0.75rem;
+            }
+
+            .product-desc {
+                margin-bottom: 15px;
             }
         }
     </style>
@@ -609,7 +729,7 @@
         <div class="card card-dark active" data-index="0">
             <div class="intro-bg"></div>
             <div class="intro-content">
-                <p class="intro-date">1, 1, 2025</p>
+                <p class="intro-date">January 1, 2025</p>
                 <h1 class="intro-main">새롭게 시작하는 하루<br><em>개운한 빨래</em><br>어떠세요?</h1>
                 <p class="intro-sub">뽀송하게 마른 빨래처럼<br>기분 좋은 한 해 되세요</p>
             </div>
@@ -637,6 +757,22 @@
             </div>
             <h3 class="product-name">식물성 세제 제로너스</h3>
             <p class="product-desc">코코넛에서 뽑은 성분으로<br>헹굼 한 번 줄여도 깨끗해요</p>
+            
+            <div class="feature-badges">
+                <div class="feature-badge">
+                    <div class="feature-icon green">🌿</div>
+                    <span class="feature-text">식물성 100%</span>
+                </div>
+                <div class="feature-badge">
+                    <div class="feature-icon blue">💧</div>
+                    <span class="feature-text">헹굼 2회</span>
+                </div>
+                <div class="feature-badge">
+                    <div class="feature-icon orange">❄️</div>
+                    <span class="feature-text">찬물 OK</span>
+                </div>
+            </div>
+            
             <a href="https://www.ecoop.or.kr" class="product-link">
                 바로가기
                 <svg viewBox="0 0 24 24"><path d="M8.59,16.58L13.17,12L8.59,7.41L10,6L16,12L10,18L8.59,16.58Z"/></svg>
@@ -650,6 +786,24 @@
             </div>
             <h3 class="product-name">액상 세탁 세제</h3>
             <p class="product-desc">피부과 테스트 마쳤어요<br>민감한 피부도 안심이에요</p>
+            
+            <div class="feature-badges">
+                <div class="feature-badge">
+                    <div class="feature-icon green">✓</div>
+                    <span class="feature-text">피부 테스트</span>
+                    <span class="feature-sub">완료</span>
+                </div>
+                <div class="feature-badge">
+                    <div class="feature-icon blue">👶</div>
+                    <span class="feature-text">아기옷</span>
+                    <span class="feature-sub">안심</span>
+                </div>
+                <div class="feature-badge">
+                    <div class="feature-icon accent">○</div>
+                    <span class="feature-text">무향</span>
+                </div>
+            </div>
+            
             <a href="https://www.ecoop.or.kr" class="product-link">
                 바로가기
                 <svg viewBox="0 0 24 24"><path d="M8.59,16.58L13.17,12L8.59,7.41L10,6L16,12L10,18L8.59,16.58Z"/></svg>
@@ -663,6 +817,24 @@
             </div>
             <h3 class="product-name">베이킹소다</h3>
             <p class="product-desc">수건 쉰내 날 때<br>한 숟갈이면 싹 사라져요</p>
+            
+            <div class="feature-badges">
+                <div class="feature-badge">
+                    <div class="feature-icon green">🧂</div>
+                    <span class="feature-text">단일 성분</span>
+                    <span class="feature-sub">100%</span>
+                </div>
+                <div class="feature-badge">
+                    <div class="feature-icon orange">👃</div>
+                    <span class="feature-text">쉰내 제거</span>
+                </div>
+                <div class="feature-badge">
+                    <div class="feature-icon blue">🌀</div>
+                    <span class="feature-text">세탁조</span>
+                    <span class="feature-sub">청소</span>
+                </div>
+            </div>
+            
             <a href="https://www.ecoop.or.kr" class="product-link">
                 바로가기
                 <svg viewBox="0 0 24 24"><path d="M8.59,16.58L13.17,12L8.59,7.41L10,6L16,12L10,18L8.59,16.58Z"/></svg>
@@ -676,6 +848,24 @@
             </div>
             <h3 class="product-name">구연산</h3>
             <p class="product-desc">유연제 대신 넣으면<br>뻣뻣한 수건도 보들보들</p>
+            
+            <div class="feature-badges">
+                <div class="feature-badge">
+                    <div class="feature-icon orange">🍋</div>
+                    <span class="feature-text">감귤 추출</span>
+                </div>
+                <div class="feature-badge">
+                    <div class="feature-icon green">✕</div>
+                    <span class="feature-text">인공향</span>
+                    <span class="feature-sub">무첨가</span>
+                </div>
+                <div class="feature-badge">
+                    <div class="feature-icon blue">🧴</div>
+                    <span class="feature-text">유연제</span>
+                    <span class="feature-sub">대체</span>
+                </div>
+            </div>
+            
             <a href="https://www.ecoop.or.kr" class="product-link">
                 바로가기
                 <svg viewBox="0 0 24 24"><path d="M8.59,16.58L13.17,12L8.59,7.41L10,6L16,12L10,18L8.59,16.58Z"/></svg>
@@ -756,17 +946,14 @@
         const dots = document.querySelectorAll('.nav-dot');
 
         function updateUI() {
-            // 닷 업데이트
             dots.forEach((dot, i) => {
                 dot.classList.toggle('active', i === currentIndex);
             });
 
-            // 카드 active 클래스
             cards.forEach((card, i) => {
                 card.classList.toggle('active', i === currentIndex);
             });
 
-            // 헤더 색상
             const currentCard = cards[currentIndex];
             const isDark = currentCard.classList.contains('card-dark') || 
                           currentCard.classList.contains('card-green') ||
@@ -786,11 +973,9 @@
             updateUI();
         }
 
-        // 화살표 버튼
         prevBtn.addEventListener('click', () => goToCard(currentIndex - 1));
         nextBtn.addEventListener('click', () => goToCard(currentIndex + 1));
 
-        // 터치 이벤트
         container.addEventListener('touchstart', (e) => {
             isDragging = true;
             startX = e.touches[0].clientX;
@@ -821,7 +1006,6 @@
             goToCard(currentIndex);
         });
 
-        // 마우스 이벤트
         container.addEventListener('mousedown', (e) => {
             isDragging = true;
             startX = e.clientX;
@@ -862,20 +1046,16 @@
             }
         });
 
-        // 키보드
         document.addEventListener('keydown', (e) => {
             if (e.key === 'ArrowRight') goToCard(currentIndex + 1);
             if (e.key === 'ArrowLeft') goToCard(currentIndex - 1);
         });
 
-        // 리사이즈
         window.addEventListener('resize', () => goToCard(currentIndex));
 
-        // 초기화
         container.style.cursor = 'grab';
         updateUI();
     </script>
 
 </body>
 </html>
-
