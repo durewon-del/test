@@ -74,6 +74,40 @@
             letter-spacing: 0.05em;
         }
 
+        /* ========== 실시간 접속자 ========== */
+        .live-visitors {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            background: rgba(255,255,255,0.15);
+            backdrop-filter: blur(10px);
+            padding: 6px 12px;
+            border-radius: 20px;
+        }
+
+        .live-dot {
+            width: 8px;
+            height: 8px;
+            background: #4ade80;
+            border-radius: 50%;
+            animation: pulse 1.5s ease-in-out infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 1; transform: scale(1); }
+            50% { opacity: 0.6; transform: scale(0.9); }
+        }
+
+        .live-count {
+            font-size: 0.75rem;
+            color: white;
+            font-weight: 500;
+        }
+
+        .live-count strong {
+            font-weight: 700;
+        }
+
         /* ========== 실시간 의견 띠 ========== */
         .live-voice-bar {
             position: fixed;
@@ -848,7 +882,10 @@
     <!-- 매거진 헤더 -->
     <header class="magazine-header">
         <div class="magazine-logo">두레<span>생협</span></div>
-        <div class="magazine-issue">2025 / Vol.01</div>
+        <div class="live-visitors">
+            <div class="live-dot"></div>
+            <span class="live-count"><strong id="visitorCount">1</strong>명 보는 중</span>
+        </div>
     </header>
 
     <!-- 스크롤 인디케이터 -->
@@ -1245,6 +1282,7 @@
     <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
         import { getFirestore, collection, addDoc, query, orderBy, limit, onSnapshot, serverTimestamp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
+        import { getDatabase, ref, set, onValue, onDisconnect, serverTimestamp as rtdbTimestamp, remove } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-database.js";
 
         const firebaseConfig = {
             apiKey: "AIzaSyDrb6CvMBn9jSfDeuwWseJywFHLbChNr4U",
@@ -1253,11 +1291,42 @@
             storageBucket: "durunioncoop.firebasestorage.app",
             messagingSenderId: "439719435906",
             appId: "1:439719435906:web:3d1d841ad6e80939eb5e9b",
-            measurementId: "G-NSEYF1TDCH"
+            measurementId: "G-NSEYF1TDCH",
+            databaseURL: "https://durunioncoop-default-rtdb.asia-southeast1.firebasedatabase.app"
         };
 
         const app = initializeApp(firebaseConfig);
         const db = getFirestore(app);
+        const rtdb = getDatabase(app);
+
+        // ========== 실시간 접속자 수 추적 ==========
+        const visitorId = 'visitor_' + Math.random().toString(36).substr(2, 9);
+        const visitorRef = ref(rtdb, `visitors/${visitorId}`);
+        const visitorsRef = ref(rtdb, 'visitors');
+
+        // 접속 등록
+        set(visitorRef, {
+            timestamp: rtdbTimestamp(),
+            lastActive: Date.now()
+        });
+
+        // 연결 해제 시 자동 삭제
+        onDisconnect(visitorRef).remove();
+
+        // 실시간 접속자 수 표시
+        onValue(visitorsRef, (snapshot) => {
+            const visitors = snapshot.val();
+            const count = visitors ? Object.keys(visitors).length : 1;
+            document.getElementById('visitorCount').textContent = count;
+        });
+
+        // 주기적으로 활성 상태 업데이트 (30초마다)
+        setInterval(() => {
+            set(visitorRef, {
+                timestamp: rtdbTimestamp(),
+                lastActive: Date.now()
+            });
+        }, 30000);
 
         let opinions = [];
         let shownOpinionIds = new Set();
