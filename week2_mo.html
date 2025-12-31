@@ -2,498 +2,211 @@
 <html lang="ko">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>새해 첫 세탁 | 두레생협</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Nanum+Myeongjo:wght@400;700;800&family=Noto+Sans+KR:wght@300;400;500;700;900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Nanum+Myeongjo:wght@400;700;800&family=Noto+Sans+KR:wght@300;400;500;700&display=swap" rel="stylesheet">
     <style>
         :root {
-            --primary: #2d5a3d;
-            --primary-light: #e8f0eb;
+            --green: #4a6741;
+            --green-light: #e8f0e4;
+            --cream: #fdfbf7;
+            --warm: #f7f3ed;
+            --black: #222;
+            --gray: #666;
             --accent: #c9a66b;
-            --white: #ffffff;
-            --black: #111111;
-            --gray-900: #1a1a1a;
-            --gray-700: #444444;
-            --gray-500: #777777;
-            --gray-200: #e5e5e5;
-            --gray-100: #f7f7f7;
         }
 
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
+            -webkit-tap-highlight-color: transparent;
         }
 
-        html {
-            scroll-behavior: smooth;
-        }
-
-        body {
+        html, body {
             font-family: 'Noto Sans KR', sans-serif;
-            background: var(--white);
-            color: var(--gray-900);
-            line-height: 1.6;
-            overflow-x: hidden;
+            background: var(--cream);
+            overflow: hidden;
+            height: 100%;
+            touch-action: pan-x;
         }
 
-        /* ========== 애니메이션 ========== */
-        .fade-in {
-            opacity: 0;
-            transform: translateY(40px);
-            transition: all 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+        /* ========== 카드 컨테이너 ========== */
+        .card-container {
+            display: flex;
+            height: 100vh;
+            height: 100dvh;
+            transition: transform 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+            will-change: transform;
         }
 
-        .fade-in.visible {
-            opacity: 1;
-            transform: translateY(0);
-        }
-
-        .slide-left {
-            opacity: 0;
-            transform: translateX(-60px);
-            transition: all 0.8s cubic-bezier(0.16, 1, 0.3, 1);
-        }
-
-        .slide-left.visible {
-            opacity: 1;
-            transform: translateX(0);
-        }
-
-        .slide-right {
-            opacity: 0;
-            transform: translateX(60px);
-            transition: all 0.8s cubic-bezier(0.16, 1, 0.3, 1);
-        }
-
-        .slide-right.visible {
-            opacity: 1;
-            transform: translateX(0);
-        }
-
-        /* ========== 히어로 ========== */
-        .hero {
-            min-height: 100vh;
-            background: linear-gradient(135deg, var(--black) 0%, #1a2f1a 100%);
+        /* ========== 개별 카드 ========== */
+        .card {
+            min-width: 100vw;
+            height: 100vh;
+            height: 100dvh;
             display: flex;
             flex-direction: column;
             justify-content: center;
             align-items: center;
             text-align: center;
-            padding: 60px 24px;
+            padding: 50px 30px;
             position: relative;
-            overflow: hidden;
         }
 
-        .hero::before {
-            content: '';
+        /* ========== 카드 스타일 ========== */
+        .card-intro {
+            background: linear-gradient(180deg, #1a1a1a 0%, #2d3a2d 100%);
+            color: white;
+        }
+
+        .card-emotion {
+            background: var(--warm);
+        }
+
+        .card-product {
+            background: var(--cream);
+        }
+
+        .card-green {
+            background: var(--green);
+            color: white;
+        }
+
+        .card-video {
+            background: #000;
+            padding: 0;
+        }
+
+        .card-end {
+            background: var(--green-light);
+        }
+
+        /* ========== 타이포그래피 ========== */
+        .card-label {
+            font-size: 0.85rem;
+            letter-spacing: 0.2em;
+            color: var(--accent);
+            margin-bottom: 25px;
+            font-weight: 500;
+        }
+
+        .card-emotion .card-label,
+        .card-product .card-label,
+        .card-end .card-label {
+            color: var(--green);
+        }
+
+        .card-title {
+            font-family: 'Nanum Myeongjo', serif;
+            font-size: clamp(1.8rem, 7vw, 2.5rem);
+            font-weight: 700;
+            line-height: 1.6;
+            margin-bottom: 20px;
+            word-break: keep-all;
+        }
+
+        .card-title em {
+            font-style: normal;
+            color: var(--accent);
+        }
+
+        .card-emotion .card-title em,
+        .card-product .card-title em,
+        .card-end .card-title em {
+            color: var(--green);
+        }
+
+        .card-desc {
+            font-size: 1.15rem;
+            line-height: 1.9;
+            color: rgba(255,255,255,0.8);
+            max-width: 320px;
+        }
+
+        .card-emotion .card-desc,
+        .card-product .card-desc,
+        .card-end .card-desc {
+            color: var(--gray);
+        }
+
+        /* ========== 인트로 카드 ========== */
+        .intro-bg {
             position: absolute;
-            top: -50%;
-            right: -30%;
-            width: 80%;
-            height: 150%;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
             background: url('Gemini_Generated_Image_hq1hd7hq1hd7hq1h.png') center/cover;
-            opacity: 0.25;
-            border-radius: 50%;
-            filter: blur(2px);
+            opacity: 0.3;
         }
 
-        .hero-content {
+        .intro-content {
             position: relative;
             z-index: 1;
         }
 
-        .hero-label {
-            font-size: 0.85rem;
-            color: var(--accent);
-            letter-spacing: 0.2em;
-            margin-bottom: 30px;
-            font-weight: 500;
-        }
-
-        .hero-question {
-            font-family: 'Nanum Myeongjo', serif;
-            font-size: clamp(2rem, 8vw, 3.2rem);
-            color: var(--white);
-            font-weight: 700;
-            line-height: 1.4;
-            margin-bottom: 25px;
-            letter-spacing: -0.02em;
-        }
-
-        .hero-sub {
-            font-size: 1.1rem;
-            color: rgba(255,255,255,0.7);
-            font-weight: 300;
-            margin-bottom: 50px;
-        }
-
-        .scroll-indicator {
-            position: absolute;
-            bottom: 40px;
-            left: 50%;
-            transform: translateX(-50%);
-            color: rgba(255,255,255,0.5);
+        .intro-episode {
             font-size: 0.8rem;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            gap: 10px;
-            animation: bounce 2s infinite;
-        }
-
-        .scroll-indicator span {
-            width: 24px;
-            height: 40px;
-            border: 2px solid rgba(255,255,255,0.3);
-            border-radius: 20px;
-            position: relative;
-        }
-
-        .scroll-indicator span::before {
-            content: '';
-            position: absolute;
-            top: 8px;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 4px;
-            height: 8px;
-            background: rgba(255,255,255,0.5);
-            border-radius: 2px;
-            animation: scrollDown 2s infinite;
-        }
-
-        @keyframes bounce {
-            0%, 100% { transform: translateX(-50%) translateY(0); }
-            50% { transform: translateX(-50%) translateY(10px); }
-        }
-
-        @keyframes scrollDown {
-            0% { opacity: 1; top: 8px; }
-            100% { opacity: 0; top: 20px; }
-        }
-
-        /* ========== Q&A 섹션 ========== */
-        .qa-section {
-            padding: 100px 24px;
-            background: var(--white);
-        }
-
-        .qa-container {
-            max-width: 600px;
-            margin: 0 auto;
-        }
-
-        .question-block {
-            margin-bottom: 80px;
-        }
-
-        .q-label {
-            font-size: 0.8rem;
-            font-weight: 700;
-            color: var(--primary);
-            letter-spacing: 0.1em;
-            margin-bottom: 15px;
-        }
-
-        .question {
-            font-family: 'Nanum Myeongjo', serif;
-            font-size: clamp(1.5rem, 6vw, 2.2rem);
-            font-weight: 700;
-            color: var(--black);
-            line-height: 1.5;
-            margin-bottom: 30px;
-        }
-
-        .answer {
-            font-size: 1.15rem;
-            color: var(--gray-700);
-            line-height: 2;
-            padding-left: 20px;
-            border-left: 3px solid var(--primary);
-        }
-
-        .answer strong {
-            color: var(--primary);
-            font-weight: 600;
-        }
-
-        .highlight-box {
-            background: var(--gray-100);
-            border-radius: 16px;
-            padding: 30px;
-            margin-top: 25px;
-        }
-
-        .highlight-box p {
-            font-size: 1.1rem;
-            color: var(--gray-700);
-            line-height: 1.8;
-        }
-
-        /* ========== 통계 섹션 ========== */
-        .stats-section {
-            background: var(--primary);
-            padding: 80px 24px;
-        }
-
-        .stats-title {
-            text-align: center;
-            font-size: 1rem;
-            color: rgba(255,255,255,0.7);
-            margin-bottom: 50px;
-            letter-spacing: 0.1em;
-        }
-
-        .stats-grid {
-            display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: 40px 20px;
-            max-width: 500px;
-            margin: 0 auto;
-        }
-
-        .stat-item {
-            text-align: center;
-            color: white;
-        }
-
-        .stat-number {
-            font-family: 'Noto Sans KR', sans-serif;
-            font-size: clamp(3rem, 12vw, 4.5rem);
-            font-weight: 900;
-            line-height: 1;
-            margin-bottom: 10px;
-            letter-spacing: -0.03em;
-        }
-
-        .stat-number .unit {
-            font-size: 0.5em;
-            font-weight: 500;
-        }
-
-        .stat-label {
-            font-size: 0.95rem;
-            opacity: 0.85;
-            font-weight: 400;
-        }
-
-        /* ========== 제품 섹션 ========== */
-        .products-section {
-            padding: 100px 24px;
-            background: var(--gray-100);
-        }
-
-        .section-header {
-            text-align: center;
-            margin-bottom: 60px;
-        }
-
-        .section-label {
-            font-size: 0.8rem;
-            font-weight: 600;
-            color: var(--primary);
             letter-spacing: 0.15em;
-            margin-bottom: 15px;
+            opacity: 0.7;
+            margin-bottom: 20px;
         }
 
-        .section-title {
-            font-family: 'Nanum Myeongjo', serif;
-            font-size: clamp(1.8rem, 6vw, 2.4rem);
-            font-weight: 700;
-            color: var(--black);
-            line-height: 1.4;
-        }
-
-        .products-grid {
-            display: grid;
-            grid-template-columns: 1fr;
-            gap: 20px;
-            max-width: 500px;
-            margin: 0 auto;
-        }
-
-        .product-card {
-            background: var(--white);
-            border-radius: 24px;
-            overflow: hidden;
-            box-shadow: 0 4px 30px rgba(0,0,0,0.06);
-            display: flex;
-            align-items: center;
-            padding: 20px;
-            gap: 20px;
-            transition: all 0.3s ease;
-        }
-
-        .product-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 15px 50px rgba(0,0,0,0.12);
-        }
-
-        .product-img {
-            width: 120px;
-            height: 120px;
-            background: var(--gray-100);
-            border-radius: 16px;
+        /* ========== 제품 카드 ========== */
+        .product-image {
+            width: 220px;
+            height: 220px;
+            margin-bottom: 30px;
             display: flex;
             align-items: center;
             justify-content: center;
-            flex-shrink: 0;
+            background: white;
+            border-radius: 30px;
+            box-shadow: 0 15px 50px rgba(0,0,0,0.08);
         }
 
-        .product-img img {
-            max-width: 90%;
-            max-height: 90%;
+        .product-image img {
+            max-width: 85%;
+            max-height: 85%;
             object-fit: contain;
         }
 
-        .product-info {
-            flex: 1;
-        }
-
-        .product-badge {
-            display: inline-block;
-            font-size: 0.7rem;
-            font-weight: 700;
-            color: var(--white);
-            background: var(--primary);
-            padding: 4px 10px;
-            border-radius: 20px;
-            margin-bottom: 10px;
-        }
-
         .product-name {
-            font-size: 1.2rem;
+            font-family: 'Nanum Myeongjo', serif;
+            font-size: 1.6rem;
             font-weight: 700;
             color: var(--black);
-            margin-bottom: 8px;
+            margin-bottom: 15px;
         }
 
-        .product-desc {
-            font-size: 0.95rem;
-            color: var(--gray-500);
-            line-height: 1.6;
-        }
-
-        /* ========== 비교 섹션 ========== */
-        .compare-section {
-            padding: 100px 24px;
-            background: var(--white);
-        }
-
-        .compare-visual {
-            max-width: 500px;
-            margin: 0 auto;
-        }
-
-        .compare-item {
+        .product-points {
             display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 25px 0;
-            border-bottom: 1px solid var(--gray-200);
-        }
-
-        .compare-item:last-child {
-            border-bottom: none;
-        }
-
-        .compare-label {
-            font-size: 1rem;
-            color: var(--gray-500);
-            flex: 1;
-        }
-
-        .compare-values {
-            display: flex;
-            gap: 30px;
-        }
-
-        .compare-old {
-            font-size: 1rem;
-            color: var(--gray-500);
-            text-decoration: line-through;
-            opacity: 0.6;
-        }
-
-        .compare-new {
-            font-size: 1.1rem;
-            color: var(--primary);
-            font-weight: 700;
-        }
-
-        /* ========== 철학 섹션 ========== */
-        .philosophy-section {
-            min-height: 80vh;
-            background: var(--black);
-            display: flex;
-            align-items: center;
+            flex-wrap: wrap;
             justify-content: center;
-            text-align: center;
-            padding: 80px 30px;
+            gap: 10px;
+            margin-top: 20px;
         }
 
-        .philosophy-content {
-            max-width: 450px;
+        .product-point {
+            background: var(--green-light);
+            color: var(--green);
+            font-size: 0.95rem;
+            font-weight: 500;
+            padding: 10px 18px;
+            border-radius: 25px;
         }
 
-        .philosophy-quote {
-            font-family: 'Nanum Myeongjo', serif;
-            font-size: clamp(1.5rem, 5vw, 2rem);
-            color: var(--white);
-            line-height: 2;
-            font-weight: 400;
-        }
-
-        .philosophy-quote strong {
-            color: var(--accent);
-            font-weight: 700;
-        }
-
-        .philosophy-divider {
-            width: 40px;
-            height: 2px;
-            background: var(--accent);
-            margin: 40px auto;
-        }
-
-        .philosophy-author {
-            font-size: 0.9rem;
-            color: rgba(255,255,255,0.5);
-        }
-
-        /* ========== 영상 섹션 ========== */
-        .video-section {
-            padding: 100px 24px;
-            background: var(--gray-100);
-            text-align: center;
-        }
-
-        .video-intro {
-            font-size: 1.05rem;
-            color: var(--gray-500);
-            margin-bottom: 40px;
-            line-height: 1.8;
-        }
-
+        /* ========== 영상 카드 ========== */
         .video-wrapper {
-            max-width: 320px;
-            margin: 0 auto 50px;
-        }
-
-        .video-container {
-            position: relative;
             width: 100%;
-            padding-bottom: 177.78%;
-            border-radius: 24px;
-            overflow: hidden;
-            box-shadow: 0 25px 80px rgba(0,0,0,0.2);
-            background: var(--black);
+            height: 100%;
+            position: relative;
         }
 
-        .video-container iframe {
+        .video-wrapper iframe {
             position: absolute;
             top: 0;
             left: 0;
@@ -502,393 +215,439 @@
             border: none;
         }
 
-        .greeting-text {
-            font-family: 'Nanum Myeongjo', serif;
-            font-size: clamp(1.3rem, 4.5vw, 1.6rem);
-            line-height: 2;
-            color: var(--gray-900);
-            max-width: 380px;
-            margin: 0 auto 45px;
+        .video-overlay {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            padding: 60px 30px 50px;
+            background: linear-gradient(to top, rgba(0,0,0,0.8) 0%, transparent 100%);
+            color: white;
+            text-align: center;
         }
 
-        .greeting-text em {
-            color: var(--primary);
-            font-style: normal;
-            font-weight: 700;
+        .video-overlay .card-title {
+            font-size: 1.5rem;
+            margin-bottom: 10px;
         }
 
-        /* ========== CTA ========== */
+        .video-overlay .card-desc {
+            font-size: 1rem;
+        }
+
+        /* ========== CTA 버튼 ========== */
         .cta-button {
             display: inline-flex;
             align-items: center;
             gap: 10px;
-            background: var(--primary);
+            background: var(--green);
             color: white;
-            font-size: 1.15rem;
+            font-size: 1.2rem;
             font-weight: 600;
             padding: 18px 45px;
             border-radius: 60px;
             text-decoration: none;
-            box-shadow: 0 8px 30px rgba(45, 90, 61, 0.4);
+            margin-top: 35px;
+            box-shadow: 0 8px 30px rgba(74, 103, 65, 0.35);
             transition: all 0.3s ease;
         }
 
-        .cta-button:hover {
-            transform: translateY(-3px) scale(1.02);
-            box-shadow: 0 15px 45px rgba(45, 90, 61, 0.5);
+        .cta-button:active {
+            transform: scale(0.97);
         }
 
         .cta-button svg {
             width: 22px;
             height: 22px;
             fill: white;
-            transition: transform 0.3s ease;
         }
 
-        .cta-button:hover svg {
-            transform: translateX(5px);
+        /* ========== 네비게이션 ========== */
+        .nav-dots {
+            position: fixed;
+            bottom: 30px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            gap: 10px;
+            z-index: 100;
         }
 
-        /* ========== 푸터 ========== */
-        .footer {
-            background: var(--white);
-            text-align: center;
-            padding: 50px 24px;
-            border-top: 1px solid var(--gray-200);
+        .nav-dot {
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            background: rgba(0,0,0,0.2);
+            cursor: pointer;
+            transition: all 0.3s ease;
         }
 
-        .footer-logo {
+        .nav-dot.active {
+            width: 30px;
+            border-radius: 10px;
+            background: var(--green);
+        }
+
+        .card-intro .nav-dot,
+        .card-green .nav-dot,
+        .card-video .nav-dot {
+            background: rgba(255,255,255,0.3);
+        }
+
+        .card-intro .nav-dot.active,
+        .card-green .nav-dot.active,
+        .card-video .nav-dot.active {
+            background: white;
+        }
+
+        /* ========== 스와이프 힌트 ========== */
+        .swipe-hint {
+            position: absolute;
+            bottom: 70px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            color: rgba(255,255,255,0.6);
+            font-size: 0.85rem;
+            animation: swipeHint 2s infinite;
+        }
+
+        .card-emotion .swipe-hint,
+        .card-product .swipe-hint,
+        .card-end .swipe-hint {
+            color: var(--gray);
+        }
+
+        .swipe-hint svg {
+            width: 20px;
+            height: 20px;
+            fill: currentColor;
+        }
+
+        @keyframes swipeHint {
+            0%, 100% { transform: translateX(-50%); opacity: 0.6; }
+            50% { transform: translateX(-40%); opacity: 1; }
+        }
+
+        /* ========== 감성 인용 ========== */
+        .quote-mark {
             font-family: 'Nanum Myeongjo', serif;
-            font-size: 1.2rem;
-            color: var(--gray-700);
-            margin-bottom: 8px;
+            font-size: 4rem;
+            color: var(--green);
+            opacity: 0.2;
+            line-height: 1;
+            margin-bottom: 10px;
         }
 
-        .footer-text {
+        /* ========== 스탬프 ========== */
+        .stamp {
+            width: 80px;
+            height: 80px;
+            border: 2px solid var(--green);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-family: 'Nanum Myeongjo', serif;
             font-size: 0.9rem;
-            color: var(--gray-500);
+            color: var(--green);
+            margin-top: 30px;
+            opacity: 0.6;
         }
 
         /* ========== 반응형 ========== */
         @media (min-width: 768px) {
-            .products-grid {
-                grid-template-columns: repeat(2, 1fr);
-                max-width: 700px;
+            .product-image {
+                width: 280px;
+                height: 280px;
             }
 
-            .product-card {
-                flex-direction: column;
-                text-align: center;
-                padding: 35px 25px;
+            .card {
+                padding: 60px 50px;
+            }
+        }
+
+        @media (max-height: 700px) {
+            .product-image {
+                width: 180px;
+                height: 180px;
             }
 
-            .product-img {
-                width: 140px;
-                height: 140px;
-            }
-
-            .stats-grid {
-                grid-template-columns: repeat(4, 1fr);
-                max-width: 800px;
-            }
-
-            .video-wrapper {
-                max-width: 300px;
+            .card-title {
+                font-size: clamp(1.5rem, 6vw, 2rem);
             }
         }
     </style>
 </head>
 <body>
 
-    <!-- 히어로 -->
-    <section class="hero">
-        <div class="hero-content">
-            <p class="hero-label">두레지기의 생활 이야기 EP.01</p>
-            <h1 class="hero-question">왜 새해에는<br>빨래를 할까요?</h1>
-            <p class="hero-sub">스크롤하면 답을 알 수 있어요</p>
-        </div>
-        <div class="scroll-indicator">
-            <span></span>
-        </div>
-    </section>
+    <div class="card-container" id="cardContainer">
 
-    <!-- Q&A 1: 왜 설날에 세탁? -->
-    <section class="qa-section">
-        <div class="qa-container">
-            <div class="question-block fade-in">
-                <p class="q-label">QUESTION 01</p>
-                <h2 class="question">설 연휴 전에<br>빨래를 해야 하는 이유가 있나요?</h2>
-                <div class="answer">
-                    <p>
-                        우리 어머니들은 예로부터<br>
-                        <strong>새해 첫날엔 빨래를 하지 않았어요.</strong><br><br>
-                        복이 빠져나간다고 믿었거든요.<br><br>
-                        그래서 <strong>설 전에 미리</strong><br>
-                        묵은 빨래를 깨끗이 정리하고<br>
-                        새해를 맞이했습니다.
-                    </p>
-                </div>
-                <div class="highlight-box">
-                    <p>💡 설날 연휴는 최대 <strong>5일</strong><br>
-                    미리 세탁해두지 않으면<br>빨래가 산더미처럼 쌓여요</p>
-                </div>
+        <!-- 1. 인트로 -->
+        <div class="card card-intro" data-index="0">
+            <div class="intro-bg"></div>
+            <div class="intro-content">
+                <p class="intro-episode">두레지기의 생활 이야기</p>
+                <h1 class="card-title">설 연휴 전,<br><em>빨래 한 번</em><br>해두셨나요?</h1>
+                <p class="card-desc">5일 연휴 동안<br>빨래 걱정 없이 편히 쉬세요</p>
             </div>
+            <div class="swipe-hint">
+                밀어서 넘기기
+                <svg viewBox="0 0 24 24"><path d="M8.59,16.58L13.17,12L8.59,7.41L10,6L16,12L10,18L8.59,16.58Z"/></svg>
+            </div>
+        </div>
 
-            <div class="question-block fade-in">
-                <p class="q-label">QUESTION 02</p>
-                <h2 class="question">어떤 세제를 써야<br>마음이 편할까요?</h2>
-                <div class="answer">
-                    <p>
-                        설에는 온 가족이 모이잖아요.<br><br>
-                        <strong>어린 손주</strong>부터 <strong>연로하신 부모님</strong>까지<br>
-                        민감한 피부도 많고<br><br>
-                        그래서 두레생협은<br>
-                        <strong>식물성 성분</strong>으로 만든<br>
-                        순한 세탁 생활재를 권합니다.
-                    </p>
-                </div>
+        <!-- 2. 감성 -->
+        <div class="card card-emotion" data-index="1">
+            <div class="quote-mark">"</div>
+            <h2 class="card-title">뽀송하게 마른 빨래를<br>개켜 넣을 때<br><em>참 좋더라고요</em></h2>
+            <p class="card-desc">그 햇살 냄새,<br>엄마만 아는 기분 좋음</p>
+            <div class="swipe-hint">
+                <svg viewBox="0 0 24 24"><path d="M8.59,16.58L13.17,12L8.59,7.41L10,6L16,12L10,18L8.59,16.58Z"/></svg>
             </div>
+        </div>
 
-            <div class="question-block fade-in">
-                <p class="q-label">QUESTION 03</p>
-                <h2 class="question">일반 세제랑<br>뭐가 다른가요?</h2>
-                <div class="answer">
-                    <p>
-                        마트 세제는 <strong>석유</strong>에서 뽑은 성분으로<br>
-                        강한 세정력을 만들어요.<br><br>
-                        두레 생활재는 <strong>코코넛, 팜</strong> 같은<br>
-                        식물에서 성분을 추출해요.<br><br>
-                        <strong>피부에 남지 않을 만큼만</strong><br>
-                        충분히 깨끗하게.
-                    </p>
-                </div>
+        <!-- 3. 공감 -->
+        <div class="card card-emotion" data-index="2">
+            <h2 class="card-title">손주 옷 빨 때<br><em>세제 남을까</em><br>신경 쓰이시죠?</h2>
+            <p class="card-desc">저희도 그래서<br>식물성 세제만 씁니다</p>
+            <div class="swipe-hint">
+                <svg viewBox="0 0 24 24"><path d="M8.59,16.58L13.17,12L8.59,7.41L10,6L16,12L10,18L8.59,16.58Z"/></svg>
             </div>
         </div>
-    </section>
 
-    <!-- 통계 -->
-    <section class="stats-section">
-        <p class="stats-title fade-in">두레생협 세탁 생활재</p>
-        <div class="stats-grid">
-            <div class="stat-item fade-in">
-                <p class="stat-number"><span class="counter" data-target="30">0</span><span class="unit">년</span></p>
-                <p class="stat-label">두레생협 역사</p>
+        <!-- 4. 제품 1 - 제로너스 -->
+        <div class="card card-product" data-index="3">
+            <p class="card-label">추천 생활재</p>
+            <div class="product-image">
+                <img src="56702C.jpg" alt="제로너스">
             </div>
-            <div class="stat-item fade-in">
-                <p class="stat-number"><span class="counter" data-target="0">0</span><span class="unit">%</span></p>
-                <p class="stat-label">석유계 성분</p>
+            <h3 class="product-name">식물성 세제 제로너스</h3>
+            <p class="card-desc">코코넛에서 뽑은 성분으로<br>아이 옷도 안심하고 빨아요</p>
+            <div class="product-points">
+                <span class="product-point">식물성 100%</span>
+                <span class="product-point">헹굼 2회</span>
             </div>
-            <div class="stat-item fade-in">
-                <p class="stat-number"><span class="counter" data-target="94">0</span><span class="unit">%</span></p>
-                <p class="stat-label">조합원 재구매율</p>
-            </div>
-            <div class="stat-item fade-in">
-                <p class="stat-number"><span class="counter" data-target="2">0</span><span class="unit">회</span></p>
-                <p class="stat-label">헹굼 횟수</p>
+            <div class="swipe-hint">
+                <svg viewBox="0 0 24 24"><path d="M8.59,16.58L13.17,12L8.59,7.41L10,6L16,12L10,18L8.59,16.58Z"/></svg>
             </div>
         </div>
-    </section>
 
-    <!-- 제품 -->
-    <section class="products-section">
-        <div class="section-header fade-in">
-            <p class="section-label">RECOMMEND</p>
-            <h2 class="section-title">두레가 검증한<br>세탁 생활재</h2>
-        </div>
-        
-        <div class="products-grid">
-            <div class="product-card slide-left">
-                <div class="product-img">
-                    <img src="56702C.jpg" alt="제로너스">
-                </div>
-                <div class="product-info">
-                    <span class="product-badge">BEST</span>
-                    <h3 class="product-name">식물성 세제 제로너스</h3>
-                    <p class="product-desc">코코넛·팜 100% / 거품↓ 헹굼↓ / 찬물 OK</p>
-                </div>
+        <!-- 5. 제품 2 - 액상세제 -->
+        <div class="card card-product" data-index="4">
+            <p class="card-label">민감한 피부에</p>
+            <div class="product-image">
+                <img src="57151C.png" alt="액상세제">
             </div>
-            
-            <div class="product-card slide-right">
-                <div class="product-img">
-                    <img src="57151C.png" alt="액상세제">
-                </div>
-                <div class="product-info">
-                    <span class="product-badge">민감피부</span>
-                    <h3 class="product-name">액상 세탁 세제</h3>
-                    <p class="product-desc">피부과 테스트 완료 / 아기옷·속옷 안심</p>
-                </div>
+            <h3 class="product-name">액상 세탁 세제</h3>
+            <p class="card-desc">피부과에서 테스트 마쳤어요<br>속옷, 아기 옷도 거뜬해요</p>
+            <div class="product-points">
+                <span class="product-point">피부 테스트 완료</span>
+                <span class="product-point">무향</span>
             </div>
-            
-            <div class="product-card slide-left">
-                <div class="product-img">
-                    <img src="41532C.png" alt="베이킹소다">
-                </div>
-                <div class="product-info">
-                    <span class="product-badge">만능</span>
-                    <h3 class="product-name">베이킹소다</h3>
-                    <p class="product-desc">단일 성분 100% / 수건 쉰내·세탁조 청소</p>
-                </div>
-            </div>
-            
-            <div class="product-card slide-right">
-                <div class="product-img">
-                    <img src="41530C.png" alt="구연산">
-                </div>
-                <div class="product-info">
-                    <span class="product-badge">유연제 대체</span>
-                    <h3 class="product-name">구연산</h3>
-                    <p class="product-desc">감귤 추출 / 인공향료 0% / 수건 부드럽게</p>
-                </div>
+            <div class="swipe-hint">
+                <svg viewBox="0 0 24 24"><path d="M8.59,16.58L13.17,12L8.59,7.41L10,6L16,12L10,18L8.59,16.58Z"/></svg>
             </div>
         </div>
-    </section>
 
-    <!-- 비교 -->
-    <section class="compare-section">
-        <div class="section-header fade-in">
-            <p class="section-label">COMPARE</p>
-            <h2 class="section-title">확실히 다릅니다</h2>
-        </div>
-        
-        <div class="compare-visual">
-            <div class="compare-item fade-in">
-                <span class="compare-label">원료</span>
-                <div class="compare-values">
-                    <span class="compare-old">석유계</span>
-                    <span class="compare-new">식물성</span>
-                </div>
+        <!-- 6. 제품 3 - 베이킹소다 -->
+        <div class="card card-product" data-index="5">
+            <p class="card-label">수건 쉰내 날 때</p>
+            <div class="product-image">
+                <img src="41532C.png" alt="베이킹소다">
             </div>
-            <div class="compare-item fade-in">
-                <span class="compare-label">형광증백제</span>
-                <div class="compare-values">
-                    <span class="compare-old">포함</span>
-                    <span class="compare-new">무첨가</span>
-                </div>
+            <h3 class="product-name">베이킹소다</h3>
+            <p class="card-desc">세탁기에 한 숟갈 넣으면<br>쉰내가 싹 사라져요</p>
+            <div class="product-points">
+                <span class="product-point">천연 성분</span>
+                <span class="product-point">세탁조 청소</span>
             </div>
-            <div class="compare-item fade-in">
-                <span class="compare-label">인공향료</span>
-                <div class="compare-values">
-                    <span class="compare-old">포함</span>
-                    <span class="compare-new">무첨가</span>
-                </div>
-            </div>
-            <div class="compare-item fade-in">
-                <span class="compare-label">헹굼 횟수</span>
-                <div class="compare-values">
-                    <span class="compare-old">3회</span>
-                    <span class="compare-new">2회</span>
-                </div>
-            </div>
-            <div class="compare-item fade-in">
-                <span class="compare-label">물 사용량</span>
-                <div class="compare-values">
-                    <span class="compare-old">100%</span>
-                    <span class="compare-new">-33%</span>
-                </div>
+            <div class="swipe-hint">
+                <svg viewBox="0 0 24 24"><path d="M8.59,16.58L13.17,12L8.59,7.41L10,6L16,12L10,18L8.59,16.58Z"/></svg>
             </div>
         </div>
-    </section>
 
-    <!-- 철학 -->
-    <section class="philosophy-section">
-        <div class="philosophy-content fade-in">
-            <p class="philosophy-quote">
-                대형마트 세제는<br>
-                '더 강한 세정력'<br><br>
-                우리는<br>
-                <strong>'충분한 세정력'</strong><br><br>
-                피부에 남지 않을 만큼<br>
-                환경에 부담 주지 않을 만큼
-            </p>
-            <div class="philosophy-divider"></div>
-            <p class="philosophy-author">두레생협이 지키는 기준</p>
+        <!-- 7. 제품 4 - 구연산 -->
+        <div class="card card-product" data-index="6">
+            <p class="card-label">유연제 대신</p>
+            <div class="product-image">
+                <img src="41530C.png" alt="구연산">
+            </div>
+            <h3 class="product-name">구연산</h3>
+            <p class="card-desc">뻣뻣한 수건이<br>다시 보들보들해져요</p>
+            <div class="product-points">
+                <span class="product-point">감귤 추출</span>
+                <span class="product-point">인공향 無</span>
+            </div>
+            <div class="swipe-hint">
+                <svg viewBox="0 0 24 24"><path d="M8.59,16.58L13.17,12L8.59,7.41L10,6L16,12L10,18L8.59,16.58Z"/></svg>
+            </div>
         </div>
-    </section>
 
-    <!-- 영상 -->
-    <section class="video-section">
-        <div class="section-header fade-in">
-            <p class="section-label">NEW YEAR</p>
-            <h2 class="section-title">새해 인사 드려요</h2>
+        <!-- 8. 철학 -->
+        <div class="card card-green" data-index="7">
+            <h2 class="card-title">마트 세제는<br>'더 강하게'<br><br>두레 생활재는<br><em>'충분히 깨끗하게'</em></h2>
+            <p class="card-desc">피부에 남지 않을 만큼만<br>그게 저희 기준이에요</p>
+            <div class="swipe-hint">
+                <svg viewBox="0 0 24 24"><path d="M8.59,16.58L13.17,12L8.59,7.41L10,6L16,12L10,18L8.59,16.58Z"/></svg>
+            </div>
         </div>
-        <p class="video-intro fade-in">두레생협 사무실도 건강을 위해<br>매일 아침 체조를 하고 있어요</p>
-        
-        <div class="video-wrapper fade-in">
-            <div class="video-container">
-                <iframe src="https://player.vimeo.com/video/1150542917?autoplay=1&loop=1&muted=1&background=1" 
+
+        <!-- 9. 영상 -->
+        <div class="card card-video" data-index="8">
+            <div class="video-wrapper">
+                <iframe src="https://player.vimeo.com/video/1150542917?autoplay=1&loop=1&muted=1&background=1&quality=1080p" 
                         allow="autoplay; fullscreen; picture-in-picture" 
                         allowfullscreen></iframe>
+                <div class="video-overlay">
+                    <h2 class="card-title">저희도 매일 아침<br>체조하고 있어요</h2>
+                    <p class="card-desc">건강한 새해 되세요 🌿</p>
+                </div>
+            </div>
+            <div class="swipe-hint">
+                <svg viewBox="0 0 24 24"><path d="M8.59,16.58L13.17,12L8.59,7.41L10,6L16,12L10,18L8.59,16.58Z"/></svg>
             </div>
         </div>
-        
-        <p class="greeting-text fade-in">
-            가족 같은 조합원님<br>
-            <em>건강하고 따뜻한 새해</em> 되세요<br><br>
-            올해도 정직한 생활재로<br>
-            곁을 지키겠습니다
-        </p>
-        
-        <a href="https://www.ecoop.or.kr" class="cta-button fade-in">
-            <span>기획전 바로가기</span>
-            <svg viewBox="0 0 24 24"><path d="M8.59,16.58L13.17,12L8.59,7.41L10,6L16,12L10,18L8.59,16.58Z"/></svg>
-        </a>
-    </section>
 
-    <!-- 푸터 -->
-    <footer class="footer">
-        <p class="footer-logo">두레생협</p>
-        <p class="footer-text">두레지기 드림</p>
-    </footer>
+        <!-- 10. 마무리 -->
+        <div class="card card-end" data-index="9">
+            <h2 class="card-title">올 한 해도<br><em>곁에서</em><br>함께할게요</h2>
+            <p class="card-desc">30년째 정직한 생활재로<br>24만 가정과 함께합니다</p>
+            <a href="https://www.ecoop.or.kr" class="cta-button">
+                <span>기획전 보러가기</span>
+                <svg viewBox="0 0 24 24"><path d="M8.59,16.58L13.17,12L8.59,7.41L10,6L16,12L10,18L8.59,16.58Z"/></svg>
+            </a>
+            <div class="stamp">두레<br>생협</div>
+        </div>
+
+    </div>
+
+    <!-- 네비게이션 닷 -->
+    <div class="nav-dots" id="navDots"></div>
 
     <script>
-        // 스크롤 애니메이션
-        const observerOptions = {
-            threshold: 0.15,
-            rootMargin: '0px 0px -50px 0px'
-        };
+        const container = document.getElementById('cardContainer');
+        const cards = document.querySelectorAll('.card');
+        const navDotsContainer = document.getElementById('navDots');
+        
+        let currentIndex = 0;
+        let startX = 0;
+        let isDragging = false;
+        let currentTranslate = 0;
+        let prevTranslate = 0;
 
-        const observer = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    entry.target.classList.add('visible');
-                    
-                    // 카운터 애니메이션
-                    const counters = entry.target.querySelectorAll('.counter');
-                    counters.forEach(counter => {
-                        const target = parseInt(counter.dataset.target);
-                        const duration = 2000;
-                        const step = target / (duration / 16);
-                        let current = 0;
-                        
-                        const updateCounter = () => {
-                            current += step;
-                            if (current < target) {
-                                counter.textContent = Math.floor(current);
-                                requestAnimationFrame(updateCounter);
-                            } else {
-                                counter.textContent = target;
-                            }
-                        };
-                        
-                        updateCounter();
-                    });
-                }
-            });
-        }, observerOptions);
-
-        document.querySelectorAll('.fade-in, .slide-left, .slide-right').forEach(el => {
-            observer.observe(el);
+        // 네비게이션 닷 생성
+        cards.forEach((_, i) => {
+            const dot = document.createElement('div');
+            dot.className = 'nav-dot' + (i === 0 ? ' active' : '');
+            dot.addEventListener('click', () => goToCard(i));
+            navDotsContainer.appendChild(dot);
         });
 
-        // 스무스 스크롤
-        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-            anchor.addEventListener('click', function(e) {
-                e.preventDefault();
-                document.querySelector(this.getAttribute('href')).scrollIntoView({
-                    behavior: 'smooth'
-                });
+        const dots = document.querySelectorAll('.nav-dot');
+
+        function updateDots() {
+            dots.forEach((dot, i) => {
+                dot.classList.toggle('active', i === currentIndex);
             });
+        }
+
+        function goToCard(index) {
+            currentIndex = Math.max(0, Math.min(index, cards.length - 1));
+            currentTranslate = -currentIndex * window.innerWidth;
+            prevTranslate = currentTranslate;
+            container.style.transform = `translateX(${currentTranslate}px)`;
+            updateDots();
+        }
+
+        // 터치 이벤트
+        container.addEventListener('touchstart', (e) => {
+            isDragging = true;
+            startX = e.touches[0].clientX;
+            container.style.transition = 'none';
         });
+
+        container.addEventListener('touchmove', (e) => {
+            if (!isDragging) return;
+            const currentX = e.touches[0].clientX;
+            const diff = currentX - startX;
+            currentTranslate = prevTranslate + diff;
+            container.style.transform = `translateX(${currentTranslate}px)`;
+        });
+
+        container.addEventListener('touchend', (e) => {
+            isDragging = false;
+            container.style.transition = 'transform 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94)';
+            
+            const diff = currentTranslate - prevTranslate;
+            const threshold = window.innerWidth * 0.2;
+
+            if (diff < -threshold && currentIndex < cards.length - 1) {
+                currentIndex++;
+            } else if (diff > threshold && currentIndex > 0) {
+                currentIndex--;
+            }
+
+            goToCard(currentIndex);
+        });
+
+        // 마우스 이벤트 (데스크톱)
+        container.addEventListener('mousedown', (e) => {
+            isDragging = true;
+            startX = e.clientX;
+            container.style.transition = 'none';
+            container.style.cursor = 'grabbing';
+        });
+
+        container.addEventListener('mousemove', (e) => {
+            if (!isDragging) return;
+            const currentX = e.clientX;
+            const diff = currentX - startX;
+            currentTranslate = prevTranslate + diff;
+            container.style.transform = `translateX(${currentTranslate}px)`;
+        });
+
+        container.addEventListener('mouseup', () => {
+            if (!isDragging) return;
+            isDragging = false;
+            container.style.transition = 'transform 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94)';
+            container.style.cursor = 'grab';
+            
+            const diff = currentTranslate - prevTranslate;
+            const threshold = window.innerWidth * 0.15;
+
+            if (diff < -threshold && currentIndex < cards.length - 1) {
+                currentIndex++;
+            } else if (diff > threshold && currentIndex > 0) {
+                currentIndex--;
+            }
+
+            goToCard(currentIndex);
+        });
+
+        container.addEventListener('mouseleave', () => {
+            if (isDragging) {
+                isDragging = false;
+                container.style.transition = 'transform 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94)';
+                goToCard(currentIndex);
+            }
+        });
+
+        // 키보드
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'ArrowRight') goToCard(currentIndex + 1);
+            if (e.key === 'ArrowLeft') goToCard(currentIndex - 1);
+        });
+
+        // 리사이즈
+        window.addEventListener('resize', () => {
+            goToCard(currentIndex);
+        });
+
+        // 초기 커서
+        container.style.cursor = 'grab';
     </script>
 
 </body>
