@@ -7,7 +7,6 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700;900&family=Bebas+Neue&display=swap" rel="stylesheet">
-    <!-- Firebase -->
     <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-app-compat.js"></script>
     <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-database-compat.js"></script>
     <style>
@@ -24,10 +23,6 @@
             --summer-alt: #ff6b35;
             --autumn: #ff8c42;
             --winter: #4ecdc4;
-            --rank-s: #ffd700;
-            --rank-a: #c0c0c0;
-            --rank-b: #cd7f32;
-            --rank-turtle: #4ecdc4;
         }
 
         * { margin: 0; padding: 0; box-sizing: border-box; }
@@ -218,10 +213,10 @@
             margin-bottom: 10px;
         }
 
-        .rank-label.s-rank { background: linear-gradient(135deg, rgba(255,215,0,0.3), rgba(255,193,7,0.2)); border: 1px solid var(--rank-s); color: var(--rank-s); }
-        .rank-label.a-rank { background: linear-gradient(135deg, rgba(192,192,192,0.3), rgba(169,169,169,0.2)); border: 1px solid var(--rank-a); color: var(--rank-a); }
-        .rank-label.b-rank { background: linear-gradient(135deg, rgba(205,127,50,0.3), rgba(184,115,51,0.2)); border: 1px solid var(--rank-b); color: var(--rank-b); }
-        .rank-label.turtle { background: linear-gradient(135deg, rgba(78,205,196,0.3), rgba(0,201,167,0.2)); border: 1px solid var(--rank-turtle); color: var(--rank-turtle); }
+        .rank-label.s-rank { background: linear-gradient(135deg, rgba(255,215,0,0.3), rgba(255,193,7,0.2)); border: 1px solid #ffd700; color: #ffd700; }
+        .rank-label.a-rank { background: linear-gradient(135deg, rgba(192,192,192,0.3), rgba(169,169,169,0.2)); border: 1px solid #c0c0c0; color: #c0c0c0; }
+        .rank-label.b-rank { background: linear-gradient(135deg, rgba(205,127,50,0.3), rgba(184,115,51,0.2)); border: 1px solid #cd7f32; color: #cd7f32; }
+        .rank-label.turtle { background: linear-gradient(135deg, rgba(78,205,196,0.3), rgba(0,201,167,0.2)); border: 1px solid #4ecdc4; color: #4ecdc4; }
 
         .members-grid { display: flex; flex-wrap: wrap; gap: 6px; }
 
@@ -296,8 +291,8 @@
 
         .photo-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 6px; padding: 6px; }
         .photo-grid.single { grid-template-columns: 1fr; padding: 0; }
-        .photo-grid img { height: 120px; border-radius: 10px; }
-        .photo-grid.single img { height: 220px; border-radius: 0; }
+        .photo-grid img, .photo-grid video { height: 120px; border-radius: 10px; object-fit: cover; }
+        .photo-grid.single img, .photo-grid.single video { height: 220px; border-radius: 0; }
 
         .photo-info { padding: 16px; }
         .photo-date { display: flex; align-items: center; gap: 6px; font-size: 11px; color: var(--accent-light); margin-bottom: 6px; }
@@ -322,6 +317,49 @@
             border-radius: 6px;
             z-index: 10;
         }
+
+        /* Video */
+        .video-wrapper { position: relative; }
+        .video-badge {
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            padding: 4px 10px;
+            background: rgba(233,69,96,0.9);
+            border-radius: 6px;
+            font-size: 10px;
+            font-weight: 600;
+            color: white;
+            z-index: 5;
+            display: flex;
+            align-items: center;
+            gap: 4px;
+        }
+
+        /* Photo Scroll */
+        .photo-scroll {
+            display: flex;
+            gap: 10px;
+            overflow-x: auto;
+            scroll-snap-type: x mandatory;
+            -webkit-overflow-scrolling: touch;
+            padding: 0 16px 16px;
+            margin: 12px -16px 0;
+        }
+
+        .photo-scroll::-webkit-scrollbar { display: none; }
+
+        .scroll-item {
+            flex: 0 0 70%;
+            scroll-snap-align: center;
+            border-radius: 12px;
+            overflow: hidden;
+            background: var(--bg-card);
+        }
+
+        .scroll-item img { width: 100%; height: 140px; object-fit: cover; }
+        .scroll-info { padding: 10px 12px; }
+        .scroll-info .photo-title { font-size: 13px; }
 
         /* Comments Section */
         .comments-section {
@@ -413,6 +451,16 @@
 
         .empty-comments-icon { font-size: 48px; margin-bottom: 12px; }
 
+        .comments-count {
+            text-align: center;
+            padding: 10px;
+            background: rgba(255,215,0,0.1);
+            border-radius: 10px;
+            margin-bottom: 16px;
+            font-size: 13px;
+            color: var(--gold);
+        }
+
         /* Footer */
         .footer {
             padding: 50px 16px;
@@ -478,44 +526,24 @@
             to { opacity: 1; transform: translateY(0); }
         }
 
-        /* Photo Scroll */
-        .photo-scroll {
+        /* Loading */
+        .loading {
             display: flex;
-            gap: 10px;
-            overflow-x: auto;
-            scroll-snap-type: x mandatory;
-            -webkit-overflow-scrolling: touch;
-            padding: 0 16px 16px;
-            margin: 12px -16px 0;
+            justify-content: center;
+            padding: 20px;
         }
 
-        .photo-scroll::-webkit-scrollbar { display: none; }
-
-        .scroll-item {
-            flex: 0 0 70%;
-            scroll-snap-align: center;
-            border-radius: 12px;
-            overflow: hidden;
-            background: var(--bg-card);
+        .loading-spinner {
+            width: 30px;
+            height: 30px;
+            border: 3px solid rgba(255,255,255,0.1);
+            border-top-color: var(--accent);
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
         }
 
-        .scroll-item img { width: 100%; height: 140px; object-fit: cover; }
-        .scroll-info { padding: 10px 12px; }
-        .scroll-info .photo-title { font-size: 13px; }
-
-        /* Video badge */
-        .video-wrapper { position: relative; }
-        .video-badge {
-            position: absolute;
-            top: 10px;
-            left: 10px;
-            padding: 4px 10px;
-            background: rgba(233,69,96,0.9);
-            border-radius: 6px;
-            font-size: 10px;
-            font-weight: 600;
-            color: white;
-            z-index: 5;
+        @keyframes spin {
+            to { transform: rotate(360deg); }
         }
     </style>
 </head>
@@ -657,7 +685,7 @@
             <div class="month-label summer">7월 31일</div>
             <div class="photo-card">
                 <div class="photo-grid single">
-                    <img src="https://raw.githubusercontent.com/durewon-del/RUN_RUN/main/KakaoTalk_20250731_222425163.jpg" alt="7월 러닝">
+                    <img src="https://raw.githubusercontent.com/durewon-del/RUN_RUN/main/KakaoTalk_20250731_222425163.jpg" alt="7월 러닝" loading="lazy">
                 </div>
                 <div class="photo-info">
                     <div class="photo-date">📅 2025년 7월 31일 (목)</div>
@@ -676,7 +704,7 @@
             <div class="month-label summer">8월 4일</div>
             <div class="photo-card">
                 <div class="photo-grid single">
-                    <img src="https://raw.githubusercontent.com/durewon-del/RUN_RUN/main/KakaoTalk_20250804_203622142.jpg" alt="8월 러닝">
+                    <img src="https://raw.githubusercontent.com/durewon-del/RUN_RUN/main/KakaoTalk_20250804_203622142.jpg" alt="8월 러닝" loading="lazy">
                 </div>
                 <div class="photo-info">
                     <div class="photo-date">📅 2025년 8월 4일 (월)</div>
@@ -691,8 +719,8 @@
             <div class="month-label summer">8월 20일</div>
             <div class="photo-card">
                 <div class="photo-grid">
-                    <img src="https://raw.githubusercontent.com/durewon-del/RUN_RUN/main/KakaoTalk_20250820_203517322.jpg" alt="단체사진">
-                    <img src="https://raw.githubusercontent.com/durewon-del/RUN_RUN/main/KakaoTalk_20250820_203517322_01.jpg" alt="단체사진">
+                    <img src="https://raw.githubusercontent.com/durewon-del/RUN_RUN/main/KakaoTalk_20250820_203517322.jpg" alt="단체사진" loading="lazy">
+                    <img src="https://raw.githubusercontent.com/durewon-del/RUN_RUN/main/KakaoTalk_20250820_203517322_01.jpg" alt="단체사진" loading="lazy">
                 </div>
                 <div class="photo-info">
                     <div class="photo-date">📅 2025년 8월 20일 (수)</div>
@@ -703,8 +731,8 @@
                 </div>
             </div>
             <div class="photo-scroll">
-                <div class="scroll-item"><img src="https://raw.githubusercontent.com/durewon-del/RUN_RUN/main/KakaoTalk_20250820_203517322_02.jpg" alt="준비운동"><div class="scroll-info"><div class="photo-title">준비운동 🏋️</div></div></div>
-                <div class="scroll-item"><img src="https://raw.githubusercontent.com/durewon-del/RUN_RUN/main/KakaoTalk_20250820_203517322_03.jpg" alt="러닝"><div class="scroll-info"><div class="photo-title">해질녘 러닝 🌅</div></div></div>
+                <div class="scroll-item"><img src="https://raw.githubusercontent.com/durewon-del/RUN_RUN/main/KakaoTalk_20250820_203517322_02.jpg" alt="준비운동" loading="lazy"><div class="scroll-info"><div class="photo-title">준비운동 🏋️</div></div></div>
+                <div class="scroll-item"><img src="https://raw.githubusercontent.com/durewon-del/RUN_RUN/main/KakaoTalk_20250820_203517322_03.jpg" alt="러닝" loading="lazy"><div class="scroll-info"><div class="photo-title">해질녘 러닝 🌅</div></div></div>
             </div>
         </div>
 
@@ -712,7 +740,7 @@
             <div class="month-label summer">8월 27일</div>
             <div class="photo-card">
                 <div class="photo-grid single">
-                    <img src="https://raw.githubusercontent.com/durewon-del/RUN_RUN/main/KakaoTalk_20250827_213059786.jpg" alt="3인 셀피">
+                    <img src="https://raw.githubusercontent.com/durewon-del/RUN_RUN/main/KakaoTalk_20250827_213059786.jpg" alt="3인 셀피" loading="lazy">
                 </div>
                 <div class="photo-info">
                     <div class="photo-date">📅 2025년 8월 27일 (수)</div>
@@ -720,6 +748,19 @@
                     <div class="photo-location">📍 구로구 운동장</div>
                     <span class="time-pill night">🌙 야간</span>
                     <span class="photo-tag">3인 친목</span>
+                </div>
+            </div>
+            <!-- 8월 27일 영상 -->
+            <div class="photo-card" style="margin-top: 12px;">
+                <div class="video-wrapper">
+                    <span class="video-badge">🎬 영상</span>
+                    <video controls playsinline preload="metadata" poster="">
+                        <source src="https://raw.githubusercontent.com/durewon-del/RUN_RUN/main/KakaoTalk_20250827_200840755.mp4" type="video/mp4">
+                    </video>
+                </div>
+                <div class="photo-info">
+                    <h3 class="photo-title">러닝 현장 영상 📹</h3>
+                    <span class="photo-tag">14초 영상</span>
                 </div>
             </div>
         </div>
@@ -731,7 +772,7 @@
             <div class="month-label autumn">9월 4일</div>
             <div class="photo-card">
                 <div class="photo-grid single">
-                    <img src="https://raw.githubusercontent.com/durewon-del/RUN_RUN/main/KakaoTalk_20250904_212150158.jpg" alt="9월 러닝">
+                    <img src="https://raw.githubusercontent.com/durewon-del/RUN_RUN/main/KakaoTalk_20250904_212150158.jpg" alt="9월 러닝" loading="lazy">
                 </div>
                 <div class="photo-info">
                     <div class="photo-date">📅 2025년 9월 4일 (목)</div>
@@ -747,7 +788,7 @@
             <div class="month-label autumn">9월 9일</div>
             <div class="photo-card">
                 <div class="photo-grid single">
-                    <img src="https://raw.githubusercontent.com/durewon-del/RUN_RUN/main/KakaoTalk_20250909_074739423.jpg" alt="9월 러닝">
+                    <img src="https://raw.githubusercontent.com/durewon-del/RUN_RUN/main/KakaoTalk_20250909_074739423.jpg" alt="9월 러닝" loading="lazy">
                 </div>
                 <div class="photo-info">
                     <div class="photo-date">📅 2025년 9월 9일 (화)</div>
@@ -763,8 +804,8 @@
             <div class="month-label autumn">9월 15일</div>
             <div class="photo-card">
                 <div class="photo-grid">
-                    <img src="https://raw.githubusercontent.com/durewon-del/RUN_RUN/main/KakaoTalk_20250915_214846761.jpg" alt="단체사진">
-                    <img src="https://raw.githubusercontent.com/durewon-del/RUN_RUN/main/KakaoTalk_20250915_214846761_01.jpg" alt="뒷풀이">
+                    <img src="https://raw.githubusercontent.com/durewon-del/RUN_RUN/main/KakaoTalk_20250915_214846761.jpg" alt="단체사진" loading="lazy">
+                    <img src="https://raw.githubusercontent.com/durewon-del/RUN_RUN/main/KakaoTalk_20250915_214846761_01.jpg" alt="뒷풀이" loading="lazy">
                 </div>
                 <div class="photo-info">
                     <div class="photo-date">📅 2025년 9월 15일 (월)</div>
@@ -780,7 +821,7 @@
             <div class="month-label autumn">9월 22일</div>
             <div class="photo-card">
                 <div class="photo-grid single">
-                    <img src="https://raw.githubusercontent.com/durewon-del/RUN_RUN/main/KakaoTalk_20250922_203629671.jpg" alt="단체사진">
+                    <img src="https://raw.githubusercontent.com/durewon-del/RUN_RUN/main/KakaoTalk_20250922_203629671.jpg" alt="단체사진" loading="lazy">
                 </div>
                 <div class="photo-info">
                     <div class="photo-date">📅 2025년 9월 22일 (월)</div>
@@ -796,7 +837,7 @@
             <div class="month-label autumn">9월 29일</div>
             <div class="photo-card">
                 <div class="photo-grid single">
-                    <img src="https://raw.githubusercontent.com/durewon-del/RUN_RUN/main/KakaoTalk_20250929_200730168.jpg" alt="단체사진">
+                    <img src="https://raw.githubusercontent.com/durewon-del/RUN_RUN/main/KakaoTalk_20250929_200730168.jpg" alt="단체사진" loading="lazy">
                 </div>
                 <div class="photo-info">
                     <div class="photo-date">📅 2025년 9월 29일 (월)</div>
@@ -815,7 +856,7 @@
             <div class="month-label autumn">10월 17일</div>
             <div class="photo-card">
                 <div class="photo-grid single">
-                    <img src="https://raw.githubusercontent.com/durewon-del/RUN_RUN/main/KakaoTalk_20251017_190839800.jpg" alt="단체사진">
+                    <img src="https://raw.githubusercontent.com/durewon-del/RUN_RUN/main/KakaoTalk_20251017_190839800.jpg" alt="단체사진" loading="lazy">
                 </div>
                 <div class="photo-info">
                     <div class="photo-date">📅 2025년 10월 17일 (금)</div>
@@ -825,13 +866,26 @@
                     <span class="photo-tag">도시 야경 🌃</span>
                 </div>
             </div>
+            <!-- 10월 17일 영상 -->
+            <div class="photo-card" style="margin-top: 12px;">
+                <div class="video-wrapper">
+                    <span class="video-badge">🎬 영상</span>
+                    <video controls playsinline preload="metadata">
+                        <source src="https://raw.githubusercontent.com/durewon-del/RUN_RUN/main/KakaoTalk_20251017_190845891.mp4" type="video/mp4">
+                    </video>
+                </div>
+                <div class="photo-info">
+                    <h3 class="photo-title">야간 러닝 현장 📹</h3>
+                    <span class="photo-tag">11초 영상</span>
+                </div>
+            </div>
         </div>
 
         <div class="month-group">
             <div class="month-label autumn">10월 29일</div>
             <div class="photo-card">
                 <div class="photo-grid single">
-                    <img src="https://raw.githubusercontent.com/durewon-del/RUN_RUN/main/KakaoTalk_20251029_200023706.jpg" alt="단체사진">
+                    <img src="https://raw.githubusercontent.com/durewon-del/RUN_RUN/main/KakaoTalk_20251029_200023706.jpg" alt="단체사진" loading="lazy">
                 </div>
                 <div class="photo-info">
                     <div class="photo-date">📅 2025년 10월 29일 (수)</div>
@@ -850,7 +904,7 @@
             <div class="month-label autumn">11월 4일</div>
             <div class="photo-card">
                 <div class="photo-grid single">
-                    <img src="https://raw.githubusercontent.com/durewon-del/RUN_RUN/main/KakaoTalk_20251104_074420320.jpg" alt="셀피">
+                    <img src="https://raw.githubusercontent.com/durewon-del/RUN_RUN/main/KakaoTalk_20251104_074420320.jpg" alt="셀피" loading="lazy">
                 </div>
                 <div class="photo-info">
                     <div class="photo-date">📅 2025년 11월 4일 (화)</div>
@@ -866,8 +920,8 @@
             <div class="month-label autumn">11월 10일</div>
             <div class="photo-card">
                 <div class="photo-grid">
-                    <img src="https://raw.githubusercontent.com/durewon-del/RUN_RUN/main/KakaoTalk_20251110_215600695.jpg" alt="단체">
-                    <img src="https://raw.githubusercontent.com/durewon-del/RUN_RUN/main/KakaoTalk_20251110_215600695_01.jpg" alt="음식">
+                    <img src="https://raw.githubusercontent.com/durewon-del/RUN_RUN/main/KakaoTalk_20251110_215600695.jpg" alt="단체" loading="lazy">
+                    <img src="https://raw.githubusercontent.com/durewon-del/RUN_RUN/main/KakaoTalk_20251110_215600695_01.jpg" alt="음식" loading="lazy">
                 </div>
                 <div class="photo-info">
                     <div class="photo-date">📅 2025년 11월 10일 (일)</div>
@@ -880,11 +934,28 @@
         </div>
 
         <div class="month-group">
+            <div class="month-label autumn">11월 13일</div>
+            <div class="photo-card">
+                <div class="photo-grid">
+                    <img src="https://raw.githubusercontent.com/durewon-del/RUN_RUN/main/KakaoTalk_20251113_204921633.jpg" alt="셀피" loading="lazy">
+                    <img src="https://raw.githubusercontent.com/durewon-del/RUN_RUN/main/KakaoTalk_20251113_204921633_01.jpg" alt="셀피" loading="lazy">
+                </div>
+                <div class="photo-info">
+                    <div class="photo-date">📅 2025년 11월 13일 (목)</div>
+                    <h3 class="photo-title">평일 저녁 러닝</h3>
+                    <div class="photo-location">📍 구로구 운동장</div>
+                    <span class="time-pill night">🌙 야간</span>
+                    <span class="photo-tag">4인 소모임</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="month-group">
             <div class="month-label autumn">11월 18일</div>
             <div class="photo-card">
                 <div class="photo-grid">
-                    <img src="https://raw.githubusercontent.com/durewon-del/RUN_RUN/main/KakaoTalk_20251118_082310367.jpg" alt="단체">
-                    <img src="https://raw.githubusercontent.com/durewon-del/RUN_RUN/main/KakaoTalk_20251118_082310367_01.jpg" alt="단체">
+                    <img src="https://raw.githubusercontent.com/durewon-del/RUN_RUN/main/KakaoTalk_20251118_082310367.jpg" alt="단체" loading="lazy">
+                    <img src="https://raw.githubusercontent.com/durewon-del/RUN_RUN/main/KakaoTalk_20251118_082310367_01.jpg" alt="단체" loading="lazy">
                 </div>
                 <div class="photo-info">
                     <div class="photo-date">📅 2025년 11월 18일 (월)</div>
@@ -895,7 +966,7 @@
                 </div>
             </div>
             <div class="photo-scroll">
-                <div class="scroll-item"><img src="https://raw.githubusercontent.com/durewon-del/RUN_RUN/main/KakaoTalk_20251118_082310367_07.jpg" alt="러닝중"><div class="scroll-info"><div class="photo-title">달리는 모습 🏃</div></div></div>
+                <div class="scroll-item"><img src="https://raw.githubusercontent.com/durewon-del/RUN_RUN/main/KakaoTalk_20251118_082310367_07.jpg" alt="러닝중" loading="lazy"><div class="scroll-info"><div class="photo-title">달리는 모습 🏃</div></div></div>
             </div>
         </div>
 
@@ -903,7 +974,7 @@
             <div class="month-label autumn">11월 25일</div>
             <div class="photo-card">
                 <div class="photo-grid single">
-                    <img src="https://raw.githubusercontent.com/durewon-del/RUN_RUN/main/KakaoTalk_20251125_081058832.jpg" alt="단체">
+                    <img src="https://raw.githubusercontent.com/durewon-del/RUN_RUN/main/KakaoTalk_20251125_081058832.jpg" alt="단체" loading="lazy">
                 </div>
                 <div class="photo-info">
                     <div class="photo-date">📅 2025년 11월 25일 (화)</div>
@@ -922,7 +993,7 @@
             <div class="month-label winter">12월 8일</div>
             <div class="photo-card">
                 <div class="photo-grid single">
-                    <img src="https://raw.githubusercontent.com/durewon-del/RUN_RUN/main/KakaoTalk_20251208_202325724.jpg" alt="단체">
+                    <img src="https://raw.githubusercontent.com/durewon-del/RUN_RUN/main/KakaoTalk_20251208_202325724.jpg" alt="단체" loading="lazy">
                 </div>
                 <div class="photo-info">
                     <div class="photo-date">📅 2025년 12월 8일 (월)</div>
@@ -938,7 +1009,7 @@
             <div class="month-label winter">12월 16일</div>
             <div class="photo-card">
                 <div class="photo-grid single">
-                    <img src="https://raw.githubusercontent.com/durewon-del/RUN_RUN/main/KakaoTalk_20251216_124554726.jpg" alt="단체">
+                    <img src="https://raw.githubusercontent.com/durewon-del/RUN_RUN/main/KakaoTalk_20251216_124554726.jpg" alt="단체" loading="lazy">
                 </div>
                 <div class="photo-info">
                     <div class="photo-date">📅 2025년 12월 16일 (화)</div>
@@ -954,7 +1025,7 @@
             <div class="month-label winter">12월 22일</div>
             <div class="photo-card">
                 <div class="photo-grid single">
-                    <img src="https://raw.githubusercontent.com/durewon-del/RUN_RUN/main/KakaoTalk_20251222_222559484.jpg" alt="셀피">
+                    <img src="https://raw.githubusercontent.com/durewon-del/RUN_RUN/main/KakaoTalk_20251222_222559484.jpg" alt="셀피" loading="lazy">
                 </div>
                 <div class="photo-info">
                     <div class="photo-date">📅 2025년 12월 22일 (월)</div>
@@ -970,7 +1041,7 @@
             <div class="month-label" style="background: linear-gradient(135deg, var(--gold), #ffa726); color: var(--bg-dark);">12월 30일 🎉</div>
             <div class="photo-card highlight-card">
                 <div class="photo-grid single">
-                    <img src="https://raw.githubusercontent.com/durewon-del/RUN_RUN/main/KakaoTalk_20251230_084735304.jpg" alt="송년러닝">
+                    <img src="https://raw.githubusercontent.com/durewon-del/RUN_RUN/main/KakaoTalk_20251230_084735304.jpg" alt="송년러닝" loading="lazy">
                 </div>
                 <div class="photo-info">
                     <div class="photo-date" style="color: var(--gold);">📅 2025년 12월 30일 (화)</div>
@@ -1003,11 +1074,10 @@
             </button>
         </div>
 
+        <div class="comments-count" id="commentsCount">💬 총 0개의 의견</div>
+
         <div class="comments-list" id="commentsList">
-            <div class="empty-comments">
-                <div class="empty-comments-icon">💭</div>
-                <p>아직 의견이 없어요<br>첫 번째 의견을 남겨주세요!</p>
-            </div>
+            <div class="loading"><div class="loading-spinner"></div></div>
         </div>
     </section>
 
@@ -1029,29 +1099,20 @@
     <div class="toast" id="toast"></div>
 
     <script>
-        // Firebase 설정 (무료 테스트용 - 실제 사용시 본인 Firebase 프로젝트로 교체)
+        // 🔥 Firebase 설정
         const firebaseConfig = {
-            apiKey: "AIzaSyDemo-TestKey",
+            apiKey: "AIzaSyA7PRWuglaiBzxM6DE9B3aI4q2VVemhIK4",
             authDomain: "durun-durun.firebaseapp.com",
-            databaseURL: "https://durun-durun-default-rtdb.firebaseio.com",
+            databaseURL: "https://durun-durun-default-rtdb.asia-southeast1.firebasedatabase.app",
             projectId: "durun-durun",
-            storageBucket: "durun-durun.appspot.com",
-            messagingSenderId: "123456789",
-            appId: "1:123456789:web:abc123"
+            storageBucket: "durun-durun.firebasestorage.app",
+            messagingSenderId: "28996649422",
+            appId: "1:28996649422:web:4d5c624bbadb666c242b9f"
         };
 
-        // LocalStorage 기반 폴백 (Firebase 연결 안될 때)
-        let useLocalStorage = true;
-        let db = null;
-
-        try {
-            firebase.initializeApp(firebaseConfig);
-            db = firebase.database();
-            useLocalStorage = false;
-        } catch (e) {
-            console.log('Firebase 연결 실패, LocalStorage 사용');
-            useLocalStorage = true;
-        }
+        // Firebase 초기화
+        firebase.initializeApp(firebaseConfig);
+        const db = firebase.database();
 
         // 댓글 제출
         function submitComment() {
@@ -1075,36 +1136,28 @@
                 likes: 0
             };
 
-            if (useLocalStorage) {
-                saveToLocalStorage(comment);
-            } else {
-                saveToFirebase(comment);
-            }
-
-            document.getElementById('authorInput').value = '';
-            document.getElementById('commentInput').value = '';
-            showToast('의견이 등록되었습니다! 🎉');
-        }
-
-        // LocalStorage 저장
-        function saveToLocalStorage(comment) {
-            let comments = JSON.parse(localStorage.getItem('durunComments') || '[]');
-            comment.id = 'local_' + Date.now();
-            comments.unshift(comment);
-            localStorage.setItem('durunComments', JSON.stringify(comments));
-            renderComments(comments);
-        }
-
-        // Firebase 저장
-        function saveToFirebase(comment) {
-            db.ref('comments').push(comment);
+            // Firebase에 저장
+            db.ref('comments').push(comment)
+                .then(() => {
+                    document.getElementById('authorInput').value = '';
+                    document.getElementById('commentInput').value = '';
+                    showToast('의견이 등록되었습니다! 🎉');
+                })
+                .catch((error) => {
+                    console.error('Error:', error);
+                    showToast('오류가 발생했습니다 😢');
+                });
         }
 
         // 댓글 렌더링
         function renderComments(comments) {
             const container = document.getElementById('commentsList');
+            const countEl = document.getElementById('commentsCount');
             
-            if (!comments || comments.length === 0) {
+            const count = comments ? Object.keys(comments).length : 0;
+            countEl.textContent = `💬 총 ${count}개의 의견`;
+            
+            if (!comments || count === 0) {
                 container.innerHTML = `
                     <div class="empty-comments">
                         <div class="empty-comments-icon">💭</div>
@@ -1114,7 +1167,12 @@
                 return;
             }
 
-            container.innerHTML = comments.map(comment => `
+            // 최신순 정렬
+            const sortedComments = Object.entries(comments)
+                .map(([id, data]) => ({ id, ...data }))
+                .sort((a, b) => b.timestamp - a.timestamp);
+
+            container.innerHTML = sortedComments.map(comment => `
                 <div class="comment-item" data-id="${comment.id}">
                     <div class="comment-header">
                         <span class="comment-author">${escapeHtml(comment.author)}</span>
@@ -1132,35 +1190,14 @@
 
         // 좋아요
         function likeComment(id) {
-            if (useLocalStorage) {
-                let comments = JSON.parse(localStorage.getItem('durunComments') || '[]');
-                const index = comments.findIndex(c => c.id === id);
-                if (index > -1) {
-                    comments[index].likes = (comments[index].likes || 0) + 1;
-                    localStorage.setItem('durunComments', JSON.stringify(comments));
-                    renderComments(comments);
-                }
-            } else {
-                db.ref('comments/' + id + '/likes').transaction(likes => (likes || 0) + 1);
-            }
+            db.ref('comments/' + id + '/likes').transaction(likes => (likes || 0) + 1);
             showToast('좋아요! ❤️');
         }
 
-        // 댓글 로드
-        function loadComments() {
-            if (useLocalStorage) {
-                const comments = JSON.parse(localStorage.getItem('durunComments') || '[]');
-                renderComments(comments);
-            } else {
-                db.ref('comments').orderByChild('timestamp').on('value', snapshot => {
-                    const comments = [];
-                    snapshot.forEach(child => {
-                        comments.unshift({ id: child.key, ...child.val() });
-                    });
-                    renderComments(comments);
-                });
-            }
-        }
+        // 실시간 댓글 로드
+        db.ref('comments').on('value', snapshot => {
+            renderComments(snapshot.val());
+        });
 
         // 유틸리티
         function escapeHtml(text) {
@@ -1184,9 +1221,6 @@
             toast.classList.add('show');
             setTimeout(() => toast.classList.remove('show'), 2500);
         }
-
-        // 초기화
-        loadComments();
 
         // 스크롤 애니메이션
         const observer = new IntersectionObserver((entries) => {
