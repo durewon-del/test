@@ -1,0 +1,1408 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>두런두런 | 두레생협 러닝동호회 2025</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700;900&family=Bebas+Neue&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #1a1a2e;
+            --accent: #e94560;
+            --accent-light: #ff6b6b;
+            --bg-dark: #0f0f1a;
+            --bg-card: #16213e;
+            --text-light: #eaeaea;
+            --text-muted: #8b8b9e;
+            --gold: #ffd700;
+            --summer: #00c9a7;
+            --summer-alt: #ff6b35;
+            --autumn: #ff8c42;
+            --winter: #4ecdc4;
+            --rank-s: #ffd700;
+            --rank-a: #c0c0c0;
+            --rank-b: #cd7f32;
+            --rank-turtle: #4ecdc4;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Noto Sans KR', sans-serif;
+            background: var(--bg-dark);
+            color: var(--text-light);
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+
+        /* Hero Section */
+        .hero {
+            position: relative;
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            background: linear-gradient(135deg, var(--bg-dark) 0%, var(--primary) 50%, #2d1b4e 100%);
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: 
+                radial-gradient(circle at 20% 80%, rgba(233, 69, 96, 0.15) 0%, transparent 50%),
+                radial-gradient(circle at 80% 20%, rgba(255, 215, 0, 0.1) 0%, transparent 50%);
+            pointer-events: none;
+        }
+
+        .hero-badge {
+            display: inline-block;
+            padding: 8px 20px;
+            background: rgba(233, 69, 96, 0.2);
+            border: 1px solid var(--accent);
+            border-radius: 50px;
+            font-size: 12px;
+            font-weight: 500;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            color: var(--accent-light);
+            margin-bottom: 24px;
+            animation: fadeInUp 0.8s ease-out;
+        }
+
+        .hero-title {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: clamp(48px, 15vw, 120px);
+            line-height: 0.9;
+            letter-spacing: -2px;
+            background: linear-gradient(135deg, var(--text-light) 0%, var(--gold) 50%, var(--accent-light) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            animation: fadeInUp 0.8s ease-out 0.2s both;
+        }
+
+        .hero-subtitle {
+            font-size: 18px;
+            font-weight: 300;
+            color: var(--text-muted);
+            margin-top: 16px;
+            letter-spacing: 4px;
+            animation: fadeInUp 0.8s ease-out 0.4s both;
+        }
+
+        .hero-slogan {
+            font-size: 14px;
+            color: var(--accent-light);
+            margin-top: 24px;
+            padding: 12px 24px;
+            background: rgba(233, 69, 96, 0.1);
+            border-radius: 30px;
+            animation: fadeInUp 0.8s ease-out 0.6s both;
+        }
+
+        .hero-year {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: clamp(80px, 25vw, 200px);
+            color: rgba(255, 255, 255, 0.03);
+            position: absolute;
+            bottom: -20px;
+            right: -10px;
+            line-height: 1;
+            pointer-events: none;
+        }
+
+        .scroll-indicator {
+            position: absolute;
+            bottom: 40px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 8px;
+            animation: bounce 2s infinite;
+        }
+
+        .scroll-indicator span {
+            font-size: 10px;
+            letter-spacing: 2px;
+            color: var(--text-muted);
+        }
+
+        .scroll-indicator::after {
+            content: '';
+            width: 24px;
+            height: 40px;
+            border: 2px solid var(--text-muted);
+            border-radius: 12px;
+            position: relative;
+        }
+
+        /* Stats Bar */
+        .stats-bar {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            background: var(--bg-card);
+            padding: 24px 12px;
+            gap: 4px;
+        }
+
+        .stat-item {
+            text-align: center;
+            padding: 12px 4px;
+            border-radius: 12px;
+            background: rgba(255, 255, 255, 0.02);
+        }
+
+        .stat-number {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 28px;
+            color: var(--gold);
+            line-height: 1;
+        }
+
+        .stat-label {
+            font-size: 10px;
+            color: var(--text-muted);
+            margin-top: 4px;
+            letter-spacing: 0.5px;
+        }
+
+        /* About Section */
+        .about-section {
+            padding: 60px 20px;
+            background: linear-gradient(180deg, var(--bg-card) 0%, var(--bg-dark) 100%);
+        }
+
+        .about-header {
+            text-align: center;
+            margin-bottom: 32px;
+        }
+
+        .about-title {
+            font-size: 24px;
+            font-weight: 700;
+            margin-bottom: 8px;
+        }
+
+        .about-desc {
+            font-size: 14px;
+            color: var(--text-muted);
+        }
+
+        .about-card {
+            background: var(--primary);
+            border-radius: 20px;
+            padding: 24px;
+            margin-bottom: 20px;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        .about-card-title {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 16px;
+            font-weight: 600;
+            margin-bottom: 16px;
+            color: var(--gold);
+        }
+
+        .about-card-title svg {
+            width: 20px;
+            height: 20px;
+        }
+
+        .about-text {
+            font-size: 14px;
+            line-height: 1.8;
+            color: var(--text-light);
+        }
+
+        .about-highlight {
+            display: inline-block;
+            padding: 4px 12px;
+            background: rgba(233, 69, 96, 0.2);
+            border-radius: 8px;
+            color: var(--accent-light);
+            font-weight: 500;
+            margin: 4px 2px;
+        }
+
+        /* Rules Section */
+        .rules-list {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .rule-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 12px;
+            padding: 16px;
+            background: rgba(255, 255, 255, 0.03);
+            border-radius: 12px;
+        }
+
+        .rule-icon {
+            width: 32px;
+            height: 32px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: var(--accent);
+            border-radius: 8px;
+            font-size: 14px;
+            flex-shrink: 0;
+        }
+
+        .rule-content {
+            flex: 1;
+        }
+
+        .rule-title {
+            font-size: 14px;
+            font-weight: 600;
+            margin-bottom: 4px;
+        }
+
+        .rule-desc {
+            font-size: 12px;
+            color: var(--text-muted);
+            line-height: 1.6;
+        }
+
+        .fee-table {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 8px;
+            margin-top: 12px;
+        }
+
+        .fee-item {
+            text-align: center;
+            padding: 12px 8px;
+            background: rgba(255, 215, 0, 0.1);
+            border-radius: 10px;
+            border: 1px solid rgba(255, 215, 0, 0.2);
+        }
+
+        .fee-role {
+            font-size: 11px;
+            color: var(--text-muted);
+            margin-bottom: 4px;
+        }
+
+        .fee-amount {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 20px;
+            color: var(--gold);
+        }
+
+        /* Members Section */
+        .members-section {
+            padding: 60px 20px;
+            background: var(--bg-dark);
+        }
+
+        .members-header {
+            text-align: center;
+            margin-bottom: 32px;
+        }
+
+        .members-title {
+            font-size: 24px;
+            font-weight: 700;
+            margin-bottom: 8px;
+        }
+
+        .members-count {
+            font-size: 14px;
+            color: var(--text-muted);
+        }
+
+        .rank-group {
+            margin-bottom: 24px;
+        }
+
+        .rank-label {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 8px 16px;
+            border-radius: 20px;
+            font-size: 14px;
+            font-weight: 700;
+            margin-bottom: 12px;
+        }
+
+        .rank-label.s-rank {
+            background: linear-gradient(135deg, rgba(255, 215, 0, 0.3) 0%, rgba(255, 193, 7, 0.2) 100%);
+            border: 1px solid var(--rank-s);
+            color: var(--rank-s);
+        }
+
+        .rank-label.a-rank {
+            background: linear-gradient(135deg, rgba(192, 192, 192, 0.3) 0%, rgba(169, 169, 169, 0.2) 100%);
+            border: 1px solid var(--rank-a);
+            color: var(--rank-a);
+        }
+
+        .rank-label.b-rank {
+            background: linear-gradient(135deg, rgba(205, 127, 50, 0.3) 0%, rgba(184, 115, 51, 0.2) 100%);
+            border: 1px solid var(--rank-b);
+            color: var(--rank-b);
+        }
+
+        .rank-label.turtle {
+            background: linear-gradient(135deg, rgba(78, 205, 196, 0.3) 0%, rgba(0, 201, 167, 0.2) 100%);
+            border: 1px solid var(--rank-turtle);
+            color: var(--rank-turtle);
+        }
+
+        .members-grid {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+        }
+
+        .member-chip {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            padding: 10px 16px;
+            background: var(--bg-card);
+            border-radius: 25px;
+            font-size: 14px;
+            font-weight: 500;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            transition: transform 0.2s ease;
+        }
+
+        .member-chip:active {
+            transform: scale(0.98);
+        }
+
+        .member-chip.s-rank {
+            border-color: rgba(255, 215, 0, 0.3);
+            background: linear-gradient(135deg, rgba(255, 215, 0, 0.1) 0%, var(--bg-card) 100%);
+        }
+
+        .member-chip.a-rank {
+            border-color: rgba(192, 192, 192, 0.3);
+            background: linear-gradient(135deg, rgba(192, 192, 192, 0.1) 0%, var(--bg-card) 100%);
+        }
+
+        .member-chip.b-rank {
+            border-color: rgba(205, 127, 50, 0.3);
+            background: linear-gradient(135deg, rgba(205, 127, 50, 0.1) 0%, var(--bg-card) 100%);
+        }
+
+        .member-chip.turtle {
+            border-color: rgba(78, 205, 196, 0.3);
+            background: linear-gradient(135deg, rgba(78, 205, 196, 0.1) 0%, var(--bg-card) 100%);
+        }
+
+        .member-emoji {
+            font-size: 16px;
+        }
+
+        /* Season Divider */
+        .season-divider {
+            padding: 40px 20px 20px;
+            text-align: center;
+            position: relative;
+        }
+
+        .season-title {
+            display: inline-flex;
+            align-items: center;
+            gap: 12px;
+            padding: 12px 28px;
+            border-radius: 30px;
+            font-size: 16px;
+            font-weight: 600;
+        }
+
+        .season-title.summer {
+            background: linear-gradient(135deg, rgba(255, 107, 53, 0.2) 0%, rgba(255, 159, 67, 0.2) 100%);
+            border: 1px solid var(--summer-alt);
+            color: var(--summer-alt);
+        }
+
+        .season-title.autumn {
+            background: linear-gradient(135deg, rgba(255, 140, 66, 0.2) 0%, rgba(233, 69, 96, 0.2) 100%);
+            border: 1px solid var(--autumn);
+            color: var(--autumn);
+        }
+
+        .season-title.winter {
+            background: linear-gradient(135deg, rgba(78, 205, 196, 0.2) 0%, rgba(100, 149, 237, 0.2) 100%);
+            border: 1px solid var(--winter);
+            color: var(--winter);
+        }
+
+        /* Timeline Section */
+        .timeline-section {
+            padding: 40px 20px 60px;
+            position: relative;
+        }
+
+        .section-header {
+            text-align: center;
+            margin-bottom: 48px;
+        }
+
+        .section-title {
+            font-size: 28px;
+            font-weight: 700;
+            margin-bottom: 8px;
+        }
+
+        .section-desc {
+            font-size: 14px;
+            color: var(--text-muted);
+        }
+
+        /* Photo Cards */
+        .photo-timeline {
+            display: flex;
+            flex-direction: column;
+            gap: 32px;
+        }
+
+        .month-group {
+            position: relative;
+        }
+
+        .month-label {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 8px 16px;
+            background: linear-gradient(135deg, var(--accent) 0%, var(--accent-light) 100%);
+            border-radius: 20px;
+            font-size: 13px;
+            font-weight: 600;
+            margin-bottom: 16px;
+            box-shadow: 0 4px 20px rgba(233, 69, 96, 0.3);
+        }
+
+        .month-label::before {
+            content: '';
+            width: 6px;
+            height: 6px;
+            background: white;
+            border-radius: 50%;
+        }
+
+        .month-label.summer {
+            background: linear-gradient(135deg, var(--summer-alt) 0%, #ff9f43 100%);
+            box-shadow: 0 4px 20px rgba(255, 107, 53, 0.3);
+        }
+
+        .month-label.autumn {
+            background: linear-gradient(135deg, var(--autumn) 0%, #ffa726 100%);
+            box-shadow: 0 4px 20px rgba(255, 140, 66, 0.3);
+        }
+
+        .photo-card {
+            position: relative;
+            border-radius: 20px;
+            overflow: hidden;
+            background: var(--bg-card);
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
+            transform: translateY(20px);
+            opacity: 0;
+            animation: cardReveal 0.6s ease-out forwards;
+        }
+
+        .photo-card img {
+            width: 100%;
+            height: 260px;
+            object-fit: cover;
+            display: block;
+        }
+
+        .photo-info {
+            padding: 20px;
+            position: relative;
+        }
+
+        .photo-info::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 20px;
+            right: 20px;
+            height: 1px;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.1), transparent);
+        }
+
+        .photo-date {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 12px;
+            color: var(--accent-light);
+            margin-bottom: 8px;
+        }
+
+        .photo-date svg {
+            width: 14px;
+            height: 14px;
+        }
+
+        .photo-title {
+            font-size: 16px;
+            font-weight: 600;
+            margin-bottom: 6px;
+        }
+
+        .photo-location {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            font-size: 13px;
+            color: var(--text-muted);
+        }
+
+        .photo-location svg {
+            width: 12px;
+            height: 12px;
+            color: var(--gold);
+        }
+
+        .photo-tag {
+            display: inline-block;
+            padding: 4px 10px;
+            background: rgba(255, 215, 0, 0.15);
+            border-radius: 12px;
+            font-size: 11px;
+            color: var(--gold);
+            margin-top: 12px;
+            margin-right: 6px;
+        }
+
+        /* Photo Grid */
+        .photo-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 8px;
+            padding: 8px;
+        }
+
+        .photo-grid.single {
+            grid-template-columns: 1fr;
+            padding: 0;
+        }
+
+        .photo-grid img {
+            width: 100%;
+            height: 140px;
+            object-fit: cover;
+            border-radius: 12px;
+        }
+
+        .photo-grid.single img {
+            height: 260px;
+            border-radius: 0;
+        }
+
+        /* Horizontal scroll */
+        .photo-scroll {
+            display: flex;
+            gap: 12px;
+            overflow-x: auto;
+            scroll-snap-type: x mandatory;
+            -webkit-overflow-scrolling: touch;
+            padding: 0 20px 20px;
+            margin: 0 -20px;
+        }
+
+        .photo-scroll::-webkit-scrollbar {
+            display: none;
+        }
+
+        .photo-scroll .scroll-item {
+            flex: 0 0 75%;
+            scroll-snap-align: center;
+            border-radius: 16px;
+            overflow: hidden;
+            background: var(--bg-card);
+        }
+
+        .photo-scroll .scroll-item img {
+            width: 100%;
+            height: 180px;
+            object-fit: cover;
+        }
+
+        .photo-scroll .scroll-info {
+            padding: 12px 16px;
+        }
+
+        .photo-scroll .scroll-info .photo-title {
+            font-size: 14px;
+        }
+
+        /* Time pill */
+        .time-pill {
+            display: inline-flex;
+            align-items: center;
+            gap: 4px;
+            padding: 4px 10px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 10px;
+            font-size: 11px;
+            color: var(--text-muted);
+            margin-top: 12px;
+            margin-right: 6px;
+        }
+
+        .time-pill.night {
+            background: rgba(45, 27, 78, 0.5);
+        }
+
+        .time-pill.day {
+            background: rgba(255, 215, 0, 0.15);
+            color: var(--gold);
+        }
+
+        .time-pill.evening {
+            background: rgba(255, 107, 53, 0.2);
+            color: var(--summer-alt);
+        }
+
+        /* Food Section */
+        .food-highlight {
+            margin-top: 16px;
+            padding: 16px;
+            background: rgba(255, 140, 66, 0.1);
+            border-radius: 16px;
+            border: 1px solid rgba(255, 140, 66, 0.2);
+        }
+
+        .food-highlight-title {
+            font-size: 14px;
+            font-weight: 600;
+            color: var(--autumn);
+            margin-bottom: 12px;
+        }
+
+        .food-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 8px;
+        }
+
+        .food-grid img {
+            width: 100%;
+            height: 100px;
+            object-fit: cover;
+            border-radius: 8px;
+        }
+
+        .receipt-info {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 16px;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 12px;
+            margin-top: 16px;
+        }
+
+        .receipt-amount {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 28px;
+            color: var(--gold);
+        }
+
+        .receipt-label {
+            font-size: 12px;
+            color: var(--text-muted);
+        }
+
+        /* Highlight Card */
+        .highlight-card {
+            border: 2px solid var(--gold);
+            position: relative;
+        }
+
+        .highlight-card::before {
+            content: '🎉 송년 러닝';
+            position: absolute;
+            top: -12px;
+            left: 20px;
+            padding: 4px 12px;
+            background: var(--gold);
+            color: var(--bg-dark);
+            font-size: 12px;
+            font-weight: 700;
+            border-radius: 8px;
+            z-index: 10;
+        }
+
+        /* Footer */
+        .footer {
+            padding: 60px 20px;
+            text-align: center;
+            background: var(--bg-dark);
+        }
+
+        .footer-logo {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 32px;
+            background: linear-gradient(135deg, var(--accent) 0%, var(--gold) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 16px;
+        }
+
+        .footer-text {
+            font-size: 14px;
+            color: var(--text-muted);
+            line-height: 1.8;
+        }
+
+        .footer-cta {
+            display: inline-block;
+            margin-top: 24px;
+            padding: 14px 32px;
+            background: linear-gradient(135deg, var(--accent) 0%, var(--accent-light) 100%);
+            border-radius: 30px;
+            font-size: 14px;
+            font-weight: 600;
+            color: white;
+            text-decoration: none;
+            box-shadow: 0 8px 30px rgba(233, 69, 96, 0.4);
+        }
+
+        /* Animations */
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        @keyframes cardReveal {
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        @keyframes bounce {
+            0%, 20%, 50%, 80%, 100% { transform: translateX(-50%) translateY(0); }
+            40% { transform: translateX(-50%) translateY(-10px); }
+            60% { transform: translateX(-50%) translateY(-5px); }
+        }
+    </style>
+</head>
+<body>
+    <!-- Hero Section -->
+    <section class="hero">
+        <span class="hero-badge">🏃 두레생협 러닝동호회</span>
+        <h1 class="hero-title">두런두런</h1>
+        <p class="hero-subtitle">2025년을 돌아보며</p>
+        <div class="hero-slogan">💯 100세까지 장수하며 일한다!</div>
+        <span class="hero-year">2025</span>
+        <div class="scroll-indicator">
+            <span>SCROLL</span>
+        </div>
+    </section>
+
+    <!-- Stats Bar -->
+    <div class="stats-bar">
+        <div class="stat-item">
+            <div class="stat-number">20+</div>
+            <div class="stat-label">러닝 모임</div>
+        </div>
+        <div class="stat-item">
+            <div class="stat-number">13</div>
+            <div class="stat-label">멤버</div>
+        </div>
+        <div class="stat-item">
+            <div class="stat-number">7~9</div>
+            <div class="stat-label">km/회</div>
+        </div>
+        <div class="stat-item">
+            <div class="stat-number">1.5</div>
+            <div class="stat-label">시간</div>
+        </div>
+    </div>
+
+    <!-- About Section -->
+    <section class="about-section">
+        <div class="about-header">
+            <h2 class="about-title">두런두런 소개</h2>
+            <p class="about-desc">퇴근 후 1.5시간, 건강을 위해 달립니다</p>
+        </div>
+
+        <div class="about-card">
+            <div class="about-card-title">
+                <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>
+                우리의 목표
+            </div>
+            <p class="about-text">
+                <span class="about-highlight">100세까지 장수하며 일한다!</span><br><br>
+                매일 퇴근 후 <span class="about-highlight">1.5시간</span> 동안 건강을 위해 달립니다.<br>
+                1회 평균 <span class="about-highlight">7~9km</span> 러닝
+            </p>
+        </div>
+
+        <div class="about-card">
+            <div class="about-card-title">
+                <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2"/></svg>
+                회칙
+            </div>
+            <div class="rules-list">
+                <div class="rule-item">
+                    <div class="rule-icon">💰</div>
+                    <div class="rule-content">
+                        <div class="rule-title">월 회비</div>
+                        <div class="fee-table">
+                            <div class="fee-item">
+                                <div class="fee-role">상무</div>
+                                <div class="fee-amount">3만원</div>
+                            </div>
+                            <div class="fee-item">
+                                <div class="fee-role">팀장</div>
+                                <div class="fee-amount">2만원</div>
+                            </div>
+                            <div class="fee-item">
+                                <div class="fee-role">매니저</div>
+                                <div class="fee-amount">1만원</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="rule-item">
+                    <div class="rule-icon">⚠️</div>
+                    <div class="rule-content">
+                        <div class="rule-title">불참 시 범칙금</div>
+                        <div class="rule-desc">정당한 사유 없이 불참 시 <strong style="color: var(--accent-light);">1만원</strong> 범칙금</div>
+                    </div>
+                </div>
+                <div class="rule-item">
+                    <div class="rule-icon">🍽️</div>
+                    <div class="rule-content">
+                        <div class="rule-title">회식 제한</div>
+                        <div class="rule-desc">운동을 위한 모임! 회식은 <strong style="color: var(--gold);">월 1회</strong>로 제한</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Members Section -->
+    <section class="members-section">
+        <div class="members-header">
+            <h2 class="members-title">🏃 멤버 소개</h2>
+            <p class="members-count">총 13명의 러너가 함께합니다</p>
+        </div>
+
+        <!-- S Rank -->
+        <div class="rank-group">
+            <div class="rank-label s-rank">🥇 S등급</div>
+            <div class="members-grid">
+                <div class="member-chip s-rank"><span class="member-emoji">⚡</span> 백형호</div>
+                <div class="member-chip s-rank"><span class="member-emoji">⚡</span> 박상영</div>
+                <div class="member-chip s-rank"><span class="member-emoji">⚡</span> 김경식</div>
+            </div>
+        </div>
+
+        <!-- A Rank -->
+        <div class="rank-group">
+            <div class="rank-label a-rank">🥈 A등급</div>
+            <div class="members-grid">
+                <div class="member-chip a-rank"><span class="member-emoji">🔥</span> 임준혁</div>
+                <div class="member-chip a-rank"><span class="member-emoji">🔥</span> 김재만</div>
+                <div class="member-chip a-rank"><span class="member-emoji">🔥</span> 김미정</div>
+                <div class="member-chip a-rank"><span class="member-emoji">🔥</span> 조상현</div>
+                <div class="member-chip a-rank"><span class="member-emoji">🔥</span> 유은지</div>
+            </div>
+        </div>
+
+        <!-- B Rank -->
+        <div class="rank-group">
+            <div class="rank-label b-rank">🥉 B등급</div>
+            <div class="members-grid">
+                <div class="member-chip b-rank"><span class="member-emoji">💪</span> 한상준</div>
+            </div>
+        </div>
+
+        <!-- Turtle -->
+        <div class="rank-group">
+            <div class="rank-label turtle">🐢 거북이조</div>
+            <div class="members-grid">
+                <div class="member-chip turtle"><span class="member-emoji">🐢</span> 이마리아</div>
+                <div class="member-chip turtle"><span class="member-emoji">🐢</span> 여영석</div>
+                <div class="member-chip turtle"><span class="member-emoji">🐢</span> 유현수</div>
+                <div class="member-chip turtle"><span class="member-emoji">🐢</span> 이지원</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Timeline Section -->
+    <section class="timeline-section">
+        <div class="section-header">
+            <h2 class="section-title">📸 우리의 발자취</h2>
+            <p class="section-desc">7월부터 12월까지, 함께 달린 소중한 순간들</p>
+        </div>
+
+        <div class="photo-timeline">
+            
+            <!-- ========== 7월 JULY ========== -->
+            <div class="season-divider">
+                <div class="season-title summer">☀️ 7월 · 뜨거운 여름의 시작</div>
+            </div>
+
+            <!-- July 31 -->
+            <div class="month-group">
+                <div class="month-label summer">7월 31일</div>
+                
+                <div class="photo-card">
+                    <div class="photo-grid single">
+                        <img src="https://raw.githubusercontent.com/durewon-del/RUN_RUN/main/KakaoTalk_20250731_222425163.jpg" alt="야간 러닝">
+                    </div>
+                    <div class="photo-info">
+                        <div class="photo-date">
+                            <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"/></svg>
+                            2025년 7월 31일 (목)
+                        </div>
+                        <h3 class="photo-title">7월 마지막 밤 러닝 🌙</h3>
+                        <div class="photo-location">
+                            <svg fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M5.05 4.05a7 7 0 119.9 9.9L10 18.9l-4.95-4.95a7 7 0 010-9.9zM10 11a2 2 0 100-4 2 2 0 000 4z" clip-rule="evenodd"/></svg>
+                            한강시민공원 (야간 조명)
+                        </div>
+                        <span class="time-pill night">🌙 야간 러닝</span>
+                        <span class="photo-tag">핑크빛 조명 배경 🩷</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ========== 8월 AUGUST ========== -->
+            <div class="season-divider">
+                <div class="season-title summer">🌴 8월 · 한여름 밤의 러닝</div>
+            </div>
+
+            <!-- August 4 -->
+            <div class="month-group">
+                <div class="month-label summer">8월 4일</div>
+                
+                <div class="photo-card">
+                    <div class="photo-grid single">
+                        <img src="https://raw.githubusercontent.com/durewon-del/RUN_RUN/main/KakaoTalk_20250804_203622142.jpg" alt="러닝 후 워킹">
+                    </div>
+                    <div class="photo-info">
+                        <div class="photo-date">
+                            <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"/></svg>
+                            2025년 8월 4일 (월)
+                        </div>
+                        <h3 class="photo-title">초록빛 산책로 러닝 🌿</h3>
+                        <div class="photo-location">
+                            <svg fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M5.05 4.05a7 7 0 119.9 9.9L10 18.9l-4.95-4.95a7 7 0 010-9.9zM10 11a2 2 0 100-4 2 2 0 000 4z" clip-rule="evenodd"/></svg>
+                            안양천 산책로
+                        </div>
+                        <span class="time-pill evening">🌅 저녁 러닝</span>
+                        <span class="photo-tag">담쟁이 터널 🍃</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- August 20 -->
+            <div class="month-group">
+                <div class="month-label summer">8월 20일</div>
+                
+                <div class="photo-card">
+                    <div class="photo-grid">
+                        <img src="https://raw.githubusercontent.com/durewon-del/RUN_RUN/main/KakaoTalk_20250820_203517322.jpg" alt="단체사진">
+                        <img src="https://raw.githubusercontent.com/durewon-del/RUN_RUN/main/KakaoTalk_20250820_203517322_01.jpg" alt="단체사진">
+                    </div>
+                    <div class="photo-info">
+                        <div class="photo-date">
+                            <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"/></svg>
+                            2025년 8월 20일 (수)
+                        </div>
+                        <h3 class="photo-title">대규모 여름 러닝 데이 🏃</h3>
+                        <div class="photo-location">
+                            <svg fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M5.05 4.05a7 7 0 119.9 9.9L10 18.9l-4.95-4.95a7 7 0 010-9.9zM10 11a2 2 0 100-4 2 2 0 000 4z" clip-rule="evenodd"/></svg>
+                            한강시민공원 블루 트랙
+                        </div>
+                        <span class="time-pill evening">🌅 저녁 러닝</span>
+                        <span class="photo-tag">8명 참여</span>
+                    </div>
+                </div>
+
+                <div class="photo-scroll" style="margin-top: 16px;">
+                    <div class="scroll-item">
+                        <img src="https://raw.githubusercontent.com/durewon-del/RUN_RUN/main/KakaoTalk_20250820_203517322_02.jpg" alt="준비운동">
+                        <div class="scroll-info">
+                            <div class="photo-title">준비운동 시간</div>
+                        </div>
+                    </div>
+                    <div class="scroll-item">
+                        <img src="https://raw.githubusercontent.com/durewon-del/RUN_RUN/main/KakaoTalk_20250820_203517322_03.jpg" alt="러닝 중">
+                        <div class="scroll-info">
+                            <div class="photo-title">해질녘 러닝</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- August 27 -->
+            <div class="month-group">
+                <div class="month-label summer">8월 27일</div>
+                
+                <div class="photo-card">
+                    <div class="photo-grid single">
+                        <img src="https://raw.githubusercontent.com/durewon-del/RUN_RUN/main/KakaoTalk_20250827_213059786.jpg" alt="3인 셀피">
+                    </div>
+                    <div class="photo-info">
+                        <div class="photo-date">
+                            <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"/></svg>
+                            2025년 8월 27일 (수)
+                        </div>
+                        <h3 class="photo-title">8월 마지막 주 러닝</h3>
+                        <div class="photo-location">
+                            <svg fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M5.05 4.05a7 7 0 119.9 9.9L10 18.9l-4.95-4.95a7 7 0 010-9.9zM10 11a2 2 0 100-4 2 2 0 000 4z" clip-rule="evenodd"/></svg>
+                            한강시민공원 트랙
+                        </div>
+                        <span class="time-pill night">🌙 야간 러닝</span>
+                        <span class="photo-tag">3인 친목 러닝</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ========== 9월 SEPTEMBER ========== -->
+            <div class="season-divider">
+                <div class="season-title autumn">🍃 9월 · 가을의 시작</div>
+            </div>
+
+            <!-- September 15 -->
+            <div class="month-group">
+                <div class="month-label autumn">9월 15일</div>
+                
+                <div class="photo-card">
+                    <div class="photo-grid">
+                        <img src="https://raw.githubusercontent.com/durewon-del/RUN_RUN/main/KakaoTalk_20250915_214846761.jpg" alt="러닝 단체사진">
+                        <img src="https://raw.githubusercontent.com/durewon-del/RUN_RUN/main/KakaoTalk_20250915_214846761_01.jpg" alt="뒷풀이">
+                    </div>
+                    <div class="photo-info">
+                        <div class="photo-date">
+                            <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"/></svg>
+                            2025년 9월 15일 (월)
+                        </div>
+                        <h3 class="photo-title">9월 첫 러닝 + 풍성한 뒷풀이 🦐</h3>
+                        <div class="photo-location">
+                            <svg fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M5.05 4.05a7 7 0 119.9 9.9L10 18.9l-4.95-4.95a7 7 0 010-9.9zM10 11a2 2 0 100-4 2 2 0 000 4z" clip-rule="evenodd"/></svg>
+                            한강시민공원 파빌리온
+                        </div>
+                        <span class="time-pill night">🌙 야간 러닝</span>
+                        <span class="photo-tag">새우구이 + 삼겹살 + 맥주 🍺</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- September 22 -->
+            <div class="month-group">
+                <div class="month-label autumn">9월 22일</div>
+                
+                <div class="photo-card">
+                    <div class="photo-grid single">
+                        <img src="https://raw.githubusercontent.com/durewon-del/RUN_RUN/main/KakaoTalk_20250922_203629671.jpg" alt="단체사진">
+                    </div>
+                    <div class="photo-info">
+                        <div class="photo-date">
+                            <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"/></svg>
+                            2025년 9월 22일 (월)
+                        </div>
+                        <h3 class="photo-title">추석 전 마지막 러닝 🌕</h3>
+                        <div class="photo-location">
+                            <svg fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M5.05 4.05a7 7 0 119.9 9.9L10 18.9l-4.95-4.95a7 7 0 010-9.9zM10 11a2 2 0 100-4 2 2 0 000 4z" clip-rule="evenodd"/></svg>
+                            한강시민공원 파빌리온
+                        </div>
+                        <span class="time-pill night">🌙 야간 러닝</span>
+                        <span class="photo-tag">6명 참여</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- September 29 -->
+            <div class="month-group">
+                <div class="month-label autumn">9월 29일</div>
+                
+                <div class="photo-card">
+                    <div class="photo-grid single">
+                        <img src="https://raw.githubusercontent.com/durewon-del/RUN_RUN/main/KakaoTalk_20250929_200730168.jpg" alt="단체사진">
+                    </div>
+                    <div class="photo-info">
+                        <div class="photo-date">
+                            <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"/></svg>
+                            2025년 9월 29일 (월)
+                        </div>
+                        <h3 class="photo-title">추석 연휴 후 복귀 러닝</h3>
+                        <div class="photo-location">
+                            <svg fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M5.05 4.05a7 7 0 119.9 9.9L10 18.9l-4.95-4.95a7 7 0 010-9.9zM10 11a2 2 0 100-4 2 2 0 000 4z" clip-rule="evenodd"/></svg>
+                            한강시민공원 파빌리온
+                        </div>
+                        <span class="time-pill night">🌙 야간 러닝</span>
+                        <span class="photo-tag">8명 대규모 참여</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ========== 10월 OCTOBER ========== -->
+            <div class="season-divider">
+                <div class="season-title autumn">🍂 10월 · 단풍의 계절</div>
+            </div>
+
+            <!-- October 17 -->
+            <div class="month-group">
+                <div class="month-label autumn">10월 17일</div>
+                
+                <div class="photo-card">
+                    <div class="photo-grid single">
+                        <img src="https://raw.githubusercontent.com/durewon-del/RUN_RUN/main/KakaoTalk_20251017_190839800.jpg" alt="단체사진">
+                    </div>
+                    <div class="photo-info">
+                        <div class="photo-date">
+                            <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"/></svg>
+                            2025년 10월 17일 (금)
+                        </div>
+                        <h3 class="photo-title">트랙에서 함께 🏃</h3>
+                        <div class="photo-location">
+                            <svg fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M5.05 4.05a7 7 0 119.9 9.9L10 18.9l-4.95-4.95a7 7 0 010-9.9zM10 11a2 2 0 100-4 2 2 0 000 4z" clip-rule="evenodd"/></svg>
+                            한강시민공원 트랙
+                        </div>
+                        <span class="time-pill night">🌙 야간 러닝</span>
+                        <span class="photo-tag">도시 야경 🌃</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- October 29 -->
+            <div class="month-group">
+                <div class="month-label autumn">10월 29일</div>
+                
+                <div class="photo-card">
+                    <div class="photo-grid single">
+                        <img src="https://raw.githubusercontent.com/durewon-del/RUN_RUN/main/KakaoTalk_20251029_200023706.jpg" alt="단체사진">
+                    </div>
+                    <div class="photo-info">
+                        <div class="photo-date">
+                            <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"/></svg>
+                            2025년 10월 29일 (수)
+                        </div>
+                        <h3 class="photo-title">10월 마지막 러닝</h3>
+                        <div class="photo-location">
+                            <svg fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M5.05 4.05a7 7 0 119.9 9.9L10 18.9l-4.95-4.95a7 7 0 010-9.9zM10 11a2 2 0 100-4 2 2 0 000 4z" clip-rule="evenodd"/></svg>
+                            한강시민공원 파빌리온
+                        </div>
+                        <span class="time-pill night">🌙 야간 러닝</span>
+                        <span class="photo-tag">9명 참여 💪</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ========== 11월 NOVEMBER ========== -->
+            <div class="season-divider">
+                <div class="season-title autumn">🍁 11월 · 깊어가는 가을</div>
+            </div>
+
+            <!-- November 4 -->
+            <div class="month-group">
+                <div class="month-label autumn">11월 4일</div>
+                
+                <div class="photo-card">
+                    <div class="photo-grid single">
+                        <img src="https://raw.githubusercontent.com/durewon-del/RUN_RUN/main/KakaoTalk_20251104_074420320.jpg" alt="2인 셀피">
+                    </div>
+                    <div class="photo-info">
+                        <div class="photo-date">
+                            <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"/></svg>
+                            2025년 11월 4일 (화)
+                        </div>
+                        <h3 class="photo-title">평일 저녁 친목 러닝</h3>
+                        <div class="photo-location">
+                            <svg fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M5.05 4.05a7 7 0 119.9 9.9L10 18.9l-4.95-4.95a7 7 0 010-9.9zM10 11a2 2 0 100-4 2 2 0 000 4z" clip-rule="evenodd"/></svg>
+                            한강시민공원 파빌리온
+                        </div>
+                        <span class="time-pill night">🌙 야간 러닝</span>
+                        <span class="photo-tag">2인 친목 러닝 👬</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- November 10 -->
+            <div class="month-group">
+                <div class="month-label autumn">11월 10일</div>
+                
+                <div class="photo-card">
+                    <div class="photo-grid single">
+                        <img src="https://raw.githubusercontent.com/durewon-del/RUN_RUN/main/KakaoTalk_20251110_215600695.jpg" alt="단체사진">
+                    </div>
+                    <div class="photo-info">
+                        <div class="photo-date">
+                            <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"/></svg>
+                            2025년 11월 10일 (일)
+                        </div>
+                        <h3 class="photo-title">정기 러닝 + 성대한 뒷풀이</h3>
+                        <div class="photo-location">
+                            <svg fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M5.05 4.05a7 7 0 119.9 9.9L10 18.9l-4.95-4.95a7 7 0 010-9.9zM10 11a2 2 0 100-4 2 2 0 000 4z" clip-rule="evenodd"/></svg>
+                            구로구 한강시민공원
+                        </div>
+                        <span class="time-pill night">🌙 야간 러닝</span>
+                        <span class="photo-tag">8명 참여</span>
+                    </div>
+                </div>
+
+                <div class="food-highlight" style="margin-top: 16px;">
+                    <div class="food-highlight-title">🍖 뒷풀이 하이라이트</div>
+                    <div class="food-grid">
+                        <img src="https://raw.githubusercontent.com/durewon-del/RUN_RUN/main/KakaoTalk_20251110_215600695_01.jpg" alt="뒷풀이">
+                        <img src="https://raw.githubusercontent.com/durewon-del/RUN_RUN/main/KakaoTalk_20251110_215600695_02.jpg" alt="음식">
+                    </div>
+                    <div class="receipt-info">
+                        <div>
+                            <div class="receipt-label">가브리살보쌈 + 모듬전 + 막걸리</div>
+                            <div class="receipt-amount">214,000원</div>
+                        </div>
+                        <span class="time-pill">21:33</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- November 13 -->
+            <div class="month-group">
+                <div class="month-label autumn">11월 13일</div>
+                
+                <div class="photo-card">
+                    <div class="photo-grid">
+                        <img src="https://raw.githubusercontent.com/durewon-del/RUN_RUN/main/KakaoTalk_20251113_204921633.jpg" alt="셀피">
+                        <img src="https://raw.githubusercontent.com/durewon-del/RUN_RUN/main/KakaoTalk_20251113_204921633_01.jpg" alt="셀피">
+                    </div>
+                    <div class="photo-info">
+                        <div class="photo-date">
+                            <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"/></svg>
+                            2025년 11월 13일 (목)
+                        </div>
+                        <h3 class="photo-title">평일 저녁 러닝</h3>
+                        <div class="photo-location">
+                            <svg fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M5.05 4.05a7 7 0 119.9 9.9L10 18.9l-4.95-4.95a7 7 0 010-9.9zM10 11a2 2 0 100-4 2 2 0 000 4z" clip-rule="evenodd"/></svg>
+                            한강시민공원 파빌리온
+                        </div>
+                        <span class="time-pill night">🌙 야간 러닝</span>
+                        <span class="photo-tag">4인 소규모 모임</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- November 18 -->
+            <div class="month-group">
+                <div class="month-label autumn">11월 18일</div>
+                
+                <div class="photo-card">
+                    <div class="photo-grid">
+                        <img src="https://raw.githubusercontent.com/durewon-del/RUN_RUN/main/KakaoTalk_20251118_082310367.jpg" alt="단체사진">
+                        <img src="https://raw.githubusercontent.com/durewon-del/RUN_RUN/main/KakaoTalk_20251118_082310367_01.jpg" alt="단체사진">
+                    </div>
+                    <div class="photo-info">
+                        <div class="photo-date">
+                            <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"/></svg>
+                            2025년 11월 18일 (월)
+                        </div>
+                        <h3 class="photo-title">대규모 러닝 데이</h3>
+                        <div class="photo-location">
+                            <svg fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M5.05 4.05a7 7 0 119.9 9.9L10 18.9l-4.95-4.95a7 7 0 010-9.9zM10 11a2 2 0 100-4 2 2 0 000 4z" clip-rule="evenodd"/></svg>
+                            안양천/한강 합류부 공원
+                        </div>
+                        <span class="time-pill night">🌙 야간 러닝</span>
+                        <span class="photo-tag">8명+ 참여</span>
+                        <span class="photo-tag">단풍 배경 🍂</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ========== 12월 DECEMBER ========== -->
+            <div class="season-divider">
+                <div class="season-title winter">❄️ 12월 · 한 해의 마무리</div>
+            </div>
+
+            <!-- December 30 - Highlight -->
+            <div class="month-group">
+                <div class="month-label" style="background: linear-gradient(135deg, var(--gold) 0%, #ffa726 100%); color: var(--bg-dark);">12월 30일 🎉</div>
+                
+                <div class="photo-card highlight-card">
+                    <div class="photo-grid single">
+                        <img src="https://raw.githubusercontent.com/durewon-del/RUN_RUN/main/KakaoTalk_20251230_084735304.jpg" alt="송년 러닝">
+                    </div>
+                    <div class="photo-info">
+                        <div class="photo-date" style="color: var(--gold);">
+                            <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"/></svg>
+                            2025년 12월 30일 (화)
+                        </div>
+                        <h3 class="photo-title">2025년 마지막 러닝! 🏃‍♂️</h3>
+                        <div class="photo-location">
+                            <svg fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M5.05 4.05a7 7 0 119.9 9.9L10 18.9l-4.95-4.95a7 7 0 010-9.9zM10 11a2 2 0 100-4 2 2 0 000 4z" clip-rule="evenodd"/></svg>
+                            안양천/한강 합류부 공원
+                        </div>
+                        <span class="time-pill day">☀️ 오전 러닝</span>
+                        <span class="photo-tag">7명 참여</span>
+                        <span class="photo-tag">2025 완주! 🏆</span>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-logo">두런두런</div>
+        <p class="footer-text">
+            두레생협 러닝동호회<br>
+            💯 100세까지 장수하며 일한다!<br><br>
+            <strong>2025년 한 해 함께해주셔서 감사합니다!</strong>
+        </p>
+        <a href="#" class="footer-cta">2026년도 함께 달려요! 🏃</a>
+        <p style="margin-top: 40px; font-size: 12px; color: var(--text-muted);">
+            © 2025 두런두런 · 두레생협 러닝동호회<br>
+            Made with ❤️
+        </p>
+    </footer>
+
+    <script>
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.opacity = '1';
+                    entry.target.style.transform = 'translateY(0)';
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.photo-card, .month-label, .season-divider, .about-card, .rank-group').forEach(el => {
+            observer.observe(el);
+        });
+    </script>
+</body>
+</html>
