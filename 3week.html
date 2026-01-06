@@ -792,6 +792,29 @@
         .next-week-notice strong {
             color: var(--brown);
         }
+        
+        /* ========== 솔직한 메시지 ========== */
+        .honest-note {
+            margin-top: 20px;
+            padding: 18px;
+            background: rgba(139, 90, 43, 0.06);
+            border-radius: 16px;
+            border-left: 4px solid var(--brown);
+        }
+        
+        .honest-note p:first-child {
+            font-size: 0.8rem;
+            color: var(--brown);
+            font-weight: 600;
+            margin-bottom: 8px;
+        }
+        
+        .honest-note p:last-child {
+            font-size: 0.9rem;
+            color: var(--text);
+            line-height: 1.7;
+            margin: 0;
+        }
 
         /* ========== 과학 카드 ========== */
         .science-card { padding: 80px 20px 100px; }
@@ -1407,7 +1430,7 @@
     <section class="card card-dark" data-index="0">
         <div class="intro-bg"></div>
         <div class="intro-content">
-            <div class="intro-badge fade-up">🍲 두레축산 신규 출시</div>
+            <div class="intro-badge fade-up">🍲 두레축산 신규 생활재</div>
             
             <div class="intro-product-image fade-up">
                 <div class="steam-container intro-steam">
@@ -1420,12 +1443,12 @@
             </div>
             
             <h1 class="intro-main fade-up">
-                <em>무항생제 한우</em><br>
-                96g 들었어요
+                <em>무항생제 한우</em>로<br>
+                정성껏 만들었어요
             </h1>
             <p class="intro-sub fade-up">
-                시중 설렁탕 대비 <strong>1.7배</strong> 고기<br>
-                이 가격에 이 품질, 다시 없어요
+                처음 선보이는 생활재입니다<br>
+                한번 드셔보시고 판단해 주세요
             </p>
         </div>
         <div class="intro-scroll-hint">
@@ -1434,26 +1457,26 @@
         </div>
     </section>
 
-    <!-- 1. 공감 - 시중 설렁탕의 문제 -->
+    <!-- 1. 생협의 고민 -->
     <section class="card card-warm" data-index="1">
         <p class="card-eyebrow fade-up">솔직한 이야기</p>
         <h2 class="card-title fade-up">
-            시중 설렁탕<br>
-            <em>고기가 너무 없어요</em>
+            좋은 재료로 만들면<br>
+            <em>가격이 올라가요</em>
         </h2>
         <p class="card-desc fade-up">
-            국물만 많고 고기는 몇 점 안 되고<br>
-            그마저도 어디 소인지 모르겠고...<br><br>
-            <strong>10,000원 넘게 주고 이게 뭔가 싶죠</strong>
+            무항생제 한우는 일반 소보다 비싸요<br>
+            그래도 조합원님께 드릴 거니까<br><br>
+            <strong>생산지 마진 없이, 좋은 고기로 채웠어요</strong>
         </p>
     </section>
 
-    <!-- 2. 무항생제 한우 고기 강조 -->
+    <!-- 2. 무항생제 한우 - 솔직하게 -->
     <section class="card card-cream" data-index="2">
         <p class="card-eyebrow fade-up">두레축산 설렁탕</p>
         <h2 class="card-title fade-up">
-            <em>무항생제 한우</em><br>
-            96g 넣었어요
+            <em>질 좋은 고기</em>를<br>
+            최대한 넣었어요
         </h2>
         <div class="benefit-list fade-up">
             <div class="benefit-item">
@@ -1466,22 +1489,22 @@
             <div class="benefit-item">
                 <div class="benefit-icon">🥩</div>
                 <div class="benefit-content">
-                    <div class="benefit-title">고기 함량 16% (96g)</div>
-                    <div class="benefit-desc">시중 설렁탕 평균 대비 <strong>1.7배</strong> 많아요</div>
+                    <div class="benefit-title">사태 + 스지</div>
+                    <div class="benefit-desc">담백한 사태, 쫄깃한 스지로 구성했어요</div>
                 </div>
             </div>
             <div class="benefit-item">
-                <div class="benefit-icon">🐄</div>
-                <div class="benefit-content">
-                    <div class="benefit-title">사태 + 스지 넉넉하게</div>
-                    <div class="benefit-desc">담백한 사태, 쫄깃한 스지 씹는 맛이 살아있어요</div>
-                </div>
-            </div>
-            <div class="benefit-item">
-                <div class="benefit-icon">🔍</div>
+                <div class="benefit-icon">🏭</div>
                 <div class="benefit-content">
                     <div class="benefit-title">두레축산 직영</div>
-                    <div class="benefit-desc">어디서 온 소인지 다 추적 가능해요</div>
+                    <div class="benefit-desc">어디서 온 소인지 다 추적할 수 있어요</div>
+                </div>
+            </div>
+            <div class="benefit-item">
+                <div class="benefit-icon">💰</div>
+                <div class="benefit-content">
+                    <div class="benefit-title">생산지 마진 없이</div>
+                    <div class="benefit-desc">좋은 재료 그대로, 거품 없는 가격이에요</div>
                 </div>
             </div>
         </div>
@@ -1518,13 +1541,13 @@
             </div>
             <div class="feature-badge">
                 <div class="feature-icon orange">🥩</div>
-                <span class="feature-text">고기 96g</span>
-                <span class="feature-sub">16% 함량</span>
+                <span class="feature-text">사태+스지</span>
+                <span class="feature-sub">질 좋은 고기</span>
             </div>
             <div class="feature-badge">
                 <div class="feature-icon green">👨‍👩‍👦</div>
                 <span class="feature-text">2인분</span>
-                <span class="feature-sub">넉넉하게</span>
+                <span class="feature-sub">600g</span>
             </div>
         </div>
         
@@ -1534,89 +1557,74 @@
         </a>
     </section>
 
-    <!-- 4. 고기 함량 비교 - 핵심 강조 -->
+    <!-- 4. 고기 품질 설명 -->
     <section class="card card-science science-card" data-index="4">
         <div class="science-content">
-            <h3 class="science-title fade-up">시중 설렁탕과 <em>고기 함량</em> 비교</h3>
-
-            <div class="comparison-box" style="border: 3px solid var(--brown);">
-                <div class="comparison-title">🥩 600g당 고기 함량</div>
-                <div class="comparison-items">
-                    <div class="comparison-item highlight">
-                        <div class="comparison-label">두레축산</div>
-                        <div class="comparison-value" style="font-size: 2rem;">96g</div>
-                        <div class="comparison-note">무항생제 한우</div>
-                    </div>
-                    <div class="comparison-item normal">
-                        <div class="comparison-label">시중 평균</div>
-                        <div class="comparison-value">40~57g</div>
-                        <div class="comparison-note">원산지 불명</div>
-                    </div>
-                </div>
-            </div>
+            <h3 class="science-title fade-up">어떤 <em>고기</em>가 들어가나요?</h3>
 
             <div class="nutrition-table">
                 <div class="table-header">
-                    <div class="table-icon">📊</div>
+                    <div class="table-icon">🥩</div>
                     <div>
-                        <div class="table-title">시중 설렁탕 고기 함량</div>
-                        <div class="table-source">한국소비자원 2021 조사</div>
+                        <div class="table-title">두레축산 설렁탕 구성</div>
+                        <div class="table-source">600g 기준</div>
                     </div>
                 </div>
                 
                 <div class="nutrition-row">
-                    <span class="nutrition-name">A사 프리미엄</span>
-                    <span class="nutrition-value">56.9g</span>
-                    <span class="nutrition-benefit">시중 최다</span>
+                    <span class="nutrition-name">한우 사태</span>
+                    <span class="nutrition-value">담백</span>
+                    <span class="nutrition-benefit">살코기</span>
                 </div>
                 <div class="nutrition-row">
-                    <span class="nutrition-name">B사 양지</span>
-                    <span class="nutrition-value">~50g</span>
-                    <span class="nutrition-benefit">11%</span>
+                    <span class="nutrition-name">한우 스지</span>
+                    <span class="nutrition-value">쫄깃</span>
+                    <span class="nutrition-benefit">식감</span>
                 </div>
                 <div class="nutrition-row">
-                    <span class="nutrition-name">C사 양지</span>
-                    <span class="nutrition-value">23.9g</span>
-                    <span class="nutrition-benefit">시중 최소</span>
-                </div>
-                <div class="nutrition-row" style="background: var(--brown-light); border-radius: 10px; margin-top: 8px;">
-                    <span class="nutrition-name" style="font-weight: 700; color: var(--brown);">두레축산</span>
-                    <span class="nutrition-value" style="font-size: 1.3rem;">96g</span>
-                    <span class="nutrition-benefit" style="background: var(--brown);">1.7배!</span>
+                    <span class="nutrition-name">사골 국물</span>
+                    <span class="nutrition-value">진한</span>
+                    <span class="nutrition-benefit">깊은 맛</span>
                 </div>
             </div>
 
             <div class="quote-box">
-                <p class="quote-text">"같은 가격이면<br><em>무항생제 한우</em>가 <em>1.7배</em> 더 들어있는<br>두레축산 설렁탕이 낫지 않나요?"</p>
+                <p class="quote-text">"엄청난 양은 아니지만<br><em>무항생제 한우</em>로<br>최대한 채웠습니다"</p>
+                <p class="quote-source">— 두레축산</p>
+            </div>
+            
+            <div class="honest-note">
+                <p>💬 솔직히 말씀드려요</p>
+                <p>감동할 만큼 고기가 많진 않아요.<br>하지만 <strong>질 좋은 무항생제 한우</strong>를<br>정직하게 넣었습니다.</p>
             </div>
         </div>
     </section>
 
-    <!-- 5. 무항생제 한우 = 믿을 수 있는 고기 -->
+    <!-- 5. 왜 무항생제인가 -->
     <section class="card card-cream" data-index="5">
-        <p class="card-eyebrow fade-up">왜 무항생제인가요?</p>
-        <h2 class="card-title fade-up"><em>내 가족</em>이 먹을 고기니까</h2>
+        <p class="card-eyebrow fade-up">두레축산의 기준</p>
+        <h2 class="card-title fade-up"><em>내 가족</em>이 먹을 거니까</h2>
         
         <div class="benefit-list fade-up">
             <div class="benefit-item">
                 <div class="benefit-icon">🏅</div>
                 <div class="benefit-content">
                     <div class="benefit-title">무항생제 인증</div>
-                    <div class="benefit-desc">항생제·성장촉진제 없이 건강하게 키웠어요</div>
+                    <div class="benefit-desc">항생제·성장촉진제 없이 키웠어요</div>
                 </div>
             </div>
             <div class="benefit-item">
                 <div class="benefit-icon">🇰🇷</div>
                 <div class="benefit-content">
                     <div class="benefit-title">국내산 한우 100%</div>
-                    <div class="benefit-desc">수입산 섞지 않아요. 확실해요.</div>
+                    <div class="benefit-desc">수입산 섞지 않아요</div>
                 </div>
             </div>
             <div class="benefit-item">
-                <div class="benefit-icon">🏭</div>
+                <div class="benefit-icon">💰</div>
                 <div class="benefit-content">
-                    <div class="benefit-title">두레축산 직영</div>
-                    <div class="benefit-desc">사육부터 가공까지 직접 관리해요</div>
+                    <div class="benefit-title">생산지 마진 없이</div>
+                    <div class="benefit-desc">좋은 재료 그대로 전해드려요</div>
                 </div>
             </div>
         </div>
@@ -1723,27 +1731,25 @@
         </p>
     </section>
 
-    <!-- 7. 고기의 차이 -->
+    <!-- 7. 생협의 마음 -->
     <section class="card card-brown" data-index="7">
         <h2 class="card-title">
-            <span class="philosophy-line">시중 설렁탕</span>
-            <span class="philosophy-line">'고기 어딨어?'</span>
-            <span class="philosophy-line" style="margin-top: 20px;">두레 설렁탕</span>
-            <span class="philosophy-line"><span class="philosophy-emphasis">'고기가 이만큼?'</span></span>
+            <span class="philosophy-line">처음 선보이는</span>
+            <span class="philosophy-line"><span class="philosophy-emphasis">신규 생활재</span>입니다</span>
         </h2>
         <p class="card-desc fade-up">
-            무항생제 한우 사태+스지 96g<br>
-            씹을 때마다 고기 맛이 나요
+            한번 드셔보시고<br>
+            괜찮으시면 이용해 주세요
         </p>
         
         <div class="trust-points">
             <div class="trust-item">
-                <div class="trust-value">96g</div>
-                <div class="trust-label">무항생제 한우</div>
+                <div class="trust-value">29년</div>
+                <div class="trust-label">두레생협</div>
             </div>
             <div class="trust-item">
-                <div class="trust-value">1.7배</div>
-                <div class="trust-label">시중 대비</div>
+                <div class="trust-value">24만</div>
+                <div class="trust-label">조합원 가구</div>
             </div>
         </div>
     </section>
@@ -1777,19 +1783,18 @@
 
     <!-- 9. 마무리 -->
     <section class="card card-warm" data-index="9">
-        <p class="card-eyebrow fade-up">정리하면</p>
+        <p class="card-eyebrow fade-up">신규 생활재</p>
         <h2 class="card-title fade-up">
-            <em class="highlight-text">무항생제 한우 96g</em><br>
-            10,500원
+            <em class="highlight-text">한번 드셔보세요</em>
         </h2>
         <p class="card-desc fade-up">
-            ✓ 무항생제 인증 한우 100%<br>
-            ✓ 고기 함량 시중 대비 1.7배<br>
-            ✓ 사태+스지 씹는 맛까지<br><br>
-            <strong>📅 1.12(일) ~ 1.16(목) 한정</strong>
+            ✓ 무항생제 인증 한우<br>
+            ✓ 질 좋은 사태+스지<br>
+            ✓ 생산지 마진 없는 가격<br><br>
+            <strong>📅 1.12(일) ~ 1.16(목)</strong>
         </p>
         <a href="https://ecoop.or.kr" class="cta-button">
-            <span>한우 설렁탕 주문하기</span>
+            <span>한우 설렁탕 보러가기</span>
             <svg viewBox="0 0 24 24"><path d="M8.59,16.58L13.17,12L8.59,7.41L10,6L16,12L10,18L8.59,16.58Z"/></svg>
         </a>
         
