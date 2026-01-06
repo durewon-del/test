@@ -1,0 +1,1815 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>생활의 발견 | 두레생협 26년 3주</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Nanum+Myeongjo:wght@400;700;800&family=Noto+Sans+KR:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --brown: #8b5a2b;
+            --brown-light: #f5ebe0;
+            --brown-pale: #faf6f1;
+            --cream: #fffdf8;
+            --warm: #f9f5ef;
+            --black: #1a1a1a;
+            --gray: #555;
+            --gray-light: #888;
+            --accent: #c9a66b;
+            --green: #4a6741;
+            --red: #c75050;
+            --orange: #d4915d;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+        html { scroll-snap-type: y mandatory; scroll-behavior: smooth; }
+        body { font-family: 'Noto Sans KR', sans-serif; background: var(--cream); overflow-x: hidden; }
+
+        /* ========== 매거진 헤더 ========== */
+        .magazine-header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1000;
+            background: var(--brown);
+            padding: 12px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .magazine-brand {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .brand-logo {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .logo-circle {
+            width: 26px;
+            height: 26px;
+            background: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.55rem;
+            color: var(--brown);
+            font-weight: 800;
+        }
+
+        .logo-text {
+            font-family: 'Nanum Myeongjo', serif;
+            font-size: 1rem;
+            font-weight: 700;
+            color: white;
+        }
+
+        .brand-divider {
+            width: 1px;
+            height: 16px;
+            background: rgba(255,255,255,0.3);
+        }
+
+        .magazine-title {
+            font-family: 'Nanum Myeongjo', serif;
+            font-size: 0.85rem;
+            color: rgba(255,255,255,0.9);
+        }
+
+        .live-visitors {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            background: rgba(255,255,255,0.15);
+            padding: 5px 10px;
+            border-radius: 15px;
+        }
+
+        .live-dot {
+            width: 6px;
+            height: 6px;
+            background: #4ade80;
+            border-radius: 50%;
+            animation: pulse 1.5s ease-in-out infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 1; transform: scale(1); }
+            50% { opacity: 0.5; transform: scale(0.8); }
+        }
+
+        .live-count {
+            font-size: 0.7rem;
+            color: white;
+        }
+
+        /* ========== 스크롤 인디케이터 ========== */
+        .scroll-indicator {
+            position: fixed;
+            right: 12px;
+            top: 50%;
+            transform: translateY(-50%);
+            z-index: 100;
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .scroll-dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: rgba(139, 90, 43, 0.25);
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .scroll-dot.active {
+            background: var(--brown);
+            transform: scale(1.3);
+        }
+
+        /* ========== 카드 ========== */
+        .card {
+            min-height: 100vh;
+            min-height: 100dvh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            padding: 80px 24px 100px;
+            position: relative;
+            overflow: hidden;
+            scroll-snap-align: start;
+            scroll-snap-stop: always;
+        }
+
+        .card:first-of-type { padding-top: 100px; }
+
+        .card-dark { background: linear-gradient(160deg, #2a2420 0%, #3d322a 100%); color: white; }
+        .card-warm { background: var(--warm); }
+        .card-cream { background: var(--cream); }
+        .card-brown { background: linear-gradient(160deg, var(--brown) 0%, #6b4423 100%); color: white; }
+        .card-nature { background: linear-gradient(180deg, var(--brown-light) 0%, var(--cream) 100%); }
+        .card-science { background: linear-gradient(180deg, #faf8f5 0%, #f0ebe4 100%); }
+
+        /* ========== 타이포그래피 ========== */
+        .card-eyebrow {
+            font-size: 0.8rem;
+            letter-spacing: 0.1em;
+            color: var(--accent);
+            margin-bottom: 20px;
+            font-weight: 500;
+        }
+
+        .card-warm .card-eyebrow,
+        .card-cream .card-eyebrow,
+        .card-nature .card-eyebrow,
+        .card-science .card-eyebrow { color: var(--brown); }
+
+        .card-title {
+            font-family: 'Nanum Myeongjo', serif;
+            font-size: clamp(1.8rem, 7vw, 2.5rem);
+            font-weight: 700;
+            line-height: 1.55;
+            margin-bottom: 24px;
+            word-break: keep-all;
+            max-width: 90vw;
+        }
+
+        .card-title em {
+            font-style: normal;
+            color: var(--accent);
+        }
+
+        .card-warm .card-title em,
+        .card-cream .card-title em,
+        .card-nature .card-title em,
+        .card-science .card-title em { color: var(--brown); }
+
+        .card-desc {
+            font-size: 1.05rem;
+            line-height: 1.9;
+            color: rgba(255,255,255,0.8);
+            max-width: 85vw;
+        }
+
+        .card-warm .card-desc,
+        .card-cream .card-desc,
+        .card-nature .card-desc,
+        .card-science .card-desc { color: var(--gray); }
+
+        /* ========== 애니메이션 ========== */
+        .fade-up {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .card.in-view .fade-up { opacity: 1; transform: translateY(0); }
+        .card.in-view .fade-up:nth-child(1) { transition-delay: 0.1s; }
+        .card.in-view .fade-up:nth-child(2) { transition-delay: 0.25s; }
+        .card.in-view .fade-up:nth-child(3) { transition-delay: 0.4s; }
+        .card.in-view .fade-up:nth-child(4) { transition-delay: 0.55s; }
+
+        .highlight-text {
+            display: inline-block;
+            position: relative;
+        }
+
+        .highlight-text::after {
+            content: '';
+            position: absolute;
+            bottom: 2px;
+            left: -4px;
+            right: -4px;
+            height: 12px;
+            background: var(--brown);
+            opacity: 0;
+            z-index: -1;
+            transform: scaleX(0);
+            transform-origin: left;
+        }
+
+        .card.in-view .highlight-text::after {
+            animation: highlightDraw 0.8s 0.5s forwards;
+        }
+
+        @keyframes highlightDraw {
+            to { opacity: 0.2; transform: scaleX(1); }
+        }
+
+        /* ========== 인트로 카드 ========== */
+        .intro-bg {
+            position: absolute;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background: linear-gradient(180deg, rgba(0,0,0,0.4) 0%, rgba(0,0,0,0.2) 50%, rgba(0,0,0,0.5) 100%),
+                        url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><rect fill="%23d4a574" width="100" height="100"/></svg>') center/cover;
+            background-color: #a67c52;
+        }
+
+        .intro-content { position: relative; z-index: 1; }
+
+        .intro-badge {
+            display: inline-block;
+            background: rgba(255,255,255,0.15);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255,255,255,0.2);
+            padding: 8px 18px;
+            border-radius: 25px;
+            font-size: 0.8rem;
+            color: white;
+            margin-bottom: 28px;
+        }
+
+        .intro-main {
+            font-family: 'Nanum Myeongjo', serif;
+            font-size: clamp(2rem, 8vw, 3rem);
+            font-weight: 700;
+            line-height: 1.5;
+            margin-bottom: 24px;
+            text-shadow: 0 2px 20px rgba(0,0,0,0.3);
+        }
+
+        .intro-sub {
+            font-size: 1.1rem;
+            color: rgba(255,255,255,0.85);
+            line-height: 1.85;
+        }
+
+        .intro-scroll-hint {
+            position: absolute;
+            bottom: 40px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 8px;
+            color: rgba(255,255,255,0.6);
+            font-size: 0.75rem;
+            animation: scrollHint 2s ease-in-out infinite;
+        }
+
+        .intro-scroll-hint svg { width: 20px; height: 20px; fill: rgba(255,255,255,0.6); }
+
+        @keyframes scrollHint {
+            0%, 100% { transform: translateX(-50%) translateY(0); opacity: 0.6; }
+            50% { transform: translateX(-50%) translateY(8px); opacity: 1; }
+        }
+        
+        /* 인트로 상품 이미지 */
+        .intro-product-image {
+            width: 220px;
+            height: 220px;
+            margin: 0 auto 24px;
+            position: relative;
+            border-radius: 50%;
+            background: rgba(255,255,255,0.1);
+            backdrop-filter: blur(10px);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 20px 50px rgba(0,0,0,0.3);
+            animation: introFloat 3s ease-in-out infinite;
+        }
+        
+        .intro-product-image img {
+            width: 90%;
+            height: 90%;
+            object-fit: cover;
+            border-radius: 50%;
+        }
+        
+        @keyframes introFloat {
+            0%, 100% { transform: translateY(0) rotate(0deg); }
+            25% { transform: translateY(-8px) rotate(1deg); }
+            75% { transform: translateY(-8px) rotate(-1deg); }
+        }
+        
+        .intro-steam {
+            top: -20px;
+        }
+        
+        /* 인트로 배경 오버레이 */
+        .intro-bg::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: radial-gradient(circle at 50% 30%, rgba(139,90,43,0.3) 0%, transparent 60%);
+        }
+
+        /* ========== 제품 이미지 ========== */
+        .product-image {
+            width: 300px;
+            height: 300px;
+            margin-bottom: 28px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: white;
+            border-radius: 24px;
+            box-shadow: 0 25px 60px rgba(139, 90, 43, 0.2);
+            opacity: 0;
+            transform: scale(0.85) translateY(20px);
+            transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+            overflow: hidden;
+            position: relative;
+        }
+
+        .card.in-view .product-image { 
+            opacity: 1; 
+            transform: scale(1) translateY(0); 
+            animation: productFloat 3s ease-in-out infinite;
+        }
+        
+        @keyframes productFloat {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+        
+        .product-image img { 
+            width: 100%; 
+            height: 100%; 
+            object-fit: cover; 
+            border-radius: 24px; 
+        }
+        
+        .product-image::after {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: linear-gradient(
+                45deg,
+                transparent 40%,
+                rgba(255,255,255,0.3) 50%,
+                transparent 60%
+            );
+            transform: translateX(-100%);
+        }
+        
+        .card.in-view .product-image::after {
+            animation: shine 2s ease-in-out 0.5s;
+        }
+        
+        @keyframes shine {
+            0% { transform: translateX(-100%); }
+            100% { transform: translateX(100%); }
+        }
+        
+        /* 스팀 효과 */
+        .steam-container {
+            position: absolute;
+            top: -30px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 100px;
+            height: 60px;
+            pointer-events: none;
+        }
+        
+        .steam {
+            position: absolute;
+            width: 8px;
+            height: 8px;
+            background: rgba(255,255,255,0.8);
+            border-radius: 50%;
+            filter: blur(3px);
+            animation: steamRise 2s ease-out infinite;
+        }
+        
+        .steam:nth-child(1) { left: 20%; animation-delay: 0s; }
+        .steam:nth-child(2) { left: 40%; animation-delay: 0.3s; }
+        .steam:nth-child(3) { left: 60%; animation-delay: 0.6s; }
+        .steam:nth-child(4) { left: 80%; animation-delay: 0.9s; }
+        
+        @keyframes steamRise {
+            0% {
+                opacity: 0;
+                transform: translateY(0) scale(1);
+            }
+            50% {
+                opacity: 0.8;
+            }
+            100% {
+                opacity: 0;
+                transform: translateY(-40px) scale(2);
+            }
+        }
+
+        .product-name {
+            font-family: 'Nanum Myeongjo', serif;
+            font-size: 1.6rem;
+            font-weight: 700;
+            color: var(--black);
+            margin-bottom: 12px;
+        }
+
+        .product-desc {
+            font-size: 1.05rem;
+            color: var(--gray);
+            line-height: 1.85;
+            margin-bottom: 24px;
+        }
+
+        /* ========== 특징 배지 ========== */
+        .feature-badges {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            margin-bottom: 24px;
+            flex-wrap: wrap;
+            max-width: 360px;
+        }
+
+        .feature-badge {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 6px;
+            padding: 14px 16px;
+            background: white;
+            border-radius: 20px;
+            min-width: 95px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.06);
+            opacity: 0;
+            transform: translateY(20px);
+            transition: all 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .card.in-view .feature-badge { opacity: 1; transform: translateY(0); }
+        .card.in-view .feature-badge:nth-child(1) { transition-delay: 0.3s; }
+        .card.in-view .feature-badge:nth-child(2) { transition-delay: 0.45s; }
+        .card.in-view .feature-badge:nth-child(3) { transition-delay: 0.6s; }
+
+        .feature-icon {
+            width: 44px;
+            height: 44px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.3rem;
+        }
+
+        .feature-icon.brown { background: var(--brown); color: white; }
+        .feature-icon.orange { background: var(--orange); color: white; }
+        .feature-icon.green { background: var(--green); color: white; }
+
+        .feature-text { font-size: 0.8rem; font-weight: 600; color: var(--black); }
+        .feature-sub { font-size: 0.7rem; color: var(--gray-light); margin-top: -2px; }
+
+        /* ========== 가격 배지 ========== */
+        .price-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 12px;
+            background: linear-gradient(135deg, var(--brown) 0%, #a06830 100%);
+            padding: 16px 28px;
+            border-radius: 30px;
+            margin-bottom: 20px;
+            box-shadow: 0 10px 30px rgba(139, 90, 43, 0.3);
+        }
+
+        .price-original {
+            font-size: 0.95rem;
+            color: rgba(255,255,255,0.6);
+            text-decoration: line-through;
+        }
+
+        .price-current {
+            font-family: 'Nanum Myeongjo', serif;
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: white;
+        }
+
+        .price-discount {
+            background: white;
+            color: var(--brown);
+            font-size: 0.75rem;
+            font-weight: 700;
+            padding: 4px 10px;
+            border-radius: 15px;
+        }
+
+        /* ========== 제품 링크 ========== */
+        .product-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            color: white;
+            background: var(--brown);
+            font-size: 1rem;
+            font-weight: 600;
+            text-decoration: none;
+            padding: 16px 34px;
+            border-radius: 30px;
+            box-shadow: 0 10px 30px rgba(139, 90, 43, 0.3);
+            opacity: 0;
+            transform: translateY(20px);
+            transition: all 0.6s cubic-bezier(0.4, 0, 0.2, 1) 0.5s;
+        }
+
+        .card.in-view .product-link { opacity: 1; transform: translateY(0); }
+        .product-link:active { transform: scale(0.97); }
+        .product-link svg { width: 18px; height: 18px; fill: currentColor; }
+
+        /* ========== 장점 리스트 ========== */
+        .benefit-list {
+            max-width: 340px;
+            width: 100%;
+            text-align: left;
+        }
+
+        .benefit-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 14px;
+            padding: 18px 0;
+            border-bottom: 1px solid rgba(139, 90, 43, 0.1);
+            opacity: 0;
+            transform: translateX(-20px);
+            transition: all 0.6s ease;
+        }
+
+        .card.in-view .benefit-item { opacity: 1; transform: translateX(0); }
+        .card.in-view .benefit-item:nth-child(1) { transition-delay: 0.2s; }
+        .card.in-view .benefit-item:nth-child(2) { transition-delay: 0.35s; }
+        .card.in-view .benefit-item:nth-child(3) { transition-delay: 0.5s; }
+        .card.in-view .benefit-item:nth-child(4) { transition-delay: 0.65s; }
+
+        .benefit-icon {
+            width: 48px;
+            height: 48px;
+            background: var(--brown-light);
+            border-radius: 14px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.4rem;
+            flex-shrink: 0;
+        }
+
+        .benefit-content { flex: 1; }
+        .benefit-title {
+            font-weight: 600;
+            color: var(--black);
+            margin-bottom: 4px;
+            font-size: 1rem;
+        }
+        .benefit-desc {
+            font-size: 0.9rem;
+            color: var(--gray);
+            line-height: 1.6;
+        }
+
+        /* ========== 과학 카드 ========== */
+        .science-card { padding: 80px 20px 100px; }
+
+        .science-content {
+            max-width: 380px;
+            width: 100%;
+        }
+
+        .science-title {
+            font-family: 'Nanum Myeongjo', serif;
+            font-size: 1.25rem;
+            font-weight: 700;
+            color: var(--black);
+            margin-bottom: 24px;
+            text-align: center;
+        }
+
+        .science-title em {
+            color: var(--brown);
+            font-style: normal;
+        }
+
+        /* 영양 성분 테이블 */
+        .nutrition-table {
+            background: white;
+            border-radius: 24px;
+            padding: 24px 20px;
+            margin-bottom: 20px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.06);
+            opacity: 0;
+            transform: translateY(20px);
+            transition: all 0.6s ease 0.2s;
+        }
+
+        .card.in-view .nutrition-table {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .table-header {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 18px;
+            padding-bottom: 14px;
+            border-bottom: 2px solid var(--brown-light);
+        }
+
+        .table-icon {
+            width: 36px;
+            height: 36px;
+            background: var(--brown);
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.1rem;
+        }
+
+        .table-title {
+            font-weight: 700;
+            color: var(--black);
+            font-size: 0.95rem;
+        }
+
+        .table-source {
+            font-size: 0.7rem;
+            color: var(--gray-light);
+        }
+
+        .nutrition-row {
+            display: flex;
+            align-items: center;
+            padding: 12px 0;
+            border-bottom: 1px solid #f0f0f0;
+        }
+
+        .nutrition-row:last-child { border-bottom: none; }
+
+        .nutrition-name {
+            flex: 1;
+            font-size: 0.9rem;
+            color: var(--gray);
+        }
+
+        .nutrition-value {
+            font-family: 'Nanum Myeongjo', serif;
+            font-size: 1.1rem;
+            font-weight: 700;
+            color: var(--brown);
+            margin-right: 10px;
+        }
+
+        .nutrition-benefit {
+            font-size: 0.7rem;
+            color: white;
+            background: var(--accent);
+            padding: 3px 8px;
+            border-radius: 10px;
+        }
+
+        /* 비교 차트 */
+        .comparison-box {
+            background: white;
+            border-radius: 20px;
+            padding: 20px;
+            margin-bottom: 20px;
+            box-shadow: 0 8px 30px rgba(0,0,0,0.05);
+            opacity: 0;
+            transform: translateY(20px);
+            transition: all 0.6s ease 0.4s;
+        }
+
+        .card.in-view .comparison-box {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .comparison-title {
+            font-size: 0.85rem;
+            font-weight: 600;
+            color: var(--black);
+            margin-bottom: 14px;
+            text-align: center;
+        }
+
+        .comparison-items {
+            display: flex;
+            gap: 12px;
+        }
+
+        .comparison-item {
+            flex: 1;
+            text-align: center;
+            padding: 16px 12px;
+            border-radius: 16px;
+        }
+
+        .comparison-item.highlight {
+            background: linear-gradient(135deg, var(--brown-light) 0%, var(--brown-pale) 100%);
+            border: 2px solid var(--brown);
+        }
+
+        .comparison-item.normal {
+            background: #f5f5f5;
+            border: 2px solid transparent;
+        }
+
+        .comparison-label {
+            font-size: 0.75rem;
+            color: var(--gray);
+            margin-bottom: 8px;
+        }
+
+        .comparison-value {
+            font-family: 'Nanum Myeongjo', serif;
+            font-size: 1.4rem;
+            font-weight: 700;
+        }
+
+        .comparison-item.highlight .comparison-value { color: var(--brown); }
+        .comparison-item.normal .comparison-value { color: var(--gray-light); }
+
+        .comparison-note {
+            font-size: 0.7rem;
+            color: var(--gray-light);
+            margin-top: 6px;
+        }
+
+        /* 인용문 */
+        .quote-box {
+            background: white;
+            border-left: 4px solid var(--brown);
+            padding: 18px 20px;
+            margin-bottom: 20px;
+            border-radius: 0 16px 16px 0;
+            box-shadow: 0 6px 20px rgba(0,0,0,0.04);
+            opacity: 0;
+            transform: translateX(-20px);
+            transition: all 0.6s ease 0.3s;
+        }
+
+        .card.in-view .quote-box {
+            opacity: 1;
+            transform: translateX(0);
+        }
+
+        .quote-text {
+            font-size: 0.95rem;
+            color: var(--black);
+            line-height: 1.7;
+            margin-bottom: 8px;
+        }
+
+        .quote-text em {
+            color: var(--brown);
+            font-style: normal;
+            font-weight: 600;
+        }
+
+        .quote-source {
+            font-size: 0.75rem;
+            color: var(--gray-light);
+        }
+
+        /* ========== 역사 카드 ========== */
+        .history-timeline {
+            max-width: 340px;
+            width: 100%;
+            position: relative;
+            padding-left: 30px;
+        }
+
+        .history-timeline::before {
+            content: '';
+            position: absolute;
+            left: 8px;
+            top: 0;
+            bottom: 0;
+            width: 2px;
+            background: linear-gradient(180deg, var(--brown) 0%, var(--accent) 100%);
+        }
+
+        .timeline-item {
+            position: relative;
+            padding-bottom: 30px;
+            opacity: 0;
+            transform: translateX(20px);
+            transition: all 0.6s ease;
+        }
+
+        .card.in-view .timeline-item { opacity: 1; transform: translateX(0); }
+        .card.in-view .timeline-item:nth-child(1) { transition-delay: 0.2s; }
+        .card.in-view .timeline-item:nth-child(2) { transition-delay: 0.4s; }
+        .card.in-view .timeline-item:nth-child(3) { transition-delay: 0.6s; }
+
+        .timeline-dot {
+            position: absolute;
+            left: -26px;
+            top: 4px;
+            width: 14px;
+            height: 14px;
+            background: var(--brown);
+            border-radius: 50%;
+            border: 3px solid var(--brown-light);
+        }
+
+        .timeline-era {
+            font-size: 0.75rem;
+            color: var(--brown);
+            font-weight: 600;
+            margin-bottom: 6px;
+        }
+
+        .timeline-title {
+            font-family: 'Nanum Myeongjo', serif;
+            font-size: 1.1rem;
+            font-weight: 700;
+            color: var(--black);
+            margin-bottom: 6px;
+        }
+
+        .timeline-desc {
+            font-size: 0.9rem;
+            color: var(--gray);
+            line-height: 1.6;
+        }
+
+        /* ========== 조리법 카드 ========== */
+        .cooking-steps {
+            max-width: 340px;
+            width: 100%;
+        }
+
+        .cooking-step {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            background: white;
+            padding: 20px;
+            border-radius: 20px;
+            margin-bottom: 14px;
+            box-shadow: 0 6px 20px rgba(0,0,0,0.05);
+            opacity: 0;
+            transform: translateY(20px);
+            transition: all 0.6s ease;
+        }
+
+        .card.in-view .cooking-step { opacity: 1; transform: translateY(0); }
+        .card.in-view .cooking-step:nth-child(1) { transition-delay: 0.2s; }
+        .card.in-view .cooking-step:nth-child(2) { transition-delay: 0.35s; }
+        .card.in-view .cooking-step:nth-child(3) { transition-delay: 0.5s; }
+
+        .step-number {
+            width: 44px;
+            height: 44px;
+            background: var(--brown);
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-family: 'Nanum Myeongjo', serif;
+            font-size: 1.2rem;
+            font-weight: 700;
+            flex-shrink: 0;
+        }
+
+        .step-content { flex: 1; text-align: left; }
+        .step-title {
+            font-weight: 600;
+            color: var(--black);
+            margin-bottom: 4px;
+        }
+        .step-desc {
+            font-size: 0.85rem;
+            color: var(--gray);
+        }
+
+        .step-time {
+            font-size: 0.75rem;
+            color: white;
+            background: var(--orange);
+            padding: 4px 10px;
+            border-radius: 12px;
+        }
+
+        /* ========== 철학 카드 ========== */
+        .philosophy-line {
+            display: block;
+            opacity: 0;
+            transform: translateY(20px);
+            transition: all 0.6s ease;
+        }
+
+        .card.in-view .philosophy-line { opacity: 1; transform: translateY(0); }
+        .card.in-view .philosophy-line:nth-child(1) { transition-delay: 0.1s; }
+        .card.in-view .philosophy-line:nth-child(2) { transition-delay: 0.25s; }
+        .card.in-view .philosophy-line:nth-child(3) { transition-delay: 0.4s; }
+        .card.in-view .philosophy-line:nth-child(4) { transition-delay: 0.55s; }
+
+        .philosophy-emphasis {
+            color: var(--accent);
+            position: relative;
+        }
+
+        /* ========== 의견 섹션 ========== */
+        .opinion-section {
+            max-width: 380px;
+            width: 100%;
+        }
+
+        .write-area {
+            background: white;
+            border-radius: 24px;
+            padding: 24px;
+            margin-bottom: 24px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.06);
+        }
+
+        .write-label {
+            font-size: 0.9rem;
+            color: var(--gray);
+            margin-bottom: 14px;
+        }
+
+        .write-input {
+            width: 100%;
+            min-height: 100px;
+            border: 2px solid var(--brown-light);
+            border-radius: 16px;
+            padding: 16px;
+            font-size: 1rem;
+            font-family: inherit;
+            resize: none;
+            outline: none;
+            transition: border-color 0.3s;
+        }
+
+        .write-input:focus { border-color: var(--brown); }
+
+        .write-footer {
+            display: flex;
+            gap: 10px;
+            margin-top: 14px;
+        }
+
+        .write-name {
+            flex: 1;
+            border: 2px solid var(--brown-light);
+            border-radius: 12px;
+            padding: 12px 14px;
+            font-size: 0.9rem;
+            font-family: inherit;
+            outline: none;
+        }
+
+        .write-name:focus { border-color: var(--brown); }
+
+        .write-submit {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            background: var(--brown);
+            color: white;
+            border: none;
+            border-radius: 12px;
+            padding: 12px 20px;
+            font-size: 0.9rem;
+            font-weight: 600;
+            cursor: pointer;
+        }
+
+        .write-submit svg { width: 16px; height: 16px; fill: white; }
+
+        .opinion-list-area { text-align: left; }
+
+        .opinion-list-title {
+            font-size: 0.9rem;
+            color: var(--gray);
+            margin-bottom: 14px;
+        }
+
+        .opinion-list-item {
+            background: white;
+            padding: 16px;
+            border-radius: 16px;
+            margin-bottom: 10px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.04);
+        }
+
+        .opinion-list-text {
+            font-size: 0.95rem;
+            color: var(--black);
+            line-height: 1.6;
+            margin-bottom: 8px;
+        }
+
+        .opinion-list-meta {
+            font-size: 0.75rem;
+            color: var(--gray-light);
+        }
+
+        .opinion-list-empty {
+            text-align: center;
+            color: var(--gray-light);
+            padding: 30px;
+            font-size: 0.9rem;
+        }
+
+        /* ========== CTA 버튼 ========== */
+        .cta-button {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            background: var(--brown);
+            color: white;
+            text-decoration: none;
+            padding: 18px 36px;
+            border-radius: 35px;
+            font-size: 1.05rem;
+            font-weight: 600;
+            margin-top: 30px;
+            box-shadow: 0 12px 35px rgba(139, 90, 43, 0.35);
+            opacity: 0;
+            transform: translateY(20px);
+            transition: all 0.6s cubic-bezier(0.4, 0, 0.2, 1) 0.6s;
+        }
+
+        .card.in-view .cta-button { opacity: 1; transform: translateY(0); }
+        .cta-button:active { transform: scale(0.97); }
+        .cta-button svg { width: 20px; height: 20px; fill: currentColor; }
+
+        /* ========== 실시간 의견 띠 ========== */
+        .live-voice-bar {
+            position: fixed;
+            bottom: 20px;
+            left: 0;
+            right: 0;
+            z-index: 99;
+            padding: 0 20px;
+            pointer-events: none;
+        }
+
+        .live-voice-inner {
+            max-width: 400px;
+            margin: 0 auto;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            padding: 14px 18px;
+            box-shadow: 0 4px 25px rgba(0,0,0,0.12);
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            opacity: 0;
+            transform: translateY(20px);
+            transition: all 0.5s ease;
+        }
+
+        .live-voice-bar.show .live-voice-inner {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .live-voice-label {
+            background: var(--brown);
+            color: white;
+            font-size: 0.7rem;
+            font-weight: 600;
+            padding: 5px 10px;
+            border-radius: 12px;
+            white-space: nowrap;
+        }
+
+        .live-voice-content { flex: 1; min-width: 0; }
+        .live-voice-text { font-size: 0.95rem; color: var(--black); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+        .live-voice-meta { font-size: 0.75rem; color: var(--gray-light); margin-top: 2px; }
+
+        /* ========== 토스트 ========== */
+        .toast {
+            position: fixed;
+            bottom: 100px;
+            left: 50%;
+            transform: translateX(-50%) translateY(20px);
+            background: var(--black);
+            color: white;
+            padding: 14px 28px;
+            border-radius: 30px;
+            font-size: 0.95rem;
+            opacity: 0;
+            transition: all 0.3s ease;
+            z-index: 200;
+            pointer-events: none;
+        }
+
+        .toast.show {
+            opacity: 1;
+            transform: translateX(-50%) translateY(0);
+        }
+
+        /* ========== 특가 강조 ========== */
+        .special-badge {
+            display: inline-block;
+            background: linear-gradient(135deg, #d4915d 0%, #c9a66b 100%);
+            color: white;
+            padding: 8px 18px;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            margin-bottom: 16px;
+            animation: subtlePulse 2s ease-in-out infinite;
+        }
+
+        @keyframes subtlePulse {
+            0%, 100% { box-shadow: 0 4px 15px rgba(212, 145, 93, 0.3); }
+            50% { box-shadow: 0 6px 25px rgba(212, 145, 93, 0.5); }
+        }
+
+        /* ========== 신뢰 포인트 ========== */
+        .trust-points {
+            display: flex;
+            justify-content: center;
+            gap: 24px;
+            margin-top: 24px;
+            opacity: 0;
+            transition: all 0.6s ease 0.4s;
+        }
+
+        .card.in-view .trust-points { opacity: 1; }
+
+        .trust-item {
+            text-align: center;
+        }
+
+        .trust-value {
+            font-family: 'Nanum Myeongjo', serif;
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: var(--accent);
+        }
+
+        .trust-label {
+            font-size: 0.75rem;
+            color: rgba(255,255,255,0.7);
+            margin-top: 4px;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- 매거진 헤더 -->
+    <header class="magazine-header">
+        <div class="magazine-brand">
+            <div class="brand-logo">
+                <div class="logo-circle">두레</div>
+                <span class="logo-text">생활의 발견</span>
+            </div>
+            <div class="brand-divider"></div>
+            <span class="magazine-title">26년 3주</span>
+        </div>
+        <div class="live-visitors">
+            <div class="live-dot"></div>
+            <span class="live-count"><span id="visitorCount">1</span>명 보는 중</span>
+        </div>
+    </header>
+
+    <!-- 스크롤 인디케이터 -->
+    <div class="scroll-indicator" id="scrollIndicator"></div>
+
+    <!-- 0. 인트로 -->
+    <section class="card card-dark" data-index="0">
+        <div class="intro-bg"></div>
+        <div class="intro-content">
+            <div class="intro-badge fade-up">🍲 두레축산 신규 출시</div>
+            
+            <div class="intro-product-image fade-up">
+                <div class="steam-container intro-steam">
+                    <div class="steam"></div>
+                    <div class="steam"></div>
+                    <div class="steam"></div>
+                    <div class="steam"></div>
+                </div>
+                <img src="https://durewon-del.github.io/test/pojang1.png" alt="한우 설렁탕">
+            </div>
+            
+            <h1 class="intro-main fade-up">
+                국물 맛이<br>
+                <em>확 다릅니다</em>
+            </h1>
+            <p class="intro-sub fade-up">
+                한우 사골·잡뼈·정육을 함께 고아<br>
+                깊고 진한 육향이 살아있어요
+            </p>
+        </div>
+        <div class="intro-scroll-hint">
+            <span>아래로 스크롤</span>
+            <svg viewBox="0 0 24 24"><path d="M7.41,8.58L12,13.17L16.59,8.58L18,10L12,16L6,10L7.41,8.58Z"/></svg>
+        </div>
+    </section>
+
+    <!-- 1. 공감 - 시중 설렁탕의 문제 -->
+    <section class="card card-warm" data-index="1">
+        <p class="card-eyebrow fade-up">솔직한 이야기</p>
+        <h2 class="card-title fade-up">
+            요즘 설렁탕<br>
+            <em>국물 맛이 싱거워요</em>
+        </h2>
+        <p class="card-desc fade-up">
+            물 많이 타고, 조미료로 맛 내고<br>
+            우유나 프림 섞어서 색만 뽀얗게...<br><br>
+            <strong>진짜 한우 뼈 우린 맛이 아니에요</strong>
+        </p>
+    </section>
+
+    <!-- 2. 맛의 비결 -->
+    <section class="card card-cream" data-index="2">
+        <p class="card-eyebrow fade-up">두레축산 설렁탕의 맛</p>
+        <h2 class="card-title fade-up">
+            <em>국물 맛</em>이<br>
+            다른 이유
+        </h2>
+        <div class="benefit-list fade-up">
+            <div class="benefit-item">
+                <div class="benefit-icon">🦴</div>
+                <div class="benefit-content">
+                    <div class="benefit-title">사골 + 잡뼈 + 탕갈비 함께</div>
+                    <div class="benefit-desc">사골만 쓰면 맛이 단조로워요.<br>잡뼈, 탕갈비 함께 고아야 깊은 맛이 나요.</div>
+                </div>
+            </div>
+            <div class="benefit-item">
+                <div class="benefit-icon">🥩</div>
+                <div class="benefit-content">
+                    <div class="benefit-title">사태 + 스지 넉넉하게</div>
+                    <div class="benefit-desc">사태의 담백한 맛, 스지의 쫄깃한 식감.<br>고기 씹는 맛이 살아있어요.</div>
+                </div>
+            </div>
+            <div class="benefit-item">
+                <div class="benefit-icon">🔥</div>
+                <div class="benefit-content">
+                    <div class="benefit-title">직화솥에서 정성껏</div>
+                    <div class="benefit-desc">직화로 고아야 육향이 진하게 나요.<br>뽀얗고 고소한 국물의 비결이에요.</div>
+                </div>
+            </div>
+            <div class="benefit-item">
+                <div class="benefit-icon">🐄</div>
+                <div class="benefit-content">
+                    <div class="benefit-title">두레축산 한우 100%</div>
+                    <div class="benefit-desc">수입산 섞지 않아요.<br>한우 국물은 확실히 맛이 달라요.</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 3. 상품 소개 -->
+    <section class="card card-nature" data-index="3">
+        <div class="special-badge">🔥 두레축산 신규 출시</div>
+        
+        <div class="product-image fade-up">
+            <div class="steam-container">
+                <div class="steam"></div>
+                <div class="steam"></div>
+                <div class="steam"></div>
+                <div class="steam"></div>
+            </div>
+            <img src="https://durewon-del.github.io/test/pojang1.png" alt="한우 설렁탕">
+        </div>
+        
+        <h3 class="product-name fade-up">한우 설렁탕</h3>
+        <p class="product-desc fade-up">두레축산 직영 · 600g · 냉동 · 2인분</p>
+        
+        <div class="price-badge fade-up">
+            <span class="price-original">11,700원</span>
+            <span class="price-current">10,500원</span>
+            <span class="price-discount">1,200원↓</span>
+        </div>
+        
+        <div class="feature-badges">
+            <div class="feature-badge">
+                <div class="feature-icon brown">🦴</div>
+                <span class="feature-text">진한 국물</span>
+                <span class="feature-sub">사골+잡뼈</span>
+            </div>
+            <div class="feature-badge">
+                <div class="feature-icon orange">🥩</div>
+                <span class="feature-text">쫄깃한 고기</span>
+                <span class="feature-sub">사태+스지</span>
+            </div>
+            <div class="feature-badge">
+                <div class="feature-icon green">🐄</div>
+                <span class="feature-text">한우 100%</span>
+                <span class="feature-sub">두레축산</span>
+            </div>
+        </div>
+        
+        <a href="https://ecoop.or.kr" class="product-link">
+            지금 주문하기
+            <svg viewBox="0 0 24 24"><path d="M8.59,16.58L13.17,12L8.59,7.41L10,6L16,12L10,18L8.59,16.58Z"/></svg>
+        </a>
+    </section>
+
+    <!-- 4. 맛 비교 데이터 -->
+    <section class="card card-science science-card" data-index="4">
+        <div class="science-content">
+            <h3 class="science-title fade-up">왜 <em>맛</em>이 다를까?</h3>
+
+            <div class="comparison-box">
+                <div class="comparison-title">🍲 국물 깊이의 차이</div>
+                <div class="comparison-items">
+                    <div class="comparison-item highlight">
+                        <div class="comparison-label">두레축산</div>
+                        <div class="comparison-value">3종</div>
+                        <div class="comparison-note">사골+잡뼈+탕갈비</div>
+                    </div>
+                    <div class="comparison-item normal">
+                        <div class="comparison-label">일반 제품</div>
+                        <div class="comparison-value">1종</div>
+                        <div class="comparison-note">사골만 또는 희석</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="quote-box">
+                <p class="quote-text">"사골만 우려내면 맛이 <em>단조롭습니다</em>.<br>잡뼈와 정육을 함께 고아야<br><em>국물 맛의 깊이</em>가 달라집니다"</p>
+                <p class="quote-source">— 농촌진흥청 사골국 조리법</p>
+            </div>
+
+            <div class="nutrition-table">
+                <div class="table-header">
+                    <div class="table-icon">🥩</div>
+                    <div>
+                        <div class="table-title">고기의 차이</div>
+                        <div class="table-source">두레축산 설렁탕 구성</div>
+                    </div>
+                </div>
+                
+                <div class="nutrition-row">
+                    <span class="nutrition-name">한우 사태</span>
+                    <span class="nutrition-value">담백</span>
+                    <span class="nutrition-benefit">깔끔한 맛</span>
+                </div>
+                <div class="nutrition-row">
+                    <span class="nutrition-name">한우 스지</span>
+                    <span class="nutrition-value">쫄깃</span>
+                    <span class="nutrition-benefit">씹는 맛</span>
+                </div>
+                <div class="nutrition-row">
+                    <span class="nutrition-name">직화 조리</span>
+                    <span class="nutrition-value">고소</span>
+                    <span class="nutrition-benefit">진한 육향</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 5. 한우 vs 수입산 맛 차이 -->
+    <section class="card card-cream" data-index="5">
+        <p class="card-eyebrow fade-up">한우의 맛</p>
+        <h2 class="card-title fade-up"><em>한우 국물</em>은<br>확실히 달라요</h2>
+        
+        <div class="benefit-list fade-up">
+            <div class="benefit-item">
+                <div class="benefit-icon">🇰🇷</div>
+                <div class="benefit-content">
+                    <div class="benefit-title">한우 사골</div>
+                    <div class="benefit-desc">고소하고 깊은 맛, 잡내 없이 깔끔해요</div>
+                </div>
+            </div>
+            <div class="benefit-item">
+                <div class="benefit-icon">❌</div>
+                <div class="benefit-content">
+                    <div class="benefit-title">수입산 사골</div>
+                    <div class="benefit-desc">비린내 나고, 국물이 텁텁해요</div>
+                </div>
+            </div>
+            <div class="benefit-item">
+                <div class="benefit-icon">⚠️</div>
+                <div class="benefit-content">
+                    <div class="benefit-title">시중 설렁탕 30% 이상</div>
+                    <div class="benefit-desc">수입산 사용, 프림·우유로 색만 뽀얗게<br>(2013 불만제로 조사)</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 6. 맛있게 먹는 법 -->
+    <section class="card card-warm" data-index="6">
+        <p class="card-eyebrow fade-up">더 맛있게</p>
+        <h2 class="card-title fade-up"><em>이렇게</em> 드세요</h2>
+        
+        <div class="cooking-steps">
+            <div class="cooking-step">
+                <div class="step-number">1</div>
+                <div class="step-content">
+                    <div class="step-title">중불 5분, 팔팔 끓이기</div>
+                    <div class="step-desc">끓여야 육향이 살아나요</div>
+                </div>
+                <span class="step-time">5분</span>
+            </div>
+            <div class="cooking-step">
+                <div class="step-number">2</div>
+                <div class="step-content">
+                    <div class="step-title">밥 말아서 후루룩</div>
+                    <div class="step-desc">국물에 밥 말면 최고의 한 끼</div>
+                </div>
+            </div>
+            <div class="cooking-step">
+                <div class="step-number">3</div>
+                <div class="step-content">
+                    <div class="step-title">깍두기 국물 한 숟갈</div>
+                    <div class="step-desc">시원한 맛 더하면 감칠맛 UP</div>
+                </div>
+            </div>
+        </div>
+        
+        <p class="card-desc fade-up" style="margin-top: 24px; font-size: 0.9rem;">
+            💡 당면 넣으면 든든한 보양식<br>
+            💡 소면 넣으면 설렁탕 칼국수<br>
+            💡 후추 톡톡 뿌리면 풍미 UP
+        </p>
+    </section>
+
+    <!-- 7. 맛의 차이 -->
+    <section class="card card-brown" data-index="7">
+        <h2 class="card-title">
+            <span class="philosophy-line">마트 설렁탕은</span>
+            <span class="philosophy-line">'뽀얀 색'</span>
+            <span class="philosophy-line" style="margin-top: 20px;">두레 설렁탕은</span>
+            <span class="philosophy-line"><span class="philosophy-emphasis">'진짜 맛'</span></span>
+        </h2>
+        <p class="card-desc fade-up">
+            프림 넣어서 색만 흰 국물 말고<br>
+            한우 뼈에서 우러난 진짜 국물
+        </p>
+        
+        <div class="trust-points">
+            <div class="trust-item">
+                <div class="trust-value">29년</div>
+                <div class="trust-label">두레생협 역사</div>
+            </div>
+            <div class="trust-item">
+                <div class="trust-value">24만</div>
+                <div class="trust-label">조합원 가구</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 8. 의견 -->
+    <section class="card card-cream" data-index="8">
+        <p class="card-eyebrow fade-up">신규 출시</p>
+        <h2 class="card-title fade-up">어떤 국물 요리<br><em>드시고 싶으세요?</em></h2>
+        
+        <div class="opinion-section fade-up">
+            <div class="write-area">
+                <div class="write-label">✍️ 설렁탕 외에 원하시는 국물 요리 있으세요?</div>
+                <textarea class="write-input" id="opinionText" placeholder="갈비탕, 곰탕, 육개장... 두레축산에서 만들어줬으면 하는 국물 요리를 알려주세요"></textarea>
+                <div class="write-footer">
+                    <input type="text" class="write-name" id="opinionName" placeholder="이름 (선택)">
+                    <button class="write-submit" id="submitBtn" onclick="submitOpinion()">
+                        등록
+                        <svg viewBox="0 0 24 24"><path d="M2,21L23,12L2,3V10L17,12L2,14V21Z"/></svg>
+                    </button>
+                </div>
+            </div>
+            
+            <div class="opinion-list-area">
+                <div class="opinion-list-title">💬 조합원님들이 원하는 국물 요리</div>
+                <div id="opinionList">
+                    <div class="opinion-list-empty">첫 번째 이야기를 남겨주세요</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 9. 마무리 -->
+    <section class="card card-warm" data-index="9">
+        <p class="card-eyebrow fade-up">두레축산 신규 출시</p>
+        <h2 class="card-title fade-up">
+            <em class="highlight-text">국물 맛</em>의 차이<br>
+            직접 드셔보세요
+        </h2>
+        <p class="card-desc fade-up">
+            사골+잡뼈+탕갈비 함께 고은 깊은 국물<br>
+            한우 사태+스지의 쫄깃한 식감<br><br>
+            <strong>📅 1.12(일) ~ 1.16(목) 특가 10,500원</strong>
+        </p>
+        <a href="https://ecoop.or.kr" class="cta-button">
+            <span>한우 설렁탕 주문하기</span>
+            <svg viewBox="0 0 24 24"><path d="M8.59,16.58L13.17,12L8.59,7.41L10,6L16,12L10,18L8.59,16.58Z"/></svg>
+        </a>
+    </section>
+
+    <!-- 실시간 의견 띠 -->
+    <div class="live-voice-bar" id="liveVoiceBar">
+        <div class="live-voice-inner">
+            <div class="live-voice-label">실시간</div>
+            <div class="live-voice-content">
+                <p class="live-voice-text" id="liveVoiceText">조합원님들의 이야기</p>
+                <p class="live-voice-meta" id="liveVoiceMeta"></p>
+            </div>
+        </div>
+    </div>
+
+    <div class="toast" id="toast">감사합니다 🍲</div>
+
+    <!-- Firebase SDK -->
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
+        import { getFirestore, collection, addDoc, query, orderBy, limit, onSnapshot, serverTimestamp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
+        import { getDatabase, ref, set, onValue, onDisconnect, serverTimestamp as rtdbTimestamp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-database.js";
+
+        const firebaseConfig = {
+            apiKey: "AIzaSyDrb6CvMBn9jSfDeuwWseJywFHLbChNr4U",
+            authDomain: "durunioncoop.firebaseapp.com",
+            projectId: "durunioncoop",
+            storageBucket: "durunioncoop.firebasestorage.app",
+            messagingSenderId: "439719435906",
+            appId: "1:439719435906:web:3d1d841ad6e80939eb5e9b",
+            measurementId: "G-NSEYF1TDCH",
+            databaseURL: "https://durunioncoop-default-rtdb.asia-southeast1.firebasedatabase.app"
+        };
+
+        const app = initializeApp(firebaseConfig);
+        const db = getFirestore(app);
+        const rtdb = getDatabase(app);
+
+        // 실시간 방문자
+        const visitorId = 'visitor_' + Math.random().toString(36).substr(2, 9);
+        const visitorRef = ref(rtdb, `visitors_week3/${visitorId}`);
+        const visitorsRef = ref(rtdb, 'visitors_week3');
+
+        set(visitorRef, { timestamp: rtdbTimestamp(), lastActive: Date.now() });
+        onDisconnect(visitorRef).remove();
+
+        onValue(visitorsRef, (snapshot) => {
+            const visitors = snapshot.val();
+            const count = visitors ? Object.keys(visitors).length : 1;
+            document.getElementById('visitorCount').textContent = count;
+        });
+
+        setInterval(() => {
+            set(visitorRef, { timestamp: rtdbTimestamp(), lastActive: Date.now() });
+        }, 30000);
+
+        // 의견 시스템
+        let opinions = [];
+        let shownOpinionIds = new Set();
+
+        window.submitOpinion = async function() {
+            const textEl = document.getElementById('opinionText');
+            const nameEl = document.getElementById('opinionName');
+            const submitBtn = document.getElementById('submitBtn');
+            const text = textEl.value.trim();
+            const name = nameEl.value.trim() || '익명의 조합원';
+            if (!text) { showToast('내용을 입력해주세요'); return; }
+            submitBtn.disabled = true;
+            try {
+                await addDoc(collection(db, "opinions_week3"), { text, name, createdAt: serverTimestamp() });
+                textEl.value = ''; nameEl.value = '';
+                showToast('감사합니다 🍲');
+            } catch (error) { showToast('잠시 후 다시 시도해주세요'); }
+            finally { submitBtn.disabled = false; }
+        };
+
+        const q = query(collection(db, "opinions_week3"), orderBy("createdAt", "desc"), limit(30));
+        onSnapshot(q, (snapshot) => {
+            opinions = [];
+            snapshot.forEach((doc) => {
+                const data = doc.data();
+                opinions.push({ id: doc.id, text: data.text, name: data.name, date: data.createdAt ? formatDate(data.createdAt.toDate()) : '방금' });
+            });
+            updateOpinionList();
+            if (opinions.length > 0) showNextOpinion();
+        });
+
+        function updateOpinionList() {
+            const listEl = document.getElementById('opinionList');
+            if (opinions.length === 0) { listEl.innerHTML = '<div class="opinion-list-empty">첫 번째 이야기를 남겨주세요</div>'; return; }
+            listEl.innerHTML = '';
+            opinions.slice(0, 10).forEach((op) => {
+                const item = document.createElement('div');
+                item.className = 'opinion-list-item';
+                item.innerHTML = `<p class="opinion-list-text">${escapeHtml(op.text)}</p><p class="opinion-list-meta">${escapeHtml(op.name)} · ${op.date}</p>`;
+                listEl.appendChild(item);
+            });
+        }
+
+        function showNextOpinion() {
+            if (opinions.length === 0) return;
+            const unshown = opinions.filter(op => !shownOpinionIds.has(op.id));
+            if (unshown.length === 0) { document.getElementById('liveVoiceBar').classList.remove('show'); return; }
+            const bar = document.getElementById('liveVoiceBar');
+            bar.classList.remove('show');
+            setTimeout(() => {
+                const op = unshown[0];
+                shownOpinionIds.add(op.id);
+                document.getElementById('liveVoiceText').textContent = op.text.length <= 32 ? op.text : op.text.substring(0, 32) + '...';
+                document.getElementById('liveVoiceMeta').textContent = `${op.name} · ${op.date}`;
+                bar.classList.add('show');
+                setTimeout(() => showNextOpinion(), 5000);
+            }, 400);
+        }
+
+        function formatDate(date) {
+            const diff = Date.now() - date;
+            const m = Math.floor(diff / 60000), h = Math.floor(diff / 3600000), d = Math.floor(diff / 86400000);
+            if (m < 1) return '방금'; if (m < 60) return `${m}분 전`; if (h < 24) return `${h}시간 전`; if (d < 7) return `${d}일 전`;
+            return date.toLocaleDateString('ko-KR');
+        }
+        function escapeHtml(text) { const div = document.createElement('div'); div.textContent = text; return div.innerHTML; }
+        function showToast(msg) { const t = document.getElementById('toast'); t.textContent = msg; t.classList.add('show'); setTimeout(() => t.classList.remove('show'), 2500); }
+        window.showToast = showToast;
+    </script>
+
+    <script>
+        // 스크롤 인디케이터 초기화
+        const cards = document.querySelectorAll('.card');
+        const indicatorContainer = document.getElementById('scrollIndicator');
+        
+        cards.forEach((_, i) => {
+            const dot = document.createElement('div');
+            dot.className = 'scroll-dot' + (i === 0 ? ' active' : '');
+            dot.addEventListener('click', () => cards[i].scrollIntoView({ behavior: 'smooth' }));
+            indicatorContainer.appendChild(dot);
+        });
+
+        const dots = document.querySelectorAll('.scroll-dot');
+
+        // Intersection Observer
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                const index = parseInt(entry.target.dataset.index);
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('in-view');
+                    dots.forEach((dot, i) => dot.classList.toggle('active', i === index));
+                }
+            });
+        }, { threshold: 0.35 });
+
+        cards.forEach(card => observer.observe(card));
+        cards[0].classList.add('in-view');
+        
+        // 🎉 재미있는 인터랙션들
+        
+        // 1. 상품 이미지 터치 시 뜨거운 효과
+        document.querySelectorAll('.product-image').forEach(img => {
+            img.addEventListener('click', function() {
+                this.style.animation = 'none';
+                this.offsetHeight; // 리플로우
+                this.style.animation = 'hotShake 0.5s ease';
+                
+                // 스팀 강화
+                const steams = this.querySelectorAll('.steam');
+                steams.forEach(s => {
+                    s.style.animation = 'none';
+                    s.offsetHeight;
+                    s.style.animation = 'steamRise 1s ease-out infinite';
+                });
+                
+                showToast('🔥 뜨끈뜨끈! 맛있겠다~');
+            });
+        });
+        
+        // 2. 가격 배지 터치 시 효과
+        document.querySelectorAll('.price-badge').forEach(badge => {
+            badge.addEventListener('click', function() {
+                this.style.transform = 'scale(1.1)';
+                setTimeout(() => this.style.transform = 'scale(1)', 200);
+                showToast('💰 1,200원 할인! 이번 주만!');
+            });
+        });
+        
+        // 3. 특징 배지 호버 효과
+        document.querySelectorAll('.feature-badge').forEach((badge, i) => {
+            badge.addEventListener('click', function() {
+                const messages = [
+                    '🦴 사골+잡뼈+탕갈비 = 깊은 국물!',
+                    '🥩 사태+스지 = 쫄깃한 식감!', 
+                    '🐄 두레축산 한우 100%!'
+                ];
+                showToast(messages[i] || '👍 좋은 선택!');
+            });
+        });
+        
+        // 4. 스크롤 시 배경 색상 변화
+        let lastScrollY = 0;
+        window.addEventListener('scroll', () => {
+            const scrollY = window.scrollY;
+            const direction = scrollY > lastScrollY ? 'down' : 'up';
+            lastScrollY = scrollY;
+        });
+        
+        // 5. 인트로 이미지 3D 틸트 효과
+        const introImg = document.querySelector('.intro-product-image');
+        if (introImg) {
+            introImg.addEventListener('mousemove', (e) => {
+                const rect = introImg.getBoundingClientRect();
+                const x = e.clientX - rect.left - rect.width / 2;
+                const y = e.clientY - rect.top - rect.height / 2;
+                const tiltX = y / 10;
+                const tiltY = -x / 10;
+                introImg.style.transform = `perspective(500px) rotateX(${tiltX}deg) rotateY(${tiltY}deg)`;
+            });
+            
+            introImg.addEventListener('mouseleave', () => {
+                introImg.style.transform = '';
+            });
+            
+            // 터치용
+            introImg.addEventListener('click', () => {
+                showToast('🍲 진짜 맛있어 보이죠?');
+            });
+        }
+        
+        // CSS 애니메이션 추가
+        const style = document.createElement('style');
+        style.textContent = `
+            @keyframes hotShake {
+                0%, 100% { transform: translateX(0) rotate(0); }
+                20% { transform: translateX(-5px) rotate(-2deg); }
+                40% { transform: translateX(5px) rotate(2deg); }
+                60% { transform: translateX(-3px) rotate(-1deg); }
+                80% { transform: translateX(3px) rotate(1deg); }
+            }
+            
+            .price-badge {
+                cursor: pointer;
+                transition: transform 0.2s ease;
+            }
+            
+            .feature-badge {
+                cursor: pointer;
+                transition: transform 0.2s ease, box-shadow 0.2s ease;
+            }
+            
+            .feature-badge:active {
+                transform: scale(0.95);
+            }
+            
+            .product-image {
+                cursor: pointer;
+            }
+            
+            .intro-product-image {
+                cursor: pointer;
+                transition: transform 0.1s ease;
+            }
+        `;
+        document.head.appendChild(style);
+    </script>
+
+</body>
+</html>
