@@ -619,6 +619,159 @@
             color: var(--gray);
             line-height: 1.6;
         }
+        
+        /* 인증 배지 */
+        .trust-badge {
+            display: flex;
+            justify-content: center;
+            gap: 12px;
+            margin-top: 24px;
+            flex-wrap: wrap;
+        }
+        
+        .trust-badge span {
+            background: linear-gradient(135deg, var(--brown) 0%, #a06830 100%);
+            color: white;
+            padding: 10px 18px;
+            border-radius: 25px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            box-shadow: 0 4px 15px rgba(139, 90, 43, 0.3);
+        }
+        
+        /* ========== 탕탕탕 시리즈 ========== */
+        .tang-series-card {
+            background: linear-gradient(160deg, #1a1512 0%, #2d2420 50%, #3a2a20 100%);
+        }
+        
+        .tang-series {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 16px;
+            max-width: 340px;
+            width: 100%;
+            margin: 24px auto;
+        }
+        
+        .tang-item {
+            background: rgba(255,255,255,0.08);
+            border-radius: 20px;
+            padding: 16px 12px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border: 2px solid transparent;
+        }
+        
+        .tang-item:hover, .tang-item:active {
+            transform: scale(1.03);
+            background: rgba(255,255,255,0.12);
+        }
+        
+        .tang-item.current {
+            border-color: var(--accent);
+            background: rgba(201, 166, 107, 0.15);
+        }
+        
+        .tang-image {
+            width: 100%;
+            height: 100px;
+            border-radius: 14px;
+            overflow: hidden;
+            position: relative;
+            margin-bottom: 12px;
+            background: #2a2a2a;
+        }
+        
+        .tang-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.3s ease;
+        }
+        
+        .tang-item:hover .tang-image img {
+            transform: scale(1.1);
+        }
+        
+        .tang-badge {
+            position: absolute;
+            top: 8px;
+            right: 8px;
+            background: var(--accent);
+            color: white;
+            font-size: 0.65rem;
+            font-weight: 700;
+            padding: 4px 8px;
+            border-radius: 10px;
+            animation: badgePulse 2s ease-in-out infinite;
+        }
+        
+        @keyframes badgePulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+        }
+        
+        .tang-steam {
+            position: absolute;
+            top: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            gap: 8px;
+        }
+        
+        .tang-steam span {
+            width: 6px;
+            height: 6px;
+            background: rgba(255,255,255,0.7);
+            border-radius: 50%;
+            filter: blur(2px);
+            animation: tangSteam 1.5s ease-out infinite;
+        }
+        
+        .tang-steam span:nth-child(1) { animation-delay: 0s; }
+        .tang-steam span:nth-child(2) { animation-delay: 0.3s; }
+        .tang-steam span:nth-child(3) { animation-delay: 0.6s; }
+        
+        @keyframes tangSteam {
+            0% { opacity: 0; transform: translateY(0) scale(1); }
+            50% { opacity: 0.8; }
+            100% { opacity: 0; transform: translateY(-25px) scale(1.5); }
+        }
+        
+        .tang-name {
+            font-weight: 700;
+            color: white;
+            font-size: 0.95rem;
+            margin-bottom: 4px;
+        }
+        
+        .tang-item.current .tang-name {
+            color: var(--accent);
+        }
+        
+        .tang-desc {
+            font-size: 0.75rem;
+            color: rgba(255,255,255,0.6);
+        }
+        
+        .tang-item.current .tang-desc {
+            color: var(--accent);
+            font-weight: 600;
+        }
+        
+        .tang-tip {
+            color: rgba(255,255,255,0.5);
+            font-size: 0.8rem;
+            margin-top: 16px;
+            animation: tipBounce 2s ease-in-out infinite;
+        }
+        
+        @keyframes tipBounce {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-5px); }
+        }
 
         /* ========== 과학 카드 ========== */
         .science-card { padding: 80px 20px 100px; }
@@ -1247,12 +1400,12 @@
             </div>
             
             <h1 class="intro-main fade-up">
-                국물 맛이<br>
-                <em>확 다릅니다</em>
+                <em>무항생제 한우</em><br>
+                96g 들었어요
             </h1>
             <p class="intro-sub fade-up">
-                한우 사골·잡뼈·정육을 함께 고아<br>
-                깊고 진한 육향이 살아있어요
+                시중 설렁탕 대비 <strong>1.7배</strong> 고기<br>
+                이 가격에 이 품질, 다시 없어요
             </p>
         </div>
         <div class="intro-scroll-hint">
@@ -1265,50 +1418,50 @@
     <section class="card card-warm" data-index="1">
         <p class="card-eyebrow fade-up">솔직한 이야기</p>
         <h2 class="card-title fade-up">
-            요즘 설렁탕<br>
-            <em>국물 맛이 싱거워요</em>
+            시중 설렁탕<br>
+            <em>고기가 너무 없어요</em>
         </h2>
         <p class="card-desc fade-up">
-            물 많이 타고, 조미료로 맛 내고<br>
-            우유나 프림 섞어서 색만 뽀얗게...<br><br>
-            <strong>진짜 한우 뼈 우린 맛이 아니에요</strong>
+            국물만 많고 고기는 몇 점 안 되고<br>
+            그마저도 어디 소인지 모르겠고...<br><br>
+            <strong>10,000원 넘게 주고 이게 뭔가 싶죠</strong>
         </p>
     </section>
 
-    <!-- 2. 맛의 비결 -->
+    <!-- 2. 무항생제 한우 고기 강조 -->
     <section class="card card-cream" data-index="2">
-        <p class="card-eyebrow fade-up">두레축산 설렁탕의 맛</p>
+        <p class="card-eyebrow fade-up">두레축산 설렁탕</p>
         <h2 class="card-title fade-up">
-            <em>국물 맛</em>이<br>
-            다른 이유
+            <em>무항생제 한우</em><br>
+            96g 넣었어요
         </h2>
         <div class="benefit-list fade-up">
             <div class="benefit-item">
-                <div class="benefit-icon">🦴</div>
+                <div class="benefit-icon">💊</div>
                 <div class="benefit-content">
-                    <div class="benefit-title">사골 + 잡뼈 + 탕갈비 함께</div>
-                    <div class="benefit-desc">사골만 쓰면 맛이 단조로워요.<br>잡뼈, 탕갈비 함께 고아야 깊은 맛이 나요.</div>
+                    <div class="benefit-title">무항생제 인증 한우</div>
+                    <div class="benefit-desc">항생제·성장촉진제 없이 건강하게 키운 소예요</div>
                 </div>
             </div>
             <div class="benefit-item">
                 <div class="benefit-icon">🥩</div>
                 <div class="benefit-content">
-                    <div class="benefit-title">사태 + 스지 넉넉하게</div>
-                    <div class="benefit-desc">사태의 담백한 맛, 스지의 쫄깃한 식감.<br>고기 씹는 맛이 살아있어요.</div>
-                </div>
-            </div>
-            <div class="benefit-item">
-                <div class="benefit-icon">🔥</div>
-                <div class="benefit-content">
-                    <div class="benefit-title">직화솥에서 정성껏</div>
-                    <div class="benefit-desc">직화로 고아야 육향이 진하게 나요.<br>뽀얗고 고소한 국물의 비결이에요.</div>
+                    <div class="benefit-title">고기 함량 16% (96g)</div>
+                    <div class="benefit-desc">시중 설렁탕 평균 대비 <strong>1.7배</strong> 많아요</div>
                 </div>
             </div>
             <div class="benefit-item">
                 <div class="benefit-icon">🐄</div>
                 <div class="benefit-content">
-                    <div class="benefit-title">두레축산 한우 100%</div>
-                    <div class="benefit-desc">수입산 섞지 않아요.<br>한우 국물은 확실히 맛이 달라요.</div>
+                    <div class="benefit-title">사태 + 스지 넉넉하게</div>
+                    <div class="benefit-desc">담백한 사태, 쫄깃한 스지 씹는 맛이 살아있어요</div>
+                </div>
+            </div>
+            <div class="benefit-item">
+                <div class="benefit-icon">🔍</div>
+                <div class="benefit-content">
+                    <div class="benefit-title">두레축산 직영</div>
+                    <div class="benefit-desc">어디서 온 소인지 다 추적 가능해요</div>
                 </div>
             </div>
         </div>
@@ -1339,19 +1492,19 @@
         
         <div class="feature-badges">
             <div class="feature-badge">
-                <div class="feature-icon brown">🦴</div>
-                <span class="feature-text">진한 국물</span>
-                <span class="feature-sub">사골+잡뼈</span>
+                <div class="feature-icon brown">💊</div>
+                <span class="feature-text">무항생제</span>
+                <span class="feature-sub">인증 한우</span>
             </div>
             <div class="feature-badge">
                 <div class="feature-icon orange">🥩</div>
-                <span class="feature-text">쫄깃한 고기</span>
-                <span class="feature-sub">사태+스지</span>
+                <span class="feature-text">고기 96g</span>
+                <span class="feature-sub">16% 함량</span>
             </div>
             <div class="feature-badge">
-                <div class="feature-icon green">🐄</div>
-                <span class="feature-text">한우 100%</span>
-                <span class="feature-sub">두레축산</span>
+                <div class="feature-icon green">👨‍👩‍👦</div>
+                <span class="feature-text">2인분</span>
+                <span class="feature-sub">넉넉하게</span>
             </div>
         </div>
         
@@ -1361,87 +1514,96 @@
         </a>
     </section>
 
-    <!-- 4. 맛 비교 데이터 -->
+    <!-- 4. 고기 함량 비교 - 핵심 강조 -->
     <section class="card card-science science-card" data-index="4">
         <div class="science-content">
-            <h3 class="science-title fade-up">왜 <em>맛</em>이 다를까?</h3>
+            <h3 class="science-title fade-up">시중 설렁탕과 <em>고기 함량</em> 비교</h3>
 
-            <div class="comparison-box">
-                <div class="comparison-title">🍲 국물 깊이의 차이</div>
+            <div class="comparison-box" style="border: 3px solid var(--brown);">
+                <div class="comparison-title">🥩 600g당 고기 함량</div>
                 <div class="comparison-items">
                     <div class="comparison-item highlight">
                         <div class="comparison-label">두레축산</div>
-                        <div class="comparison-value">3종</div>
-                        <div class="comparison-note">사골+잡뼈+탕갈비</div>
+                        <div class="comparison-value" style="font-size: 2rem;">96g</div>
+                        <div class="comparison-note">무항생제 한우</div>
                     </div>
                     <div class="comparison-item normal">
-                        <div class="comparison-label">일반 제품</div>
-                        <div class="comparison-value">1종</div>
-                        <div class="comparison-note">사골만 또는 희석</div>
+                        <div class="comparison-label">시중 평균</div>
+                        <div class="comparison-value">40~57g</div>
+                        <div class="comparison-note">원산지 불명</div>
                     </div>
                 </div>
-            </div>
-
-            <div class="quote-box">
-                <p class="quote-text">"사골만 우려내면 맛이 <em>단조롭습니다</em>.<br>잡뼈와 정육을 함께 고아야<br><em>국물 맛의 깊이</em>가 달라집니다"</p>
-                <p class="quote-source">— 농촌진흥청 사골국 조리법</p>
             </div>
 
             <div class="nutrition-table">
                 <div class="table-header">
-                    <div class="table-icon">🥩</div>
+                    <div class="table-icon">📊</div>
                     <div>
-                        <div class="table-title">고기의 차이</div>
-                        <div class="table-source">두레축산 설렁탕 구성</div>
+                        <div class="table-title">한국소비자원 조사 결과</div>
+                        <div class="table-source">2021년 설렁탕 간편식 비교</div>
                     </div>
                 </div>
                 
                 <div class="nutrition-row">
-                    <span class="nutrition-name">한우 사태</span>
-                    <span class="nutrition-value">담백</span>
-                    <span class="nutrition-benefit">깔끔한 맛</span>
+                    <span class="nutrition-name">오뚜기 서울식</span>
+                    <span class="nutrition-value">56.9g</span>
+                    <span class="nutrition-benefit">시중 최다</span>
                 </div>
                 <div class="nutrition-row">
-                    <span class="nutrition-name">한우 스지</span>
-                    <span class="nutrition-value">쫄깃</span>
-                    <span class="nutrition-benefit">씹는 맛</span>
+                    <span class="nutrition-name">비비고 양지</span>
+                    <span class="nutrition-value">~50g</span>
+                    <span class="nutrition-benefit">11%</span>
                 </div>
                 <div class="nutrition-row">
-                    <span class="nutrition-name">직화 조리</span>
-                    <span class="nutrition-value">고소</span>
-                    <span class="nutrition-benefit">진한 육향</span>
+                    <span class="nutrition-name">홈플러스 양지</span>
+                    <span class="nutrition-value">23.9g</span>
+                    <span class="nutrition-benefit">시중 최소</span>
                 </div>
+                <div class="nutrition-row" style="background: var(--brown-light); border-radius: 10px; margin-top: 8px;">
+                    <span class="nutrition-name" style="font-weight: 700; color: var(--brown);">두레축산</span>
+                    <span class="nutrition-value" style="font-size: 1.3rem;">96g</span>
+                    <span class="nutrition-benefit" style="background: var(--brown);">1.7배!</span>
+                </div>
+            </div>
+
+            <div class="quote-box">
+                <p class="quote-text">"같은 가격이면<br><em>무항생제 한우</em>가 <em>1.7배</em> 더 들어있는<br>두레축산 설렁탕이 낫지 않나요?"</p>
             </div>
         </div>
     </section>
 
-    <!-- 5. 한우 vs 수입산 맛 차이 -->
+    <!-- 5. 무항생제 한우 = 믿을 수 있는 고기 -->
     <section class="card card-cream" data-index="5">
-        <p class="card-eyebrow fade-up">한우의 맛</p>
-        <h2 class="card-title fade-up"><em>한우 국물</em>은<br>확실히 달라요</h2>
+        <p class="card-eyebrow fade-up">왜 무항생제인가요?</p>
+        <h2 class="card-title fade-up"><em>내 가족</em>이 먹을 고기니까</h2>
         
         <div class="benefit-list fade-up">
             <div class="benefit-item">
+                <div class="benefit-icon">🏅</div>
+                <div class="benefit-content">
+                    <div class="benefit-title">무항생제 인증</div>
+                    <div class="benefit-desc">항생제·성장촉진제 없이 건강하게 키웠어요</div>
+                </div>
+            </div>
+            <div class="benefit-item">
                 <div class="benefit-icon">🇰🇷</div>
                 <div class="benefit-content">
-                    <div class="benefit-title">한우 사골</div>
-                    <div class="benefit-desc">고소하고 깊은 맛, 잡내 없이 깔끔해요</div>
+                    <div class="benefit-title">국내산 한우 100%</div>
+                    <div class="benefit-desc">수입산 섞지 않아요. 확실해요.</div>
                 </div>
             </div>
             <div class="benefit-item">
-                <div class="benefit-icon">❌</div>
+                <div class="benefit-icon">🏭</div>
                 <div class="benefit-content">
-                    <div class="benefit-title">수입산 사골</div>
-                    <div class="benefit-desc">비린내 나고, 국물이 텁텁해요</div>
+                    <div class="benefit-title">두레축산 직영</div>
+                    <div class="benefit-desc">사육부터 가공까지 직접 관리해요</div>
                 </div>
             </div>
-            <div class="benefit-item">
-                <div class="benefit-icon">⚠️</div>
-                <div class="benefit-content">
-                    <div class="benefit-title">시중 설렁탕 30% 이상</div>
-                    <div class="benefit-desc">수입산 사용, 프림·우유로 색만 뽀얗게<br>(2013 불만제로 조사)</div>
-                </div>
-            </div>
+        </div>
+        
+        <div class="trust-badge fade-up">
+            <span>🏅 무항생제 인증</span>
+            <span>🇰🇷 한우 100%</span>
         </div>
     </section>
 
@@ -1482,27 +1644,86 @@
         </p>
     </section>
 
-    <!-- 7. 맛의 차이 -->
+    <!-- 6-1. 겨울 탕탕탕 시리즈 -->
+    <section class="card card-dark tang-series-card" data-index="6-1">
+        <p class="card-eyebrow fade-up" style="color: var(--accent);">🔥 겨울엔 역시</p>
+        <h2 class="card-title fade-up" style="color: white;">
+            뜨끈한 <em>탕</em> 한 그릇
+        </h2>
+        
+        <div class="tang-series fade-up">
+            <div class="tang-item" onclick="showTangToast('흑염소탕')">
+                <div class="tang-image">
+                    <img src="https://durewon-del.github.io/test/54255B.jpg" alt="흑염소탕">
+                    <div class="tang-steam">
+                        <span></span><span></span><span></span>
+                    </div>
+                </div>
+                <div class="tang-name">흑염소탕</div>
+                <div class="tang-desc">원기회복 보양식</div>
+            </div>
+            
+            <div class="tang-item current" onclick="showTangToast('한우 설렁탕')">
+                <div class="tang-image">
+                    <img src="https://durewon-del.github.io/test/pojang1.png" alt="한우 설렁탕">
+                    <div class="tang-badge">지금 특가!</div>
+                    <div class="tang-steam">
+                        <span></span><span></span><span></span>
+                    </div>
+                </div>
+                <div class="tang-name">한우 설렁탕</div>
+                <div class="tang-desc">10,500원</div>
+            </div>
+            
+            <div class="tang-item" onclick="showTangToast('한우 보양탕')">
+                <div class="tang-image">
+                    <img src="https://durewon-del.github.io/test/54638A.jpg" alt="한우 보양탕">
+                    <div class="tang-steam">
+                        <span></span><span></span><span></span>
+                    </div>
+                </div>
+                <div class="tang-name">한우 보양탕</div>
+                <div class="tang-desc">진한 고기 국물</div>
+            </div>
+            
+            <div class="tang-item" onclick="showTangToast('돼지국밥')">
+                <div class="tang-image">
+                    <img src="https://durewon-del.github.io/test/58167B.png" alt="돼지국밥">
+                    <div class="tang-steam">
+                        <span></span><span></span><span></span>
+                    </div>
+                </div>
+                <div class="tang-name">돼지국밥</div>
+                <div class="tang-desc">든든한 한 끼</div>
+            </div>
+        </div>
+        
+        <p class="tang-tip fade-up">
+            👆 터치해서 구경하기
+        </p>
+    </section>
+
+    <!-- 7. 고기의 차이 -->
     <section class="card card-brown" data-index="7">
         <h2 class="card-title">
-            <span class="philosophy-line">마트 설렁탕은</span>
-            <span class="philosophy-line">'뽀얀 색'</span>
-            <span class="philosophy-line" style="margin-top: 20px;">두레 설렁탕은</span>
-            <span class="philosophy-line"><span class="philosophy-emphasis">'진짜 맛'</span></span>
+            <span class="philosophy-line">시중 설렁탕</span>
+            <span class="philosophy-line">'고기 어딨어?'</span>
+            <span class="philosophy-line" style="margin-top: 20px;">두레 설렁탕</span>
+            <span class="philosophy-line"><span class="philosophy-emphasis">'고기가 이만큼?'</span></span>
         </h2>
         <p class="card-desc fade-up">
-            프림 넣어서 색만 흰 국물 말고<br>
-            한우 뼈에서 우러난 진짜 국물
+            무항생제 한우 사태+스지 96g<br>
+            씹을 때마다 고기 맛이 나요
         </p>
         
         <div class="trust-points">
             <div class="trust-item">
-                <div class="trust-value">29년</div>
-                <div class="trust-label">두레생협 역사</div>
+                <div class="trust-value">96g</div>
+                <div class="trust-label">무항생제 한우</div>
             </div>
             <div class="trust-item">
-                <div class="trust-value">24만</div>
-                <div class="trust-label">조합원 가구</div>
+                <div class="trust-value">1.7배</div>
+                <div class="trust-label">시중 대비</div>
             </div>
         </div>
     </section>
@@ -1536,15 +1757,16 @@
 
     <!-- 9. 마무리 -->
     <section class="card card-warm" data-index="9">
-        <p class="card-eyebrow fade-up">두레축산 신규 출시</p>
+        <p class="card-eyebrow fade-up">정리하면</p>
         <h2 class="card-title fade-up">
-            <em class="highlight-text">국물 맛</em>의 차이<br>
-            직접 드셔보세요
+            <em class="highlight-text">무항생제 한우 96g</em><br>
+            10,500원
         </h2>
         <p class="card-desc fade-up">
-            사골+잡뼈+탕갈비 함께 고은 깊은 국물<br>
-            한우 사태+스지의 쫄깃한 식감<br><br>
-            <strong>📅 1.12(일) ~ 1.16(목) 특가 10,500원</strong>
+            ✓ 무항생제 인증 한우 100%<br>
+            ✓ 고기 함량 시중 대비 1.7배<br>
+            ✓ 사태+스지 씹는 맛까지<br><br>
+            <strong>📅 1.12(일) ~ 1.16(목) 한정</strong>
         </p>
         <a href="https://ecoop.or.kr" class="cta-button">
             <span>한우 설렁탕 주문하기</span>
@@ -1773,6 +1995,26 @@
                 showToast('🍲 진짜 맛있어 보이죠?');
             });
         }
+        
+        // 6. 탕탕탕 시리즈 터치 인터랙션
+        window.showTangToast = function(name) {
+            const messages = {
+                '흑염소탕': '🐐 겨울철 원기회복엔 흑염소탕!',
+                '한우 설렁탕': '🍲 지금 특가! 10,500원에 드세요~',
+                '한우 보양탕': '🥩 진한 한우 국물로 몸보신!',
+                '돼지국밥': '🐷 얼큰하고 든든한 한 끼!'
+            };
+            showToast(messages[name] || '맛있겠다~');
+            
+            // 클릭한 아이템 하이라이트 효과
+            document.querySelectorAll('.tang-item').forEach(item => {
+                item.style.transform = 'scale(1)';
+            });
+            event.currentTarget.style.transform = 'scale(1.05)';
+            setTimeout(() => {
+                event.currentTarget.style.transform = 'scale(1)';
+            }, 300);
+        };
         
         // CSS 애니메이션 추가
         const style = document.createElement('style');
