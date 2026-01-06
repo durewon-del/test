@@ -772,6 +772,26 @@
             0%, 100% { transform: translateY(0); }
             50% { transform: translateY(-5px); }
         }
+        
+        /* ========== 다음 주 예고 ========== */
+        .next-week-notice {
+            margin-top: 28px;
+            padding: 16px 20px;
+            background: rgba(139, 90, 43, 0.08);
+            border-radius: 16px;
+            border: 1px dashed var(--brown);
+        }
+        
+        .next-week-notice p {
+            font-size: 0.85rem;
+            color: var(--brown);
+            line-height: 1.6;
+            margin: 0;
+        }
+        
+        .next-week-notice strong {
+            color: var(--brown);
+        }
 
         /* ========== 과학 카드 ========== */
         .science-card { padding: 80px 20px 100px; }
@@ -1539,23 +1559,23 @@
                 <div class="table-header">
                     <div class="table-icon">📊</div>
                     <div>
-                        <div class="table-title">한국소비자원 조사 결과</div>
-                        <div class="table-source">2021년 설렁탕 간편식 비교</div>
+                        <div class="table-title">시중 설렁탕 고기 함량</div>
+                        <div class="table-source">한국소비자원 2021 조사</div>
                     </div>
                 </div>
                 
                 <div class="nutrition-row">
-                    <span class="nutrition-name">오뚜기 서울식</span>
+                    <span class="nutrition-name">A사 프리미엄</span>
                     <span class="nutrition-value">56.9g</span>
                     <span class="nutrition-benefit">시중 최다</span>
                 </div>
                 <div class="nutrition-row">
-                    <span class="nutrition-name">비비고 양지</span>
+                    <span class="nutrition-name">B사 양지</span>
                     <span class="nutrition-value">~50g</span>
                     <span class="nutrition-benefit">11%</span>
                 </div>
                 <div class="nutrition-row">
-                    <span class="nutrition-name">홈플러스 양지</span>
+                    <span class="nutrition-name">C사 양지</span>
                     <span class="nutrition-value">23.9g</span>
                     <span class="nutrition-benefit">시중 최소</span>
                 </div>
@@ -1772,6 +1792,10 @@
             <span>한우 설렁탕 주문하기</span>
             <svg viewBox="0 0 24 24"><path d="M8.59,16.58L13.17,12L8.59,7.41L10,6L16,12L10,18L8.59,16.58Z"/></svg>
         </a>
+        
+        <div class="next-week-notice fade-up">
+            <p>📢 다음 주엔 <strong>생산지 이야기</strong>와<br><strong>신규 혜택</strong>을 안내해 드릴게요!</p>
+        </div>
     </section>
 
     <!-- 실시간 의견 띠 -->
