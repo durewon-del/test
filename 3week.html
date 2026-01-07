@@ -1251,7 +1251,7 @@
     <!-- Firebase SDK -->
     <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
-        import { getFirestore, collection, addDoc, query, orderBy, limit, onSnapshot, serverTimestamp, where } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
+        import { getFirestore, collection, addDoc, query, orderBy, limit, onSnapshot, serverTimestamp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
         import { getDatabase, ref, set, onValue, onDisconnect, serverTimestamp as rtdbTimestamp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-database.js";
 
         const firebaseConfig = {
@@ -1310,12 +1310,15 @@
             finally { submitBtn.disabled = false; }
         };
 
-        const q = query(collection(db, "opinions"), where("week", "==", 3), orderBy("createdAt", "desc"), limit(30));
+        const q = query(collection(db, "opinions"), orderBy("createdAt", "desc"), limit(100));
         onSnapshot(q, (snapshot) => {
             opinions = [];
             snapshot.forEach((doc) => {
                 const data = doc.data();
-                opinions.push({ id: doc.id, text: data.text, name: data.name, date: data.createdAt ? formatDate(data.createdAt.toDate()) : '방금' });
+                // 3주차만 필터링 (week 필드가 없거나 3이 아니면 제외)
+                if (data.week === 3) {
+                    opinions.push({ id: doc.id, text: data.text, name: data.name, date: data.createdAt ? formatDate(data.createdAt.toDate()) : '방금' });
+                }
             });
             updateOpinionList();
             if (opinions.length > 0) showNextOpinion();
