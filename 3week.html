@@ -373,12 +373,15 @@
         }
         
         .tang-item {
+            display: block;
             background: rgba(255,255,255,0.1);
             border-radius: 16px;
             padding: 16px;
             text-align: center;
             cursor: pointer;
             transition: transform 0.2s, background 0.2s;
+            text-decoration: none;
+            color: white;
         }
         
         .tang-item:active {
@@ -673,7 +676,7 @@
         <p class="card-desc fade-up">
             무항생제 한우는 일반 소보다 비싸요<br>
             그래도 조합원님께 드릴 거니까<br><br>
-            <strong style="color: var(--brown);">생산지 마진 없이, 좋은 고기로 채웠어요</strong>
+            <strong style="color: var(--brown);">신규출시에만 드리는 특별한 가격이에요</strong>
         </p>
     </section>
 
@@ -709,8 +712,8 @@
             <div class="benefit-item">
                 <div class="benefit-icon">💰</div>
                 <div>
-                    <div class="benefit-title">생산지 마진 없이</div>
-                    <div class="benefit-desc">좋은 재료 그대로, 거품 없는 가격이에요</div>
+                    <div class="benefit-title">신규출시 특별가</div>
+                    <div class="benefit-desc">처음 선보이는 가격으로 드려요</div>
                 </div>
             </div>
         </div>
@@ -746,7 +749,7 @@
         </div>
         
         <h3 class="product-name fade-up" style="font-size: 1.5rem; font-weight: 900; margin-bottom: 8px;">한우 설렁탕</h3>
-        <p class="fade-up" style="color: var(--gray); margin-bottom: 16px;">두레축산 직영 · 600g · 냉동 · 2인분</p>
+        <p class="fade-up" style="color: var(--gray); margin-bottom: 16px;">두레생협 대표 한우생산지 · 600g · 냉동 · 2인분</p>
         
         <div class="price-badge fade-up">
             <span class="price-original">11,700원</span>
@@ -782,7 +785,7 @@
     <section class="card card-warm" data-index="4">
         <p class="card-eyebrow fade-up">💬 솔직히 말씀드려요</p>
         <h2 class="card-title fade-up">
-            감동할 만큼<br>
+            고기가 감동할 만큼<br>
             <em>많진 않아요</em>
         </h2>
         <p class="card-desc fade-up">
@@ -823,8 +826,8 @@
             <div class="benefit-item">
                 <div class="benefit-icon">💰</div>
                 <div>
-                    <div class="benefit-title">생산지 마진 없이</div>
-                    <div class="benefit-desc">좋은 재료 그대로 전해드려요</div>
+                    <div class="benefit-title">신규출시 특별가</div>
+                    <div class="benefit-desc">처음이니까 특별한 가격으로 드려요</div>
                 </div>
             </div>
         </div>
@@ -838,38 +841,38 @@
         </h2>
         
         <div class="tang-series fade-up">
-            <div class="tang-item" onclick="showToast('🐐 겨울철 원기회복엔 흑염소탕!')">
+            <a href="https://ecoop.or.kr/DureShop/plan/planView.do?returnTypeGb=plan&returnNo=1630" class="tang-item">
                 <div class="tang-image">
                     <img src="https://durewon-del.github.io/test/54255B.jpg" alt="흑염소탕">
                 </div>
                 <div class="tang-name">흑염소탕</div>
                 <div class="tang-desc">원기회복 보양식</div>
-            </div>
+            </a>
             
-            <div class="tang-item current" onclick="showToast('🍲 지금 특가! 10,500원')">
+            <a href="https://ecoop.or.kr/DureShop/plan/planView.do?returnTypeGb=plan&returnNo=1630" class="tang-item current">
                 <div class="tang-image">
                     <img src="https://durewon-del.github.io/test/pojang1.png" alt="한우 설렁탕">
                     <div class="tang-badge">특가!</div>
                 </div>
                 <div class="tang-name">한우 설렁탕</div>
                 <div class="tang-desc">10,500원</div>
-            </div>
+            </a>
             
-            <div class="tang-item" onclick="showToast('🥩 진한 한우 국물로 몸보신!')">
+            <a href="https://ecoop.or.kr/DureShop/plan/planView.do?returnTypeGb=plan&returnNo=1630" class="tang-item">
                 <div class="tang-image">
                     <img src="https://durewon-del.github.io/test/54638A.jpg" alt="한우 보양탕">
                 </div>
                 <div class="tang-name">한우 보양탕</div>
                 <div class="tang-desc">진한 고기 국물</div>
-            </div>
+            </a>
             
-            <div class="tang-item" onclick="showToast('🐷 얼큰하고 든든한 한 끼!')">
+            <a href="https://ecoop.or.kr/DureShop/plan/planView.do?returnTypeGb=plan&returnNo=1630" class="tang-item">
                 <div class="tang-image">
                     <img src="https://durewon-del.github.io/test/58167B.png" alt="돼지국밥">
                 </div>
                 <div class="tang-name">돼지국밥</div>
                 <div class="tang-desc">든든한 한 끼</div>
-            </div>
+            </a>
         </div>
         
         <p class="fade-up" style="font-size: 0.85rem; opacity: 0.6;">👆 터치해서 구경하기</p>
@@ -937,7 +940,7 @@
         <p class="card-desc fade-up" style="font-size: 1.1rem;">
             ✓ 무항생제 인증 한우<br>
             ✓ 질 좋은 사태+스지<br>
-            ✓ 생산지 마진 없는 가격
+            ✓ 신규출시 특별가
         </p>
         <a href="https://ecoop.or.kr/DureShop/plan/planView.do?returnTypeGb=plan&returnNo=1630" class="cta-button fade-up" style="margin-top: 24px;">
             <span>한우 설렁탕 보러가기</span>
