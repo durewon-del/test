@@ -22,26 +22,34 @@
             --gray: #888;
         }
         
+        html {
+            scroll-snap-type: y mandatory;
+        }
+        
         body {
             font-family: 'Noto Sans KR', sans-serif;
-            background: var(--cream);
+            background: #1a1a1a;
             color: var(--text);
             line-height: 1.6;
             overflow-x: hidden;
         }
         
-        /* 카드 기본 */
+        /* 카드 컨테이너 */
         .card {
             min-height: 100vh;
-            padding: 60px 24px;
+            min-height: 100dvh;
+            padding: 50px 20px;
             display: flex;
             flex-direction: column;
             align-items: center;
             justify-content: center;
             text-align: center;
             position: relative;
+            scroll-snap-align: start;
+            scroll-snap-stop: always;
         }
         
+        /* 카드 배경 */
         .card-dark {
             background: linear-gradient(180deg, #2c1810 0%, #4a2c1a 100%);
             color: white;
@@ -66,16 +74,16 @@
         
         /* 타이포 */
         .card-eyebrow {
-            font-size: 0.85rem;
+            font-size: 0.9rem;
             color: var(--accent);
-            margin-bottom: 12px;
-            font-weight: 500;
+            margin-bottom: 16px;
+            font-weight: 600;
         }
         
         .card-title {
-            font-size: clamp(1.8rem, 6vw, 2.4rem);
+            font-size: 1.8rem;
             font-weight: 900;
-            line-height: 1.35;
+            line-height: 1.4;
             margin-bottom: 20px;
         }
         
@@ -88,25 +96,25 @@
             font-size: 1rem;
             color: var(--gray);
             line-height: 1.8;
-            max-width: 320px;
+            max-width: 300px;
         }
         
         /* 인트로 */
         .intro-badge {
             display: inline-block;
-            background: rgba(212, 145, 93, 0.2);
+            background: rgba(212, 145, 93, 0.25);
             color: var(--accent);
-            padding: 8px 20px;
+            padding: 10px 24px;
             border-radius: 30px;
-            font-size: 0.85rem;
-            font-weight: 600;
-            margin-bottom: 24px;
+            font-size: 0.9rem;
+            font-weight: 700;
+            margin-bottom: 20px;
         }
         
         .intro-main {
-            font-size: clamp(2rem, 7vw, 2.8rem);
+            font-size: 2rem;
             font-weight: 900;
-            line-height: 1.3;
+            line-height: 1.35;
             margin-bottom: 16px;
         }
         
@@ -118,19 +126,20 @@
         .intro-sub {
             font-size: 1rem;
             color: rgba(255,255,255,0.7);
-            line-height: 1.7;
+            line-height: 1.8;
         }
         
-        /* 상품 이미지 */
+        /* 상품 이미지 - 크게 */
         .product-image {
-            width: 280px;
-            height: 280px;
+            width: 90vw;
+            max-width: 340px;
+            aspect-ratio: 1;
             border-radius: 24px;
             overflow: hidden;
             margin-bottom: 24px;
             position: relative;
             background: white;
-            box-shadow: 0 20px 50px rgba(139, 90, 43, 0.2);
+            box-shadow: 0 20px 60px rgba(0,0,0,0.15);
         }
         
         .product-image img {
@@ -139,7 +148,7 @@
             object-fit: cover;
         }
         
-        /* 갤러리 슬라이드 */
+        /* 갤러리 */
         .gallery-slide {
             position: absolute;
             top: 0;
@@ -162,19 +171,19 @@
         
         .gallery-dots {
             position: absolute;
-            bottom: 12px;
+            bottom: 16px;
             left: 50%;
             transform: translateX(-50%);
             display: flex;
-            gap: 8px;
+            gap: 10px;
             z-index: 10;
         }
         
         .gallery-dot {
-            width: 8px;
-            height: 8px;
+            width: 10px;
+            height: 10px;
             border-radius: 50%;
-            background: rgba(255,255,255,0.5);
+            background: rgba(255,255,255,0.4);
             cursor: pointer;
             transition: all 0.3s;
         }
@@ -182,6 +191,7 @@
         .gallery-dot.active {
             background: white;
             transform: scale(1.3);
+            box-shadow: 0 2px 8px rgba(0,0,0,0.3);
         }
         
         /* 김 효과 */
@@ -190,39 +200,40 @@
             top: 10px;
             left: 50%;
             transform: translateX(-50%);
-            width: 100px;
-            height: 60px;
+            width: 120px;
+            height: 80px;
             z-index: 5;
             pointer-events: none;
         }
         
         .steam {
             position: absolute;
-            width: 8px;
-            height: 8px;
-            background: rgba(255,255,255,0.6);
+            width: 10px;
+            height: 10px;
+            background: rgba(255,255,255,0.7);
             border-radius: 50%;
-            filter: blur(4px);
-            animation: steam 2s ease-out infinite;
+            filter: blur(5px);
+            animation: steam 2.5s ease-out infinite;
         }
         
-        .steam:nth-child(1) { left: 20%; animation-delay: 0s; }
-        .steam:nth-child(2) { left: 40%; animation-delay: 0.4s; }
-        .steam:nth-child(3) { left: 60%; animation-delay: 0.8s; }
-        .steam:nth-child(4) { left: 80%; animation-delay: 1.2s; }
+        .steam:nth-child(1) { left: 15%; animation-delay: 0s; }
+        .steam:nth-child(2) { left: 35%; animation-delay: 0.5s; }
+        .steam:nth-child(3) { left: 55%; animation-delay: 1s; }
+        .steam:nth-child(4) { left: 75%; animation-delay: 1.5s; }
         
         @keyframes steam {
             0% { opacity: 0; transform: translateY(0) scale(1); }
-            50% { opacity: 0.8; }
-            100% { opacity: 0; transform: translateY(-40px) scale(2); }
+            50% { opacity: 0.9; }
+            100% { opacity: 0; transform: translateY(-50px) scale(2.5); }
         }
         
         /* 가격 */
-        .price-badge {
+        .price-area {
             display: flex;
+            flex-direction: column;
             align-items: center;
-            gap: 12px;
-            margin: 16px 0 24px;
+            gap: 8px;
+            margin: 20px 0;
         }
         
         .price-original {
@@ -232,43 +243,44 @@
         }
         
         .price-current {
-            font-size: 1.8rem;
+            font-size: 2.2rem;
             font-weight: 900;
             color: var(--brown);
         }
         
         .price-discount {
+            display: inline-block;
             background: #e74c3c;
             color: white;
-            padding: 4px 10px;
+            padding: 6px 14px;
             border-radius: 20px;
-            font-size: 0.8rem;
+            font-size: 0.85rem;
             font-weight: 700;
         }
         
         /* 특징 배지 */
         .feature-badges {
             display: flex;
-            gap: 12px;
+            gap: 10px;
             flex-wrap: wrap;
             justify-content: center;
-            margin-bottom: 24px;
+            margin: 20px 0;
         }
         
         .feature-badge {
             display: flex;
             flex-direction: column;
             align-items: center;
-            padding: 16px;
+            padding: 14px 16px;
             background: white;
             border-radius: 16px;
-            min-width: 90px;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+            min-width: 85px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.06);
         }
         
         .feature-icon {
-            font-size: 1.5rem;
-            margin-bottom: 8px;
+            font-size: 1.4rem;
+            margin-bottom: 6px;
         }
         
         .feature-text {
@@ -278,7 +290,7 @@
         }
         
         .feature-sub {
-            font-size: 0.75rem;
+            font-size: 0.7rem;
             color: var(--gray);
         }
         
@@ -289,17 +301,18 @@
             gap: 8px;
             background: linear-gradient(135deg, var(--brown) 0%, #a06830 100%);
             color: white;
-            padding: 16px 32px;
+            padding: 18px 36px;
             border-radius: 50px;
             font-size: 1.1rem;
             font-weight: 700;
             text-decoration: none;
-            box-shadow: 0 8px 25px rgba(139, 90, 43, 0.3);
-            transition: transform 0.2s, box-shadow 0.2s;
+            box-shadow: 0 10px 30px rgba(139, 90, 43, 0.35);
+            transition: transform 0.2s;
+            margin-top: 16px;
         }
         
         .cta-button:active {
-            transform: scale(0.98);
+            transform: scale(0.97);
         }
         
         .cta-button svg {
@@ -311,64 +324,68 @@
         /* 혜택 리스트 */
         .benefit-list {
             width: 100%;
-            max-width: 340px;
+            max-width: 320px;
         }
         
         .benefit-item {
             display: flex;
             align-items: flex-start;
-            gap: 16px;
+            gap: 14px;
             padding: 16px;
             background: white;
             border-radius: 16px;
-            margin-bottom: 12px;
+            margin-bottom: 10px;
             text-align: left;
             box-shadow: 0 4px 15px rgba(0,0,0,0.05);
         }
         
         .benefit-icon {
-            font-size: 1.5rem;
+            font-size: 1.4rem;
             flex-shrink: 0;
         }
         
         .benefit-title {
             font-weight: 700;
+            font-size: 0.95rem;
             margin-bottom: 4px;
         }
         
         .benefit-desc {
-            font-size: 0.85rem;
+            font-size: 0.8rem;
             color: var(--gray);
+            line-height: 1.5;
         }
         
-        /* 솔직한 메시지 박스 */
+        /* 솔직한 박스 */
         .honest-box {
-            background: rgba(139, 90, 43, 0.08);
+            background: rgba(139, 90, 43, 0.1);
             border-left: 4px solid var(--brown);
             border-radius: 12px;
             padding: 20px;
             margin-top: 24px;
-            max-width: 320px;
+            max-width: 300px;
             text-align: left;
         }
         
-        .honest-box p:first-child {
+        .honest-box .label {
             font-weight: 700;
             color: var(--brown);
-            margin-bottom: 8px;
+            margin-bottom: 10px;
+            font-size: 0.9rem;
         }
         
-        .honest-box p:last-child {
+        .honest-box .content {
             font-size: 0.9rem;
-            line-height: 1.7;
+            line-height: 1.8;
         }
         
         /* 탕탕탕 시리즈 */
         .tang-series {
             display: grid;
             grid-template-columns: repeat(2, 1fr);
-            gap: 16px;
+            gap: 14px;
             margin: 24px 0;
+            width: 100%;
             max-width: 320px;
         }
         
@@ -376,16 +393,16 @@
             display: block;
             background: rgba(255,255,255,0.1);
             border-radius: 16px;
-            padding: 16px;
+            padding: 14px;
             text-align: center;
-            cursor: pointer;
-            transition: transform 0.2s, background 0.2s;
             text-decoration: none;
             color: white;
+            transition: transform 0.2s, background 0.2s;
         }
         
         .tang-item:active {
-            transform: scale(0.95);
+            transform: scale(0.96);
+            background: rgba(255,255,255,0.15);
         }
         
         .tang-item.current {
@@ -394,12 +411,13 @@
         }
         
         .tang-image {
-            width: 80px;
-            height: 80px;
+            width: 100%;
+            aspect-ratio: 1;
             border-radius: 12px;
             overflow: hidden;
-            margin: 0 auto 12px;
+            margin-bottom: 10px;
             position: relative;
+            background: #f5f5f5;
         }
         
         .tang-image img {
@@ -410,18 +428,19 @@
         
         .tang-badge {
             position: absolute;
-            top: 4px;
-            right: 4px;
+            top: 6px;
+            right: 6px;
             background: #e74c3c;
             color: white;
-            font-size: 0.6rem;
-            padding: 2px 6px;
+            font-size: 0.65rem;
+            padding: 3px 8px;
             border-radius: 10px;
+            font-weight: 700;
         }
         
         .tang-name {
             font-weight: 700;
-            font-size: 0.9rem;
+            font-size: 0.95rem;
             margin-bottom: 4px;
         }
         
@@ -433,15 +452,15 @@
         /* 의견 섹션 */
         .opinion-section {
             width: 100%;
-            max-width: 340px;
+            max-width: 320px;
         }
         
         .write-area {
             background: white;
             border-radius: 20px;
             padding: 20px;
-            margin-bottom: 20px;
-            box-shadow: 0 4px 20px rgba(0,0,0,0.05);
+            margin-bottom: 16px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.06);
         }
         
         .write-label {
@@ -469,14 +488,14 @@
         
         .write-footer {
             display: flex;
-            gap: 12px;
+            gap: 10px;
         }
         
         .write-name {
             flex: 1;
             border: 2px solid #eee;
             border-radius: 10px;
-            padding: 10px 14px;
+            padding: 12px;
             font-size: 0.9rem;
             font-family: inherit;
         }
@@ -494,7 +513,7 @@
             color: white;
             border: none;
             border-radius: 10px;
-            padding: 10px 20px;
+            padding: 12px 20px;
             font-size: 0.9rem;
             font-weight: 600;
             cursor: pointer;
@@ -509,53 +528,57 @@
         .opinion-list-area {
             background: white;
             border-radius: 20px;
-            padding: 20px;
+            padding: 16px;
+            max-height: 200px;
+            overflow-y: auto;
         }
         
         .opinion-list-title {
             font-weight: 700;
-            margin-bottom: 16px;
-            font-size: 0.95rem;
+            margin-bottom: 12px;
+            font-size: 0.9rem;
         }
         
         .opinion-item {
-            padding: 14px;
+            padding: 12px;
             background: var(--cream);
-            border-radius: 12px;
-            margin-bottom: 10px;
+            border-radius: 10px;
+            margin-bottom: 8px;
             text-align: left;
         }
         
         .opinion-text {
-            font-size: 0.9rem;
-            margin-bottom: 6px;
+            font-size: 0.85rem;
+            margin-bottom: 4px;
         }
         
         .opinion-meta {
-            font-size: 0.75rem;
+            font-size: 0.7rem;
             color: var(--gray);
         }
         
         .opinion-empty {
             color: var(--gray);
-            font-size: 0.9rem;
-            padding: 20px;
+            font-size: 0.85rem;
+            padding: 16px;
+            text-align: center;
         }
         
-        /* 철학 카드 */
+        /* 철학 */
         .philosophy-line {
             display: block;
-            font-size: clamp(1.4rem, 5vw, 1.8rem);
+            font-size: 1.4rem;
+            line-height: 1.5;
         }
         
         .philosophy-emphasis {
             color: var(--accent);
-            font-size: clamp(1.8rem, 6vw, 2.2rem);
+            font-size: 1.8rem;
         }
         
         .trust-points {
             display: flex;
-            gap: 40px;
+            gap: 50px;
             margin-top: 30px;
         }
         
@@ -564,7 +587,7 @@
         }
         
         .trust-value {
-            font-size: 2rem;
+            font-size: 2.2rem;
             font-weight: 900;
             color: var(--accent);
         }
@@ -583,32 +606,57 @@
             display: flex;
             flex-direction: column;
             align-items: center;
-            gap: 8px;
-            color: rgba(255,255,255,0.6);
-            font-size: 0.8rem;
+            gap: 6px;
+            color: rgba(255,255,255,0.5);
+            font-size: 0.75rem;
             animation: bounce 2s infinite;
         }
         
         .scroll-hint svg {
-            width: 24px;
-            height: 24px;
+            width: 28px;
+            height: 28px;
             fill: currentColor;
         }
         
         @keyframes bounce {
             0%, 100% { transform: translateX(-50%) translateY(0); }
-            50% { transform: translateX(-50%) translateY(8px); }
+            50% { transform: translateX(-50%) translateY(10px); }
+        }
+        
+        /* 페이지 인디케이터 */
+        .page-indicator {
+            position: fixed;
+            right: 12px;
+            top: 50%;
+            transform: translateY(-50%);
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+            z-index: 100;
+        }
+        
+        .page-dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: rgba(255,255,255,0.3);
+            transition: all 0.3s;
+        }
+        
+        .page-dot.active {
+            background: var(--accent);
+            transform: scale(1.4);
         }
         
         /* 토스트 */
         .toast {
             position: fixed;
-            bottom: 100px;
+            bottom: 80px;
             left: 50%;
             transform: translateX(-50%) translateY(20px);
-            background: rgba(0,0,0,0.85);
+            background: rgba(0,0,0,0.9);
             color: white;
-            padding: 14px 24px;
+            padding: 14px 28px;
             border-radius: 30px;
             font-size: 0.95rem;
             opacity: 0;
@@ -633,9 +681,29 @@
             opacity: 1;
             transform: translateY(0);
         }
+        
+        .card.in-view .fade-up:nth-child(1) { transition-delay: 0s; }
+        .card.in-view .fade-up:nth-child(2) { transition-delay: 0.1s; }
+        .card.in-view .fade-up:nth-child(3) { transition-delay: 0.2s; }
+        .card.in-view .fade-up:nth-child(4) { transition-delay: 0.3s; }
+        .card.in-view .fade-up:nth-child(5) { transition-delay: 0.4s; }
     </style>
 </head>
 <body>
+
+    <!-- 페이지 인디케이터 -->
+    <div class="page-indicator" id="pageIndicator">
+        <div class="page-dot active"></div>
+        <div class="page-dot"></div>
+        <div class="page-dot"></div>
+        <div class="page-dot"></div>
+        <div class="page-dot"></div>
+        <div class="page-dot"></div>
+        <div class="page-dot"></div>
+        <div class="page-dot"></div>
+        <div class="page-dot"></div>
+        <div class="page-dot"></div>
+    </div>
 
     <!-- 0. 인트로 -->
     <section class="card card-dark" data-index="0">
@@ -661,7 +729,7 @@
         </p>
         
         <div class="scroll-hint">
-            <span>아래로 스크롤</span>
+            <span>위로 스와이프</span>
             <svg viewBox="0 0 24 24"><path d="M7.41,8.58L12,13.17L16.59,8.58L18,10L12,16L6,10L7.41,8.58Z"/></svg>
         </div>
     </section>
@@ -705,7 +773,7 @@
             <div class="benefit-item">
                 <div class="benefit-icon">🏭</div>
                 <div>
-                    <div class="benefit-title">두레축산 직영</div>
+                    <div class="benefit-title">두레생협 대표 한우생산지</div>
                     <div class="benefit-desc">어디서 온 소인지 다 추적할 수 있어요</div>
                 </div>
             </div>
@@ -748,13 +816,13 @@
             </div>
         </div>
         
-        <h3 class="product-name fade-up" style="font-size: 1.5rem; font-weight: 900; margin-bottom: 8px;">한우 설렁탕</h3>
-        <p class="fade-up" style="color: var(--gray); margin-bottom: 16px;">두레생협 대표 한우생산지 · 600g · 냉동 · 2인분</p>
+        <h3 class="fade-up" style="font-size: 1.6rem; font-weight: 900; margin-bottom: 6px;">한우 설렁탕</h3>
+        <p class="fade-up" style="color: var(--gray); font-size: 0.9rem;">두레생협 대표 한우생산지 · 600g · 2인분</p>
         
-        <div class="price-badge fade-up">
+        <div class="price-area fade-up">
             <span class="price-original">11,700원</span>
             <span class="price-current">10,500원</span>
-            <span class="price-discount">1,200원↓</span>
+            <span class="price-discount">1,200원 할인</span>
         </div>
         
         <div class="feature-badges fade-up">
@@ -794,8 +862,8 @@
         </p>
         
         <div class="honest-box fade-up">
-            <p>🥩 구성</p>
-            <p>
+            <p class="label">🥩 구성</p>
+            <p class="content">
                 • 한우 사태 - 담백한 살코기<br>
                 • 한우 스지 - 쫄깃한 식감<br>
                 • 사골 국물 - 진한 깊은 맛
@@ -875,7 +943,7 @@
             </a>
         </div>
         
-        <p class="fade-up" style="font-size: 0.85rem; opacity: 0.6;">👆 터치해서 구경하기</p>
+        <p class="fade-up" style="font-size: 0.85rem; opacity: 0.5;">👆 터치해서 구경하기</p>
     </section>
 
     <!-- 7. 생협의 마음 -->
@@ -904,7 +972,7 @@
     <!-- 8. 의견 -->
     <section class="card card-cream" data-index="8">
         <p class="card-eyebrow fade-up">💬 여러분의 이야기</p>
-        <h2 class="card-title fade-up" style="font-size: clamp(1.5rem, 5vw, 2rem);">
+        <h2 class="card-title fade-up" style="font-size: 1.5rem;">
             <em>우리 한우</em>를 지키는<br>
             두레축산에 한마디
         </h2>
@@ -934,15 +1002,15 @@
     <!-- 9. 마무리 -->
     <section class="card card-warm" data-index="9">
         <p class="card-eyebrow fade-up">신규 생활재</p>
-        <h2 class="card-title fade-up" style="font-size: clamp(2rem, 7vw, 2.8rem);">
+        <h2 class="card-title fade-up" style="font-size: 2rem;">
             <em>한번 드셔보세요</em>
         </h2>
-        <p class="card-desc fade-up" style="font-size: 1.1rem;">
+        <p class="card-desc fade-up" style="font-size: 1.1rem; line-height: 2;">
             ✓ 무항생제 인증 한우<br>
             ✓ 질 좋은 사태+스지<br>
             ✓ 신규출시 특별가
         </p>
-        <a href="https://ecoop.or.kr/DureShop/plan/planView.do?returnTypeGb=plan&returnNo=1630" class="cta-button fade-up" style="margin-top: 24px;">
+        <a href="https://ecoop.or.kr/DureShop/plan/planView.do?returnTypeGb=plan&returnNo=1630" class="cta-button fade-up">
             <span>한우 설렁탕 보러가기</span>
             <svg viewBox="0 0 24 24"><path d="M8.59,16.58L13.17,12L8.59,7.41L10,6L16,12L10,18L8.59,16.58Z"/></svg>
         </a>
@@ -952,18 +1020,23 @@
     <div class="toast" id="toast"></div>
 
     <script>
-        // 스크롤 애니메이션
-        const observer = new IntersectionObserver((entries) => {
+        // 페이지 인디케이터 업데이트
+        const cards = document.querySelectorAll('.card');
+        const pageDots = document.querySelectorAll('.page-dot');
+        
+        const pageObserver = new IntersectionObserver((entries) => {
             entries.forEach(entry => {
                 if (entry.isIntersecting) {
+                    const index = parseInt(entry.target.dataset.index);
+                    pageDots.forEach((dot, i) => {
+                        dot.classList.toggle('active', i === index);
+                    });
                     entry.target.classList.add('in-view');
                 }
             });
-        }, { threshold: 0.3 });
+        }, { threshold: 0.5 });
         
-        document.querySelectorAll('.card').forEach(card => {
-            observer.observe(card);
-        });
+        cards.forEach(card => pageObserver.observe(card));
         
         // 토스트
         function showToast(message) {
@@ -979,44 +1052,29 @@
         const dots = document.querySelectorAll('.gallery-dot');
         
         function goToSlide(index) {
-            slides.forEach((slide, i) => {
-                slide.classList.toggle('active', i === index);
-            });
-            dots.forEach((dot, i) => {
-                dot.classList.toggle('active', i === index);
-            });
+            slides.forEach((slide, i) => slide.classList.toggle('active', i === index));
+            dots.forEach((dot, i) => dot.classList.toggle('active', i === index));
             currentSlide = index;
         }
         
-        // 자동 슬라이드
         setInterval(() => {
-            if (slides.length > 0) {
-                currentSlide = (currentSlide + 1) % slides.length;
-                goToSlide(currentSlide);
-            }
+            currentSlide = (currentSlide + 1) % slides.length;
+            goToSlide(currentSlide);
         }, 3000);
         
         // 터치 스와이프
         const gallery = document.getElementById('productGallery');
         let startX = 0;
         
-        gallery.addEventListener('touchstart', (e) => {
-            startX = e.touches[0].clientX;
-        });
-        
+        gallery.addEventListener('touchstart', (e) => startX = e.touches[0].clientX);
         gallery.addEventListener('touchend', (e) => {
-            const endX = e.changedTouches[0].clientX;
-            const diff = startX - endX;
+            const diff = startX - e.changedTouches[0].clientX;
             if (Math.abs(diff) > 50) {
-                if (diff > 0) {
-                    goToSlide((currentSlide + 1) % slides.length);
-                } else {
-                    goToSlide((currentSlide - 1 + slides.length) % slides.length);
-                }
+                goToSlide(diff > 0 ? (currentSlide + 1) % slides.length : (currentSlide - 1 + slides.length) % slides.length);
             }
         });
         
-        // 의견 등록 (로컬 저장)
+        // 의견 등록
         function submitOpinion() {
             const text = document.getElementById('opinionText').value.trim();
             const name = document.getElementById('opinionName').value.trim() || '익명';
@@ -1026,16 +1084,10 @@
                 return;
             }
             
-            // 로컬 스토리지에 저장
-            const opinions = JSON.parse(localStorage.getItem('dure_opinions') || '[]');
-            opinions.unshift({
-                text: text,
-                name: name,
-                time: new Date().toLocaleString('ko-KR')
-            });
-            localStorage.setItem('dure_opinions', JSON.stringify(opinions.slice(0, 50)));
+            const opinions = JSON.parse(localStorage.getItem('dure_opinions_week3') || '[]');
+            opinions.unshift({ text, name, time: new Date().toLocaleString('ko-KR') });
+            localStorage.setItem('dure_opinions_week3', JSON.stringify(opinions.slice(0, 50)));
             
-            // 입력 초기화
             document.getElementById('opinionText').value = '';
             document.getElementById('opinionName').value = '';
             
@@ -1044,7 +1096,7 @@
         }
         
         function loadOpinions() {
-            const opinions = JSON.parse(localStorage.getItem('dure_opinions') || '[]');
+            const opinions = JSON.parse(localStorage.getItem('dure_opinions_week3') || '[]');
             const list = document.getElementById('opinionList');
             
             if (opinions.length === 0) {
@@ -1060,7 +1112,6 @@
             `).join('');
         }
         
-        // 초기 로드
         loadOpinions();
     </script>
 
