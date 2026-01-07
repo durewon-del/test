@@ -1300,14 +1300,17 @@
             if (!text) { showToast('이야기를 입력해주세요'); return; }
             submitBtn.disabled = true;
             try {
-                await addDoc(collection(db, "opinions_week3"), { text, name, createdAt: serverTimestamp() });
+                await addDoc(collection(db, "opinions"), { text, name, week: 3, createdAt: serverTimestamp() });
                 textEl.value = ''; nameEl.value = '';
                 showToast('소중한 이야기 감사합니다 🍲');
-            } catch (error) { showToast('잠시 후 다시 시도해주세요'); }
+            } catch (error) { 
+                console.error('Firebase error:', error);
+                showToast('잠시 후 다시 시도해주세요'); 
+            }
             finally { submitBtn.disabled = false; }
         };
 
-        const q = query(collection(db, "opinions_week3"), orderBy("createdAt", "desc"), limit(30));
+        const q = query(collection(db, "opinions"), orderBy("createdAt", "desc"), limit(30));
         onSnapshot(q, (snapshot) => {
             opinions = [];
             snapshot.forEach((doc) => {
