@@ -1,0 +1,614 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>조합원님께 드리는 사과 | 두레생협</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Nanum+Myeongjo:wght@400;700;800&family=Noto+Sans+KR:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --red: #c75050;
+            --red-light: #fff5f5;
+            --red-dark: #a63d3d;
+            --green: #4a6741;
+            --green-light: #e8f0e4;
+            --cream: #fdfbf7;
+            --warm: #f7f3ed;
+            --black: #1a1a1a;
+            --gray: #666;
+            --gray-light: #999;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+        html { scroll-snap-type: y mandatory; scroll-behavior: smooth; }
+        body { font-family: 'Noto Sans KR', sans-serif; background: var(--cream); overflow-x: hidden; }
+
+        /* ========== 매거진 헤더 ========== */
+        .magazine-header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1000;
+            background: var(--green);
+            padding: 12px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .magazine-brand {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .brand-logo {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .logo-circle {
+            width: 26px;
+            height: 26px;
+            background: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.55rem;
+            color: var(--green);
+            font-weight: 800;
+        }
+
+        .logo-text {
+            font-family: 'Nanum Myeongjo', serif;
+            font-size: 1rem;
+            font-weight: 700;
+            color: white;
+        }
+
+        .brand-divider {
+            width: 1px;
+            height: 16px;
+            background: rgba(255,255,255,0.3);
+        }
+
+        .magazine-title {
+            font-family: 'Nanum Myeongjo', serif;
+            font-size: 0.85rem;
+            color: rgba(255,255,255,0.9);
+        }
+
+        /* ========== 카드 ========== */
+        .card {
+            min-height: 100vh;
+            min-height: 100dvh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            padding: 80px 24px 60px;
+            position: relative;
+            overflow: hidden;
+            scroll-snap-align: start;
+            scroll-snap-stop: always;
+        }
+
+        .card:first-of-type { padding-top: 100px; }
+
+        .card-apology { background: linear-gradient(180deg, #fff5f5 0%, #fdfbf7 100%); }
+        .card-warm { background: var(--warm); }
+        .card-cream { background: var(--cream); }
+        .card-green { background: linear-gradient(160deg, var(--green) 0%, #3a5331 100%); color: white; }
+
+        /* ========== 타이포그래피 ========== */
+        .card-eyebrow {
+            font-size: 0.8rem;
+            letter-spacing: 0.1em;
+            color: var(--red);
+            margin-bottom: 20px;
+            font-weight: 500;
+        }
+
+        .card-green .card-eyebrow { color: rgba(255,255,255,0.7); }
+
+        .card-title {
+            font-family: 'Nanum Myeongjo', serif;
+            font-size: clamp(1.8rem, 7vw, 2.6rem);
+            font-weight: 700;
+            line-height: 1.55;
+            margin-bottom: 24px;
+            word-break: keep-all;
+            max-width: 90vw;
+            color: var(--black);
+        }
+
+        .card-green .card-title { color: white; }
+
+        .card-title em {
+            font-style: normal;
+            color: var(--red);
+        }
+
+        .card-green .card-title em { color: #90EE90; }
+
+        .card-desc {
+            font-size: 1.05rem;
+            line-height: 1.9;
+            color: var(--gray);
+            max-width: 85vw;
+        }
+
+        .card-green .card-desc { color: rgba(255,255,255,0.85); }
+
+        /* ========== 애니메이션 ========== */
+        .fade-up {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .card.in-view .fade-up { opacity: 1; transform: translateY(0); }
+        .card.in-view .fade-up:nth-child(1) { transition-delay: 0.1s; }
+        .card.in-view .fade-up:nth-child(2) { transition-delay: 0.25s; }
+        .card.in-view .fade-up:nth-child(3) { transition-delay: 0.4s; }
+        .card.in-view .fade-up:nth-child(4) { transition-delay: 0.55s; }
+
+        /* ========== 인트로 ========== */
+        .apology-icon {
+            font-size: 4rem;
+            margin-bottom: 24px;
+            opacity: 0;
+            transform: scale(0.5);
+            transition: all 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .card.in-view .apology-icon {
+            opacity: 1;
+            transform: scale(1);
+        }
+
+        .intro-scroll-hint {
+            position: absolute;
+            bottom: 40px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 8px;
+            color: var(--gray-light);
+            font-size: 0.75rem;
+            animation: scrollHint 2s ease-in-out infinite;
+        }
+
+        .intro-scroll-hint svg { width: 20px; height: 20px; fill: var(--gray-light); }
+
+        @keyframes scrollHint {
+            0%, 100% { transform: translateX(-50%) translateY(0); opacity: 0.6; }
+            50% { transform: translateX(-50%) translateY(8px); opacity: 1; }
+        }
+
+        /* ========== 사과 박스 ========== */
+        .apology-box {
+            background: white;
+            border-radius: 24px;
+            padding: 28px 24px;
+            margin: 24px 0;
+            max-width: 340px;
+            box-shadow: 0 10px 40px rgba(199, 80, 80, 0.1);
+            border: 2px solid var(--red-light);
+            text-align: left;
+            opacity: 0;
+            transform: translateY(20px);
+            transition: all 0.6s ease 0.3s;
+        }
+
+        .card.in-view .apology-box { opacity: 1; transform: translateY(0); }
+
+        .apology-box-title {
+            font-family: 'Nanum Myeongjo', serif;
+            font-size: 1.1rem;
+            font-weight: 700;
+            color: var(--red);
+            margin-bottom: 16px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .apology-box-content {
+            font-size: 0.95rem;
+            line-height: 1.9;
+            color: var(--gray);
+        }
+
+        .apology-box-content strong {
+            color: var(--black);
+        }
+
+        /* ========== 보상 카드 ========== */
+        .gift-card {
+            background: linear-gradient(135deg, var(--green-light) 0%, #d4e8cc 100%);
+            border-radius: 24px;
+            padding: 28px 24px;
+            margin: 24px 0;
+            max-width: 340px;
+            border: 2px solid var(--green);
+            text-align: center;
+            opacity: 0;
+            transform: scale(0.9);
+            transition: all 0.6s ease 0.3s;
+        }
+
+        .card.in-view .gift-card { opacity: 1; transform: scale(1); }
+
+        .gift-icon {
+            font-size: 3.5rem;
+            margin-bottom: 16px;
+        }
+
+        .gift-title {
+            font-family: 'Nanum Myeongjo', serif;
+            font-size: 1.3rem;
+            font-weight: 700;
+            color: var(--green);
+            margin-bottom: 12px;
+        }
+
+        .gift-desc {
+            font-size: 1rem;
+            color: var(--gray);
+            line-height: 1.7;
+            margin-bottom: 16px;
+        }
+
+        .gift-highlight {
+            background: white;
+            border-radius: 16px;
+            padding: 16px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 12px;
+        }
+
+        .gift-product {
+            font-size: 2.5rem;
+        }
+
+        .gift-info {
+            text-align: left;
+        }
+
+        .gift-name {
+            font-weight: 700;
+            color: var(--black);
+            font-size: 1.1rem;
+        }
+
+        .gift-amount {
+            font-size: 0.9rem;
+            color: var(--green);
+            font-weight: 600;
+        }
+
+        /* ========== 기간 배지 ========== */
+        .period-badge {
+            display: inline-block;
+            background: var(--red);
+            color: white;
+            padding: 12px 24px;
+            border-radius: 30px;
+            font-size: 1rem;
+            font-weight: 700;
+            margin: 16px 0;
+            opacity: 0;
+            transform: translateY(20px);
+            transition: all 0.6s ease 0.4s;
+        }
+
+        .card.in-view .period-badge { opacity: 1; transform: translateY(0); }
+
+        /* ========== 타임라인 ========== */
+        .timeline {
+            max-width: 320px;
+            margin: 24px 0;
+        }
+
+        .timeline-item {
+            display: flex;
+            gap: 16px;
+            text-align: left;
+            margin-bottom: 20px;
+            opacity: 0;
+            transform: translateX(-20px);
+            transition: all 0.6s ease;
+        }
+
+        .card.in-view .timeline-item { opacity: 1; transform: translateX(0); }
+        .card.in-view .timeline-item:nth-child(1) { transition-delay: 0.2s; }
+        .card.in-view .timeline-item:nth-child(2) { transition-delay: 0.4s; }
+        .card.in-view .timeline-item:nth-child(3) { transition-delay: 0.6s; }
+
+        .timeline-icon {
+            width: 48px;
+            height: 48px;
+            background: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.4rem;
+            flex-shrink: 0;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.08);
+        }
+
+        .timeline-content {
+            flex: 1;
+            padding-top: 4px;
+        }
+
+        .timeline-title {
+            font-weight: 700;
+            color: var(--black);
+            margin-bottom: 4px;
+        }
+
+        .timeline-desc {
+            font-size: 0.9rem;
+            color: var(--gray);
+            line-height: 1.6;
+        }
+
+        /* ========== CTA 버튼 ========== */
+        .cta-button {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            background: var(--green);
+            color: white;
+            font-size: 1.1rem;
+            font-weight: 600;
+            padding: 18px 40px;
+            border-radius: 50px;
+            text-decoration: none;
+            margin-top: 24px;
+            box-shadow: 0 12px 35px rgba(74, 103, 65, 0.35);
+            opacity: 0;
+            transform: translateY(20px);
+            transition: all 0.6s cubic-bezier(0.4, 0, 0.2, 1) 0.5s;
+        }
+
+        .card.in-view .cta-button { opacity: 1; transform: translateY(0); }
+        .cta-button:active { transform: scale(0.97); }
+        .cta-button svg { width: 20px; height: 20px; fill: white; }
+
+        /* ========== 스크롤 인디케이터 ========== */
+        .scroll-indicator {
+            position: fixed;
+            right: 10px;
+            top: 50%;
+            transform: translateY(-50%);
+            z-index: 100;
+            display: flex;
+            flex-direction: column;
+            gap: 5px;
+        }
+
+        .scroll-dot {
+            width: 5px;
+            height: 5px;
+            border-radius: 50%;
+            background: rgba(0,0,0,0.15);
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        .scroll-dot.active { height: 18px; border-radius: 3px; background: var(--green); }
+
+        /* ========== 서명 ========== */
+        .signature {
+            margin-top: 32px;
+            opacity: 0;
+            transform: translateY(20px);
+            transition: all 0.6s ease 0.6s;
+        }
+
+        .card.in-view .signature { opacity: 1; transform: translateY(0); }
+
+        .signature-text {
+            font-family: 'Nanum Myeongjo', serif;
+            font-size: 1.1rem;
+            color: var(--gray);
+            line-height: 1.8;
+        }
+
+        .signature-name {
+            font-weight: 700;
+            color: var(--black);
+            margin-top: 8px;
+        }
+
+        html::-webkit-scrollbar { width: 0; display: none; }
+    </style>
+</head>
+<body>
+
+    <!-- 매거진 헤더 -->
+    <header class="magazine-header">
+        <div class="magazine-brand">
+            <div class="brand-logo">
+                <div class="logo-circle">두레</div>
+                <span class="logo-text">두레생협</span>
+            </div>
+            <div class="brand-divider"></div>
+            <span class="magazine-title">조합원님께 드리는 말씀</span>
+        </div>
+    </header>
+
+    <div class="scroll-indicator" id="scrollIndicator"></div>
+
+    <!-- 0. 인트로 - 사과 -->
+    <section class="card card-apology" data-index="0">
+        <div class="apology-icon">🙇</div>
+        <h1 class="card-title fade-up">
+            조합원님께<br>
+            <em>송구한 마음</em>을 전합니다
+        </h1>
+        <p class="card-desc fade-up">
+            1월 1주 강원사과 특별할인<br>
+            믿어주신 마음에 보답하지 못했습니다
+        </p>
+        
+        <div class="intro-scroll-hint">
+            <span>아래로 스크롤</span>
+            <svg viewBox="0 0 24 24"><path d="M7.41,8.58L12,13.17L16.59,8.58L18,10L12,16L6,10L7.41,8.58Z"/></svg>
+        </div>
+    </section>
+
+    <!-- 1. 무슨 일이 있었나 -->
+    <section class="card card-warm" data-index="1">
+        <p class="card-eyebrow fade-up">생산지 이야기</p>
+        <h2 class="card-title fade-up">
+            <em>감사한 마음</em>에<br>
+            서두르다 보니
+        </h2>
+        
+        <div class="apology-box">
+            <div class="apology-box-title">📋 생산지에서 전하는 말씀</div>
+            <div class="apology-box-content">
+                조합원님들께서 <strong>예상보다 많이 찾아주셨습니다.</strong><br><br>
+                감사한 마음에 서둘러 보내드리느라 <strong>품위 검사를 꼼꼼히 하지 못했습니다.</strong><br><br>
+                그 결과 <strong>사과 품질이 고르지 못하게</strong> 전달되었습니다.
+            </div>
+        </div>
+    </section>
+
+    <!-- 2. 진심 어린 사과 -->
+    <section class="card card-cream" data-index="2">
+        <p class="card-eyebrow fade-up">생산자의 마음</p>
+        <h2 class="card-title fade-up">
+            직거래의 믿음을<br>
+            <em>지키지 못해 송구합니다</em>
+        </h2>
+        
+        <div class="timeline">
+            <div class="timeline-item">
+                <div class="timeline-icon">🍎</div>
+                <div class="timeline-content">
+                    <div class="timeline-title">좋은 사과만 보내드리고 싶었는데</div>
+                    <div class="timeline-desc">조합원님 식탁을 생각하며 키웠습니다</div>
+                </div>
+            </div>
+            <div class="timeline-item">
+                <div class="timeline-icon">👨‍🌾</div>
+                <div class="timeline-content">
+                    <div class="timeline-title">생산자로서 부끄럽습니다</div>
+                    <div class="timeline-desc">얼굴 보며 드리는 직거래인데 면목이 없습니다</div>
+                </div>
+            </div>
+            <div class="timeline-item">
+                <div class="timeline-icon">💚</div>
+                <div class="timeline-content">
+                    <div class="timeline-title">작은 마음이나마 전해드립니다</div>
+                    <div class="timeline-desc">같은 실수 반복하지 않겠습니다</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 3. 보상 안내 -->
+    <section class="card card-cream" data-index="3">
+        <p class="card-eyebrow fade-up">🎁 생산지에서 보내드립니다</p>
+        <h2 class="card-title fade-up">
+            <em>무농약 무 2개</em><br>
+            함께 보내드릴게요
+        </h2>
+        
+        <div class="gift-card">
+            <div class="gift-icon">🥬</div>
+            <div class="gift-title">다른 밭에서 키운 무농약 무</div>
+            <div class="gift-desc">
+                사과 농가 이웃 밭에서<br>
+                정성껏 키운 무입니다
+            </div>
+            <div class="gift-highlight">
+                <div class="gift-product">🥬🥬</div>
+                <div class="gift-info">
+                    <div class="gift-name">무농약 무</div>
+                    <div class="gift-amount">2개 자동 증정</div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="period-badge">📅 1월 말까지 주문 시 자동 증정</div>
+        
+        <p class="card-desc fade-up" style="margin-top: 16px; font-size: 0.9rem;">
+            별도 신청 없이<br>
+            주문하시면 함께 보내드립니다
+        </p>
+    </section>
+
+    <!-- 4. 마무리 -->
+    <section class="card card-green" data-index="4">
+        <p class="card-eyebrow fade-up">생산자와 조합원이 함께</p>
+        <h2 class="card-title fade-up">
+            <em>얼굴 보며</em> 드리는<br>
+            직거래의 약속<br>
+            지키겠습니다
+        </h2>
+        <p class="card-desc fade-up">
+            29년간 쌓아온 신뢰<br>
+            한 번의 실수로 무너지지 않도록<br>
+            더욱 정성을 다하겠습니다
+        </p>
+        
+        <div class="signature">
+            <p class="signature-text">
+                늘 믿어주시는<br>
+                조합원님께 감사드립니다
+            </p>
+            <p class="signature-name">강원 사과 생산지 · 두레생협 드림 🙏</p>
+        </div>
+        
+        <a href="https://ecoop.or.kr" class="cta-button">
+            <span>두레생협 바로가기</span>
+            <svg viewBox="0 0 24 24"><path d="M8.59,16.58L13.17,12L8.59,7.41L10,6L16,12L10,18L8.59,16.58Z"/></svg>
+        </a>
+    </section>
+
+    <script>
+        // 스크롤 인디케이터
+        const cards = document.querySelectorAll('.card');
+        const indicatorContainer = document.getElementById('scrollIndicator');
+        
+        cards.forEach((_, i) => {
+            const dot = document.createElement('div');
+            dot.className = 'scroll-dot' + (i === 0 ? ' active' : '');
+            dot.addEventListener('click', () => cards[i].scrollIntoView({ behavior: 'smooth' }));
+            indicatorContainer.appendChild(dot);
+        });
+
+        const dots = document.querySelectorAll('.scroll-dot');
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                const index = parseInt(entry.target.dataset.index);
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('in-view');
+                    dots.forEach((dot, i) => dot.classList.toggle('active', i === index));
+                }
+            });
+        }, { threshold: 0.35 });
+
+        cards.forEach(card => observer.observe(card));
+        cards[0].classList.add('in-view');
+    </script>
+
+</body>
+</html>
