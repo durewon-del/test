@@ -434,6 +434,108 @@
             margin-top: 8px;
         }
 
+        /* ========== 의견 섹션 ========== */
+        .opinion-section { width: 100%; max-width: 380px; }
+
+        .write-area {
+            background: white;
+            border-radius: 24px;
+            padding: 22px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.08);
+            margin-bottom: 20px;
+        }
+
+        .write-label { font-size: 0.9rem; color: var(--green); font-weight: 600; margin-bottom: 14px; }
+        .write-input {
+            width: 100%;
+            border: none;
+            font-family: 'Noto Sans KR', sans-serif;
+            font-size: 1rem;
+            line-height: 1.7;
+            resize: none;
+            outline: none;
+            min-height: 90px;
+            color: var(--black);
+            background: transparent;
+        }
+        .write-input::placeholder { color: #bbb; }
+
+        .write-footer {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            margin-top: 16px;
+            padding-top: 16px;
+            border-top: 1px solid #f0f0f0;
+        }
+
+        .write-name {
+            width: 100%;
+            border: 2px solid #f0f0f0;
+            border-radius: 14px;
+            font-family: 'Noto Sans KR', sans-serif;
+            font-size: 1rem;
+            padding: 14px 16px;
+            outline: none;
+            color: var(--black);
+            background: var(--green-light);
+            transition: all 0.3s ease;
+        }
+        .write-name:focus { border-color: var(--green); background: white; }
+        .write-name::placeholder { color: #999; }
+
+        .write-submit {
+            width: 100%;
+            background: var(--green);
+            color: white;
+            border: none;
+            padding: 16px 24px;
+            border-radius: 16px;
+            font-family: 'Noto Sans KR', sans-serif;
+            font-size: 1.05rem;
+            font-weight: 600;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+        }
+        .write-submit:active { transform: scale(0.98); }
+        .write-submit:disabled { background: #ccc; }
+        .write-submit svg { width: 18px; height: 18px; fill: white; }
+
+        .opinion-list-area {
+            background: rgba(255,255,255,0.8);
+            border-radius: 20px;
+            padding: 18px;
+            max-height: 200px;
+            overflow-y: auto;
+        }
+        .opinion-list-title { font-size: 0.85rem; color: var(--gray); margin-bottom: 12px; font-weight: 500; }
+        .opinion-list-item { padding: 12px 0; border-bottom: 1px solid rgba(0,0,0,0.05); text-align: left; }
+        .opinion-list-item:last-child { border-bottom: none; }
+        .opinion-list-text { font-size: 0.95rem; color: var(--black); line-height: 1.6; margin-bottom: 5px; }
+        .opinion-list-meta { font-size: 0.75rem; color: var(--gray-light); }
+        .opinion-list-empty { text-align: center; color: var(--gray-light); font-size: 0.9rem; padding: 25px 15px; }
+
+        .toast {
+            position: fixed;
+            bottom: 90px;
+            left: 50%;
+            transform: translateX(-50%) translateY(20px);
+            background: var(--green);
+            color: white;
+            padding: 14px 28px;
+            border-radius: 30px;
+            font-size: 1rem;
+            font-weight: 500;
+            opacity: 0;
+            transition: all 0.3s ease;
+            z-index: 2000;
+            box-shadow: 0 10px 30px rgba(74, 103, 65, 0.35);
+        }
+        .toast.show { opacity: 1; transform: translateX(-50%) translateY(0); }
+
         html::-webkit-scrollbar { width: 0; display: none; }
     </style>
 </head>
@@ -470,26 +572,8 @@
         </div>
     </section>
 
-    <!-- 1. 무슨 일이 있었나 -->
-    <section class="card card-warm" data-index="1">
-        <p class="card-eyebrow fade-up">생산지 이야기</p>
-        <h2 class="card-title fade-up">
-            <em>감사한 마음</em>에<br>
-            서두르다 보니
-        </h2>
-        
-        <div class="apology-box">
-            <div class="apology-box-title">📋 생산지에서 전하는 말씀</div>
-            <div class="apology-box-content">
-                조합원님들께서 <strong>예상보다 많이 찾아주셨습니다.</strong><br><br>
-                감사한 마음에 서둘러 보내드리느라 <strong>품위 검사를 꼼꼼히 하지 못했습니다.</strong><br><br>
-                그 결과 <strong>사과 품질이 고르지 못하게</strong> 전달되었습니다.
-            </div>
-        </div>
-    </section>
-
-    <!-- 2. 진심 어린 사과 -->
-    <section class="card card-cream" data-index="2">
+    <!-- 1. 진심 어린 사과 -->
+    <section class="card card-cream" data-index="1">
         <p class="card-eyebrow fade-up">생산자의 마음</p>
         <h2 class="card-title fade-up">
             직거래의 믿음을<br>
@@ -498,17 +582,24 @@
         
         <div class="timeline">
             <div class="timeline-item">
-                <div class="timeline-icon">🍎</div>
+                <div class="timeline-icon">🌡️</div>
                 <div class="timeline-content">
-                    <div class="timeline-title">좋은 사과만 보내드리고 싶었는데</div>
-                    <div class="timeline-desc">조합원님 식탁을 생각하며 키웠습니다</div>
+                    <div class="timeline-title">기후 위기가 점점 심해지고 있습니다</div>
+                    <div class="timeline-desc">해마다 날씨 변화로 품질 예측이 어려워지고 있어요</div>
                 </div>
             </div>
             <div class="timeline-item">
-                <div class="timeline-icon">👨‍🌾</div>
+                <div class="timeline-icon">🔬</div>
                 <div class="timeline-content">
-                    <div class="timeline-title">생산자로서 부끄럽습니다</div>
-                    <div class="timeline-desc">얼굴 보며 드리는 직거래인데 면목이 없습니다</div>
+                    <div class="timeline-title">비파괴 검사기가 없습니다</div>
+                    <div class="timeline-desc">나무 한 그루당 하나씩 맛봐도 나무마다 품질이 달라요</div>
+                </div>
+            </div>
+            <div class="timeline-item">
+                <div class="timeline-icon">📦</div>
+                <div class="timeline-content">
+                    <div class="timeline-title">주문량이 많아 다 확인하지 못했습니다</div>
+                    <div class="timeline-desc">감사한 마음에 서두르다 품위가 떨어진 사과를 받으신 분들도 계신 것 같습니다</div>
                 </div>
             </div>
             <div class="timeline-item">
@@ -521,8 +612,8 @@
         </div>
     </section>
 
-    <!-- 3. 보상 안내 -->
-    <section class="card card-cream" data-index="3">
+    <!-- 2. 보상 안내 -->
+    <section class="card card-cream" data-index="2">
         <p class="card-eyebrow fade-up" style="color: var(--green);">생산지에서 보내드립니다</p>
         <h2 class="card-title fade-up">
             <em>무농약 무 2개</em><br>
@@ -530,7 +621,9 @@
         </h2>
         
         <div class="gift-card">
-            <div class="gift-icon" style="font-family: 'Nanum Myeongjo', serif; font-weight: 900; color: var(--green);">무</div>
+            <div class="gift-icon" style="width: 80px; height: 80px; border-radius: 50%; overflow: hidden; margin: 0 auto 16px;">
+                <img src="https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/39405B.jpg" alt="무농약 무" style="width: 100%; height: 100%; object-fit: cover;">
+            </div>
             <div class="gift-title">다른 밭에서 키운 무농약 무</div>
             <div class="gift-desc">
                 해당 주간에 구매하셨던<br>
@@ -538,7 +631,9 @@
                 생산지에서 보내드립니다
             </div>
             <div class="gift-highlight">
-                <div class="gift-product" style="font-family: 'Nanum Myeongjo', serif; font-weight: 900; font-size: 1.8rem; color: var(--green);">무 무</div>
+                <div class="gift-product" style="width: 60px; height: 60px; border-radius: 12px; overflow: hidden;">
+                    <img src="https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/39405B.jpg" alt="무" style="width: 100%; height: 100%; object-fit: cover;">
+                </div>
                 <div class="gift-info">
                     <div class="gift-name">무농약 무</div>
                     <div class="gift-amount">2개 증정</div>
@@ -552,6 +647,36 @@
             별도 신청 없이<br>
             생산지에서 직접 보내드립니다
         </p>
+    </section>
+
+    <!-- 3. 생산지에 한마디 -->
+    <section class="card card-warm" data-index="3">
+        <p class="card-eyebrow fade-up">💬 조합원님의 이야기</p>
+        <h2 class="card-title fade-up">
+            <em>강원도 사과 생산자</em>님께<br>
+            한마디 남겨주세요!
+        </h2>
+        
+        <div class="opinion-section fade-up">
+            <div class="write-area">
+                <div class="write-label">✍️ 응원, 제안, 궁금한 점 뭐든 좋아요!</div>
+                <textarea class="write-input" id="opinionText" placeholder="생산자님께 전하고 싶은 이야기를 남겨주세요"></textarea>
+                <div class="write-footer">
+                    <input type="text" class="write-name" id="opinionName" placeholder="✏️ 이름 입력 (선택사항)">
+                    <button class="write-submit" id="submitBtn" onclick="submitOpinion()">
+                        이야기 등록하기
+                        <svg viewBox="0 0 24 24"><path d="M2,21L23,12L2,3V10L17,12L2,14V21Z"/></svg>
+                    </button>
+                </div>
+            </div>
+            
+            <div class="opinion-list-area">
+                <div class="opinion-list-title">💬 조합원님들의 한마디</div>
+                <div id="opinionList">
+                    <div class="opinion-list-empty">첫 번째 응원을 남겨주세요!</div>
+                </div>
+            </div>
+        </div>
     </section>
 
     <!-- 4. 마무리 -->
@@ -581,6 +706,82 @@
             <svg viewBox="0 0 24 24"><path d="M8.59,16.58L13.17,12L8.59,7.41L10,6L16,12L10,18L8.59,16.58Z"/></svg>
         </a>
     </section>
+
+    <div class="toast" id="toast">소중한 이야기 감사합니다 🍎</div>
+
+    <!-- Firebase SDK -->
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
+        import { getFirestore, collection, addDoc, query, orderBy, limit, onSnapshot, serverTimestamp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
+
+        const firebaseConfig = {
+            apiKey: "AIzaSyDrb6CvMBn9jSfDeuwWseJywFHLbChNr4U",
+            authDomain: "durunioncoop.firebaseapp.com",
+            projectId: "durunioncoop",
+            storageBucket: "durunioncoop.firebasestorage.app",
+            messagingSenderId: "439719435906",
+            appId: "1:439719435906:web:3d1d841ad6e80939eb5e9b",
+            measurementId: "G-NSEYF1TDCH"
+        };
+
+        const app = initializeApp(firebaseConfig);
+        const db = getFirestore(app);
+
+        let opinions = [];
+
+        window.submitOpinion = async function() {
+            const textEl = document.getElementById('opinionText');
+            const nameEl = document.getElementById('opinionName');
+            const submitBtn = document.getElementById('submitBtn');
+            const text = textEl.value.trim();
+            const name = nameEl.value.trim() || '익명의 조합원';
+            if (!text) { showToast('이야기를 입력해주세요'); return; }
+            submitBtn.disabled = true;
+            try {
+                await addDoc(collection(db, "opinions"), { text, name, week: 'apple', createdAt: serverTimestamp() });
+                textEl.value = ''; nameEl.value = '';
+                showToast('소중한 이야기 감사합니다 🍎');
+            } catch (error) { 
+                console.error('Firebase error:', error);
+                showToast('잠시 후 다시 시도해주세요'); 
+            }
+            finally { submitBtn.disabled = false; }
+        };
+
+        const q = query(collection(db, "opinions"), orderBy("createdAt", "desc"), limit(100));
+        onSnapshot(q, (snapshot) => {
+            opinions = [];
+            snapshot.forEach((doc) => {
+                const data = doc.data();
+                if (data.week === 'apple') {
+                    opinions.push({ id: doc.id, text: data.text, name: data.name, date: data.createdAt ? formatDate(data.createdAt.toDate()) : '방금' });
+                }
+            });
+            updateOpinionList();
+        });
+
+        function updateOpinionList() {
+            const listEl = document.getElementById('opinionList');
+            if (opinions.length === 0) { listEl.innerHTML = '<div class="opinion-list-empty">첫 번째 응원을 남겨주세요!</div>'; return; }
+            listEl.innerHTML = '';
+            opinions.slice(0, 10).forEach((op) => {
+                const item = document.createElement('div');
+                item.className = 'opinion-list-item';
+                item.innerHTML = `<p class="opinion-list-text">${escapeHtml(op.text)}</p><p class="opinion-list-meta">${escapeHtml(op.name)} · ${op.date}</p>`;
+                listEl.appendChild(item);
+            });
+        }
+
+        function formatDate(date) {
+            const diff = Date.now() - date;
+            const m = Math.floor(diff / 60000), h = Math.floor(diff / 3600000), d = Math.floor(diff / 86400000);
+            if (m < 1) return '방금'; if (m < 60) return `${m}분 전`; if (h < 24) return `${h}시간 전`; if (d < 7) return `${d}일 전`;
+            return date.toLocaleDateString('ko-KR');
+        }
+        function escapeHtml(text) { const div = document.createElement('div'); div.textContent = text; return div.innerHTML; }
+        function showToast(msg) { const t = document.getElementById('toast'); t.textContent = msg; t.classList.add('show'); setTimeout(() => t.classList.remove('show'), 2500); }
+        window.showToast = showToast;
+    </script>
 
     <script>
         // 스크롤 인디케이터
