@@ -84,6 +84,40 @@
             color: rgba(255,255,255,0.9);
         }
 
+        /* 실시간 접속자 수 */
+        .live-viewers {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            background: rgba(255,255,255,0.15);
+            padding: 6px 12px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            color: white;
+        }
+
+        .live-viewers-dot {
+            width: 8px;
+            height: 8px;
+            background: #4ade80;
+            border-radius: 50%;
+            animation: pulse-dot 1.5s ease-in-out infinite;
+        }
+
+        @keyframes pulse-dot {
+            0%, 100% { opacity: 1; box-shadow: 0 0 0 0 rgba(74, 222, 128, 0.7); }
+            50% { opacity: 0.8; box-shadow: 0 0 0 6px rgba(74, 222, 128, 0); }
+        }
+
+        .live-viewers-count {
+            font-weight: 700;
+            font-size: 0.95rem;
+        }
+
+        .live-viewers-text {
+            opacity: 0.9;
+        }
+
         /* 카드 */
         .card {
             min-height: 100vh;
@@ -596,13 +630,18 @@
             <div class="brand-divider"></div>
             <span class="magazine-title">주간 생활재 소개</span>
         </div>
+        <div class="live-viewers">
+            <span class="live-viewers-dot"></span>
+            <span class="live-viewers-count" id="viewerCount">0</span>
+            <span class="live-viewers-text">명 보는 중</span>
+        </div>
     </header>
 
     <div class="scroll-indicator" id="scrollIndicator"></div>
 
     <!-- 0. 인트로 -->
     <section class="card card-intro" data-index="0">
-        <p class="card-eyebrow fade-up">2025년 1월 2주</p>
+        <p class="card-eyebrow fade-up">26년 1월 3주 - 핵심생활재</p>
         <h1 class="card-title fade-up">
             <em>의성 해찬사과</em><br>
             그래도<br>
@@ -818,7 +857,7 @@
             <p class="signature-name">의성 해찬사과 생산지 · 두레생협 드림</p>
         </div>
         
-        <a href="https://ecoop.or.kr" class="cta-button fade-up">
+        <a href="https://ecoop.or.kr/DureShop/plan/planView.do?returnTypeGb=plan&returnNo=1630#book0" class="cta-button fade-up">
             <span>의성 해찬사과 보러가기</span>
             <svg viewBox="0 0 24 24"><path d="M8.59,16.58L13.17,12L8.59,7.41L10,6L16,12L10,18L8.59,16.58Z"/></svg>
         </a>
@@ -835,7 +874,7 @@
     <!-- Firebase SDK -->
     <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
-        import { getFirestore, collection, addDoc, query, orderBy, limit, onSnapshot, serverTimestamp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
+        import { getFirestore, collection, addDoc, query, orderBy, limit, onSnapshot, serverTimestamp, doc, setDoc, deleteDoc, getDocs } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
 
         const firebaseConfig = {
             apiKey: "AIzaSyDrb6CvMBn9jSfDeuwWseJywFHLbChNr4U",
@@ -850,6 +889,71 @@
         const app = initializeApp(firebaseConfig);
         const db = getFirestore(app);
 
+        // ============ 실시간 접속자 수 ============
+        const visitorId = 'visitor_' + Math.random().toString(36).substr(2, 9) + '_' + Date.now();
+        const pageId = 'uiseong-apple';
+        
+        // 접속자 등록
+        async function registerVisitor() {
+            try {
+                await setDoc(doc(db, "activeVisitors", visitorId), {
+                    page: pageId,
+                    timestamp: serverTimestamp()
+                });
+            } catch (error) {
+                console.log('Visitor registration error:', error);
+            }
+        }
+
+        // 접속자 해제
+        async function unregisterVisitor() {
+            try {
+                await deleteDoc(doc(db, "activeVisitors", visitorId));
+            } catch (error) {
+                console.log('Visitor unregistration error:', error);
+            }
+        }
+
+        // 실시간 접속자 수 감시
+        const visitorsQuery = query(collection(db, "activeVisitors"));
+        onSnapshot(visitorsQuery, (snapshot) => {
+            let count = 0;
+            const now = Date.now();
+            snapshot.forEach((doc) => {
+                const data = doc.data();
+                // 같은 페이지이고, 5분 이내 활성 사용자만 카운트
+                if (data.page === pageId) {
+                    if (data.timestamp) {
+                        const visitorTime = data.timestamp.toDate().getTime();
+                        if (now - visitorTime < 5 * 60 * 1000) {
+                            count++;
+                        }
+                    } else {
+                        count++; // timestamp 없으면 일단 카운트
+                    }
+                }
+            });
+            document.getElementById('viewerCount').textContent = count;
+        });
+
+        // 페이지 로드 시 접속자 등록
+        registerVisitor();
+
+        // 주기적으로 타임스탬프 갱신 (2분마다)
+        setInterval(() => {
+            registerVisitor();
+        }, 2 * 60 * 1000);
+
+        // 페이지 종료 시 접속자 해제
+        window.addEventListener('beforeunload', () => {
+            unregisterVisitor();
+        });
+
+        window.addEventListener('pagehide', () => {
+            unregisterVisitor();
+        });
+
+        // ============ 의견 기능 ============
         let opinions = [];
 
         window.submitOpinion = async function() {
