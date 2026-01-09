@@ -9,22 +9,37 @@
     <link href="https://fonts.googleapis.com/css2?family=Nanum+Myeongjo:wght@400;700;800&family=Noto+Sans+KR:wght@300;400;500;700&display=swap" rel="stylesheet">
     <style>
         :root {
-            --red: #c44536;
-            --red-light: #fff5f3;
-            --orange: #e76f51;
-            --gold: #e9c46a;
-            --green: #4a6741;
-            --green-light: #e8f0e4;
-            --cream: #fdfbf7;
-            --warm: #f7f3ed;
+            --apple-red: #e63946;
+            --apple-red-dark: #c1121f;
+            --apple-red-light: #ffccd5;
+            --apple-green: #606c38;
+            --apple-green-light: #dde5b6;
+            --apple-stem: #6b4423;
+            --apple-cream: #fefae0;
+            --apple-gold: #dda15e;
+            --orange: #fb8500;
             --black: #1a1a1a;
-            --gray: #666;
-            --gray-light: #999;
+            --gray: #555;
+            --gray-light: #888;
         }
 
         * { margin: 0; padding: 0; box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
         html { scroll-snap-type: y mandatory; scroll-behavior: smooth; }
-        body { font-family: 'Noto Sans KR', sans-serif; background: var(--cream); overflow-x: hidden; }
+        body { font-family: 'Noto Sans KR', sans-serif; background: var(--apple-cream); overflow-x: hidden; }
+
+        /* 사과 배경 패턴 */
+        .apple-bg-pattern {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            pointer-events: none;
+            z-index: 0;
+            opacity: 0.03;
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Cpath fill='%23e63946' d='M50 20c-5-15-25-15-30 5-5 25 30 45 30 45s35-20 30-45c-5-20-25-20-30-5z'/%3E%3Cpath fill='%23606c38' d='M50 5c0-5 10-5 10 0v15h-5V5z'/%3E%3Cellipse fill='%23606c38' cx='60' cy='12' rx='8' ry='4' transform='rotate(30 60 12)'/%3E%3C/svg%3E");
+            background-size: 80px 80px;
+        }
 
         /* 매거진 헤더 */
         .magazine-header {
@@ -33,11 +48,12 @@
             left: 0;
             right: 0;
             z-index: 1000;
-            background: linear-gradient(135deg, var(--red) 0%, var(--orange) 100%);
+            background: linear-gradient(135deg, var(--apple-red) 0%, var(--apple-red-dark) 100%);
             padding: 12px 20px;
             display: flex;
             justify-content: space-between;
             align-items: center;
+            box-shadow: 0 4px 20px rgba(230, 57, 70, 0.3);
         }
 
         .magazine-brand {
@@ -61,7 +77,7 @@
             align-items: center;
             justify-content: center;
             font-size: 0.55rem;
-            color: var(--red);
+            color: var(--apple-red);
             font-weight: 800;
         }
 
@@ -136,17 +152,56 @@
 
         .card:first-of-type { padding-top: 100px; }
 
-        .card-intro { background: linear-gradient(180deg, #fff5f3 0%, #fdfbf7 100%); }
-        .card-warm { background: var(--warm); }
-        .card-cream { background: var(--cream); }
-        .card-green { background: linear-gradient(160deg, var(--green) 0%, #3a5331 100%); color: white; }
-        .card-gold { background: linear-gradient(180deg, #fffbeb 0%, #fef3c7 100%); }
+        .card-intro { 
+            background: linear-gradient(180deg, var(--apple-red-light) 0%, var(--apple-cream) 100%); 
+        }
+        .card-warm { 
+            background: var(--apple-cream); 
+        }
+        .card-cream { 
+            background: linear-gradient(180deg, #fff 0%, var(--apple-cream) 100%); 
+        }
+        .card-green { 
+            background: linear-gradient(160deg, var(--apple-green) 0%, #3d4a2a 100%); 
+            color: white; 
+        }
+        .card-gold { 
+            background: linear-gradient(180deg, #fff8e7 0%, var(--apple-green-light) 100%); 
+        }
+
+        /* 사과 장식 요소 */
+        .card::before {
+            content: '';
+            position: absolute;
+            width: 200px;
+            height: 200px;
+            border-radius: 50%;
+            background: radial-gradient(circle at 30% 30%, var(--apple-red-light) 0%, transparent 70%);
+            opacity: 0.3;
+            pointer-events: none;
+        }
+
+        .card-intro::before {
+            top: -50px;
+            right: -50px;
+        }
+
+        .card-warm::before {
+            bottom: -80px;
+            left: -80px;
+            background: radial-gradient(circle at 30% 30%, var(--apple-green-light) 0%, transparent 70%);
+        }
+
+        .card-cream::before {
+            top: 20%;
+            right: -100px;
+        }
 
         /* 타이포그래피 */
         .card-eyebrow {
             font-size: 0.95rem;
             letter-spacing: 0.1em;
-            color: var(--red);
+            color: var(--apple-red);
             margin-bottom: 24px;
             font-weight: 500;
         }
@@ -168,10 +223,10 @@
 
         .card-title em {
             font-style: normal;
-            color: var(--red);
+            color: var(--apple-red);
         }
 
-        .card-green .card-title em { color: #90EE90; }
+        .card-green .card-title em { color: var(--apple-green-light); }
 
         .card-desc {
             font-size: 1.2rem;
@@ -198,15 +253,34 @@
         /* 할인 배지 */
         .discount-badge {
             display: inline-block;
-            background: linear-gradient(135deg, var(--red) 0%, var(--orange) 100%);
+            background: linear-gradient(135deg, var(--apple-red) 0%, var(--apple-red-dark) 100%);
             color: white;
             padding: 18px 40px;
             border-radius: 50px;
             font-size: 1.6rem;
             font-weight: 700;
             margin: 24px 0;
-            box-shadow: 0 8px 30px rgba(196, 69, 54, 0.35);
+            box-shadow: 0 8px 30px rgba(230, 57, 70, 0.35);
             animation: pulse-badge 2s ease-in-out infinite;
+            position: relative;
+        }
+
+        .discount-badge::before {
+            content: '🍎';
+            position: absolute;
+            left: -10px;
+            top: 50%;
+            transform: translateY(-50%);
+            font-size: 1.2rem;
+        }
+
+        .discount-badge::after {
+            content: '🍎';
+            position: absolute;
+            right: -10px;
+            top: 50%;
+            transform: translateY(-50%);
+            font-size: 1.2rem;
         }
 
         @keyframes pulse-badge {
@@ -250,7 +324,13 @@
             border-radius: 20px;
             padding: 24px 18px;
             text-align: center;
-            box-shadow: 0 4px 20px rgba(0,0,0,0.06);
+            box-shadow: 0 4px 20px rgba(230, 57, 70, 0.08);
+            border: 2px solid transparent;
+            transition: all 0.3s ease;
+        }
+
+        .quality-item:hover {
+            border-color: var(--apple-red-light);
         }
 
         .quality-icon {
@@ -271,7 +351,7 @@
         }
 
         .quality-value.highlight {
-            color: var(--red);
+            color: var(--apple-red);
         }
 
         /* 이미지 갤러리 */
@@ -403,15 +483,27 @@
             padding: 32px 28px;
             margin: 28px 0;
             max-width: 360px;
-            box-shadow: 0 10px 40px rgba(0,0,0,0.08);
+            box-shadow: 0 10px 40px rgba(230, 57, 70, 0.1);
             text-align: left;
+            border: 2px solid var(--apple-red-light);
+            position: relative;
+        }
+
+        .info-box::before {
+            content: '🍎';
+            position: absolute;
+            top: -15px;
+            left: 20px;
+            font-size: 1.5rem;
+            background: white;
+            padding: 0 8px;
         }
 
         .info-box-title {
             font-family: 'Nanum Myeongjo', serif;
             font-size: 1.3rem;
             font-weight: 700;
-            color: var(--red);
+            color: var(--apple-red);
             margin-bottom: 18px;
             display: flex;
             align-items: center;
@@ -429,7 +521,7 @@
             display: inline-flex;
             align-items: center;
             gap: 12px;
-            background: linear-gradient(135deg, var(--red) 0%, var(--orange) 100%);
+            background: linear-gradient(135deg, var(--apple-red) 0%, var(--apple-red-dark) 100%);
             color: white;
             font-size: 1.25rem;
             font-weight: 600;
@@ -437,8 +529,25 @@
             border-radius: 50px;
             text-decoration: none;
             margin-top: 28px;
-            box-shadow: 0 12px 35px rgba(196, 69, 54, 0.35);
+            box-shadow: 0 12px 35px rgba(230, 57, 70, 0.35);
             transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .cta-button::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+            transition: left 0.5s ease;
+        }
+
+        .cta-button:hover::before {
+            left: 100%;
         }
 
         .cta-button:active { transform: scale(0.97); }
@@ -460,11 +569,11 @@
             width: 5px;
             height: 5px;
             border-radius: 50%;
-            background: rgba(0,0,0,0.15);
+            background: rgba(230, 57, 70, 0.2);
             cursor: pointer;
             transition: all 0.3s ease;
         }
-        .scroll-dot.active { height: 18px; border-radius: 3px; background: var(--red); }
+        .scroll-dot.active { height: 18px; border-radius: 3px; background: var(--apple-red); }
 
         /* 서명 */
         .signature {
@@ -492,11 +601,12 @@
             background: white;
             border-radius: 24px;
             padding: 26px;
-            box-shadow: 0 10px 40px rgba(0,0,0,0.08);
+            box-shadow: 0 10px 40px rgba(230, 57, 70, 0.1);
             margin-bottom: 24px;
+            border: 2px solid var(--apple-red-light);
         }
 
-        .write-label { font-size: 1.05rem; color: var(--green); font-weight: 600; margin-bottom: 16px; }
+        .write-label { font-size: 1.05rem; color: var(--apple-green); font-weight: 600; margin-bottom: 16px; }
         .write-input {
             width: 100%;
             border: none;
@@ -517,27 +627,27 @@
             gap: 14px;
             margin-top: 18px;
             padding-top: 18px;
-            border-top: 1px solid #f0f0f0;
+            border-top: 1px solid var(--apple-red-light);
         }
 
         .write-name {
             width: 100%;
-            border: 2px solid #f0f0f0;
+            border: 2px solid var(--apple-red-light);
             border-radius: 14px;
             font-family: 'Noto Sans KR', sans-serif;
             font-size: 1.1rem;
             padding: 16px 18px;
             outline: none;
             color: var(--black);
-            background: #fff5f3;
+            background: var(--apple-cream);
             transition: all 0.3s ease;
         }
-        .write-name:focus { border-color: var(--red); background: white; }
+        .write-name:focus { border-color: var(--apple-red); background: white; }
         .write-name::placeholder { color: #999; }
 
         .write-submit {
             width: 100%;
-            background: linear-gradient(135deg, var(--red) 0%, var(--orange) 100%);
+            background: linear-gradient(135deg, var(--apple-red) 0%, var(--apple-red-dark) 100%);
             color: white;
             border: none;
             padding: 18px 26px;
@@ -556,14 +666,15 @@
         .write-submit svg { width: 20px; height: 20px; fill: white; }
 
         .opinion-list-area {
-            background: rgba(255,255,255,0.8);
+            background: rgba(255,255,255,0.9);
             border-radius: 20px;
             padding: 20px;
             max-height: 280px;
             overflow-y: auto;
+            border: 2px solid var(--apple-green-light);
         }
-        .opinion-list-title { font-size: 1rem; color: var(--gray); margin-bottom: 14px; font-weight: 500; }
-        .opinion-list-item { padding: 14px 0; border-bottom: 1px solid rgba(0,0,0,0.05); text-align: left; }
+        .opinion-list-title { font-size: 1rem; color: var(--apple-green); margin-bottom: 14px; font-weight: 500; }
+        .opinion-list-item { padding: 14px 0; border-bottom: 1px solid var(--apple-red-light); text-align: left; }
         .opinion-list-item:last-child { border-bottom: none; }
         .opinion-list-text { font-size: 1.1rem; color: var(--black); line-height: 1.7; margin-bottom: 6px; }
         .opinion-list-meta { font-size: 0.9rem; color: var(--gray-light); }
@@ -574,7 +685,7 @@
             bottom: 90px;
             left: 50%;
             transform: translateX(-50%) translateY(20px);
-            background: linear-gradient(135deg, var(--red) 0%, var(--orange) 100%);
+            background: linear-gradient(135deg, var(--apple-red) 0%, var(--apple-red-dark) 100%);
             color: white;
             padding: 14px 28px;
             border-radius: 30px;
@@ -583,7 +694,7 @@
             opacity: 0;
             transition: all 0.3s ease;
             z-index: 2000;
-            box-shadow: 0 10px 30px rgba(196, 69, 54, 0.35);
+            box-shadow: 0 10px 30px rgba(230, 57, 70, 0.35);
         }
         .toast.show { opacity: 1; transform: translateX(-50%) translateY(0); }
 
@@ -596,16 +707,17 @@
             padding: 12px 24px;
             border-radius: 30px;
             font-size: 1rem;
-            color: var(--green);
+            color: var(--apple-green);
             font-weight: 600;
-            box-shadow: 0 2px 12px rgba(74,103,65,0.15);
+            box-shadow: 0 2px 12px rgba(96, 108, 56, 0.15);
             margin-bottom: 28px;
+            border: 2px solid var(--apple-green-light);
         }
 
         .live-dot {
             width: 10px;
             height: 10px;
-            background: #4CAF50;
+            background: var(--apple-red);
             border-radius: 50%;
             animation: pulse 2s infinite;
         }
@@ -619,6 +731,9 @@
     </style>
 </head>
 <body>
+
+    <!-- 사과 배경 패턴 -->
+    <div class="apple-bg-pattern"></div>
 
     <!-- 매거진 헤더 -->
     <header class="magazine-header">
@@ -683,7 +798,7 @@
             <div class="info-box-content" style="text-align: center; font-size: 1.15rem;">
                 여름 폭염, 수확기 장마...<br>
                 사과 농사에 최악의 조건이었습니다<br><br>
-                <strong style="color: var(--red);">그런데도 이 정도 맛을 냈습니다</strong><br><br>
+                <strong style="color: #e63946;">그런데도 이 정도 맛을 냈습니다</strong><br><br>
                 기후위기 속에서<br>
                 최선을 다한 결과입니다
             </div>
@@ -692,7 +807,7 @@
 
     <!-- 2. 품질 정보 -->
     <section class="card card-cream" data-index="2">
-        <p class="card-eyebrow fade-up" style="color: var(--green);">투명한 품질 정보</p>
+        <p class="card-eyebrow fade-up" style="color: #606c38;">투명한 품질 정보</p>
         <h2 class="card-title fade-up">
             <em>있는 그대로</em><br>
             보여드립니다
@@ -727,7 +842,7 @@
                 착색률 50~60%로<br>
                 선홍색보다 주황~분홍빛입니다<br>
                 개체별 편차도 있습니다<br><br>
-                <strong style="color: var(--green); font-size: 1.25rem;">하지만 맛은 자부합니다</strong>
+                <strong style="color: #606c38; font-size: 1.25rem;">하지만 맛은 자부합니다</strong>
             </div>
         </div>
     </section>
@@ -791,11 +906,11 @@
                 만들어냈습니다.<br><br>
                 
                 색이 조금 고르지 못해도<br>
-                <strong style="color: var(--red);">맛만큼은 자신 있습니다.</strong><br><br>
+                <strong style="color: #e63946;">맛만큼은 자신 있습니다.</strong><br><br>
                 
                 조합원님들 많이 이용하시라고<br>
                 이번 주에<br>
-                <strong style="color: var(--red); font-size: 1.4rem;">25% 할인</strong> 진행합니다.
+                <strong style="color: #e63946; font-size: 1.4rem;">25% 할인</strong> 진행합니다.
             </div>
         </div>
     </section>
