@@ -110,10 +110,10 @@
 
         /* 타이포그래피 */
         .card-eyebrow {
-            font-size: 0.8rem;
+            font-size: 0.95rem;
             letter-spacing: 0.1em;
             color: var(--red);
-            margin-bottom: 20px;
+            margin-bottom: 24px;
             font-weight: 500;
         }
 
@@ -121,10 +121,10 @@
 
         .card-title {
             font-family: 'Nanum Myeongjo', serif;
-            font-size: clamp(1.8rem, 7vw, 2.6rem);
+            font-size: clamp(2.2rem, 8vw, 3rem);
             font-weight: 700;
             line-height: 1.55;
-            margin-bottom: 24px;
+            margin-bottom: 28px;
             word-break: keep-all;
             max-width: 90vw;
             color: var(--black);
@@ -140,8 +140,8 @@
         .card-green .card-title em { color: #90EE90; }
 
         .card-desc {
-            font-size: 1.05rem;
-            line-height: 1.9;
+            font-size: 1.2rem;
+            line-height: 2;
             color: var(--gray);
             max-width: 85vw;
         }
@@ -166,11 +166,11 @@
             display: inline-block;
             background: linear-gradient(135deg, var(--red) 0%, var(--orange) 100%);
             color: white;
-            padding: 16px 32px;
+            padding: 18px 40px;
             border-radius: 50px;
-            font-size: 1.3rem;
+            font-size: 1.6rem;
             font-weight: 700;
-            margin: 20px 0;
+            margin: 24px 0;
             box-shadow: 0 8px 30px rgba(196, 69, 54, 0.35);
             animation: pulse-badge 2s ease-in-out infinite;
         }
@@ -207,31 +207,31 @@
             display: grid;
             grid-template-columns: 1fr 1fr;
             gap: 16px;
-            max-width: 360px;
-            margin: 24px 0;
+            max-width: 380px;
+            margin: 28px 0;
         }
 
         .quality-item {
             background: white;
             border-radius: 20px;
-            padding: 20px 16px;
+            padding: 24px 18px;
             text-align: center;
             box-shadow: 0 4px 20px rgba(0,0,0,0.06);
         }
 
         .quality-icon {
-            font-size: 2rem;
-            margin-bottom: 8px;
+            font-size: 2.4rem;
+            margin-bottom: 10px;
         }
 
         .quality-label {
-            font-size: 0.85rem;
+            font-size: 1rem;
             color: var(--gray);
-            margin-bottom: 4px;
+            margin-bottom: 6px;
         }
 
         .quality-value {
-            font-size: 1.3rem;
+            font-size: 1.5rem;
             font-weight: 700;
             color: var(--black);
         }
@@ -243,7 +243,7 @@
         /* 이미지 갤러리 */
         .image-gallery {
             display: flex;
-            gap: 12px;
+            gap: 16px;
             overflow-x: auto;
             padding: 20px 0;
             max-width: 100%;
@@ -255,9 +255,9 @@
 
         .gallery-item {
             flex-shrink: 0;
-            width: 200px;
-            height: 200px;
-            border-radius: 20px;
+            width: 300px;
+            height: 300px;
+            border-radius: 24px;
             overflow: hidden;
             box-shadow: 0 8px 30px rgba(0,0,0,0.12);
             scroll-snap-align: center;
@@ -271,6 +271,12 @@
             width: 100%;
             height: 100%;
             object-fit: cover;
+            cursor: pointer;
+            transition: transform 0.3s ease;
+        }
+
+        .gallery-item img:active {
+            transform: scale(1.02);
         }
 
         .gallery-placeholder {
@@ -280,35 +286,78 @@
             padding: 20px;
         }
 
+        /* 이미지 풀스크린 모달 */
+        .image-modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0,0,0,0.95);
+            z-index: 9999;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+
+        .image-modal.active {
+            display: flex;
+        }
+
+        .image-modal img {
+            max-width: 100%;
+            max-height: 90vh;
+            object-fit: contain;
+            border-radius: 12px;
+        }
+
+        .modal-close {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            width: 44px;
+            height: 44px;
+            background: rgba(255,255,255,0.2);
+            border: none;
+            border-radius: 50%;
+            color: white;
+            font-size: 24px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
         /* 날씨 타임라인 */
         .weather-timeline {
             display: flex;
             justify-content: center;
-            gap: 20px;
-            margin: 24px 0;
+            gap: 24px;
+            margin: 28px 0;
         }
 
         .weather-item {
             display: flex;
             flex-direction: column;
             align-items: center;
-            gap: 8px;
+            gap: 12px;
         }
 
         .weather-icon {
-            width: 64px;
-            height: 64px;
+            width: 80px;
+            height: 80px;
             background: white;
             border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 1.8rem;
+            font-size: 2.4rem;
             box-shadow: 0 4px 20px rgba(0,0,0,0.08);
         }
 
         .weather-label {
-            font-size: 0.9rem;
+            font-size: 1.1rem;
             color: var(--gray);
             font-weight: 500;
         }
@@ -317,27 +366,27 @@
         .info-box {
             background: white;
             border-radius: 24px;
-            padding: 28px 24px;
-            margin: 24px 0;
-            max-width: 340px;
+            padding: 32px 28px;
+            margin: 28px 0;
+            max-width: 360px;
             box-shadow: 0 10px 40px rgba(0,0,0,0.08);
             text-align: left;
         }
 
         .info-box-title {
             font-family: 'Nanum Myeongjo', serif;
-            font-size: 1.1rem;
+            font-size: 1.3rem;
             font-weight: 700;
             color: var(--red);
-            margin-bottom: 16px;
+            margin-bottom: 18px;
             display: flex;
             align-items: center;
             gap: 8px;
         }
 
         .info-box-content {
-            font-size: 0.95rem;
-            line-height: 1.9;
+            font-size: 1.15rem;
+            line-height: 2;
             color: var(--gray);
         }
 
@@ -345,21 +394,21 @@
         .cta-button {
             display: inline-flex;
             align-items: center;
-            gap: 10px;
+            gap: 12px;
             background: linear-gradient(135deg, var(--red) 0%, var(--orange) 100%);
             color: white;
-            font-size: 1.1rem;
+            font-size: 1.25rem;
             font-weight: 600;
-            padding: 18px 40px;
+            padding: 20px 44px;
             border-radius: 50px;
             text-decoration: none;
-            margin-top: 24px;
+            margin-top: 28px;
             box-shadow: 0 12px 35px rgba(196, 69, 54, 0.35);
             transition: all 0.3s ease;
         }
 
         .cta-button:active { transform: scale(0.97); }
-        .cta-button svg { width: 20px; height: 20px; fill: white; }
+        .cta-button svg { width: 22px; height: 22px; fill: white; }
 
         /* 스크롤 인디케이터 */
         .scroll-indicator {
@@ -385,43 +434,44 @@
 
         /* 서명 */
         .signature {
-            margin-top: 32px;
+            margin-top: 36px;
         }
 
         .signature-text {
             font-family: 'Nanum Myeongjo', serif;
-            font-size: 1.1rem;
+            font-size: 1.25rem;
             color: rgba(255,255,255,0.8);
-            line-height: 1.8;
+            line-height: 1.9;
         }
 
         .signature-name {
             font-weight: 700;
             color: white;
-            margin-top: 8px;
+            margin-top: 12px;
+            font-size: 1.1rem;
         }
 
         /* 의견 섹션 */
-        .opinion-section { width: 100%; max-width: 380px; }
+        .opinion-section { width: 100%; max-width: 400px; }
 
         .write-area {
             background: white;
             border-radius: 24px;
-            padding: 22px;
+            padding: 26px;
             box-shadow: 0 10px 40px rgba(0,0,0,0.08);
-            margin-bottom: 20px;
+            margin-bottom: 24px;
         }
 
-        .write-label { font-size: 0.9rem; color: var(--green); font-weight: 600; margin-bottom: 14px; }
+        .write-label { font-size: 1.05rem; color: var(--green); font-weight: 600; margin-bottom: 16px; }
         .write-input {
             width: 100%;
             border: none;
             font-family: 'Noto Sans KR', sans-serif;
-            font-size: 1rem;
-            line-height: 1.7;
+            font-size: 1.1rem;
+            line-height: 1.8;
             resize: none;
             outline: none;
-            min-height: 90px;
+            min-height: 100px;
             color: var(--black);
             background: transparent;
         }
@@ -430,9 +480,9 @@
         .write-footer {
             display: flex;
             flex-direction: column;
-            gap: 12px;
-            margin-top: 16px;
-            padding-top: 16px;
+            gap: 14px;
+            margin-top: 18px;
+            padding-top: 18px;
             border-top: 1px solid #f0f0f0;
         }
 
@@ -441,8 +491,8 @@
             border: 2px solid #f0f0f0;
             border-radius: 14px;
             font-family: 'Noto Sans KR', sans-serif;
-            font-size: 1rem;
-            padding: 14px 16px;
+            font-size: 1.1rem;
+            padding: 16px 18px;
             outline: none;
             color: var(--black);
             background: #fff5f3;
@@ -456,34 +506,34 @@
             background: linear-gradient(135deg, var(--red) 0%, var(--orange) 100%);
             color: white;
             border: none;
-            padding: 16px 24px;
+            padding: 18px 26px;
             border-radius: 16px;
             font-family: 'Noto Sans KR', sans-serif;
-            font-size: 1.05rem;
+            font-size: 1.15rem;
             font-weight: 600;
             cursor: pointer;
             display: flex;
             align-items: center;
             justify-content: center;
-            gap: 8px;
+            gap: 10px;
         }
         .write-submit:active { transform: scale(0.98); }
         .write-submit:disabled { background: #ccc; }
-        .write-submit svg { width: 18px; height: 18px; fill: white; }
+        .write-submit svg { width: 20px; height: 20px; fill: white; }
 
         .opinion-list-area {
             background: rgba(255,255,255,0.8);
             border-radius: 20px;
-            padding: 18px;
-            max-height: 250px;
+            padding: 20px;
+            max-height: 280px;
             overflow-y: auto;
         }
-        .opinion-list-title { font-size: 0.85rem; color: var(--gray); margin-bottom: 12px; font-weight: 500; }
-        .opinion-list-item { padding: 12px 0; border-bottom: 1px solid rgba(0,0,0,0.05); text-align: left; }
+        .opinion-list-title { font-size: 1rem; color: var(--gray); margin-bottom: 14px; font-weight: 500; }
+        .opinion-list-item { padding: 14px 0; border-bottom: 1px solid rgba(0,0,0,0.05); text-align: left; }
         .opinion-list-item:last-child { border-bottom: none; }
-        .opinion-list-text { font-size: 0.95rem; color: var(--black); line-height: 1.6; margin-bottom: 5px; }
-        .opinion-list-meta { font-size: 0.75rem; color: var(--gray-light); }
-        .opinion-list-empty { text-align: center; color: var(--gray-light); font-size: 0.9rem; padding: 25px 15px; }
+        .opinion-list-text { font-size: 1.1rem; color: var(--black); line-height: 1.7; margin-bottom: 6px; }
+        .opinion-list-meta { font-size: 0.9rem; color: var(--gray-light); }
+        .opinion-list-empty { text-align: center; color: var(--gray-light); font-size: 1rem; padding: 30px 15px; }
 
         .toast {
             position: fixed;
@@ -507,20 +557,20 @@
         .live-badge {
             display: inline-flex;
             align-items: center;
-            gap: 8px;
+            gap: 10px;
             background: white;
-            padding: 10px 20px;
+            padding: 12px 24px;
             border-radius: 30px;
-            font-size: 14px;
+            font-size: 1rem;
             color: var(--green);
             font-weight: 600;
             box-shadow: 0 2px 12px rgba(74,103,65,0.15);
-            margin-bottom: 24px;
+            margin-bottom: 28px;
         }
 
         .live-dot {
-            width: 8px;
-            height: 8px;
+            width: 10px;
+            height: 10px;
             background: #4CAF50;
             border-radius: 50%;
             animation: pulse 2s infinite;
@@ -591,7 +641,7 @@
         </div>
         
         <div class="info-box fade-up">
-            <div class="info-box-content" style="text-align: center;">
+            <div class="info-box-content" style="text-align: center; font-size: 1.15rem;">
                 여름 폭염, 수확기 장마...<br>
                 사과 농사에 최악의 조건이었습니다<br><br>
                 <strong style="color: var(--red);">그런데도 이 정도 맛을 냈습니다</strong><br><br>
@@ -634,11 +684,11 @@
         
         <div class="info-box fade-up" style="text-align: center;">
             <div class="info-box-title" style="justify-content: center;">솔직히 말씀드리면</div>
-            <div class="info-box-content" style="text-align: center;">
+            <div class="info-box-content" style="text-align: center; font-size: 1.15rem;">
                 착색률 50~60%로<br>
                 선홍색보다 주황~분홍빛입니다<br>
                 개체별 편차도 있습니다<br><br>
-                <strong style="color: var(--green);">하지만 맛은 자부합니다</strong>
+                <strong style="color: var(--green); font-size: 1.25rem;">하지만 맛은 자부합니다</strong>
             </div>
         </div>
     </section>
@@ -696,7 +746,7 @@
         </h2>
         
         <div class="info-box fade-up">
-            <div class="info-box-content" style="text-align: center; font-size: 1rem; line-height: 2;">
+            <div class="info-box-content" style="text-align: center; font-size: 1.15rem; line-height: 2.1;">
                 기후위기 속에서도<br>
                 이 정도까지 맛있는 사과를<br>
                 만들어냈습니다.<br><br>
@@ -706,7 +756,7 @@
                 
                 조합원님들 많이 이용하시라고<br>
                 이번 주에<br>
-                <strong style="color: var(--red); font-size: 1.2rem;">25% 할인</strong> 진행합니다.
+                <strong style="color: var(--red); font-size: 1.4rem;">25% 할인</strong> 진행합니다.
             </div>
         </div>
     </section>
@@ -775,6 +825,12 @@
     </section>
 
     <div class="toast" id="toast">소중한 이야기 감사합니다</div>
+
+    <!-- 이미지 풀스크린 모달 -->
+    <div class="image-modal" id="imageModal" onclick="closeModal()">
+        <button class="modal-close" onclick="closeModal()">✕</button>
+        <img id="modalImage" src="" alt="확대 이미지">
+    </div>
 
     <!-- Firebase SDK -->
     <script type="module">
@@ -876,6 +932,29 @@
 
         cards.forEach(card => observer.observe(card));
         cards[0].classList.add('in-view');
+
+        // 이미지 클릭 확대
+        document.querySelectorAll('.gallery-item img').forEach(img => {
+            img.addEventListener('click', function(e) {
+                e.stopPropagation();
+                const modal = document.getElementById('imageModal');
+                const modalImg = document.getElementById('modalImage');
+                modalImg.src = this.src;
+                modal.classList.add('active');
+                document.body.style.overflow = 'hidden';
+            });
+        });
+
+        function closeModal() {
+            const modal = document.getElementById('imageModal');
+            modal.classList.remove('active');
+            document.body.style.overflow = '';
+        }
+
+        // ESC 키로 모달 닫기
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape') closeModal();
+        });
     </script>
 
 </body>
