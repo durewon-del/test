@@ -310,6 +310,29 @@
             50% { transform: translateX(-50%) translateY(8px); opacity: 1; }
         }
 
+        /* 인트로 사과 이미지 */
+        .intro-apple-image {
+            width: 180px;
+            height: 180px;
+            border-radius: 50%;
+            overflow: hidden;
+            margin-bottom: 20px;
+            box-shadow: 0 12px 40px rgba(230, 57, 70, 0.25);
+            border: 4px solid white;
+            animation: float 3s ease-in-out infinite;
+        }
+
+        .intro-apple-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+
         /* 품질 정보 카드 */
         .quality-grid {
             display: grid;
@@ -379,18 +402,47 @@
             display: flex;
             align-items: center;
             justify-content: center;
+            position: relative;
+            cursor: pointer;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .gallery-item:hover {
+            transform: scale(1.02);
+            box-shadow: 0 12px 40px rgba(230, 57, 70, 0.2);
+        }
+
+        .gallery-item:active {
+            transform: scale(0.98);
         }
 
         .gallery-item img {
             width: 100%;
             height: 100%;
             object-fit: cover;
-            cursor: pointer;
             transition: transform 0.3s ease;
         }
 
-        .gallery-item img:active {
-            transform: scale(1.02);
+        .gallery-zoom-hint {
+            position: absolute;
+            bottom: 12px;
+            right: 12px;
+            background: rgba(0,0,0,0.6);
+            color: white;
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1rem;
+            opacity: 0.8;
+            transition: all 0.3s ease;
+        }
+
+        .gallery-item:hover .gallery-zoom-hint {
+            opacity: 1;
+            transform: scale(1.1);
         }
 
         .gallery-placeholder {
@@ -400,7 +452,7 @@
             padding: 20px;
         }
 
-        /* 이미지 풀스크린 모달 */
+        /* 풀스크린 이미지 모달 */
         .image-modal {
             display: none;
             position: fixed;
@@ -410,28 +462,90 @@
             bottom: 0;
             background: rgba(0,0,0,0.95);
             z-index: 9999;
+            flex-direction: column;
             justify-content: center;
             align-items: center;
             padding: 20px;
+            opacity: 0;
+            transition: opacity 0.3s ease;
         }
 
         .image-modal.active {
             display: flex;
+            opacity: 1;
+        }
+
+        .image-modal.fade-in {
+            animation: modalFadeIn 0.3s ease forwards;
+        }
+
+        .image-modal.fade-out {
+            animation: modalFadeOut 0.3s ease forwards;
+        }
+
+        @keyframes modalFadeIn {
+            from { opacity: 0; transform: scale(0.95); }
+            to { opacity: 1; transform: scale(1); }
+        }
+
+        @keyframes modalFadeOut {
+            from { opacity: 1; transform: scale(1); }
+            to { opacity: 0; transform: scale(0.95); }
+        }
+
+        .modal-image-container {
+            position: relative;
+            max-width: 100%;
+            max-height: 70vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
         }
 
         .image-modal img {
             max-width: 100%;
-            max-height: 90vh;
+            max-height: 70vh;
             object-fit: contain;
             border-radius: 12px;
+            transition: transform 0.3s ease;
+        }
+
+        .image-modal img.zoomed {
+            transform: scale(1.5);
+            cursor: zoom-out;
         }
 
         .modal-close {
             position: absolute;
             top: 20px;
             right: 20px;
-            width: 44px;
-            height: 44px;
+            width: 50px;
+            height: 50px;
+            background: rgba(255,255,255,0.2);
+            border: none;
+            border-radius: 50%;
+            color: white;
+            font-size: 28px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+            z-index: 10001;
+        }
+
+        .modal-close:hover {
+            background: rgba(255,255,255,0.3);
+            transform: rotate(90deg);
+        }
+
+        /* 이미지 네비게이션 */
+        .modal-nav {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 50px;
+            height: 50px;
             background: rgba(255,255,255,0.2);
             border: none;
             border-radius: 50%;
@@ -441,6 +555,117 @@
             display: flex;
             align-items: center;
             justify-content: center;
+            transition: all 0.3s ease;
+            z-index: 10001;
+        }
+
+        .modal-nav:hover {
+            background: rgba(255,255,255,0.4);
+            transform: translateY(-50%) scale(1.1);
+        }
+
+        .modal-nav:active {
+            transform: translateY(-50%) scale(0.95);
+        }
+
+        .modal-nav.prev { left: 15px; }
+        .modal-nav.next { right: 15px; }
+
+        .modal-nav:disabled {
+            opacity: 0.3;
+            cursor: not-allowed;
+        }
+
+        /* 이미지 카운터 */
+        .modal-counter {
+            position: absolute;
+            top: 25px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: rgba(0,0,0,0.6);
+            color: white;
+            padding: 10px 24px;
+            border-radius: 30px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            z-index: 10001;
+        }
+
+        /* 이미지 설명 */
+        .modal-caption {
+            color: rgba(255,255,255,0.8);
+            font-size: 1rem;
+            text-align: center;
+            margin-top: 20px;
+            padding: 12px 24px;
+            background: rgba(0,0,0,0.4);
+            border-radius: 12px;
+        }
+
+        /* 썸네일 스트립 */
+        .modal-thumbnails {
+            display: flex;
+            gap: 10px;
+            margin-top: 20px;
+            padding: 10px;
+            overflow-x: auto;
+            max-width: 100%;
+        }
+
+        .modal-thumbnails::-webkit-scrollbar { display: none; }
+
+        .modal-thumb {
+            width: 60px;
+            height: 60px;
+            border-radius: 10px;
+            overflow: hidden;
+            cursor: pointer;
+            opacity: 0.5;
+            transition: all 0.3s ease;
+            border: 3px solid transparent;
+            flex-shrink: 0;
+        }
+
+        .modal-thumb:hover {
+            opacity: 0.8;
+        }
+
+        .modal-thumb.active {
+            opacity: 1;
+            border-color: var(--apple-red);
+            transform: scale(1.1);
+        }
+
+        .modal-thumb img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        /* 줌 힌트 */
+        .modal-zoom-hint {
+            position: absolute;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: rgba(0,0,0,0.6);
+            color: white;
+            padding: 8px 16px;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .image-modal.active .modal-zoom-hint {
+            animation: hintFadeInOut 3s ease forwards;
+        }
+
+        @keyframes hintFadeInOut {
+            0% { opacity: 0; }
+            20% { opacity: 1; }
+            80% { opacity: 1; }
+            100% { opacity: 0; }
         }
 
         /* 날씨 타임라인 */
@@ -661,6 +886,52 @@
             font-size: 1.1rem;
         }
 
+        /* 생산자 메시지 */
+        .producer-message {
+            background: rgba(255,255,255,0.1);
+            border-radius: 24px;
+            padding: 32px 28px;
+            margin: 24px 0;
+            max-width: 360px;
+            position: relative;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255,255,255,0.2);
+        }
+
+        .producer-quote {
+            position: absolute;
+            top: 10px;
+            left: 20px;
+            font-family: 'Nanum Myeongjo', serif;
+            font-size: 4rem;
+            color: rgba(255,255,255,0.2);
+            line-height: 1;
+        }
+
+        .producer-text {
+            font-family: 'Nanum Myeongjo', serif;
+            font-size: 1.1rem;
+            line-height: 2;
+            color: rgba(255,255,255,0.9);
+            text-align: center;
+            position: relative;
+            z-index: 1;
+        }
+
+        .producer-text strong {
+            color: var(--apple-green-light);
+            font-size: 1.15rem;
+        }
+
+        .producer-name {
+            font-size: 1rem;
+            color: rgba(255,255,255,0.7);
+            text-align: center;
+            margin-top: 20px;
+            padding-top: 16px;
+            border-top: 1px solid rgba(255,255,255,0.2);
+        }
+
         /* 의견 섹션 */
         .opinion-section { width: 100%; max-width: 400px; }
 
@@ -824,6 +1095,11 @@
     <!-- 0. 인트로 -->
     <section class="card card-intro" data-index="0">
         <p class="card-eyebrow fade-up">26년 1월 3주 핵심생활재</p>
+        
+        <div class="intro-apple-image fade-up">
+            <img src="https://raw.githubusercontent.com/durewon-del/test/main/27054C.jpg" alt="의성 해찬사과">
+        </div>
+        
         <h1 class="card-title fade-up">
             <em>의성 해찬사과</em>
         </h1>
@@ -914,40 +1190,56 @@
     <section class="card card-gold" data-index="3">
         <p class="card-eyebrow fade-up" style="color: #b45309;">검수 사진</p>
         <h2 class="card-title fade-up">
-            하나하나<br>
-            <em>직접 확인했습니다</em>
+            <em>사과 사진</em>입니다<br>
+            구매 전에 봐주세요
         </h2>
         
-        <div class="image-gallery fade-up">
-            <div class="gallery-item">
+        <p class="card-desc fade-up" style="font-size: 1rem; color: #666; margin-bottom: 16px;">
+            📷 사진을 터치하면 크게 볼 수 있어요
+        </p>
+        
+        <div class="image-gallery fade-up" id="imageGallery">
+            <div class="gallery-item" data-index="0">
                 <img src="https://raw.githubusercontent.com/durewon-del/test/main/KakaoTalk_20260109_153335749.jpg" alt="의성 해찬사과 검수">
+                <div class="gallery-zoom-hint">🔍</div>
             </div>
-            <div class="gallery-item">
+            <div class="gallery-item" data-index="1">
                 <img src="https://raw.githubusercontent.com/durewon-del/test/main/KakaoTalk_20260109_153335749_01.jpg" alt="의성 해찬사과 외관">
+                <div class="gallery-zoom-hint">🔍</div>
             </div>
-            <div class="gallery-item">
+            <div class="gallery-item" data-index="2">
                 <img src="https://raw.githubusercontent.com/durewon-del/test/main/KakaoTalk_20260109_153335749_02.png" alt="당도 측정">
+                <div class="gallery-zoom-hint">🔍</div>
             </div>
-            <div class="gallery-item">
+            <div class="gallery-item" data-index="3">
                 <img src="https://raw.githubusercontent.com/durewon-del/test/main/KakaoTalk_20260109_153335749_03.png" alt="당도 측정 결과">
+                <div class="gallery-zoom-hint">🔍</div>
             </div>
-            <div class="gallery-item">
+            <div class="gallery-item" data-index="4">
                 <img src="https://raw.githubusercontent.com/durewon-del/test/main/KakaoTalk_20260109_153335749_04.jpg" alt="사과 외관">
+                <div class="gallery-zoom-hint">🔍</div>
             </div>
-            <div class="gallery-item">
+            <div class="gallery-item" data-index="5">
                 <img src="https://raw.githubusercontent.com/durewon-del/test/main/KakaoTalk_20260109_153335749_05.jpg" alt="사과 크기">
+                <div class="gallery-zoom-hint">🔍</div>
             </div>
-            <div class="gallery-item">
+            <div class="gallery-item" data-index="6">
                 <img src="https://raw.githubusercontent.com/durewon-del/test/main/KakaoTalk_20260109_153335749_06.jpg" alt="사과 색상">
+                <div class="gallery-zoom-hint">🔍</div>
             </div>
-            <div class="gallery-item">
+            <div class="gallery-item" data-index="7">
                 <img src="https://raw.githubusercontent.com/durewon-del/test/main/KakaoTalk_20260109_153335749_07.jpg" alt="사과 전체">
+                <div class="gallery-zoom-hint">🔍</div>
             </div>
         </div>
         
-        <p class="card-desc fade-up" style="font-size: 1rem; margin-top: 20px; color: #666;">
-            착색률 50~60% · 개체별 편차 있음
-        </p>
+        <div class="info-box fade-up" style="margin-top: 24px;">
+            <div class="info-box-content" style="text-align: center; font-size: 1.05rem;">
+                1봉지에 들어있는 사과입니다<br>
+                <span style="color: #888; font-size: 0.95rem;">1개는 당도 및 식감 테스트 중이었습니다</span><br><br>
+                <span style="color: #666;">착색률 50~60% · 개체별 편차 있음</span>
+            </div>
+        </div>
     </section>
 
     <!-- 4. 가격 안내 -->
@@ -1008,22 +1300,33 @@
         </div>
     </section>
 
-    <!-- 6. 마무리 -->
+    <!-- 6. 마무리 - 생산자 메시지 -->
     <section class="card card-green" data-index="6">
-        <p class="card-eyebrow fade-up">두레생협</p>
+        <p class="card-eyebrow fade-up">두레의성 생산자</p>
         <h2 class="card-title fade-up">
             <em>29년</em><br>
             같은 마음입니다
         </h2>
-        <p class="card-desc fade-up">
-            날씨가 좋은 해도, 어려운 해도<br>
-            생산자는 조합원을 생각하고<br>
-            조합원은 생산자를 믿어주셨습니다<br><br>
-            올해도 그 마음으로 보내드립니다
-        </p>
         
-        <div class="signature fade-up">
-            <p class="signature-name">의성 해찬사과 생산지 · 두레생협</p>
+        <div class="producer-message fade-up">
+            <div class="producer-quote">"</div>
+            <p class="producer-text">
+                올해는 정말 쉽지 않았습니다.<br>
+                폭염에 사과가 익어가다가<br>
+                장마에 또 힘들어했습니다.<br><br>
+                
+                그래도 매일 과수원을 돌며<br>
+                한 알 한 알 살폈습니다.<br><br>
+                
+                색이 예년만 못해도<br>
+                맛은 변함없이 드리고 싶었습니다.<br><br>
+                
+                29년 동안 조합원님들이<br>
+                믿어주신 덕분에 여기까지 왔습니다.<br><br>
+                
+                <strong>올해도 그 믿음에 보답하겠습니다.</strong>
+            </p>
+            <p class="producer-name">- 두레의성 사과 생산자 일동</p>
         </div>
         
         <a href="https://ecoop.or.kr/DureShop/plan/planView.do?returnTypeGb=plan&returnNo=1630#book0" class="cta-button fade-up">
@@ -1034,10 +1337,23 @@
 
     <div class="toast" id="toast">소중한 이야기 감사합니다</div>
 
-    <!-- 이미지 풀스크린 모달 -->
-    <div class="image-modal" id="imageModal" onclick="closeModal()">
-        <button class="modal-close" onclick="closeModal()">✕</button>
-        <img id="modalImage" src="" alt="확대 이미지">
+    <!-- 풀스크린 이미지 모달 -->
+    <div class="image-modal" id="imageModal">
+        <button class="modal-close" id="modalClose">✕</button>
+        <div class="modal-counter"><span id="currentIndex">1</span> / <span id="totalImages">8</span></div>
+        
+        <button class="modal-nav prev" id="prevBtn">❮</button>
+        <button class="modal-nav next" id="nextBtn">❯</button>
+        
+        <div class="modal-image-container">
+            <img id="modalImage" src="" alt="확대 이미지">
+        </div>
+        
+        <div class="modal-caption" id="modalCaption">의성 해찬사과</div>
+        
+        <div class="modal-thumbnails" id="modalThumbnails"></div>
+        
+        <div class="modal-zoom-hint">이미지를 터치하면 확대됩니다</div>
     </div>
 
     <!-- Firebase SDK -->
@@ -1180,14 +1496,18 @@
     </script>
 
     <script>
+        // ============================================
         // 스크롤 인디케이터
+        // ============================================
         const cards = document.querySelectorAll('.card');
         const indicatorContainer = document.getElementById('scrollIndicator');
         
         cards.forEach((_, i) => {
             const dot = document.createElement('div');
             dot.className = 'scroll-dot' + (i === 0 ? ' active' : '');
-            dot.addEventListener('click', () => cards[i].scrollIntoView({ behavior: 'smooth' }));
+            dot.addEventListener('click', () => {
+                cards[i].scrollIntoView({ behavior: 'smooth' });
+            });
             indicatorContainer.appendChild(dot);
         });
 
@@ -1206,28 +1526,275 @@
         cards.forEach(card => observer.observe(card));
         cards[0].classList.add('in-view');
 
-        // 이미지 클릭 확대
-        document.querySelectorAll('.gallery-item img').forEach(img => {
-            img.addEventListener('click', function(e) {
-                e.stopPropagation();
+        // ============================================
+        // 이미지 갤러리 & 모달 시스템
+        // ============================================
+        const ImageGallery = {
+            images: [],
+            currentIndex: 0,
+            isZoomed: false,
+            touchStartX: 0,
+            touchEndX: 0,
+            
+            // 초기화
+            init() {
+                this.collectImages();
+                this.createThumbnails();
+                this.bindEvents();
+                this.updateCounter();
+            },
+            
+            // 이미지 수집
+            collectImages() {
+                const galleryItems = document.querySelectorAll('.gallery-item');
+                this.images = Array.from(galleryItems).map((item, index) => ({
+                    src: item.querySelector('img').src,
+                    alt: item.querySelector('img').alt,
+                    index: index
+                }));
+                document.getElementById('totalImages').textContent = this.images.length;
+            },
+            
+            // 썸네일 생성
+            createThumbnails() {
+                const container = document.getElementById('modalThumbnails');
+                container.innerHTML = '';
+                
+                this.images.forEach((img, index) => {
+                    const thumb = document.createElement('div');
+                    thumb.className = 'modal-thumb' + (index === 0 ? ' active' : '');
+                    thumb.innerHTML = `<img src="${img.src}" alt="썸네일 ${index + 1}">`;
+                    thumb.addEventListener('click', (e) => {
+                        e.stopPropagation();
+                        this.goToImage(index);
+                    });
+                    container.appendChild(thumb);
+                });
+            },
+            
+            // 이벤트 바인딩
+            bindEvents() {
+                const self = this;
                 const modal = document.getElementById('imageModal');
-                const modalImg = document.getElementById('modalImage');
-                modalImg.src = this.src;
-                modal.classList.add('active');
+                const modalImage = document.getElementById('modalImage');
+                
+                // 갤러리 아이템 클릭
+                document.querySelectorAll('.gallery-item').forEach((item, index) => {
+                    item.addEventListener('click', () => self.openModal(index));
+                });
+                
+                // 닫기 버튼
+                document.getElementById('modalClose').addEventListener('click', () => self.closeModal());
+                
+                // 이전/다음 버튼
+                document.getElementById('prevBtn').addEventListener('click', (e) => {
+                    e.stopPropagation();
+                    self.prevImage();
+                });
+                document.getElementById('nextBtn').addEventListener('click', (e) => {
+                    e.stopPropagation();
+                    self.nextImage();
+                });
+                
+                // 모달 배경 클릭 시 닫기
+                modal.addEventListener('click', (e) => {
+                    if (e.target === modal) self.closeModal();
+                });
+                
+                // 이미지 클릭 시 줌
+                modalImage.addEventListener('click', (e) => {
+                    e.stopPropagation();
+                    self.toggleZoom();
+                });
+                
+                // 키보드 이벤트
+                document.addEventListener('keydown', (e) => {
+                    if (!modal.classList.contains('active')) return;
+                    
+                    switch(e.key) {
+                        case 'Escape': self.closeModal(); break;
+                        case 'ArrowLeft': self.prevImage(); break;
+                        case 'ArrowRight': self.nextImage(); break;
+                        case ' ': e.preventDefault(); self.toggleZoom(); break;
+                    }
+                });
+                
+                // 터치 스와이프
+                modal.addEventListener('touchstart', (e) => {
+                    self.touchStartX = e.changedTouches[0].screenX;
+                }, { passive: true });
+                
+                modal.addEventListener('touchend', (e) => {
+                    self.touchEndX = e.changedTouches[0].screenX;
+                    self.handleSwipe();
+                }, { passive: true });
+                
+                // 마우스 휠 (데스크톱)
+                modal.addEventListener('wheel', (e) => {
+                    if (self.isZoomed) return;
+                    e.preventDefault();
+                    if (e.deltaY > 0) {
+                        self.nextImage();
+                    } else {
+                        self.prevImage();
+                    }
+                }, { passive: false });
+            },
+            
+            // 모달 열기
+            openModal(index) {
+                this.currentIndex = index;
+                this.isZoomed = false;
+                
+                const modal = document.getElementById('imageModal');
+                const modalImage = document.getElementById('modalImage');
+                
+                modalImage.classList.remove('zoomed');
+                modalImage.src = this.images[index].src;
+                document.getElementById('modalCaption').textContent = this.images[index].alt;
+                
+                modal.classList.add('active', 'fade-in');
                 document.body.style.overflow = 'hidden';
-            });
+                
+                this.updateCounter();
+                this.updateThumbnails();
+                this.updateNavButtons();
+                
+                // 애니메이션 후 클래스 제거
+                setTimeout(() => modal.classList.remove('fade-in'), 300);
+            },
+            
+            // 모달 닫기
+            closeModal() {
+                const modal = document.getElementById('imageModal');
+                modal.classList.add('fade-out');
+                
+                setTimeout(() => {
+                    modal.classList.remove('active', 'fade-out');
+                    document.body.style.overflow = '';
+                    this.isZoomed = false;
+                    document.getElementById('modalImage').classList.remove('zoomed');
+                }, 300);
+            },
+            
+            // 이전 이미지
+            prevImage() {
+                if (this.currentIndex > 0) {
+                    this.goToImage(this.currentIndex - 1);
+                }
+            },
+            
+            // 다음 이미지
+            nextImage() {
+                if (this.currentIndex < this.images.length - 1) {
+                    this.goToImage(this.currentIndex + 1);
+                }
+            },
+            
+            // 특정 이미지로 이동
+            goToImage(index) {
+                if (index < 0 || index >= this.images.length) return;
+                
+                this.currentIndex = index;
+                this.isZoomed = false;
+                
+                const modalImage = document.getElementById('modalImage');
+                modalImage.classList.remove('zoomed');
+                
+                // 페이드 효과
+                modalImage.style.opacity = '0';
+                setTimeout(() => {
+                    modalImage.src = this.images[index].src;
+                    document.getElementById('modalCaption').textContent = this.images[index].alt;
+                    modalImage.style.opacity = '1';
+                }, 150);
+                
+                this.updateCounter();
+                this.updateThumbnails();
+                this.updateNavButtons();
+            },
+            
+            // 줌 토글
+            toggleZoom() {
+                const modalImage = document.getElementById('modalImage');
+                this.isZoomed = !this.isZoomed;
+                modalImage.classList.toggle('zoomed', this.isZoomed);
+            },
+            
+            // 카운터 업데이트
+            updateCounter() {
+                document.getElementById('currentIndex').textContent = this.currentIndex + 1;
+            },
+            
+            // 썸네일 업데이트
+            updateThumbnails() {
+                const thumbs = document.querySelectorAll('.modal-thumb');
+                thumbs.forEach((thumb, i) => {
+                    thumb.classList.toggle('active', i === this.currentIndex);
+                });
+                
+                // 활성 썸네일로 스크롤
+                const activeThumb = document.querySelector('.modal-thumb.active');
+                if (activeThumb) {
+                    activeThumb.scrollIntoView({ behavior: 'smooth', inline: 'center', block: 'nearest' });
+                }
+            },
+            
+            // 네비게이션 버튼 업데이트
+            updateNavButtons() {
+                document.getElementById('prevBtn').disabled = this.currentIndex === 0;
+                document.getElementById('nextBtn').disabled = this.currentIndex === this.images.length - 1;
+            },
+            
+            // 스와이프 처리
+            handleSwipe() {
+                const diff = this.touchStartX - this.touchEndX;
+                const threshold = 50;
+                
+                if (Math.abs(diff) > threshold) {
+                    if (diff > 0) {
+                        this.nextImage(); // 왼쪽 스와이프 = 다음
+                    } else {
+                        this.prevImage(); // 오른쪽 스와이프 = 이전
+                    }
+                }
+            }
+        };
+
+        // 갤러리 초기화
+        document.addEventListener('DOMContentLoaded', () => {
+            ImageGallery.init();
         });
 
-        function closeModal() {
-            const modal = document.getElementById('imageModal');
-            modal.classList.remove('active');
-            document.body.style.overflow = '';
+        // 즉시 실행 (DOMContentLoaded 이후일 경우 대비)
+        if (document.readyState !== 'loading') {
+            ImageGallery.init();
         }
 
-        // ESC 키로 모달 닫기
-        document.addEventListener('keydown', function(e) {
-            if (e.key === 'Escape') closeModal();
-        });
+        // ============================================
+        // 갤러리 스크롤 힌트 애니메이션
+        // ============================================
+        const gallery = document.getElementById('imageGallery');
+        if (gallery) {
+            let hasScrolled = false;
+            
+            gallery.addEventListener('scroll', () => {
+                if (!hasScrolled) {
+                    hasScrolled = true;
+                    // 스크롤 후 힌트 숨기기 등 추가 동작 가능
+                }
+            });
+            
+            // 자동 스크롤 힌트 (3초 후 살짝 움직임)
+            setTimeout(() => {
+                if (!hasScrolled && gallery.scrollLeft === 0) {
+                    gallery.scrollTo({ left: 50, behavior: 'smooth' });
+                    setTimeout(() => {
+                        gallery.scrollTo({ left: 0, behavior: 'smooth' });
+                    }, 300);
+                }
+            }, 3000);
+        }
     </script>
 
 </body>
