@@ -862,6 +862,23 @@
             font-size: 1.2rem;
         }
 
+        /* 가격 섹션 썸네일 */
+        .price-thumb {
+            width: 140px;
+            height: 140px;
+            border-radius: 50%;
+            overflow: hidden;
+            margin-bottom: 20px;
+            box-shadow: 0 8px 30px rgba(230, 57, 70, 0.2);
+            border: 3px solid white;
+        }
+
+        .price-thumb img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
         /* 스크롤 인디케이터 */
         .scroll-indicator {
             position: fixed;
@@ -1248,6 +1265,11 @@
     <!-- 4. 가격 안내 -->
     <section class="card card-warm" data-index="4">
         <p class="card-eyebrow fade-up">이번 주 할인</p>
+        
+        <div class="price-thumb fade-up">
+            <img src="https://raw.githubusercontent.com/durewon-del/test/main/27054C.jpg" alt="해찬사과">
+        </div>
+        
         <h2 class="card-title fade-up">
             <em>해찬사과</em><br>
             1.5kg / 의성
