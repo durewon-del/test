@@ -1350,16 +1350,26 @@
 
         function showLiveBar() {
             if (!opinions.length) return;
+            
+            // 아직 안 보여준 댓글만 선택
             let unshown = opinions.filter(o => !shownIds.has(o.id));
-            if (!unshown.length) { shownIds.clear(); unshown = opinions; }
-            const o = unshown[Math.floor(Math.random() * unshown.length)];
+            
+            // 모든 댓글을 이미 보여줬으면 더 이상 표시 안 함
+            if (!unshown.length) return;
+            
+            const o = unshown[0]; // 가장 최신 댓글부터 순서대로
             shownIds.add(o.id);
+            
             document.getElementById('liveBarText').textContent = o.text.length > 30 ? o.text.slice(0, 30) + '...' : o.text;
             document.getElementById('liveBar').classList.add('show');
             setTimeout(() => document.getElementById('liveBar').classList.remove('show'), 5000);
         }
 
-        setInterval(() => { if (opinions.length > 0) showLiveBar(); }, 12000);
+        // 새 댓글이 있을 때만 띠 표시 (12초마다 체크)
+        setInterval(() => { 
+            const unshown = opinions.filter(o => !shownIds.has(o.id));
+            if (unshown.length > 0) showLiveBar(); 
+        }, 12000);
 
         function formatDate(d) {
             if (!d) return '방금';
