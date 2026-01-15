@@ -159,6 +159,61 @@
 
         .highlight-line.animate::after { width: 100%; }
 
+        /* ========== 벤조피렌 검사 배지 ========== */
+        .check-badge {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 8px;
+            background: linear-gradient(135deg, #1e3a2f 0%, #2d4a3e 100%);
+            border: 2px solid #4ade80;
+            border-radius: 20px;
+            padding: 20px 32px;
+            margin: 16px 0;
+        }
+
+        .check-badge-icon {
+            font-size: 2.5rem;
+        }
+
+        .check-badge-text {
+            font-size: 1.8rem;
+            font-weight: 900;
+            color: #4ade80;
+        }
+
+        .check-list {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            margin: 16px 0;
+            max-width: 280px;
+            width: 90%;
+        }
+
+        .check-item {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            background: rgba(255,255,255,0.1);
+            border-radius: 12px;
+            padding: 12px 16px;
+        }
+
+        .check-num {
+            background: #4ade80;
+            color: #1a1a1a;
+            font-size: 0.75rem;
+            font-weight: 800;
+            padding: 4px 10px;
+            border-radius: 8px;
+        }
+
+        .check-desc {
+            font-size: 0.95rem;
+            color: rgba(255,255,255,0.9);
+        }
+
         /* ========== 이미지 ========== */
         .product-image {
             width: 70vw;
@@ -720,8 +775,32 @@
         </div>
     </section>
 
-    <!-- 4. 연구 결과 -->
-    <section class="card card-olive" data-index="3">
+    <!-- 4. 벤조피렌 검사 - 가장 큰 특징 -->
+    <section class="card card-dark" data-index="3">
+        <p class="eyebrow" style="color: #ff6b6b;">가장 큰 특징</p>
+        <h2 class="title" style="color: white;">벤조피렌 걱정?<br><span class="highlight-line" data-animate><em style="color: #4ade80;">뚝!</em></span></h2>
+        <div class="check-badge">
+            <div class="check-badge-icon">🔬</div>
+            <div class="check-badge-text">2번 검사</div>
+        </div>
+        <div class="check-list">
+            <div class="check-item">
+                <span class="check-num">1차</span>
+                <span class="check-desc">베트남 현지 출하 전 검사</span>
+            </div>
+            <div class="check-item">
+                <span class="check-num">2차</span>
+                <span class="check-desc">한국 입고 후 재검사</span>
+            </div>
+        </div>
+        <p class="story-text" style="font-size: 0.9rem; color: rgba(255,255,255,0.7); margin-top: 12px;">
+            깐깐하게 두 번 검사해서<br>
+            안심하고 드실 수 있어요
+        </p>
+    </section>
+
+    <!-- 5. 연구 결과 -->
+    <section class="card card-olive" data-index="4">
         <p class="eyebrow" style="color: rgba(255,255,255,0.7);">실제 연구 결과</p>
         <h2 class="title" style="color: white;">올리브유보다<br><em>더 좋았어요</em></h2>
         <div class="research-card">
@@ -739,8 +818,8 @@
         </p>
     </section>
 
-    <!-- 5. 가격 비교 (친환경 식품점 기준) -->
-    <section class="card card-warm" data-index="4">
+    <!-- 6. 가격 비교 (친환경 식품점 기준) -->
+    <section class="card card-warm" data-index="5">
         <h2 class="title">친환경 식품점<br><em>가격 비교</em></h2>
         <div class="price-compare">
             <div class="price-compare-title">현미유 1L 기준</div>
@@ -763,8 +842,8 @@
         </div>
     </section>
 
-    <!-- 6. 감성 - 협동의 가치 -->
-    <section class="card card-dark" data-index="5">
+    <!-- 7. 감성 - 협동의 가치 -->
+    <section class="card card-dark" data-index="6">
         <p class="emotion-text">
             싸게 사는 것보다<br>
             <em>어디서 왔는지</em><br>
@@ -779,8 +858,8 @@
         </p>
     </section>
 
-    <!-- 7. 상품 정보 -->
-    <section class="card card-cream" data-index="6">
+    <!-- 8. 상품 정보 -->
+    <section class="card card-cream" data-index="7">
         <div class="product-image olive-frame">
             <img src="https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/58044C.jpg" alt="사이공쿱 현미유">
         </div>
@@ -796,16 +875,16 @@
         </p>
     </section>
 
-    <!-- 8. 해우소 -->
-    <section class="card card-cream" data-index="7">
+    <!-- 9. 해우소 -->
+    <section class="card card-cream" data-index="8">
         <h2 class="title">우리끼리<br><em>해우소</em></h2>
         <p class="opinion-intro">
-            현미유 어떻게 쓰세요?<br>
-            나만의 활용법 공유해주세요 🍳
+            조합원님은<br>
+            현미유를 왜 좋아하세요? 🍳
         </p>
         <div class="opinion-box">
             <div class="opinion-form">
-                <textarea class="opinion-input" id="opinionText" placeholder="튀김할 때 진짜 좋아요!"></textarea>
+                <textarea class="opinion-input" id="opinionText" placeholder="담백해서 좋아요, 튀김이 바삭해져요..."></textarea>
                 <div class="opinion-footer">
                     <input type="text" class="opinion-name" id="opinionName" placeholder="닉네임">
                     <button class="opinion-submit" id="submitBtn">등록</button>
@@ -817,11 +896,11 @@
         </div>
     </section>
 
-    <!-- 9. CTA -->
-    <section class="card card-olive" data-index="8">
+    <!-- 10. CTA -->
+    <section class="card card-olive" data-index="9">
         <p class="eyebrow" style="color: rgba(255,255,255,0.7);">협동조합 품질 · 합리적 가격</p>
         <h2 class="title" style="color: white;">부엌에서 시작하는<br><em>작은 연대</em></h2>
-        <a href="https://ecoop.or.kr/DureShop/goods/goodsView.do?goodsNo=58044" target="_blank" class="cta-btn">
+        <a href="https://ecoop.or.kr/DureShop/prod/goodsView.do?returnTypeGb=01&returnNo=58044&returnPlanNo=0" target="_blank" class="cta-btn">
             <span>주문하기</span>
             <svg viewBox="0 0 24 24"><path d="M8.59,16.58L13.17,12L8.59,7.41L10,6L16,12L10,18L8.59,16.58Z"/></svg>
         </a>
