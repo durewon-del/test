@@ -150,6 +150,33 @@
         .card-warm .title em, .card-cream .title em, .card-gold .title em { color: var(--red); }
         .card-green .title em { color: #fff; }
 
+        /* 색연필 밑줄 애니메이션 */
+        .highlight-line {
+            position: relative;
+            display: inline;
+        }
+
+        .highlight-line::after {
+            content: '';
+            position: absolute;
+            left: 0;
+            bottom: 2px;
+            width: 0;
+            height: 8px;
+            background: linear-gradient(90deg, rgba(196, 30, 58, 0.3) 0%, rgba(196, 30, 58, 0.5) 50%, rgba(196, 30, 58, 0.3) 100%);
+            border-radius: 4px;
+            z-index: -1;
+            transition: width 0.8s ease-out;
+        }
+
+        .highlight-line.animate::after {
+            width: 100%;
+        }
+
+        .highlight-gold::after {
+            background: linear-gradient(90deg, rgba(212, 168, 83, 0.3) 0%, rgba(212, 168, 83, 0.5) 50%, rgba(212, 168, 83, 0.3) 100%);
+        }
+
         .story-text {
             font-size: 1.05rem;
             color: rgba(255,255,255,0.75);
@@ -703,11 +730,14 @@
     <!-- 1. 인트로 -->
     <section class="card card-dark" data-index="0">
         <p class="eyebrow">26년 구정선물</p>
-        <h1 class="title">더 깐깐하게<br><em>더 두레답게</em></h1>
+        <h1 class="title">오늘부터<br><em>주문 가능합니다</em></h1>
         <div class="product-image gold-frame">
             <img src="https://raw.githubusercontent.com/durewon-del/test/main/APPLE_p.png" alt="알찬 사과배 선물세트">
         </div>
         <div class="sale-badge">10% 할인 중</div>
+        <p class="story-text" style="font-size: 0.9rem; margin-top: 8px; color: rgba(255,255,255,0.6);">
+            26년 신규 생활재
+        </p>
     </section>
 
     <!-- 2. 오픈 안내 -->
@@ -729,7 +759,7 @@
 
     <!-- 3. 포장 -->
     <section class="card card-cream" data-index="2">
-        <h2 class="title">이번 포장은<br><em>진짜 예뻐요</em></h2>
+        <h2 class="title">이번 포장은<br><em>아이폰 같아요</em></h2>
         <div class="video-container">
             <iframe 
                 src="https://player.vimeo.com/video/1154572716?autoplay=1&loop=1&muted=1&background=1&quality=720p"
@@ -738,13 +768,13 @@
                 allowfullscreen>
             </iframe>
         </div>
-        <p class="story-text">열어보시면 알아요<br>받는 분 표정이 달라져요</p>
+        <p class="story-text">열어보시면 알아요 ㅋ</p>
     </section>
 
-    <!-- 4. 상품1: 알찬 사과 선물세트 = 후지사과 -->
+    <!-- 4. 상품1: 알찬 사과 선물세트 -->
     <section class="card card-warm" data-index="3">
         <p class="eyebrow">알찬 사과 선물세트</p>
-        <h2 class="title"><em>후지사과</em><br>6과가 들어가요</h2>
+        <h2 class="title"><span class="highlight-line" data-animate><em>사과</em></span> 6과</h2>
         <div class="video-circle">
             <iframe 
                 src="https://player.vimeo.com/video/1154574410?autoplay=1&loop=1&muted=1&background=1"
@@ -753,7 +783,7 @@
             </iframe>
         </div>
         <div class="feature-box">
-            <div class="feature-title"><span class="icon">✨</span> 후지사과</div>
+            <div class="feature-title"><span class="icon">🎁</span> 선물하기 좋은 이유</div>
             <div class="feature-desc">
                 <strong>아삭아삭</strong> 씹는 맛<br>
                 새콤함 + 달콤함이 <strong>딱 좋아요</strong>
@@ -774,7 +804,7 @@
             <div class="product-info-title">알찬 사과 선물세트</div>
             <div class="product-info-row">
                 <span class="product-info-icon">🍎</span>
-                <span class="product-info-text"><strong>후지사과</strong> 6과</span>
+                <span class="product-info-text"><strong>사과</strong> 6과</span>
             </div>
             <div class="product-info-row">
                 <span class="product-info-icon">📦</span>
@@ -788,16 +818,16 @@
         </div>
     </section>
 
-    <!-- 6. 상품2: 알찬 사과배 = 엔부사과 + 양평배 -->
+    <!-- 6. 상품2: 알찬 사과배 선물세트 -->
     <section class="card card-gold" data-index="5">
         <p class="eyebrow">알찬 사과배 선물세트</p>
-        <h2 class="title"><em>엔부사과</em> 3과<br><em>양평배</em> 3과</h2>
-        <div class="story-text">두 가지 맛을 한 박스에</div>
+        <h2 class="title"><span class="highlight-line" data-animate><em>사과</em></span> 3과<br><span class="highlight-line highlight-gold" data-animate><em style="color: #b8860b;">배</em></span> 3과</h2>
+        <p class="story-text" style="color: var(--gray); font-size: 1.1rem; margin-top: 8px;">두 가지 맛을 한 박스에</p>
     </section>
 
-    <!-- 7. 엔부사과 단면 -->
+    <!-- 7. 사과 단면 -->
     <section class="card card-warm" data-index="6">
-        <p class="eyebrow">엔부사과</p>
+        <p class="eyebrow">사과</p>
         <h2 class="title">향기부터<br><em>달라요</em></h2>
         <div class="video-circle">
             <iframe 
@@ -807,7 +837,7 @@
             </iframe>
         </div>
         <div class="feature-box">
-            <div class="feature-title"><span class="icon">🌸</span> 엔부사과</div>
+            <div class="feature-title"><span class="icon">🎁</span> 선물하기 좋은 이유</div>
             <div class="feature-desc">
                 코끝에 닿는 <strong>향긋한 향</strong><br>
                 꿀처럼 <strong>진한 단맛</strong>
@@ -824,11 +854,11 @@
             <div class="product-info-title">알찬 사과배 선물세트</div>
             <div class="product-info-row">
                 <span class="product-info-icon">🍎</span>
-                <span class="product-info-text"><strong>엔부사과</strong> 3과</span>
+                <span class="product-info-text"><strong>사과</strong> 3과</span>
             </div>
             <div class="product-info-row">
                 <span class="product-info-icon">🍐</span>
-                <span class="product-info-text"><strong>양평배</strong> 3과</span>
+                <span class="product-info-text"><strong>배</strong> 3과</span>
             </div>
             <div class="product-info-row">
                 <span class="product-info-icon">📦</span>
@@ -842,18 +872,8 @@
         </div>
     </section>
 
-    <!-- 9. 감성 -->
-    <section class="card card-dark" data-index="8">
-        <p class="emotion-text">
-            가격표 말고<br>
-            <em>마음</em>을 보내세요<br><br>
-            받는 분은<br>
-            다 아신대요
-        </p>
-    </section>
-
-    <!-- 10. 해우소 (의견) -->
-    <section class="card card-cream" data-index="9">
+    <!-- 9. 해우소 (의견) -->
+    <section class="card card-cream" data-index="8">
         <h2 class="title">우리끼리<br><em>해우소</em></h2>
         <p class="opinion-intro">
             명절에 누구에게 보낼까?<br>
@@ -873,8 +893,8 @@
         </div>
     </section>
 
-    <!-- 11. CTA -->
-    <section class="card card-red" data-index="10">
+    <!-- 10. CTA -->
+    <section class="card card-red" data-index="9">
         <p class="eyebrow" style="color: rgba(255,255,255,0.7);">1,000개 한정 · 10% 할인</p>
         <h2 class="title" style="color: white;">망설이시면<br><em>없어요</em></h2>
         <a href="https://ecoop.or.kr/DureShop/goods/goodsView.do?goodsNo=58746" target="_blank" class="cta-btn">
@@ -1064,6 +1084,22 @@
         }, { threshold: 0.5 });
 
         cards.forEach(c => observer.observe(c));
+
+        // 색연필 밑줄 애니메이션
+        const highlightObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    const highlights = entry.target.querySelectorAll('.highlight-line[data-animate]');
+                    highlights.forEach((el, i) => {
+                        setTimeout(() => {
+                            el.classList.add('animate');
+                        }, i * 300);
+                    });
+                }
+            });
+        }, { threshold: 0.5 });
+
+        cards.forEach(c => highlightObserver.observe(c));
     </script>
 </body>
 </html>
