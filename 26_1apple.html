@@ -230,6 +230,25 @@
         .media-placeholder-icon { font-size: 2rem; margin-bottom: 8px; }
         .media-placeholder-text { font-size: 0.8rem; opacity: 0.8; }
 
+        /* 세로 영상 컨테이너 */
+        .video-container {
+            width: 70vw;
+            max-width: 280px;
+            aspect-ratio: 9/16;
+            max-height: 55vh;
+            border-radius: 20px;
+            overflow: hidden;
+            margin: 12px 0;
+            box-shadow: 0 14px 45px rgba(0,0,0,0.18);
+            background: #000;
+        }
+
+        .video-container iframe {
+            width: 100%;
+            height: 100%;
+            border: none;
+        }
+
         /* ========== 할인 배지 ========== */
         .sale-badge {
             display: inline-block;
@@ -675,19 +694,27 @@
             <div class="limited-number">1,000<span>개</span></div>
         </div>
         <p class="story-text" style="color: rgba(255,255,255,0.9);">
-            솔직히 말씀드릴게요<br>
-            금방 다 나갈 것 같아서요
+            알찬 시리즈<br>
+            포장도 가격도 너무 좋아서<br>
+            금방 다 나갈 것 같아요
+        </p>
+        <p class="story-text" style="color: rgba(255,255,255,0.6); font-size: 0.9rem; margin-top: 16px;">
+            - 온라인 점장 드림
         </p>
     </section>
 
-    <!-- 3. 포장 (솔직한 톤) -->
+    <!-- 3. 포장 -->
     <section class="card card-cream" data-index="2">
-        <h2 class="title">솔직히 두레가<br><em>포장은 별로였죠</em></h2>
-        <div class="media-placeholder" style="background: linear-gradient(135deg, #f5f0e6 0%, #e8e0d5 100%); border-color: var(--green);">
-            <div class="media-placeholder-icon" style="color: var(--green);">📦</div>
-            <div class="media-placeholder-text" style="color: var(--green);">포장 영상/사진</div>
+        <h2 class="title">이번 포장은<br><em>진짜 예뻐요</em></h2>
+        <div class="video-container">
+            <iframe 
+                src="https://player.vimeo.com/video/1154572716?autoplay=1&loop=1&muted=1&background=1&quality=720p"
+                frameborder="0"
+                allow="autoplay; fullscreen; picture-in-picture"
+                allowfullscreen>
+            </iframe>
         </div>
-        <p class="story-text">근데 이번엔 달라요<br>열어보시면 알아요</p>
+        <p class="story-text">열어보시면 알아요<br>받는 분 표정이 달라져요</p>
     </section>
 
     <!-- 4. 상품1: 알찬 사과 선물세트 = 후지사과 -->
@@ -705,6 +732,10 @@
                 새콤함 + 달콤함이 <strong>딱 좋아요</strong>
             </div>
         </div>
+        <p class="story-text" style="font-size: 0.85rem; margin-top: 8px;">
+            *사진처럼 완전 붉은색은 아니에요<br>
+            근데 진짜 맛있어요
+        </p>
     </section>
 
     <!-- 5. 알찬 사과 선물세트 가격 -->
