@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>생활의 발견 | 두레맛찬 | 두레생협</title>
+    <title>26년 구정선물 | 두레생협</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Nanum+Myeongjo:wght@400;700;800&family=Noto+Sans+KR:wght@300;400;500;700;900&display=swap" rel="stylesheet">
@@ -16,83 +16,51 @@
             --warm: #f7f3ed;
             --black: #1a1a1a;
             --gray: #666;
-            --accent: #ff6b00;
-            --red: #e53935;
+            --red: #c41e3a;
+            --gold: #d4a853;
+            --gold-light: #fff8e1;
         }
 
         * { margin: 0; padding: 0; box-sizing: border-box; }
-        
-        html { 
-            scroll-snap-type: y mandatory; 
-            scroll-behavior: smooth; 
-        }
-        
-        body { 
-            font-family: 'Noto Sans KR', sans-serif; 
-            background: var(--cream); 
-            overflow-x: hidden;
-            max-width: 100vw;
-        }
-
-        /* ========== 모바일 세로형 컨테이너 ========== */
-        .container {
-            max-width: 480px;
-            margin: 0 auto;
-            position: relative;
-        }
+        html { scroll-snap-type: y mandatory; scroll-behavior: smooth; }
+        body { font-family: 'Noto Sans KR', sans-serif; background: var(--cream); overflow-x: hidden; }
 
         /* ========== 헤더 ========== */
         .header {
             position: fixed;
             top: 0;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 100%;
-            max-width: 480px;
+            left: 0;
+            right: 0;
             z-index: 1000;
-            padding: 10px 16px;
+            padding: 12px 20px;
             display: flex;
             justify-content: space-between;
             align-items: center;
-            background: rgba(0,0,0,0.7);
+            background: rgba(0,0,0,0.6);
             backdrop-filter: blur(10px);
-        }
-
-        .header-left {
-            display: flex;
-            flex-direction: column;
-            gap: 2px;
-        }
-
-        .header-theme {
-            font-size: 0.7rem;
-            color: var(--accent);
-            font-weight: 600;
-            letter-spacing: 0.1em;
         }
 
         .header-logo {
             font-family: 'Nanum Myeongjo', serif;
-            font-size: 1rem;
+            font-size: 1.1rem;
             font-weight: 700;
             color: white;
         }
 
-        .header-logo span { color: var(--accent); }
+        .header-logo span { color: var(--gold); }
 
         .live-counter {
             display: flex;
             align-items: center;
-            gap: 6px;
+            gap: 8px;
             background: rgba(255,255,255,0.15);
-            padding: 6px 12px;
-            border-radius: 20px;
-            position: relative;
+            padding: 8px 16px;
+            border-radius: 25px;
         }
 
         .live-dot {
-            width: 8px;
-            height: 8px;
+            width: 10px;
+            height: 10px;
             background: #4ade80;
             border-radius: 50%;
             animation: pulse 1.5s infinite;
@@ -100,73 +68,37 @@
 
         @keyframes pulse {
             0%, 100% { box-shadow: 0 0 0 0 rgba(74, 222, 128, 0.7); }
-            50% { box-shadow: 0 0 0 6px rgba(74, 222, 128, 0); }
+            50% { box-shadow: 0 0 0 8px rgba(74, 222, 128, 0); }
         }
 
-        .live-text {
-            color: white;
-            font-size: 0.8rem;
-            font-weight: 600;
-        }
+        .live-text { color: white; font-size: 0.95rem; font-weight: 600; }
+        .live-count { color: #4ade80; font-weight: 700; font-size: 1.1rem; }
 
-        .live-count {
-            color: #4ade80;
-            font-weight: 700;
-            font-size: 1rem;
-        }
-
-        /* ========== 풍선 알림 ========== */
-        .balloon-container {
+        /* ========== 접속 알림 ========== */
+        .join-alert {
             position: fixed;
-            top: 60px;
+            top: 70px;
             left: 50%;
-            transform: translateX(-50%);
-            width: 100%;
-            max-width: 480px;
-            z-index: 998;
-            pointer-events: none;
-            overflow: hidden;
-            height: 100px;
-        }
-
-        .balloon {
-            position: absolute;
+            transform: translateX(-50%) translateY(-100px);
             background: white;
-            padding: 10px 16px;
-            border-radius: 20px;
-            box-shadow: 0 4px 20px rgba(0,0,0,0.15);
-            font-size: 0.85rem;
-            color: var(--black);
+            padding: 14px 28px;
+            border-radius: 50px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.2);
+            z-index: 999;
+            opacity: 0;
+            transition: all 0.4s ease;
             display: flex;
             align-items: center;
-            gap: 8px;
-            opacity: 0;
-            transform: translateY(-20px);
-            animation: balloonFloat 4s ease-out forwards;
+            gap: 10px;
         }
 
-        .balloon::after {
-            content: '';
-            position: absolute;
-            bottom: -8px;
-            left: 20px;
-            width: 0;
-            height: 0;
-            border-left: 8px solid transparent;
-            border-right: 8px solid transparent;
-            border-top: 8px solid white;
+        .join-alert.show {
+            transform: translateX(-50%) translateY(0);
+            opacity: 1;
         }
 
-        @keyframes balloonFloat {
-            0% { opacity: 0; transform: translateY(-20px); }
-            15% { opacity: 1; transform: translateY(0); }
-            85% { opacity: 1; transform: translateY(0); }
-            100% { opacity: 0; transform: translateY(-10px); }
-        }
-
-        .balloon-emoji {
-            font-size: 1.2rem;
-        }
+        .join-alert-dot { width: 8px; height: 8px; background: var(--red); border-radius: 50%; }
+        .join-alert-text { font-size: 0.95rem; color: var(--black); font-weight: 500; }
 
         /* ========== 카드 ========== */
         .card {
@@ -177,541 +109,327 @@
             justify-content: center;
             align-items: center;
             text-align: center;
-            padding: 70px 20px 50px;
+            padding: 80px 24px 60px;
             position: relative;
             scroll-snap-align: start;
             scroll-snap-stop: always;
         }
 
-        .card-dark { background: linear-gradient(160deg, #1a1a1a 0%, #2a3a2a 100%); color: white; }
+        .card-dark { background: linear-gradient(180deg, #1a1a1a 0%, #2d2d2d 100%); color: white; }
         .card-warm { background: var(--warm); }
         .card-cream { background: var(--cream); }
-        .card-green { background: linear-gradient(160deg, var(--green) 0%, var(--green-dark) 100%); color: white; }
-        .card-accent { background: linear-gradient(160deg, var(--accent) 0%, #e55a00 100%); color: white; }
+        .card-green { background: linear-gradient(180deg, var(--green) 0%, var(--green-dark) 100%); color: white; }
+        .card-red { background: linear-gradient(180deg, #8b0000 0%, #c41e3a 50%, #8b0000 100%); color: white; }
         .card-gold { background: linear-gradient(180deg, #fff8e1 0%, #ffe0b2 100%); }
 
         /* ========== 타이포그래피 ========== */
         .eyebrow {
             font-size: 0.85rem;
-            letter-spacing: 0.15em;
-            color: var(--accent);
-            margin-bottom: 12px;
+            letter-spacing: 0.12em;
+            color: var(--gold);
+            margin-bottom: 10px;
             font-weight: 600;
         }
 
-        .card-dark .eyebrow { color: var(--accent); }
         .card-warm .eyebrow, .card-cream .eyebrow, .card-gold .eyebrow { color: var(--green); }
 
         .title {
             font-family: 'Nanum Myeongjo', serif;
-            font-size: clamp(1.8rem, 7vw, 2.4rem);
+            font-size: clamp(1.9rem, 7.5vw, 2.6rem);
             font-weight: 700;
-            line-height: 1.6;
-            margin-bottom: 16px;
+            line-height: 1.4;
+            margin-bottom: 12px;
             word-break: keep-all;
         }
 
         .title em {
             font-style: normal;
-            color: var(--accent);
+            color: var(--gold);
         }
 
-        .card-warm .title em, .card-cream .title em, .card-gold .title em { color: var(--green); }
-        .card-green .title em, .card-accent .title em { color: #fff; text-shadow: 0 2px 10px rgba(0,0,0,0.3); }
+        .card-warm .title em, .card-cream .title em, .card-gold .title em { color: var(--red); }
+        .card-green .title em { color: #fff; }
 
-        .desc {
+        .story-text {
             font-size: 1.05rem;
+            color: rgba(255,255,255,0.75);
             line-height: 1.8;
-            color: rgba(255,255,255,0.85);
-            max-width: 90%;
+            max-width: 300px;
+            word-break: keep-all;
         }
 
-        .card-warm .desc, .card-cream .desc, .card-gold .desc { color: var(--gray); }
-
-        /* ========== 강조 텍스트 애니메이션 ========== */
-        .highlight-text {
-            opacity: 0;
-            transform: translateY(20px);
-            transition: all 0.6s ease-out;
+        .card-warm .story-text, .card-cream .story-text, .card-gold .story-text { 
+            color: var(--gray); 
         }
 
-        .highlight-text.visible {
-            opacity: 1;
-            transform: translateY(0);
-        }
-
-        .typing-text {
-            overflow: hidden;
-            border-right: 2px solid var(--accent);
-            white-space: nowrap;
-            animation: typing 2s steps(20) forwards, blink 0.8s step-end infinite;
-        }
-
-        @keyframes typing {
-            from { width: 0; }
-            to { width: 100%; }
-        }
-
-        @keyframes blink {
-            50% { border-color: transparent; }
-        }
-
-        .glow-text {
-            animation: glow 2s ease-in-out infinite alternate;
-        }
-
-        @keyframes glow {
-            from { text-shadow: 0 0 5px rgba(255, 107, 0, 0.5); }
-            to { text-shadow: 0 0 20px rgba(255, 107, 0, 0.8), 0 0 30px rgba(255, 107, 0, 0.6); }
-        }
-
-        .shake-text {
-            display: inline-block;
-            animation: shake 0.5s ease-in-out;
-        }
-
-        @keyframes shake {
-            0%, 100% { transform: translateX(0); }
-            25% { transform: translateX(-5px); }
-            75% { transform: translateX(5px); }
-        }
-
-        /* ========== 큰 이미지 ========== */
-        .big-image {
-            width: 85vw;
-            max-width: 320px;
-            height: auto;
+        /* ========== 이미지 ========== */
+        .product-image {
+            width: 70vw;
+            max-width: 300px;
             aspect-ratio: 1;
-            border-radius: 28px;
+            border-radius: 24px;
             overflow: hidden;
-            margin: 20px 0;
-            box-shadow: 0 20px 60px rgba(0,0,0,0.2);
+            margin: 12px 0;
+            box-shadow: 0 14px 45px rgba(0,0,0,0.18);
         }
 
-        .big-image img {
+        .product-image.gold-frame {
+            border: 3px solid var(--gold);
+            box-shadow: 0 14px 45px rgba(212, 168, 83, 0.2);
+        }
+
+        .product-image img {
             width: 100%;
             height: 100%;
             object-fit: cover;
         }
 
-        .big-image.circle {
+        /* 단면 사진 (원형) */
+        .cross-section {
+            width: 55vw;
+            max-width: 220px;
+            aspect-ratio: 1;
             border-radius: 50%;
-            max-width: 260px;
+            overflow: hidden;
+            margin: 12px 0;
+            box-shadow: 0 12px 40px rgba(0,0,0,0.12);
+            border: 4px solid white;
         }
 
-        .big-image.producer {
-            max-width: 360px;
-            width: 92vw;
-            border-radius: 24px;
+        .cross-section img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
         }
 
-        /* ========== 강조 배지 ========== */
-        .highlight-badge {
-            display: inline-flex;
-            align-items: center;
-            gap: 8px;
-            background: var(--accent);
-            color: white;
-            padding: 12px 24px;
-            border-radius: 50px;
-            font-size: 1rem;
-            font-weight: 700;
-            margin: 6px 0;
-            box-shadow: 0 6px 25px rgba(255, 107, 0, 0.4);
-            animation: bounce 2s infinite;
-        }
-
-        @keyframes bounce {
-            0%, 100% { transform: translateY(0); }
-            50% { transform: translateY(-4px); }
-        }
-
-        .highlight-badge.green {
-            background: var(--green);
-            box-shadow: 0 6px 25px rgba(74, 103, 65, 0.4);
-        }
-
-        .highlight-badge.red {
-            background: var(--red);
-            box-shadow: 0 6px 25px rgba(229, 57, 53, 0.4);
-        }
-
-        .badge-group {
+        /* 영상/사진 플레이스홀더 */
+        .media-placeholder {
+            width: 70vw;
+            max-width: 300px;
+            aspect-ratio: 9/16;
+            max-height: 45vh;
+            border-radius: 20px;
+            background: linear-gradient(135deg, #2a2a2a 0%, #1a1a1a 100%);
             display: flex;
             flex-direction: column;
-            gap: 10px;
             align-items: center;
+            justify-content: center;
+            margin: 12px 0;
+            border: 2px dashed var(--gold);
+            color: var(--gold);
         }
 
-        /* ========== 감성 연결 카피 ========== */
-        .emotion-copy {
-            background: rgba(255,255,255,0.1);
-            border-radius: 20px;
-            padding: 20px 24px;
-            margin: 16px 0;
-            max-width: 320px;
+        .media-placeholder.circle {
+            aspect-ratio: 1;
+            border-radius: 50%;
+            max-height: none;
+            width: 55vw;
+            max-width: 220px;
         }
 
-        .emotion-copy p {
-            font-size: 1.05rem;
-            line-height: 1.8;
-            color: rgba(255,255,255,0.9);
-            word-break: keep-all;
+        .media-placeholder-icon { font-size: 2rem; margin-bottom: 8px; }
+        .media-placeholder-text { font-size: 0.8rem; opacity: 0.8; }
+
+        /* ========== 할인 배지 ========== */
+        .sale-badge {
+            display: inline-block;
+            background: var(--red);
+            color: white;
+            font-size: 1rem;
+            font-weight: 800;
+            padding: 8px 20px;
+            border-radius: 25px;
+            margin-bottom: 12px;
+            animation: pulseBadge 2s infinite;
         }
 
-        .emotion-copy .fade-line {
-            opacity: 0;
-            transform: translateY(10px);
+        @keyframes pulseBadge {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.05); }
         }
 
-        /* ========== 가격 강조 ========== */
-        .price-highlight {
+        /* ========== 한정 수량 ========== */
+        .limited-box {
+            background: rgba(0,0,0,0.3);
+            border: 2px solid var(--gold);
+            border-radius: 16px;
+            padding: 18px 28px;
+            margin: 12px 0;
+        }
+
+        .limited-label {
+            font-size: 0.8rem;
+            color: var(--gold);
+            letter-spacing: 0.08em;
+            margin-bottom: 4px;
+        }
+
+        .limited-number {
+            font-size: 2.8rem;
+            font-weight: 900;
+            color: white;
+        }
+
+        .limited-number span {
+            font-size: 1rem;
+            color: var(--gold);
+        }
+
+        /* ========== 특징 박스 ========== */
+        .feature-box {
             background: white;
-            border-radius: 24px;
-            padding: 28px;
-            margin: 16px 0;
-            box-shadow: 0 12px 40px rgba(0,0,0,0.1);
-            border: 3px solid var(--green);
+            border-radius: 16px;
+            padding: 18px;
+            margin: 10px 0;
             max-width: 300px;
             width: 90%;
+            box-shadow: 0 6px 25px rgba(0,0,0,0.06);
+            text-align: left;
         }
 
-        .price-name {
-            font-size: 1.25rem;
+        .feature-title {
+            font-size: 1rem;
             font-weight: 700;
-            color: var(--green);
-            margin-bottom: 14px;
+            color: var(--black);
+            margin-bottom: 8px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .feature-title .icon { font-size: 1.2rem; }
+
+        .feature-desc {
+            font-size: 0.9rem;
+            color: var(--gray);
+            line-height: 1.6;
+        }
+
+        .feature-desc strong {
+            color: var(--red);
+            font-weight: 700;
+        }
+
+        /* ========== 상품 구성 박스 ========== */
+        .product-info-box {
+            background: white;
+            border-radius: 20px;
+            padding: 20px;
+            margin: 12px 0;
+            max-width: 320px;
+            width: 90%;
+            box-shadow: 0 8px 30px rgba(0,0,0,0.08);
+            border: 2px solid var(--gold);
+        }
+
+        .product-info-title {
+            font-size: 1.15rem;
+            font-weight: 700;
+            color: var(--black);
+            margin-bottom: 12px;
+            padding-bottom: 10px;
+            border-bottom: 1px solid #eee;
+        }
+
+        .product-info-row {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 8px 0;
+        }
+
+        .product-info-icon {
+            font-size: 1.5rem;
+        }
+
+        .product-info-text {
+            font-size: 0.95rem;
+            color: var(--black);
+        }
+
+        .product-info-text strong {
+            color: var(--red);
+            font-weight: 700;
+        }
+
+        .product-info-price {
+            margin-top: 12px;
+            padding-top: 12px;
+            border-top: 1px solid #eee;
+            text-align: center;
         }
 
         .price-old {
-            font-size: 1.15rem;
+            font-size: 1rem;
             color: #999;
             text-decoration: line-through;
+            margin-right: 8px;
         }
 
         .price-new {
-            font-size: 2.6rem;
+            font-size: 1.8rem;
             font-weight: 900;
-            color: var(--accent);
-            line-height: 1.2;
+            color: var(--red);
         }
 
-        .price-new span {
-            font-size: 1.1rem;
-        }
+        .price-new span { font-size: 0.9rem; }
 
         .price-save {
             display: inline-block;
             background: var(--red);
             color: white;
-            padding: 6px 16px;
-            border-radius: 16px;
-            font-size: 1rem;
+            font-size: 0.7rem;
             font-weight: 700;
-            margin-top: 10px;
+            padding: 4px 10px;
+            border-radius: 10px;
+            margin-top: 6px;
         }
 
-        /* ========== 포인트 카드 ========== */
-        .point-cards {
-            display: flex;
-            flex-direction: column;
-            gap: 14px;
-            max-width: 340px;
-            width: 95%;
-        }
-
-        .point-card {
-            background: white;
-            border-radius: 18px;
-            padding: 18px;
-            display: flex;
-            align-items: center;
-            gap: 14px;
-            box-shadow: 0 6px 25px rgba(0,0,0,0.08);
-            text-align: left;
-            opacity: 0;
-            transform: translateX(-20px);
-            transition: all 0.5s ease-out;
-        }
-
-        .point-card.visible {
-            opacity: 1;
-            transform: translateX(0);
-        }
-
-        .point-icon {
-            width: 55px;
-            height: 55px;
-            background: var(--green-light);
-            border-radius: 16px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 1.6rem;
-            flex-shrink: 0;
-        }
-
-        .point-text {
-            font-size: 1rem;
-            font-weight: 600;
-            color: var(--black);
-            line-height: 1.5;
-        }
-
-        .point-text span {
-            color: var(--accent);
-            font-weight: 700;
-        }
-
-        /* ========== 생산자 카드 ========== */
-        .producer-info {
-            background: white;
-            border-radius: 20px;
-            padding: 22px;
-            margin-top: 16px;
-            box-shadow: 0 8px 30px rgba(0,0,0,0.08);
-            max-width: 320px;
-            width: 90%;
-        }
-
-        .producer-tags {
-            display: flex;
-            gap: 6px;
-            flex-wrap: wrap;
-            margin-bottom: 14px;
-            justify-content: center;
-        }
-
-        .producer-tag {
-            display: inline-block;
-            background: var(--accent);
-            color: white;
-            font-size: 0.8rem;
-            font-weight: 700;
-            padding: 5px 12px;
-            border-radius: 16px;
-        }
-
-        .producer-tag.green {
-            background: var(--green);
-        }
-
-        .producer-detail {
-            font-size: 1rem;
-            color: var(--gray);
-            line-height: 1.7;
-            text-align: center;
-        }
-
-        .producer-detail strong {
-            color: var(--green);
-            font-weight: 700;
-        }
-
-        /* ========== 건강 정보 카드 ========== */
-        .health-card {
-            background: white;
-            border-radius: 20px;
-            padding: 22px;
-            max-width: 320px;
-            width: 90%;
-            box-shadow: 0 8px 30px rgba(0,0,0,0.08);
-            border-top: 4px solid var(--green);
-        }
-
-        .health-title {
-            font-size: 1.05rem;
-            font-weight: 700;
-            color: var(--green);
-            margin-bottom: 14px;
-            display: flex;
-            align-items: center;
-            gap: 6px;
-            justify-content: center;
-        }
-
-        .health-list {
-            text-align: left;
-        }
-
-        .health-item {
-            display: flex;
-            align-items: flex-start;
-            gap: 10px;
-            margin-bottom: 12px;
-            font-size: 0.95rem;
-            color: var(--black);
-            line-height: 1.5;
-        }
-
-        .health-item:last-child {
-            margin-bottom: 0;
-        }
-
-        .health-check {
-            color: var(--green);
-            font-weight: 700;
-            flex-shrink: 0;
-        }
-
-        .health-source {
-            font-size: 0.75rem;
-            color: #999;
-            margin-top: 14px;
-            text-align: center;
-        }
-
-        /* ========== 후기 강조 ========== */
-        .review-highlight {
-            background: white;
-            border-radius: 20px;
-            padding: 22px;
-            max-width: 320px;
-            width: 90%;
-            box-shadow: 0 8px 30px rgba(0,0,0,0.1);
-            text-align: left;
-            border-left: 5px solid var(--green);
-        }
-
-        .review-quote {
-            font-size: 1.05rem;
-            line-height: 1.7;
-            color: var(--black);
-            margin-bottom: 12px;
-            font-weight: 500;
-        }
-
-        .review-quote strong {
-            color: var(--accent);
-            font-weight: 700;
-        }
-
-        .review-author {
-            font-size: 0.85rem;
-            color: var(--gray);
-        }
-
-        .review-stars {
-            color: var(--green);
-            font-size: 1.1rem;
-            margin-bottom: 10px;
-        }
-
-        /* ========== 평점 대형 ========== */
-        .rating-big {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            gap: 6px;
-            margin: 16px 0;
-        }
-
-        .rating-score {
-            font-size: 3.5rem;
-            font-weight: 900;
-            color: var(--accent);
-            line-height: 1;
-        }
-
-        .rating-stars {
-            font-size: 1.5rem;
-            color: var(--green);
-        }
-
-        .rating-count {
-            font-size: 0.95rem;
-            color: var(--gray);
-            font-weight: 600;
-        }
-
-        /* ========== 메시지 카드 ========== */
-        .message-box {
-            background: white;
-            border-radius: 24px;
-            padding: 28px 24px;
-            margin-top: 20px;
-            box-shadow: 0 12px 40px rgba(0,0,0,0.15);
-            max-width: 320px;
-            width: 90%;
-        }
-
-        .message-text {
+        /* ========== 감성 메시지 ========== */
+        .emotion-text {
             font-family: 'Nanum Myeongjo', serif;
-            font-size: 1.25rem;
-            font-weight: 700;
-            color: var(--green);
-            line-height: 1.7;
-        }
-
-        .message-text em {
-            font-style: normal;
-            color: var(--accent);
-        }
-
-        /* ========== CTA 버튼 ========== */
-        .cta-btn {
-            display: inline-flex;
-            align-items: center;
-            gap: 10px;
-            background: var(--green);
+            font-size: 1.35rem;
+            line-height: 1.9;
             color: white;
-            font-size: 1.15rem;
-            font-weight: 700;
-            padding: 16px 36px;
-            border-radius: 50px;
-            text-decoration: none;
-            margin-top: 20px;
-            box-shadow: 0 10px 35px rgba(74, 103, 65, 0.4);
-            transition: transform 0.2s;
+            max-width: 280px;
+            word-break: keep-all;
         }
 
-        .cta-btn:active { transform: scale(0.97); }
-
-        .cta-btn svg {
-            width: 20px;
-            height: 20px;
-            fill: white;
+        .emotion-text em {
+            font-style: normal;
+            color: var(--gold);
         }
 
-        /* ========== 의견 섹션 ========== */
+        /* ========== 해우소 (의견) 섹션 ========== */
         .opinion-box {
-            max-width: 340px;
-            width: 95%;
+            max-width: 320px;
+            width: 100%;
         }
 
-        .opinion-header {
-            text-align: center;
-            margin-bottom: 16px;
-        }
-
-        .opinion-header-icon {
-            font-size: 2.5rem;
-            margin-bottom: 6px;
-        }
-
-        .opinion-header-text {
-            font-size: 0.95rem;
+        .opinion-intro {
+            font-size: 1rem;
             color: var(--gray);
-            line-height: 1.5;
+            margin-bottom: 12px;
+            line-height: 1.6;
         }
 
         .opinion-form {
             background: white;
-            border-radius: 20px;
-            padding: 20px;
-            box-shadow: 0 8px 30px rgba(0,0,0,0.08);
-            margin-bottom: 16px;
+            border-radius: 16px;
+            padding: 16px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.05);
+            margin-bottom: 12px;
         }
 
         .opinion-input {
             width: 100%;
             border: 2px solid var(--green-light);
-            border-radius: 14px;
-            padding: 14px;
-            font-size: 1rem;
+            border-radius: 12px;
+            padding: 12px;
+            font-size: 0.95rem;
             font-family: inherit;
             resize: none;
-            min-height: 90px;
+            min-height: 70px;
         }
 
         .opinion-input:focus {
@@ -721,16 +439,16 @@
 
         .opinion-footer {
             display: flex;
-            gap: 10px;
-            margin-top: 12px;
+            gap: 8px;
+            margin-top: 10px;
         }
 
         .opinion-name {
             flex: 1;
             border: 2px solid var(--green-light);
-            border-radius: 12px;
-            padding: 12px 14px;
-            font-size: 0.95rem;
+            border-radius: 10px;
+            padding: 10px 12px;
+            font-size: 0.9rem;
             font-family: inherit;
         }
 
@@ -743,80 +461,87 @@
             background: var(--green);
             color: white;
             border: none;
-            padding: 12px 24px;
-            border-radius: 12px;
-            font-size: 1rem;
+            padding: 10px 18px;
+            border-radius: 10px;
+            font-size: 0.9rem;
             font-weight: 700;
             cursor: pointer;
         }
 
         .opinion-list {
-            max-height: 200px;
+            max-height: 130px;
             overflow-y: auto;
         }
 
         .opinion-item {
             background: white;
-            border-radius: 14px;
-            padding: 14px;
-            margin-bottom: 10px;
+            border-radius: 10px;
+            padding: 12px;
+            margin-bottom: 8px;
             text-align: left;
-            border-left: 4px solid var(--green);
-            box-shadow: 0 4px 15px rgba(0,0,0,0.05);
-        }
-
-        .opinion-item.new {
-            animation: newOpinion 0.5s ease-out;
-        }
-
-        @keyframes newOpinion {
-            from { 
-                opacity: 0; 
-                transform: translateY(-10px) scale(0.95);
-                background: var(--green-light);
-            }
-            to { 
-                opacity: 1; 
-                transform: translateY(0) scale(1);
-                background: white;
-            }
+            border-left: 3px solid var(--green);
+            box-shadow: 0 2px 8px rgba(0,0,0,0.04);
         }
 
         .opinion-item-text {
-            font-size: 0.95rem;
+            font-size: 0.9rem;
             color: var(--black);
             line-height: 1.5;
-            margin-bottom: 6px;
+            margin-bottom: 4px;
         }
 
         .opinion-item-meta {
-            font-size: 0.8rem;
+            font-size: 0.75rem;
             color: var(--gray);
         }
 
         .opinion-empty {
             text-align: center;
-            padding: 25px;
+            padding: 16px;
             color: var(--gray);
-            font-size: 0.95rem;
+            font-size: 0.9rem;
+        }
+
+        /* ========== CTA ========== */
+        .cta-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            background: var(--red);
+            color: white;
+            font-size: 1.15rem;
+            font-weight: 700;
+            padding: 16px 36px;
+            border-radius: 50px;
+            text-decoration: none;
+            margin-top: 14px;
+            box-shadow: 0 8px 30px rgba(196, 30, 58, 0.35);
+            transition: transform 0.2s;
+        }
+
+        .cta-btn:active { transform: scale(0.97); }
+
+        .cta-btn svg {
+            width: 18px;
+            height: 18px;
+            fill: white;
         }
 
         /* ========== 토스트 ========== */
         .toast {
             position: fixed;
-            bottom: 90px;
+            bottom: 100px;
             left: 50%;
             transform: translateX(-50%) translateY(30px);
             background: var(--green);
             color: white;
-            padding: 14px 28px;
+            padding: 12px 24px;
             border-radius: 50px;
-            font-size: 1rem;
+            font-size: 0.9rem;
             font-weight: 600;
             opacity: 0;
             transition: all 0.3s;
             z-index: 2000;
-            max-width: 90%;
         }
 
         .toast.show {
@@ -827,24 +552,24 @@
         /* ========== 실시간 의견 띠 ========== */
         .live-bar {
             position: fixed;
-            bottom: 16px;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 100%;
-            max-width: 440px;
-            padding: 0 16px;
+            bottom: 20px;
+            left: 0;
+            right: 0;
+            padding: 0 20px;
             z-index: 99;
             pointer-events: none;
         }
 
         .live-bar-inner {
+            max-width: 340px;
+            margin: 0 auto;
             background: white;
-            border-radius: 18px;
-            padding: 12px 16px;
-            box-shadow: 0 6px 25px rgba(0,0,0,0.15);
+            border-radius: 14px;
+            padding: 10px 14px;
+            box-shadow: 0 5px 18px rgba(0,0,0,0.1);
             display: flex;
             align-items: center;
-            gap: 10px;
+            gap: 8px;
             opacity: 0;
             transform: translateY(20px);
             transition: all 0.4s;
@@ -856,17 +581,17 @@
         }
 
         .live-bar-label {
-            background: var(--green);
+            background: var(--red);
             color: white;
-            font-size: 0.7rem;
+            font-size: 0.6rem;
             font-weight: 700;
-            padding: 5px 10px;
-            border-radius: 10px;
+            padding: 4px 8px;
+            border-radius: 6px;
             flex-shrink: 0;
         }
 
         .live-bar-text {
-            font-size: 0.9rem;
+            font-size: 0.85rem;
             color: var(--black);
             white-space: nowrap;
             overflow: hidden;
@@ -876,18 +601,18 @@
         /* ========== 스크롤 인디케이터 ========== */
         .scroll-dots {
             position: fixed;
-            right: 12px;
+            right: 10px;
             top: 50%;
             transform: translateY(-50%);
             z-index: 100;
             display: flex;
             flex-direction: column;
-            gap: 8px;
+            gap: 5px;
         }
 
         .scroll-dot {
-            width: 8px;
-            height: 8px;
+            width: 5px;
+            height: 5px;
             border-radius: 50%;
             background: rgba(0,0,0,0.2);
             cursor: pointer;
@@ -895,264 +620,247 @@
         }
 
         .scroll-dot.active {
-            height: 24px;
-            border-radius: 4px;
-            background: var(--green);
+            height: 18px;
+            border-radius: 3px;
+            background: var(--red);
         }
 
         /* ========== 반응형 ========== */
-        @media (max-height: 680px) {
-            .big-image { max-width: 220px; }
-            .big-image.producer { max-width: 300px; }
-            .title { font-size: clamp(1.6rem, 6vw, 2rem); }
-            .card { padding: 65px 16px 45px; }
+        @media (max-height: 700px) {
+            .product-image { max-width: 200px; }
+            .cross-section { max-width: 160px; }
+            .title { font-size: clamp(1.5rem, 6.5vw, 2rem); }
+            .card { padding: 70px 20px 40px; }
         }
 
         html::-webkit-scrollbar { display: none; }
     </style>
 </head>
 <body>
-    <div class="container">
-        <!-- 헤더 -->
-        <header class="header">
-            <div class="header-left">
-                <span class="header-theme">생활의 발견 · 4주차</span>
-                <div class="header-logo">두레<span>생협</span></div>
-            </div>
-            <div class="live-counter">
-                <div class="live-dot"></div>
-                <span class="live-text">함께</span>
-                <span class="live-count" id="liveCount">1</span>
-            </div>
-        </header>
 
-        <!-- 풍선 알림 컨테이너 -->
-        <div class="balloon-container" id="balloonContainer"></div>
+    <!-- 헤더 -->
+    <header class="header">
+        <div class="header-logo">두레<span>생협</span></div>
+        <div class="live-counter">
+            <div class="live-dot"></div>
+            <span class="live-text">함께 보는 중</span>
+            <span class="live-count" id="liveCount">1</span>
+        </div>
+    </header>
 
-        <!-- 스크롤 인디케이터 -->
-        <div class="scroll-dots" id="scrollDots"></div>
+    <!-- 접속 알림 -->
+    <div class="join-alert" id="joinAlert">
+        <div class="join-alert-dot"></div>
+        <span class="join-alert-text" id="joinAlertText">조합원님이 함께 보고 있어요</span>
+    </div>
 
-        <!-- 1. 인트로 -->
-        <section class="card card-dark" data-index="0">
-            <p class="eyebrow">생활의 발견 · 4주차</p>
-            <h1 class="title highlight-text">어머니가<br>해주시던<br><em class="glow-text">그 맛</em></h1>
-            <div class="emotion-copy">
-                <p class="fade-line" data-delay="0">지금은 내가 어머니가 되었는데도...</p>
-                <p class="fade-line" data-delay="300">그 손맛을 따라가기엔</p>
-                <p class="fade-line" data-delay="600"><strong>하루가 너무 짧습니다</strong></p>
-            </div>
-            <div class="big-image circle">
-                <img src="https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/58425C.png" alt="산채나물">
-            </div>
-            <div class="badge-group">
-                <div class="highlight-badge red">
-                    🎉 다음주 5% 할인
-                </div>
-                <div class="highlight-badge green">
-                    두레맛찬 베스트셀러
-                </div>
-            </div>
-        </section>
+    <!-- 스크롤 인디케이터 -->
+    <div class="scroll-dots" id="scrollDots"></div>
 
-        <!-- 2. 생산자 -->
-        <section class="card card-warm" data-index="1">
-            <p class="eyebrow">PRODUCER</p>
-            <h2 class="title highlight-text"><em>반찬 어벤져스</em><br>가 대신합니다</h2>
-            <div class="big-image producer">
-                <img src="https://raw.githubusercontent.com/durewon-del/test/main/meal.png" alt="두레맛찬 생산자">
-            </div>
-            <div class="producer-info">
-                <div class="producer-tags">
-                    <span class="producer-tag">🏆 반찬 명장</span>
-                    <span class="producer-tag green">👩‍🍳 평균 60대</span>
-                </div>
-                <p class="producer-detail">
-                    <strong>손맛의 달인들</strong>이<br>
-                    정성껏 만듭니다<br><br>
-                    유명한 반찬집 출신 →<br>
-                    <strong>두레생협 사양</strong>으로만 공급
-                </p>
-            </div>
-        </section>
+    <!-- 1. 인트로 -->
+    <section class="card card-dark" data-index="0">
+        <p class="eyebrow">26년 구정선물</p>
+        <h1 class="title">더 깐깐하게<br><em>더 두레답게</em></h1>
+        <div class="product-image gold-frame">
+            <img src="https://raw.githubusercontent.com/durewon-del/test/main/APPLE_p.png" alt="알찬 사과배 선물세트">
+        </div>
+        <div class="sale-badge">10% 할인 중</div>
+    </section>
 
-        <!-- 3. 감성 WHY -->
-        <section class="card card-cream" data-index="2">
-            <p class="eyebrow">WHY</p>
-            <h2 class="title highlight-text">나물 여러 가지<br><em>혼자 하면 반나절</em></h2>
-            <div class="point-cards">
-                <div class="point-card" data-delay="0">
-                    <div class="point-icon">🥗</div>
-                    <div class="point-text">도라지, 시금치, 고사리...<br><span>이 정성을 어떻게</span></div>
-                </div>
-                <div class="point-card" data-delay="200">
-                    <div class="point-icon">💚</div>
-                    <div class="point-text">두레생협 사양 재료로<br><span>믿고 먹을 수 있어요</span></div>
-                </div>
-                <div class="point-card" data-delay="400">
-                    <div class="point-icon">👨‍👩‍👧</div>
-                    <div class="point-text">채소 안 먹던 아이도<br><span>싹싹 비웠대요</span></div>
-                </div>
-            </div>
-        </section>
+    <!-- 2. 오픈 안내 -->
+    <section class="card card-green" data-index="1">
+        <h2 class="title" style="color: white;"><em>온라인</em> 조합원님께<br>먼저 알려드려요</h2>
+        <div class="limited-box">
+            <div class="limited-label">두레 전체 물량</div>
+            <div class="limited-number">1,000<span>개</span></div>
+        </div>
+        <p class="story-text" style="color: rgba(255,255,255,0.9);">
+            솔직히 말씀드릴게요<br>
+            금방 다 나갈 것 같아서요
+        </p>
+    </section>
 
-        <!-- 4. 상품 1 -->
-        <section class="card card-cream" data-index="3">
-            <p class="eyebrow">BEST 1</p>
-            <h2 class="title highlight-text">비빔밥 한 그릇에<br><em>건강을 담아</em></h2>
-            <div class="big-image">
-                <img src="https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/58425C.png" alt="산채나물 비빔세트">
-            </div>
-            <div class="price-highlight">
-                <div class="price-name">산채나물 비빔밥 세트</div>
-                <div class="price-old">14,200원</div>
-                <div class="price-new">13,500<span>원</span></div>
-                <div class="price-save">5% 할인</div>
-            </div>
-        </section>
+    <!-- 3. 포장 (솔직한 톤) -->
+    <section class="card card-cream" data-index="2">
+        <h2 class="title">솔직히 두레가<br><em>포장은 별로였죠</em></h2>
+        <div class="media-placeholder" style="background: linear-gradient(135deg, #f5f0e6 0%, #e8e0d5 100%); border-color: var(--green);">
+            <div class="media-placeholder-icon" style="color: var(--green);">📦</div>
+            <div class="media-placeholder-text" style="color: var(--green);">포장 영상/사진</div>
+        </div>
+        <p class="story-text">근데 이번엔 달라요<br>열어보시면 알아요</p>
+    </section>
 
-        <!-- 5. 상품 2 -->
-        <section class="card card-warm" data-index="4">
-            <p class="eyebrow">BEST 2</p>
-            <h2 class="title highlight-text">포슬포슬<br><em>섬초의 맛</em></h2>
-            <div class="big-image">
-                <img src="https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/58637C.jpg" alt="시금치나물">
-            </div>
-            <div class="price-highlight">
-                <div class="price-name">섬초 시금치나물</div>
-                <div class="price-old">6,400원</div>
-                <div class="price-new">6,100<span>원</span></div>
-                <div class="price-save">5% 할인</div>
-            </div>
-        </section>
-
-        <!-- 6. 건강 정보 -->
-        <section class="card card-gold" data-index="5">
-            <p class="eyebrow">FOR YOUR HEALTH</p>
-            <h2 class="title highlight-text">나물이<br><em>좋은 이유</em></h2>
-            <div class="health-card">
-                <div class="health-title">
-                    <span>🌿</span> 건강 정보
-                </div>
-                <div class="health-list">
-                    <div class="health-item">
-                        <span class="health-check">✓</span>
-                        <span>녹색 잎채소에는 <strong>칼슘</strong>이 풍부</span>
-                    </div>
-                    <div class="health-item">
-                        <span class="health-check">✓</span>
-                        <span>하루 <strong>20~30g 섬유소</strong> 섭취 권장</span>
-                    </div>
-                    <div class="health-item">
-                        <span class="health-check">✓</span>
-                        <span>콩의 이소플라본은 <strong>여성 건강</strong>에 도움</span>
-                    </div>
-                    <div class="health-item">
-                        <span class="health-check">✓</span>
-                        <span>나물 반찬으로 <strong>균형 잡힌 식단</strong></span>
-                    </div>
-                </div>
-                <p class="health-source">출처: 국립재활원, 하이닥</p>
-            </div>
-        </section>
-
-        <!-- 7. 후기 -->
-        <section class="card card-cream" data-index="6">
-            <p class="eyebrow">REAL REVIEW</p>
-            <h2 class="title highlight-text">조합원님들의<br><em>솔직 후기</em></h2>
-            <div class="rating-big">
-                <div class="rating-score">4.7</div>
-                <div class="rating-stars">★★★★★</div>
-                <div class="rating-count">추천 7 · 아쉬워요 0</div>
-            </div>
-            <div class="review-highlight">
-                <div class="review-stars">★★★★★</div>
-                <p class="review-quote">"특히나 <strong>고추장이 정말로 맛있었어요.</strong> 갱년기 식단으로 강추!"</p>
-                <p class="review-author">- 김*희 (울림두레생협)</p>
-            </div>
-        </section>
-
-        <!-- 8. 후기 2 -->
-        <section class="card card-warm" data-index="7">
-            <p class="eyebrow">REAL REVIEW</p>
-            <div class="review-highlight" style="margin-bottom: 16px;">
-                <div class="review-stars">★★★★★</div>
-                <p class="review-quote">"채소 안 먹는 아들이 <strong>엄지척을 하네요.</strong> 너무나도 고맙습니다."</p>
-                <p class="review-author">- 한*란 (경기두레생협)</p>
-            </div>
-            <div class="review-highlight">
-                <div class="review-stars">★★★★★</div>
-                <p class="review-quote">"나물을 어쩜 이렇게 <strong>포슬포슬 잘 볶았을까요?</strong>"</p>
-                <p class="review-author">- 임*영 (서울남부두레생협)</p>
-            </div>
-        </section>
-
-        <!-- 9. 메시지 -->
-        <section class="card card-accent" data-index="8">
-            <h2 class="title highlight-text" style="color: white;">
-                바쁜 일상 속<br>
-                <em>내 몸을 위한</em><br>한 끼
-            </h2>
-            <div class="message-box">
-                <p class="message-text">
-                    아직 안 드셔보셨으면<br><em>이번에 꼭 드셔보세요!</em>
-                </p>
-            </div>
-            <p class="desc" style="margin-top: 16px;">건강한 재료, 진실된 정성</p>
-        </section>
-
-        <!-- 10. 의견 남기기 -->
-        <section class="card card-cream" data-index="9">
-            <p class="eyebrow">YOUR VOICE</p>
-            <h2 class="title highlight-text"><em>반찬 명인</em>에게<br>의견 남기기</h2>
-            <div class="opinion-box">
-                <div class="opinion-header">
-                    <div class="opinion-header-icon">👩‍🍳</div>
-                    <p class="opinion-header-text">
-                        여러분의 소중한 의견이<br>
-                        명인들에게 전해집니다
-                    </p>
-                </div>
-                <div class="opinion-form">
-                    <textarea class="opinion-input" id="opinionText" placeholder="두레맛찬 드셔보셨나요? 명인들에게 응원 한마디 💚"></textarea>
-                    <div class="opinion-footer">
-                        <input type="text" class="opinion-name" id="opinionName" placeholder="닉네임">
-                        <button class="opinion-submit" id="submitBtn">등록</button>
-                    </div>
-                </div>
-                <div class="opinion-list" id="opinionList">
-                    <div class="opinion-empty">첫 응원 메시지를 남겨주세요!</div>
-                </div>
-            </div>
-        </section>
-
-        <!-- 11. 마무리 -->
-        <section class="card card-green" data-index="10">
-            <p class="eyebrow" style="color: rgba(255,255,255,0.7);">THANK YOU</p>
-            <h2 class="title highlight-text" style="color: white;">
-                <em>두레맛찬</em><br>
-                지금 바로
-            </h2>
-            <p class="desc">
-                명인의 손맛을<br>
-                우리 집 밥상에
-            </p>
-            <a href="https://ecoop.or.kr/DureShop/plan/planView.do?returnTypeGb=plan&returnNo=1631#book2" class="cta-btn" target="_blank">
-                <span>보러가기</span>
-                <svg viewBox="0 0 24 24"><path d="M8.59,16.58L13.17,12L8.59,7.41L10,6L16,12L10,18L8.59,16.58Z"/></svg>
-            </a>
-        </section>
-
-        <!-- 실시간 의견 띠 -->
-        <div class="live-bar" id="liveBar">
-            <div class="live-bar-inner">
-                <div class="live-bar-label">실시간</div>
-                <span class="live-bar-text" id="liveBarText">조합원님들의 의견</span>
+    <!-- 4. 상품1: 알찬 사과 선물세트 = 후지사과 -->
+    <section class="card card-warm" data-index="3">
+        <p class="eyebrow">알찬 사과 선물세트</p>
+        <h2 class="title"><em>후지사과</em><br>6과가 들어가요</h2>
+        <div class="media-placeholder circle" style="background: linear-gradient(135deg, #fff 0%, #ffe0e0 100%); border-color: var(--red);">
+            <div class="media-placeholder-icon" style="color: var(--red);">🍎</div>
+            <div class="media-placeholder-text" style="color: var(--red);">후지사과 단면</div>
+        </div>
+        <div class="feature-box">
+            <div class="feature-title"><span class="icon">✨</span> 후지사과</div>
+            <div class="feature-desc">
+                <strong>아삭아삭</strong> 씹는 맛<br>
+                새콤함 + 달콤함이 <strong>딱 좋아요</strong>
             </div>
         </div>
+    </section>
 
-        <!-- 토스트 -->
-        <div class="toast" id="toast"></div>
+    <!-- 5. 알찬 사과 선물세트 가격 -->
+    <section class="card card-cream" data-index="4">
+        <div class="product-image gold-frame">
+            <img src="https://raw.githubusercontent.com/durewon-del/test/main/APPLE.png" alt="알찬 사과 선물세트">
+        </div>
+        <div class="product-info-box">
+            <div class="product-info-title">알찬 사과 선물세트</div>
+            <div class="product-info-row">
+                <span class="product-info-icon">🍎</span>
+                <span class="product-info-text"><strong>후지사과</strong> 6과</span>
+            </div>
+            <div class="product-info-row">
+                <span class="product-info-icon">📦</span>
+                <span class="product-info-text">1.9kg 이상 (개당 320g)</span>
+            </div>
+            <div class="product-info-price">
+                <span class="price-old">39,000원</span>
+                <span class="price-new">35,100<span>원</span></span>
+                <br><span class="price-save">3,900원 할인</span>
+            </div>
+        </div>
+    </section>
+
+    <!-- 6. 상품2: 알찬 사과배 = 엔부사과 + 양평배 -->
+    <section class="card card-gold" data-index="5">
+        <p class="eyebrow">알찬 사과배 선물세트</p>
+        <h2 class="title"><em>엔부사과</em> 3과<br><em>양평배</em> 3과</h2>
+        <div class="story-text">두 가지 맛을 한 박스에</div>
+    </section>
+
+    <!-- 7. 엔부사과 단면 -->
+    <section class="card card-warm" data-index="6">
+        <p class="eyebrow">엔부사과</p>
+        <h2 class="title">향기부터<br><em>달라요</em></h2>
+        <div class="media-placeholder circle" style="background: linear-gradient(135deg, #fff 0%, #ffe8e8 100%); border-color: var(--red);">
+            <div class="media-placeholder-icon" style="color: var(--red);">🍎</div>
+            <div class="media-placeholder-text" style="color: var(--red);">엔부사과 단면</div>
+        </div>
+        <div class="feature-box">
+            <div class="feature-title"><span class="icon">🌸</span> 엔부사과</div>
+            <div class="feature-desc">
+                코끝에 닿는 <strong>향긋한 향</strong><br>
+                꿀처럼 <strong>진한 단맛</strong>
+            </div>
+        </div>
+    </section>
+
+    <!-- 8. 양평배 단면 -->
+    <section class="card card-cream" data-index="7">
+        <p class="eyebrow">양평배</p>
+        <h2 class="title">시원하게<br><em>퍼지는 과즙</em></h2>
+        <div class="media-placeholder circle" style="background: linear-gradient(135deg, #fff 0%, #fff8e1 100%); border-color: var(--gold);">
+            <div class="media-placeholder-icon" style="color: var(--gold);">🍐</div>
+            <div class="media-placeholder-text" style="color: var(--gold);">양평배 단면</div>
+        </div>
+        <div class="feature-box">
+            <div class="feature-title"><span class="icon">💧</span> 양평배</div>
+            <div class="feature-desc">
+                입안 가득 <strong>시원한 과즙</strong><br>
+                깔끔한 단맛이 목을 타고
+            </div>
+        </div>
+    </section>
+
+    <!-- 9. 알찬 사과배 선물세트 가격 -->
+    <section class="card card-warm" data-index="8">
+        <div class="product-image gold-frame">
+            <img src="https://raw.githubusercontent.com/durewon-del/test/main/APPLE_p.png" alt="알찬 사과배 선물세트">
+        </div>
+        <div class="product-info-box">
+            <div class="product-info-title">알찬 사과배 선물세트</div>
+            <div class="product-info-row">
+                <span class="product-info-icon">🍎</span>
+                <span class="product-info-text"><strong>엔부사과</strong> 3과</span>
+            </div>
+            <div class="product-info-row">
+                <span class="product-info-icon">🍐</span>
+                <span class="product-info-text"><strong>양평배</strong> 3과</span>
+            </div>
+            <div class="product-info-row">
+                <span class="product-info-icon">📦</span>
+                <span class="product-info-text">2.8kg 이상</span>
+            </div>
+            <div class="product-info-price">
+                <span class="price-old">35,500원</span>
+                <span class="price-new">31,950<span>원</span></span>
+                <br><span class="price-save">3,550원 할인</span>
+            </div>
+        </div>
+    </section>
+
+    <!-- 10. 실물 사진 -->
+    <section class="card card-cream" data-index="9">
+        <h2 class="title">사진이요?<br><em>실물이 더 예뻐요</em></h2>
+        <div class="media-placeholder" style="background: linear-gradient(135deg, #fff 0%, #f5f0e6 100%); border-color: var(--gold);">
+            <div class="media-placeholder-icon" style="color: var(--gold);">📷</div>
+            <div class="media-placeholder-text" style="color: var(--gold);">상품 실물 사진</div>
+        </div>
+    </section>
+
+    <!-- 11. 감성 -->
+    <section class="card card-dark" data-index="10">
+        <p class="emotion-text">
+            가격표 말고<br>
+            <em>마음</em>을 보내세요<br><br>
+            받는 분은<br>
+            다 아신대요
+        </p>
+    </section>
+
+    <!-- 12. 해우소 (의견) -->
+    <section class="card card-cream" data-index="11">
+        <h2 class="title">우리끼리<br><em>해우소</em></h2>
+        <p class="opinion-intro">
+            명절에 누구에게 보낼까?<br>
+            나에게? 😊
+        </p>
+        <div class="opinion-box">
+            <div class="opinion-form">
+                <textarea class="opinion-input" id="opinionText" placeholder="명절 고민 털어놓으세요"></textarea>
+                <div class="opinion-footer">
+                    <input type="text" class="opinion-name" id="opinionName" placeholder="닉네임">
+                    <button class="opinion-submit" id="submitBtn">등록</button>
+                </div>
+            </div>
+            <div class="opinion-list" id="opinionList">
+                <div class="opinion-empty">첫 번째 고민을 나눠주세요</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 13. CTA -->
+    <section class="card card-red" data-index="12">
+        <p class="eyebrow" style="color: rgba(255,255,255,0.7);">1,000개 한정 · 10% 할인</p>
+        <h2 class="title" style="color: white;">망설이시면<br><em>없어요</em></h2>
+        <a href="https://ecoop.or.kr/DureShop/goods/goodsView.do?goodsNo=58746" target="_blank" class="cta-btn">
+            <span>지금 주문하기</span>
+            <svg viewBox="0 0 24 24"><path d="M8.59,16.58L13.17,12L8.59,7.41L10,6L16,12L10,18L8.59,16.58Z"/></svg>
+        </a>
+        <p class="story-text" style="margin-top: 12px; font-size: 0.85rem; color: rgba(255,255,255,0.5);">
+            원주생명농업 · 국내산 · 냉장배송
+        </p>
+    </section>
+
+    <!-- 실시간 의견 띠 -->
+    <div class="live-bar" id="liveBar">
+        <div class="live-bar-inner">
+            <div class="live-bar-label">해우소</div>
+            <span class="live-bar-text" id="liveBarText">조합원님들의 고민</span>
+        </div>
     </div>
+
+    <!-- 토스트 -->
+    <div class="toast" id="toast"></div>
 
     <!-- Firebase -->
     <script type="module">
@@ -1168,180 +876,93 @@
             appId: "1:439719435906:web:3d1d841ad6e80939eb5e9b"
         };
 
-        let app, db;
-        let firebaseReady = false;
+        const app = initializeApp(firebaseConfig);
+        const db = getFirestore(app);
 
-        try {
-            app = initializeApp(firebaseConfig);
-            db = getFirestore(app);
-            firebaseReady = true;
-            console.log('[Firebase] 초기화 성공');
-        } catch (e) {
-            console.error('[Firebase] 초기화 실패:', e);
-        }
-
-        // ========== 풍선 알림 ==========
-        function showBalloon(message, emoji = '👋') {
-            const container = document.getElementById('balloonContainer');
-            const balloon = document.createElement('div');
-            balloon.className = 'balloon';
-            balloon.style.left = Math.random() * 60 + 20 + '%';
-            balloon.innerHTML = `<span class="balloon-emoji">${emoji}</span>${message}`;
-            container.appendChild(balloon);
-            setTimeout(() => balloon.remove(), 4000);
-        }
-
-        // ========== 실시간 접속자 ==========
-        const VISITOR_COLLECTION = 'life-discovery-visitors';
-        const visitorId = 'v_' + Date.now() + '_' + Math.random().toString(36).substr(2, 6);
-        let visitorRef = null;
+        const visitorId = 'v_' + Math.random().toString(36).substr(2, 9);
+        const visitorRef = doc(db, 'seollal-gift-visitors', visitorId);
         let previousCount = 0;
 
-        async function registerVisitor() {
-            if (!firebaseReady || !db) return;
-            try {
-                visitorRef = doc(db, VISITOR_COLLECTION, visitorId);
-                await setDoc(visitorRef, { 
-                    lastSeen: serverTimestamp(),
-                    joinedAt: Date.now()
-                });
-            } catch (e) {
-                console.error('[Firebase] 접속자 등록 실패:', e);
-            }
-        }
-
         async function updatePresence() {
-            if (!firebaseReady || !visitorRef) return;
             try {
-                await setDoc(visitorRef, { 
-                    lastSeen: serverTimestamp(),
-                    joinedAt: Date.now()
-                }, { merge: true });
-            } catch (e) {}
+                await setDoc(visitorRef, { lastSeen: serverTimestamp(), joinedAt: Date.now() });
+            } catch (e) { console.log('Presence error:', e); }
         }
 
-        registerVisitor();
-        setInterval(updatePresence, 30000);
-        window.addEventListener('beforeunload', () => {
-            if (visitorRef) deleteDoc(visitorRef).catch(() => {});
-        });
+        updatePresence();
+        setInterval(updatePresence, 25000);
+        window.addEventListener('beforeunload', () => deleteDoc(visitorRef));
 
-        // 접속자 수 실시간 감지
-        if (firebaseReady && db) {
-            setTimeout(() => {
-                try {
-                    onSnapshot(collection(db, VISITOR_COLLECTION), (snapshot) => {
-                        const now = Date.now();
-                        let activeCount = 0;
-                        snapshot.forEach((docSnap) => {
-                            const data = docSnap.data();
-                            if (data.lastSeen) {
-                                let lastSeenTime = now;
-                                if (data.lastSeen.toDate) {
-                                    lastSeenTime = data.lastSeen.toDate().getTime();
-                                } else if (data.lastSeen.seconds) {
-                                    lastSeenTime = data.lastSeen.seconds * 1000;
-                                }
-                                if (now - lastSeenTime < 60000) activeCount++;
-                            }
-                        });
-                        
-                        const displayCount = Math.max(1, activeCount);
-                        document.getElementById('liveCount').textContent = displayCount;
-                        
-                        // 새 접속자 풍선 알림
-                        if (activeCount > previousCount && previousCount > 0) {
-                            const emojis = ['👋', '🙌', '💚', '🎉'];
-                            const messages = [
-                                '조합원님이 함께해요',
-                                '새로운 분이 오셨어요',
-                                '지금 인기 콘텐츠!',
-                                '함께 보고 있어요'
-                            ];
-                            const idx = Math.floor(Math.random() * messages.length);
-                            showBalloon(messages[idx], emojis[idx]);
-                        }
-                        previousCount = activeCount;
-                    }, (error) => console.error('[Firebase] 리스너 오류:', error));
-                } catch (e) {}
-            }, 1000);
+        onSnapshot(collection(db, 'seollal-gift-visitors'), (snapshot) => {
+            const now = Date.now();
+            let count = 0;
+            snapshot.forEach((doc) => {
+                const data = doc.data();
+                if (data.lastSeen) {
+                    const lastSeen = data.lastSeen.toDate ? data.lastSeen.toDate().getTime() : now;
+                    if (now - lastSeen < 60000) count++;
+                }
+            });
+            document.getElementById('liveCount').textContent = Math.max(1, count);
+            if (count > previousCount && previousCount > 0) showJoinAlert();
+            previousCount = count;
+        }, (e) => console.log('Visitor error:', e));
+
+        function showJoinAlert() {
+            const alert = document.getElementById('joinAlert');
+            const msgs = ['조합원님이 함께 보고 있어요', '지금 인기예요!', '다른 조합원도 고민 중이에요'];
+            document.getElementById('joinAlertText').textContent = msgs[Math.floor(Math.random() * msgs.length)];
+            alert.classList.add('show');
+            setTimeout(() => alert.classList.remove('show'), 3000);
         }
 
-        // ========== 의견 기능 ==========
-        const OPINION_COLLECTION = 'opinions';
-        const OPINION_WEEK = 'life-discovery-matchan';
         let opinions = [];
         let shownIds = new Set();
-        let lastOpinionCount = 0;
 
         document.getElementById('submitBtn').onclick = async () => {
-            if (!firebaseReady || !db) {
-                showToast('잠시 후 다시 시도해주세요');
-                return;
-            }
             const text = document.getElementById('opinionText').value.trim();
             const name = document.getElementById('opinionName').value.trim() || '익명';
-            if (!text) { showToast('의견을 입력해주세요'); return; }
+            if (!text) { showToast('고민을 나눠주세요'); return; }
 
-            const btn = document.getElementById('submitBtn');
-            btn.disabled = true;
-            btn.textContent = '등록 중...';
-
+            document.getElementById('submitBtn').disabled = true;
             try {
-                await addDoc(collection(db, OPINION_COLLECTION), {
-                    text, name, week: OPINION_WEEK, createdAt: serverTimestamp()
+                await addDoc(collection(db, "opinions"), {
+                    text, name, week: 'seollal-gift-2026', createdAt: serverTimestamp()
                 });
                 document.getElementById('opinionText').value = '';
                 document.getElementById('opinionName').value = '';
-                showToast('명인들에게 전달됩니다! 💚');
+                showToast('시원하셨죠? 😊');
             } catch (e) {
-                showToast('등록 실패 - 다시 시도해주세요');
+                showToast('다시 시도해주세요');
             }
-            btn.disabled = false;
-            btn.textContent = '등록';
+            document.getElementById('submitBtn').disabled = false;
         };
 
-        if (firebaseReady && db) {
-            setTimeout(() => {
-                try {
-                    onSnapshot(query(collection(db, OPINION_COLLECTION), orderBy("createdAt", "desc"), limit(100)), (snapshot) => {
-                        const newOpinions = [];
-                        snapshot.forEach((docSnap) => {
-                            const d = docSnap.data();
-                            if (d.week === OPINION_WEEK) {
-                                newOpinions.push({
-                                    id: docSnap.id,
-                                    text: d.text,
-                                    name: d.name || '익명',
-                                    date: d.createdAt ? formatDate(d.createdAt.toDate()) : '방금',
-                                    isNew: false
-                                });
-                            }
-                        });
-                        
-                        // 새 댓글 체크
-                        if (newOpinions.length > lastOpinionCount && lastOpinionCount > 0) {
-                            newOpinions[0].isNew = true;
-                            showBalloon(`${newOpinions[0].name}님이 의견을 남겼어요`, '💬');
-                        }
-                        lastOpinionCount = newOpinions.length;
-                        opinions = newOpinions;
-                        
-                        updateOpinionList();
-                        if (opinions.length > 0) setTimeout(showLiveBar, 2000);
+        onSnapshot(query(collection(db, "opinions"), orderBy("createdAt", "desc"), limit(100)), (snapshot) => {
+            opinions = [];
+            snapshot.forEach((doc) => {
+                const d = doc.data();
+                if (d.week === 'seollal-gift-2026') {
+                    opinions.push({
+                        id: doc.id,
+                        text: d.text,
+                        name: d.name || '익명',
+                        date: d.createdAt ? formatDate(d.createdAt.toDate()) : '방금'
                     });
-                } catch (e) {}
-            }, 1500);
-        }
+                }
+            });
+            updateList();
+            showLiveBar();
+        }, (e) => console.log('Opinion error:', e));
 
-        function updateOpinionList() {
+        function updateList() {
             const el = document.getElementById('opinionList');
             if (!opinions.length) {
-                el.innerHTML = '<div class="opinion-empty">첫 응원 메시지를 남겨주세요!</div>';
+                el.innerHTML = '<div class="opinion-empty">첫 번째 고민을 나눠주세요</div>';
                 return;
             }
-            el.innerHTML = opinions.slice(0, 15).map((o, i) => `
-                <div class="opinion-item ${o.isNew ? 'new' : ''}">
+            el.innerHTML = opinions.slice(0, 15).map(o => `
+                <div class="opinion-item">
                     <div class="opinion-item-text">${escapeHtml(o.text)}</div>
                     <div class="opinion-item-meta">${escapeHtml(o.name)} · ${o.date}</div>
                 </div>
@@ -1350,30 +971,20 @@
 
         function showLiveBar() {
             if (!opinions.length) return;
-            
-            // 아직 안 보여준 댓글만 선택
             let unshown = opinions.filter(o => !shownIds.has(o.id));
-            
-            // 모든 댓글을 이미 보여줬으면 더 이상 표시 안 함
-            if (!unshown.length) return;
-            
-            const o = unshown[0]; // 가장 최신 댓글부터 순서대로
+            if (!unshown.length) { shownIds.clear(); unshown = opinions; }
+            const o = unshown[Math.floor(Math.random() * unshown.length)];
             shownIds.add(o.id);
-            
-            document.getElementById('liveBarText').textContent = o.text.length > 30 ? o.text.slice(0, 30) + '...' : o.text;
+
+            document.getElementById('liveBarText').textContent = o.text.length > 26 ? o.text.slice(0, 26) + '...' : o.text;
             document.getElementById('liveBar').classList.add('show');
             setTimeout(() => document.getElementById('liveBar').classList.remove('show'), 5000);
         }
 
-        // 새 댓글이 있을 때만 띠 표시 (12초마다 체크)
-        setInterval(() => { 
-            const unshown = opinions.filter(o => !shownIds.has(o.id));
-            if (unshown.length > 0) showLiveBar(); 
-        }, 12000);
+        setInterval(showLiveBar, 12000);
 
         function formatDate(d) {
-            if (!d) return '방금';
-            const diff = Date.now() - d.getTime();
+            const diff = Date.now() - d;
             const m = Math.floor(diff / 60000), h = Math.floor(diff / 3600000), day = Math.floor(diff / 86400000);
             if (m < 1) return '방금';
             if (m < 60) return m + '분 전';
@@ -1395,11 +1006,10 @@
         }
     </script>
 
-    <!-- 스크롤 & 애니메이션 -->
     <script>
-        // 스크롤 인디케이터
         const cards = document.querySelectorAll('.card');
         const dotsEl = document.getElementById('scrollDots');
+
         cards.forEach((_, i) => {
             const dot = document.createElement('div');
             dot.className = 'scroll-dot' + (i === 0 ? ' active' : '');
@@ -1407,42 +1017,18 @@
             dotsEl.appendChild(dot);
         });
 
-        // 강조 텍스트 애니메이션
-        const observerOptions = { threshold: 0.3 };
-        
-        const animationObserver = new IntersectionObserver((entries) => {
+        const observer = new IntersectionObserver((entries) => {
             entries.forEach(entry => {
                 if (entry.isIntersecting) {
                     const idx = parseInt(entry.target.dataset.index);
                     document.querySelectorAll('.scroll-dot').forEach((d, i) => {
                         d.classList.toggle('active', i === idx);
                     });
-
-                    // 강조 텍스트 표시
-                    entry.target.querySelectorAll('.highlight-text').forEach(el => {
-                        setTimeout(() => el.classList.add('visible'), 100);
-                    });
-
-                    // 페이드 라인 표시
-                    entry.target.querySelectorAll('.fade-line').forEach(el => {
-                        const delay = parseInt(el.dataset.delay) || 0;
-                        setTimeout(() => {
-                            el.style.opacity = '1';
-                            el.style.transform = 'translateY(0)';
-                            el.style.transition = 'all 0.5s ease-out';
-                        }, 500 + delay);
-                    });
-
-                    // 포인트 카드 표시
-                    entry.target.querySelectorAll('.point-card').forEach(el => {
-                        const delay = parseInt(el.dataset.delay) || 0;
-                        setTimeout(() => el.classList.add('visible'), 200 + delay);
-                    });
                 }
             });
-        }, observerOptions);
+        }, { threshold: 0.5 });
 
-        cards.forEach(c => animationObserver.observe(c));
+        cards.forEach(c => observer.observe(c));
     </script>
 </body>
 </html>
