@@ -1,0 +1,992 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>협동조합이 만든 현미유 | 두레생협</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Nanum+Myeongjo:wght@400;700;800&family=Noto+Sans+KR:wght@300;400;500;700;900&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --green: #4a6741;
+            --green-dark: #2d3e28;
+            --green-light: #e8f0e4;
+            --cream: #fdfbf7;
+            --warm: #f7f3ed;
+            --black: #1a1a1a;
+            --gray: #666;
+            --red: #c41e3a;
+            --gold: #d4a853;
+            --gold-light: #fff8e1;
+            --olive: #a3b18a;
+            --olive-dark: #588157;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        html { scroll-snap-type: y mandatory; scroll-behavior: smooth; }
+        body { font-family: 'Noto Sans KR', sans-serif; background: var(--cream); overflow-x: hidden; }
+
+        /* ========== 헤더 ========== */
+        .header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1000;
+            padding: 12px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: rgba(0,0,0,0.6);
+            backdrop-filter: blur(10px);
+        }
+
+        .header-logo {
+            font-family: 'Nanum Myeongjo', serif;
+            font-size: 1.1rem;
+            font-weight: 700;
+            color: white;
+        }
+
+        .header-logo span { color: var(--olive); }
+
+        .live-counter {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            background: rgba(255,255,255,0.15);
+            padding: 8px 16px;
+            border-radius: 25px;
+        }
+
+        .live-dot {
+            width: 10px;
+            height: 10px;
+            background: #4ade80;
+            border-radius: 50%;
+            animation: pulse 1.5s infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { box-shadow: 0 0 0 0 rgba(74, 222, 128, 0.7); }
+            50% { box-shadow: 0 0 0 8px rgba(74, 222, 128, 0); }
+        }
+
+        .live-text { color: white; font-size: 0.95rem; font-weight: 600; }
+        .live-count { color: #4ade80; font-weight: 700; font-size: 1.1rem; }
+
+        /* ========== 카드 ========== */
+        .card {
+            min-height: 100vh;
+            min-height: 100dvh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            padding: 80px 24px 60px;
+            position: relative;
+            scroll-snap-align: start;
+            scroll-snap-stop: always;
+        }
+
+        .card-dark { background: linear-gradient(180deg, #1a1a1a 0%, #2d2d2d 100%); color: white; }
+        .card-warm { background: var(--warm); }
+        .card-cream { background: var(--cream); }
+        .card-olive { background: linear-gradient(180deg, var(--olive-dark) 0%, #3a5a40 100%); color: white; }
+        .card-gold { background: linear-gradient(180deg, #fff8e1 0%, #ffe0b2 100%); }
+
+        /* ========== 타이포그래피 ========== */
+        .eyebrow {
+            font-size: 0.85rem;
+            letter-spacing: 0.12em;
+            color: var(--olive);
+            margin-bottom: 10px;
+            font-weight: 600;
+        }
+
+        .card-dark .eyebrow { color: var(--olive); }
+        .card-olive .eyebrow { color: rgba(255,255,255,0.7); }
+
+        .title {
+            font-family: 'Nanum Myeongjo', serif;
+            font-size: clamp(1.9rem, 7.5vw, 2.6rem);
+            font-weight: 700;
+            line-height: 1.4;
+            margin-bottom: 12px;
+            word-break: keep-all;
+        }
+
+        .title em {
+            font-style: normal;
+            color: var(--olive-dark);
+        }
+
+        .card-dark .title em { color: var(--olive); }
+        .card-olive .title em { color: #fff; }
+
+        .story-text {
+            font-size: 1.05rem;
+            color: rgba(255,255,255,0.75);
+            line-height: 1.8;
+            max-width: 300px;
+            word-break: keep-all;
+        }
+
+        .card-warm .story-text, .card-cream .story-text, .card-gold .story-text { 
+            color: var(--gray); 
+        }
+
+        /* ========== 색연필 밑줄 ========== */
+        .highlight-line {
+            position: relative;
+            display: inline;
+        }
+
+        .highlight-line::after {
+            content: '';
+            position: absolute;
+            left: 0;
+            bottom: 2px;
+            width: 0;
+            height: 8px;
+            background: linear-gradient(90deg, rgba(88, 129, 87, 0.3) 0%, rgba(88, 129, 87, 0.5) 50%, rgba(88, 129, 87, 0.3) 100%);
+            border-radius: 4px;
+            z-index: -1;
+            transition: width 0.8s ease-out;
+        }
+
+        .highlight-line.animate::after { width: 100%; }
+
+        /* ========== 이미지 ========== */
+        .product-image {
+            width: 70vw;
+            max-width: 280px;
+            aspect-ratio: 1;
+            border-radius: 24px;
+            overflow: hidden;
+            margin: 12px 0;
+            box-shadow: 0 14px 45px rgba(0,0,0,0.18);
+        }
+
+        .product-image.olive-frame {
+            border: 3px solid var(--olive);
+            box-shadow: 0 14px 45px rgba(88, 129, 87, 0.2);
+        }
+
+        .product-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        /* ========== 숫자 강조 ========== */
+        .big-number {
+            font-size: 4rem;
+            font-weight: 900;
+            color: var(--olive-dark);
+            line-height: 1;
+            margin: 8px 0;
+        }
+
+        .big-number span {
+            font-size: 1.5rem;
+            font-weight: 600;
+        }
+
+        .card-olive .big-number { color: white; }
+        .card-dark .big-number { color: var(--olive); }
+
+        /* ========== 데이터 카드 ========== */
+        .data-card {
+            background: rgba(255,255,255,0.15);
+            border-radius: 16px;
+            padding: 20px;
+            margin: 12px 0;
+            max-width: 300px;
+            width: 90%;
+            backdrop-filter: blur(10px);
+        }
+
+        .data-card-title {
+            font-size: 0.85rem;
+            color: rgba(255,255,255,0.7);
+            margin-bottom: 8px;
+        }
+
+        .data-card-value {
+            font-size: 2.5rem;
+            font-weight: 900;
+            color: white;
+        }
+
+        .data-card-value span {
+            font-size: 1rem;
+            font-weight: 500;
+        }
+
+        .data-card-desc {
+            font-size: 0.9rem;
+            color: rgba(255,255,255,0.8);
+            margin-top: 6px;
+        }
+
+        /* ========== 가격 비교 (생협) ========== */
+        .price-compare {
+            background: white;
+            border-radius: 20px;
+            padding: 20px;
+            margin: 16px 0;
+            max-width: 320px;
+            width: 90%;
+            box-shadow: 0 8px 30px rgba(0,0,0,0.08);
+        }
+
+        .price-compare-title {
+            font-size: 0.85rem;
+            color: var(--gray);
+            margin-bottom: 12px;
+            text-align: left;
+        }
+
+        .price-compare-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 12px 0;
+            border-bottom: 1px solid #f0f0f0;
+        }
+
+        .price-compare-row:last-child { border-bottom: none; }
+
+        .price-compare-row.highlight {
+            background: linear-gradient(90deg, rgba(88, 129, 87, 0.15) 0%, rgba(88, 129, 87, 0.05) 100%);
+            margin: 0 -20px;
+            padding: 14px 20px;
+            border-radius: 12px;
+            border-bottom: none;
+        }
+
+        .price-compare-brand {
+            font-size: 0.95rem;
+            color: var(--black);
+        }
+
+        .price-compare-row.highlight .price-compare-brand {
+            font-weight: 700;
+            color: var(--olive-dark);
+        }
+
+        .price-compare-price {
+            font-size: 1rem;
+            font-weight: 700;
+            color: var(--gray);
+        }
+
+        .price-compare-row.highlight .price-compare-price {
+            font-size: 1.3rem;
+            color: var(--olive-dark);
+        }
+
+        .price-compare-note {
+            font-size: 0.75rem;
+            color: #999;
+            margin-top: 8px;
+            text-align: left;
+        }
+
+        /* ========== 협동조합 로고 ========== */
+        .coop-story {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 16px;
+            margin: 16px 0;
+        }
+
+        .coop-flags {
+            display: flex;
+            gap: 12px;
+            align-items: center;
+        }
+
+        .coop-flag {
+            font-size: 2.5rem;
+        }
+
+        .coop-x {
+            font-size: 1.5rem;
+            color: rgba(255,255,255,0.5);
+        }
+
+        .coop-names {
+            display: flex;
+            gap: 20px;
+            font-size: 0.9rem;
+            color: rgba(255,255,255,0.8);
+        }
+
+        /* ========== 효능 리스트 ========== */
+        .benefit-list {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            margin: 16px 0;
+            max-width: 300px;
+            width: 90%;
+        }
+
+        .benefit-item {
+            background: white;
+            border-radius: 14px;
+            padding: 16px;
+            display: flex;
+            align-items: flex-start;
+            gap: 12px;
+            text-align: left;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+        }
+
+        .benefit-icon {
+            font-size: 1.5rem;
+            flex-shrink: 0;
+        }
+
+        .benefit-content { flex: 1; }
+
+        .benefit-title {
+            font-size: 1rem;
+            font-weight: 700;
+            color: var(--black);
+            margin-bottom: 4px;
+        }
+
+        .benefit-desc {
+            font-size: 0.85rem;
+            color: var(--gray);
+            line-height: 1.5;
+        }
+
+        /* ========== 연구 결과 카드 ========== */
+        .research-card {
+            background: white;
+            border-radius: 16px;
+            padding: 20px;
+            margin: 12px 0;
+            max-width: 300px;
+            width: 90%;
+            box-shadow: 0 6px 25px rgba(0,0,0,0.06);
+            text-align: left;
+            border-left: 4px solid var(--olive-dark);
+        }
+
+        .research-source {
+            font-size: 0.75rem;
+            color: var(--olive-dark);
+            font-weight: 600;
+            margin-bottom: 8px;
+        }
+
+        .research-content {
+            font-size: 0.95rem;
+            color: var(--black);
+            line-height: 1.6;
+        }
+
+        .research-content strong {
+            color: var(--olive-dark);
+        }
+
+        /* ========== 감성 텍스트 ========== */
+        .emotion-text {
+            font-family: 'Nanum Myeongjo', serif;
+            font-size: 1.3rem;
+            line-height: 2;
+            color: rgba(255,255,255,0.9);
+            max-width: 280px;
+        }
+
+        .emotion-text em {
+            font-style: normal;
+            color: var(--gold);
+        }
+
+        /* ========== 가격 카드 ========== */
+        .price-card {
+            background: white;
+            border-radius: 20px;
+            padding: 24px;
+            margin: 12px 0;
+            box-shadow: 0 10px 35px rgba(0,0,0,0.08);
+            border: 2px solid var(--olive);
+            max-width: 290px;
+            width: 85%;
+        }
+
+        .price-card-badge {
+            display: inline-block;
+            background: var(--olive-dark);
+            color: white;
+            font-size: 0.7rem;
+            font-weight: 700;
+            padding: 4px 10px;
+            border-radius: 10px;
+            margin-bottom: 8px;
+        }
+
+        .price-card-name {
+            font-size: 1.2rem;
+            font-weight: 700;
+            color: var(--black);
+            margin-bottom: 4px;
+        }
+
+        .price-card-spec {
+            font-size: 0.85rem;
+            color: var(--gray);
+            margin-bottom: 12px;
+        }
+
+        .price-card-price {
+            font-size: 2.5rem;
+            font-weight: 900;
+            color: var(--olive-dark);
+        }
+
+        .price-card-price span { font-size: 1rem; }
+
+        /* ========== 해우소 ========== */
+        .opinion-box {
+            max-width: 320px;
+            width: 100%;
+        }
+
+        .opinion-intro {
+            font-size: 1rem;
+            color: var(--gray);
+            margin-bottom: 12px;
+            line-height: 1.6;
+        }
+
+        .opinion-form {
+            background: white;
+            border-radius: 16px;
+            padding: 16px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.05);
+            margin-bottom: 12px;
+        }
+
+        .opinion-input {
+            width: 100%;
+            border: 2px solid var(--green-light);
+            border-radius: 12px;
+            padding: 12px;
+            font-size: 0.95rem;
+            font-family: inherit;
+            resize: none;
+            min-height: 70px;
+        }
+
+        .opinion-input:focus {
+            outline: none;
+            border-color: var(--olive-dark);
+        }
+
+        .opinion-footer {
+            display: flex;
+            gap: 8px;
+            margin-top: 10px;
+        }
+
+        .opinion-name {
+            flex: 1;
+            border: 2px solid var(--green-light);
+            border-radius: 10px;
+            padding: 10px 12px;
+            font-size: 0.9rem;
+            font-family: inherit;
+        }
+
+        .opinion-name:focus {
+            outline: none;
+            border-color: var(--olive-dark);
+        }
+
+        .opinion-submit {
+            background: var(--olive-dark);
+            color: white;
+            border: none;
+            padding: 10px 18px;
+            border-radius: 10px;
+            font-size: 0.9rem;
+            font-weight: 700;
+            cursor: pointer;
+        }
+
+        .opinion-list {
+            max-height: 130px;
+            overflow-y: auto;
+        }
+
+        .opinion-item {
+            background: white;
+            border-radius: 10px;
+            padding: 12px;
+            margin-bottom: 8px;
+            text-align: left;
+            border-left: 3px solid var(--olive-dark);
+            box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+        }
+
+        .opinion-item-text {
+            font-size: 0.9rem;
+            color: var(--black);
+            line-height: 1.5;
+            margin-bottom: 4px;
+        }
+
+        .opinion-item-meta {
+            font-size: 0.75rem;
+            color: var(--gray);
+        }
+
+        .opinion-empty {
+            text-align: center;
+            padding: 16px;
+            color: var(--gray);
+            font-size: 0.9rem;
+        }
+
+        /* ========== CTA ========== */
+        .cta-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            background: var(--olive-dark);
+            color: white;
+            font-size: 1.15rem;
+            font-weight: 700;
+            padding: 16px 36px;
+            border-radius: 50px;
+            text-decoration: none;
+            margin-top: 14px;
+            box-shadow: 0 8px 30px rgba(88, 129, 87, 0.35);
+            transition: transform 0.2s;
+        }
+
+        .cta-btn:active { transform: scale(0.97); }
+
+        .cta-btn svg {
+            width: 18px;
+            height: 18px;
+            fill: white;
+        }
+
+        /* ========== 토스트 ========== */
+        .toast {
+            position: fixed;
+            bottom: 100px;
+            left: 50%;
+            transform: translateX(-50%) translateY(30px);
+            background: var(--olive-dark);
+            color: white;
+            padding: 12px 24px;
+            border-radius: 50px;
+            font-size: 0.9rem;
+            font-weight: 600;
+            opacity: 0;
+            transition: all 0.3s;
+            z-index: 2000;
+        }
+
+        .toast.show {
+            opacity: 1;
+            transform: translateX(-50%) translateY(0);
+        }
+
+        /* ========== 스크롤 인디케이터 ========== */
+        .scroll-dots {
+            position: fixed;
+            right: 10px;
+            top: 50%;
+            transform: translateY(-50%);
+            z-index: 100;
+            display: flex;
+            flex-direction: column;
+            gap: 5px;
+        }
+
+        .scroll-dot {
+            width: 5px;
+            height: 5px;
+            border-radius: 50%;
+            background: rgba(0,0,0,0.2);
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .scroll-dot.active {
+            height: 18px;
+            border-radius: 3px;
+            background: var(--olive-dark);
+        }
+
+        /* ========== 반응형 ========== */
+        @media (max-height: 700px) {
+            .product-image { max-width: 200px; }
+            .title { font-size: clamp(1.5rem, 6.5vw, 2rem); }
+            .card { padding: 70px 20px 40px; }
+        }
+
+        html::-webkit-scrollbar { display: none; }
+    </style>
+</head>
+<body>
+
+    <!-- 헤더 -->
+    <header class="header">
+        <div class="header-logo">두레<span>생협</span></div>
+        <div class="live-counter">
+            <div class="live-dot"></div>
+            <span class="live-text">함께 보는 중</span>
+            <span class="live-count" id="liveCount">1</span>
+        </div>
+    </header>
+
+    <!-- 스크롤 인디케이터 -->
+    <div class="scroll-dots" id="scrollDots"></div>
+
+    <!-- 1. 인트로 - 감성 -->
+    <section class="card card-dark" data-index="0">
+        <p class="eyebrow">26년 신규 생활재</p>
+        <h1 class="title">매일 쓰는 기름,<br><span class="highlight-line" data-animate><em>어디서 왔나요?</em></span></h1>
+        <div class="product-image olive-frame">
+            <img src="https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/58044C.jpg" alt="사이공쿱 현미유">
+        </div>
+        <p class="story-text" style="margin-top: 12px; font-size: 0.95rem;">
+            협동조합이 만든 현미유<br>
+            이야기가 있어요
+        </p>
+    </section>
+
+    <!-- 2. 협동조합 스토리 -->
+    <section class="card card-olive" data-index="1">
+        <h2 class="title" style="color: white;">베트남 최대 협동조합<br><em>사이공쿱</em>을 아세요?</h2>
+        <div class="coop-story">
+            <div class="coop-flags">
+                <span class="coop-flag">🇻🇳</span>
+                <span class="coop-x">×</span>
+                <span class="coop-flag">🇰🇷</span>
+            </div>
+            <div class="coop-names">
+                <span>사이공쿱</span>
+                <span>두레생협</span>
+            </div>
+        </div>
+        <p class="story-text" style="color: rgba(255,255,255,0.95); font-size: 1rem;">
+            60년 전통, 조합원 500만 명<br>
+            베트남 사람들이 가장 신뢰하는<br>
+            <strong style="color: white;">협동조합과 함께 만들었어요</strong>
+        </p>
+    </section>
+
+    <!-- 3. 왜 현미유인가 - 데이터 -->
+    <section class="card card-cream" data-index="2">
+        <p class="eyebrow">왜 현미유인가요?</p>
+        <h2 class="title">쌀겨에서 짜낸<br><em>건강한 기름</em></h2>
+        <div class="benefit-list">
+            <div class="benefit-item">
+                <span class="benefit-icon">🔬</span>
+                <div class="benefit-content">
+                    <div class="benefit-title">감마오리자놀 함유</div>
+                    <div class="benefit-desc">콜레스테롤 저하, 항산화 작용<br>자율신경 활성화에 도움</div>
+                </div>
+            </div>
+            <div class="benefit-item">
+                <span class="benefit-icon">🔥</span>
+                <div class="benefit-content">
+                    <div class="benefit-title">발연점 254°C</div>
+                    <div class="benefit-desc">튀김, 볶음 요리에 최적<br>유해물질 발생 걱정 ↓</div>
+                </div>
+            </div>
+            <div class="benefit-item">
+                <span class="benefit-icon">💛</span>
+                <div class="benefit-content">
+                    <div class="benefit-title">담백한 맛</div>
+                    <div class="benefit-desc">재료 본연의 맛을 살려요</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 4. 연구 결과 -->
+    <section class="card card-olive" data-index="3">
+        <p class="eyebrow" style="color: rgba(255,255,255,0.7);">실제 연구 결과</p>
+        <h2 class="title" style="color: white;">올리브유보다<br><em>더 좋았어요</em></h2>
+        <div class="research-card">
+            <div class="research-source">📊 인도 PGIMER 연구 (2013)</div>
+            <div class="research-content">
+                지질대사장애 환자 117명 대상<br>
+                올리브유 vs 현미유 비교 결과<br><br>
+                현미유 섭취군에서<br>
+                <strong>LDL 콜레스테롤, 중성지방</strong><br>
+                <strong>유의미하게 감소</strong>
+            </div>
+        </div>
+        <p class="story-text" style="font-size: 0.9rem; color: rgba(255,255,255,0.7); margin-top: 8px;">
+            *개인에 따라 효과는 다를 수 있어요
+        </p>
+    </section>
+
+    <!-- 5. 가격 비교 (친환경 식품점 기준) -->
+    <section class="card card-warm" data-index="4">
+        <h2 class="title">친환경 식품점<br><em>가격 비교</em></h2>
+        <div class="price-compare">
+            <div class="price-compare-title">현미유 1L 기준</div>
+            <div class="price-compare-row">
+                <span class="price-compare-brand">오아시스 (자이카오)</span>
+                <span class="price-compare-price">9,990원</span>
+            </div>
+            <div class="price-compare-row">
+                <span class="price-compare-brand">마켓컬리 (자이카오)</span>
+                <span class="price-compare-price">9,980원</span>
+            </div>
+            <div class="price-compare-row highlight">
+                <span class="price-compare-brand">🌿 두레생협 (사이공쿱)</span>
+                <span class="price-compare-price">7,600원</span>
+            </div>
+            <div class="price-compare-note">
+                * 동일 품질 현미유 100% 기준<br>
+                * 협동조합 직거래로 유통비용 절감
+            </div>
+        </div>
+    </section>
+
+    <!-- 6. 감성 - 협동의 가치 -->
+    <section class="card card-dark" data-index="5">
+        <p class="emotion-text">
+            싸게 사는 것보다<br>
+            <em>어디서 왔는지</em><br>
+            <em>누가 만들었는지</em><br>
+            알고 사는 게<br>
+            더 중요해요
+        </p>
+        <p class="story-text" style="font-size: 0.9rem; color: rgba(255,255,255,0.5); margin-top: 20px;">
+            협동조합끼리 연대하면<br>
+            좋은 품질도, 합리적 가격도<br>
+            둘 다 가능해요
+        </p>
+    </section>
+
+    <!-- 7. 상품 정보 -->
+    <section class="card card-cream" data-index="6">
+        <div class="product-image olive-frame">
+            <img src="https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/58044C.jpg" alt="사이공쿱 현미유">
+        </div>
+        <div class="price-card">
+            <div class="price-card-badge">🇻🇳 베트남 협동조합</div>
+            <div class="price-card-name">사이공쿱 현미유</div>
+            <div class="price-card-spec">1L · 현미유 100% · FSSC 22000</div>
+            <div class="price-card-price">7,600<span>원</span></div>
+        </div>
+        <p class="story-text" style="font-size: 0.85rem; margin-top: 8px;">
+            국제식품안전 인증 획득<br>
+            상온 보관 OK
+        </p>
+    </section>
+
+    <!-- 8. 해우소 -->
+    <section class="card card-cream" data-index="7">
+        <h2 class="title">우리끼리<br><em>해우소</em></h2>
+        <p class="opinion-intro">
+            현미유 어떻게 쓰세요?<br>
+            나만의 활용법 공유해주세요 🍳
+        </p>
+        <div class="opinion-box">
+            <div class="opinion-form">
+                <textarea class="opinion-input" id="opinionText" placeholder="튀김할 때 진짜 좋아요!"></textarea>
+                <div class="opinion-footer">
+                    <input type="text" class="opinion-name" id="opinionName" placeholder="닉네임">
+                    <button class="opinion-submit" id="submitBtn">등록</button>
+                </div>
+            </div>
+            <div class="opinion-list" id="opinionList">
+                <div class="opinion-empty">첫 번째 후기를 남겨주세요</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 9. CTA -->
+    <section class="card card-olive" data-index="8">
+        <p class="eyebrow" style="color: rgba(255,255,255,0.7);">협동조합 품질 · 합리적 가격</p>
+        <h2 class="title" style="color: white;">부엌에서 시작하는<br><em>작은 연대</em></h2>
+        <a href="https://ecoop.or.kr/DureShop/goods/goodsView.do?goodsNo=58044" target="_blank" class="cta-btn">
+            <span>주문하기</span>
+            <svg viewBox="0 0 24 24"><path d="M8.59,16.58L13.17,12L8.59,7.41L10,6L16,12L10,18L8.59,16.58Z"/></svg>
+        </a>
+        <p class="story-text" style="margin-top: 16px; font-size: 0.85rem; color: rgba(255,255,255,0.6);">
+            사이공쿱 × 두레생협
+        </p>
+    </section>
+
+    <!-- 토스트 -->
+    <div class="toast" id="toast"></div>
+
+    <!-- Firebase -->
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
+        import { getFirestore, collection, addDoc, query, orderBy, limit, onSnapshot, serverTimestamp, doc, setDoc, deleteDoc } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
+
+        const firebaseConfig = {
+            apiKey: "AIzaSyDrb6CvMBn9jSfDeuwWseJywFHLbChNr4U",
+            authDomain: "durunioncoop.firebaseapp.com",
+            projectId: "durunioncoop",
+            storageBucket: "durunioncoop.firebasestorage.app",
+            messagingSenderId: "439719435906",
+            appId: "1:439719435906:web:3d1d841ad6e80939eb5e9b"
+        };
+
+        const app = initializeApp(firebaseConfig);
+        const db = getFirestore(app);
+
+        const visitorId = 'v_' + Math.random().toString(36).substr(2, 9);
+        const visitorRef = doc(db, 'ricebran-oil-visitors', visitorId);
+
+        async function updatePresence() {
+            try {
+                await setDoc(visitorRef, { lastSeen: serverTimestamp(), joinedAt: Date.now() });
+            } catch (e) { console.log('Presence error:', e); }
+        }
+
+        updatePresence();
+        setInterval(updatePresence, 25000);
+        window.addEventListener('beforeunload', () => deleteDoc(visitorRef));
+
+        onSnapshot(collection(db, 'ricebran-oil-visitors'), (snapshot) => {
+            const now = Date.now();
+            let count = 0;
+            snapshot.forEach((doc) => {
+                const data = doc.data();
+                if (data.lastSeen) {
+                    const lastSeen = data.lastSeen.toDate ? data.lastSeen.toDate().getTime() : now;
+                    if (now - lastSeen < 60000) count++;
+                }
+            });
+            document.getElementById('liveCount').textContent = Math.max(1, count);
+        }, (e) => console.log('Visitor error:', e));
+
+        let opinions = [];
+
+        document.getElementById('submitBtn').onclick = async () => {
+            const text = document.getElementById('opinionText').value.trim();
+            const name = document.getElementById('opinionName').value.trim() || '익명';
+            if (!text) { showToast('내용을 입력해주세요'); return; }
+
+            document.getElementById('submitBtn').disabled = true;
+            try {
+                await addDoc(collection(db, "opinions"), {
+                    text, name, week: 'ricebran-oil-2026', createdAt: serverTimestamp()
+                });
+                document.getElementById('opinionText').value = '';
+                document.getElementById('opinionName').value = '';
+                showToast('공유 감사해요 🍳');
+            } catch (e) {
+                showToast('다시 시도해주세요');
+            }
+            document.getElementById('submitBtn').disabled = false;
+        };
+
+        onSnapshot(query(collection(db, "opinions"), orderBy("createdAt", "desc"), limit(100)), (snapshot) => {
+            opinions = [];
+            snapshot.forEach((doc) => {
+                const d = doc.data();
+                if (d.week === 'ricebran-oil-2026') {
+                    opinions.push({
+                        id: doc.id,
+                        text: d.text,
+                        name: d.name || '익명',
+                        date: d.createdAt ? formatDate(d.createdAt.toDate()) : '방금'
+                    });
+                }
+            });
+            updateList();
+        }, (e) => console.log('Opinion error:', e));
+
+        function updateList() {
+            const el = document.getElementById('opinionList');
+            if (!opinions.length) {
+                el.innerHTML = '<div class="opinion-empty">첫 번째 후기를 남겨주세요</div>';
+                return;
+            }
+            el.innerHTML = opinions.slice(0, 15).map(o => `
+                <div class="opinion-item">
+                    <div class="opinion-item-text">${escapeHtml(o.text)}</div>
+                    <div class="opinion-item-meta">${escapeHtml(o.name)} · ${o.date}</div>
+                </div>
+            `).join('');
+        }
+
+        function formatDate(d) {
+            const diff = Date.now() - d;
+            const m = Math.floor(diff / 60000), h = Math.floor(diff / 3600000), day = Math.floor(diff / 86400000);
+            if (m < 1) return '방금';
+            if (m < 60) return m + '분 전';
+            if (h < 24) return h + '시간 전';
+            return day + '일 전';
+        }
+
+        function escapeHtml(t) {
+            const d = document.createElement('div');
+            d.textContent = t;
+            return d.innerHTML;
+        }
+
+        function showToast(msg) {
+            const t = document.getElementById('toast');
+            t.textContent = msg;
+            t.classList.add('show');
+            setTimeout(() => t.classList.remove('show'), 2500);
+        }
+    </script>
+
+    <script>
+        const cards = document.querySelectorAll('.card');
+        const dotsEl = document.getElementById('scrollDots');
+
+        cards.forEach((_, i) => {
+            const dot = document.createElement('div');
+            dot.className = 'scroll-dot' + (i === 0 ? ' active' : '');
+            dot.onclick = () => cards[i].scrollIntoView({ behavior: 'smooth' });
+            dotsEl.appendChild(dot);
+        });
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    const idx = parseInt(entry.target.dataset.index);
+                    document.querySelectorAll('.scroll-dot').forEach((d, i) => {
+                        d.classList.toggle('active', i === idx);
+                    });
+                }
+            });
+        }, { threshold: 0.5 });
+
+        cards.forEach(c => observer.observe(c));
+
+        // 색연필 밑줄 애니메이션
+        const highlightObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    const highlights = entry.target.querySelectorAll('.highlight-line[data-animate]');
+                    highlights.forEach((el, i) => {
+                        setTimeout(() => el.classList.add('animate'), i * 300);
+                    });
+                }
+            });
+        }, { threshold: 0.5 });
+
+        cards.forEach(c => highlightObserver.observe(c));
+    </script>
+</body>
+</html>
