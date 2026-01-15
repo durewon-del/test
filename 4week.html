@@ -3,141 +3,123 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>두레맛찬 나물 | 두레생협</title>
+    <title>두레맛찬 | 두레생협</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Nanum+Myeongjo:wght@400;700;800&family=Noto+Sans+KR:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Nanum+Myeongjo:wght@400;700;800&family=Noto+Sans+KR:wght@300;400;500;700;900&display=swap" rel="stylesheet">
     <style>
         :root {
             --green: #4a6741;
+            --green-dark: #2d3e28;
             --green-light: #e8f0e4;
-            --green-pale: #f4f7f3;
             --cream: #fdfbf7;
             --warm: #f7f3ed;
             --black: #1a1a1a;
             --gray: #666;
-            --gray-light: #999;
-            --accent: #ff9800;
-            --accent-dark: #e65100;
+            --accent: #ff6b00;
+            --accent-light: #fff3e0;
+            --red: #e53935;
         }
 
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            -webkit-tap-highlight-color: transparent;
-        }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        html { scroll-snap-type: y mandatory; scroll-behavior: smooth; }
+        body { font-family: 'Noto Sans KR', sans-serif; background: var(--cream); overflow-x: hidden; }
 
-        html {
-            scroll-snap-type: y mandatory;
-            scroll-behavior: smooth;
-        }
-
-        body {
-            font-family: 'Noto Sans KR', sans-serif;
-            background: var(--cream);
-            overflow-x: hidden;
-            overflow-y: auto;
-        }
-
-        /* ========== 매거진 헤더 ========== */
-        .magazine-header {
+        /* ========== 헤더 (실시간 접속자) ========== */
+        .header {
             position: fixed;
             top: 0;
             left: 0;
             right: 0;
             z-index: 1000;
-            padding: 16px 24px;
+            padding: 12px 20px;
             display: flex;
             justify-content: space-between;
             align-items: center;
-            background: linear-gradient(to bottom, rgba(0,0,0,0.3) 0%, transparent 100%);
-            transition: all 0.3s ease;
+            background: rgba(0,0,0,0.6);
+            backdrop-filter: blur(10px);
         }
 
-        .magazine-logo {
+        .header-logo {
             font-family: 'Nanum Myeongjo', serif;
             font-size: 1.1rem;
             font-weight: 700;
             color: white;
-            letter-spacing: -0.02em;
         }
 
-        .magazine-logo span {
-            color: var(--accent);
-        }
+        .header-logo span { color: var(--accent); }
 
-        .magazine-issue {
-            font-size: 0.8rem;
-            color: rgba(255,255,255,0.7);
-            letter-spacing: 0.05em;
-        }
-
-        /* ========== 실시간 의견 띠 ========== */
-        .live-voice-bar {
-            position: fixed;
-            bottom: 20px;
-            left: 0;
-            right: 0;
-            z-index: 99;
-            padding: 0 20px;
-            pointer-events: none;
-        }
-
-        .live-voice-inner {
-            max-width: 400px;
-            margin: 0 auto;
-            background: rgba(255, 255, 255, 0.95);
-            backdrop-filter: blur(10px);
-            border-radius: 20px;
-            padding: 14px 18px;
-            box-shadow: 0 4px 25px rgba(0,0,0,0.12);
+        .live-counter {
             display: flex;
             align-items: center;
-            gap: 12px;
-            opacity: 0;
-            transform: translateY(20px);
-            transition: all 0.5s ease;
+            gap: 8px;
+            background: rgba(255,255,255,0.15);
+            padding: 8px 16px;
+            border-radius: 25px;
         }
 
-        .live-voice-bar.show .live-voice-inner {
-            opacity: 1;
-            transform: translateY(0);
+        .live-dot {
+            width: 10px;
+            height: 10px;
+            background: #4ade80;
+            border-radius: 50%;
+            animation: pulse 1.5s infinite;
         }
 
-        .live-voice-label {
-            background: var(--green);
+        @keyframes pulse {
+            0%, 100% { box-shadow: 0 0 0 0 rgba(74, 222, 128, 0.7); }
+            50% { box-shadow: 0 0 0 8px rgba(74, 222, 128, 0); }
+        }
+
+        .live-text {
             color: white;
-            font-size: 0.7rem;
+            font-size: 0.95rem;
             font-weight: 600;
-            padding: 5px 10px;
-            border-radius: 12px;
-            white-space: nowrap;
-            flex-shrink: 0;
         }
 
-        .live-voice-content {
-            flex: 1;
-            min-width: 0;
-            overflow: hidden;
+        .live-count {
+            color: #4ade80;
+            font-weight: 700;
+            font-size: 1.1rem;
         }
 
-        .live-voice-text {
+        /* ========== 접속 알림 ========== */
+        .join-alert {
+            position: fixed;
+            top: 70px;
+            left: 50%;
+            transform: translateX(-50%) translateY(-100px);
+            background: white;
+            padding: 14px 28px;
+            border-radius: 50px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.2);
+            z-index: 999;
+            opacity: 0;
+            transition: all 0.4s ease;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .join-alert.show {
+            transform: translateX(-50%) translateY(0);
+            opacity: 1;
+        }
+
+        .join-alert-dot {
+            width: 8px;
+            height: 8px;
+            background: var(--accent);
+            border-radius: 50%;
+        }
+
+        .join-alert-text {
             font-size: 0.95rem;
             color: var(--black);
-            line-height: 1.4;
-            white-space: nowrap;
-            overflow: hidden;
-            text-overflow: ellipsis;
+            font-weight: 500;
         }
 
-        .live-voice-meta {
-            font-size: 0.75rem;
-            color: var(--gray-light);
-            margin-top: 2px;
-        }
-
-        /* ========== 카드 (세로 스크롤) ========== */
+        /* ========== 카드 ========== */
         .card {
             min-height: 100vh;
             min-height: 100dvh;
@@ -146,631 +128,392 @@
             justify-content: center;
             align-items: center;
             text-align: center;
-            padding: 80px 28px 100px;
+            padding: 80px 20px 60px;
             position: relative;
-            overflow: hidden;
             scroll-snap-align: start;
             scroll-snap-stop: always;
         }
 
-        /* ========== 카드 스타일 ========== */
-        .card-dark {
-            background: linear-gradient(160deg, #1a1a1a 0%, #2a3a2a 100%);
-            color: white;
-        }
+        .card-dark { background: linear-gradient(160deg, #1a1a1a 0%, #2a3a2a 100%); color: white; }
+        .card-warm { background: var(--warm); }
+        .card-cream { background: var(--cream); }
+        .card-green { background: linear-gradient(160deg, var(--green) 0%, var(--green-dark) 100%); color: white; }
+        .card-accent { background: linear-gradient(160deg, var(--accent) 0%, #e55a00 100%); color: white; }
+        .card-gold { background: linear-gradient(180deg, #fff8e1 0%, #ffe0b2 100%); }
 
-        .card-warm {
-            background: var(--warm);
-        }
-
-        .card-cream {
-            background: var(--cream);
-        }
-
-        .card-green {
-            background: var(--green);
-            color: white;
-        }
-
-        .card-gold {
-            background: linear-gradient(180deg, #fff8e1 0%, #ffe0b2 100%);
-        }
-
-        .card-nature {
-            background: linear-gradient(180deg, rgba(232,240,228,0.95) 0%, rgba(253,251,247,1) 100%);
-            position: relative;
-        }
-
-        /* ========== 타이포그래피 ========== */
-        .card-eyebrow {
-            font-size: 0.85rem;
-            letter-spacing: 0.25em;
+        /* ========== 타이포그래피 (더 크게) ========== */
+        .eyebrow {
+            font-size: 1rem;
+            letter-spacing: 0.2em;
             color: var(--accent);
-            margin-bottom: 20px;
-            font-weight: 500;
-            text-transform: uppercase;
+            margin-bottom: 16px;
+            font-weight: 600;
         }
 
-        .card-warm .card-eyebrow,
-        .card-cream .card-eyebrow,
-        .card-nature .card-eyebrow,
-        .card-gold .card-eyebrow {
-            color: var(--green);
-        }
+        .card-dark .eyebrow { color: var(--accent); }
+        .card-warm .eyebrow, .card-cream .eyebrow, .card-gold .eyebrow { color: var(--green); }
 
-        .card-title {
+        .title {
             font-family: 'Nanum Myeongjo', serif;
-            font-size: clamp(2rem, 8vw, 3rem);
+            font-size: clamp(2.4rem, 10vw, 3.5rem);
             font-weight: 700;
-            line-height: 1.5;
-            margin-bottom: 24px;
+            line-height: 1.4;
+            margin-bottom: 20px;
             word-break: keep-all;
+        }
+
+        .title em {
+            font-style: normal;
+            color: var(--accent);
+        }
+
+        .card-warm .title em, .card-cream .title em, .card-gold .title em { color: var(--green); }
+        .card-green .title em, .card-accent .title em { color: #fff; text-shadow: 0 2px 10px rgba(0,0,0,0.3); }
+
+        .desc {
+            font-size: 1.3rem;
+            line-height: 1.8;
+            color: rgba(255,255,255,0.8);
             max-width: 90vw;
         }
 
-        .card-title em {
-            font-style: normal;
-            color: var(--accent);
-        }
+        .card-warm .desc, .card-cream .desc, .card-gold .desc { color: var(--gray); }
 
-        .card-warm .card-title em,
-        .card-cream .card-title em,
-        .card-nature .card-title em,
-        .card-gold .card-title em {
-            color: var(--green);
-        }
-
-        .card-desc {
-            font-size: 1.15rem;
-            line-height: 1.9;
-            color: rgba(255,255,255,0.75);
-            max-width: 85vw;
-        }
-
-        .card-warm .card-desc,
-        .card-cream .card-desc,
-        .card-nature .card-desc,
-        .card-gold .card-desc {
-            color: var(--gray);
-        }
-
-        /* ========== 인트로 카드 ========== */
-        .intro-bg {
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: linear-gradient(135deg, #2e7d32 0%, #1b5e20 100%);
-            opacity: 0.3;
-        }
-
-        .intro-content {
-            position: relative;
-            z-index: 1;
-        }
-
-        .intro-date {
-            font-size: 0.9rem;
-            letter-spacing: 0.3em;
-            color: var(--accent);
-            margin-bottom: 30px;
-        }
-
-        .intro-main {
-            font-family: 'Nanum Myeongjo', serif;
-            font-size: clamp(2.2rem, 9vw, 3.5rem);
-            font-weight: 700;
-            line-height: 1.45;
-            margin-bottom: 24px;
-        }
-
-        .intro-sub {
-            font-size: 1.2rem;
-            color: rgba(255,255,255,0.75);
-            line-height: 1.8;
-        }
-
-        /* 두레맛찬 배지 */
-        .dure-badge {
-            display: inline-flex;
-            align-items: center;
-            gap: 8px;
-            background: var(--green);
-            color: white;
-            padding: 10px 20px;
-            border-radius: 25px;
-            font-size: 0.95rem;
-            font-weight: 600;
-            margin-top: 20px;
-        }
-
-        /* 생산자 이미지 */
-        .producer-image {
-            width: 280px;
-            height: 280px;
-            margin-bottom: 24px;
-            border-radius: 24px;
-            overflow: hidden;
-            box-shadow: 0 20px 60px rgba(0,0,0,0.15);
-            border: 4px solid white;
-        }
-
-        .producer-image img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-        }
-
-        .producer-badge {
-            display: inline-flex;
-            align-items: center;
-            gap: 8px;
-            background: linear-gradient(135deg, var(--accent) 0%, var(--accent-dark) 100%);
-            color: white;
-            padding: 12px 24px;
-            border-radius: 25px;
-            font-size: 1rem;
-            font-weight: 600;
-            margin-top: 16px;
-            box-shadow: 0 6px 20px rgba(255, 152, 0, 0.3);
-        }
-
-        /* ========== 감성 카드 ========== */
-        .emotion-deco {
-            position: absolute;
-            font-family: 'Nanum Myeongjo', serif;
-            font-size: 18rem;
-            color: var(--green);
-            opacity: 0.05;
-            top: 10%;
-            left: 50%;
-            transform: translateX(-50%);
-            pointer-events: none;
-        }
-
-        /* ========== 제품 카드 ========== */
-        .product-image {
-            width: 220px;
-            height: 220px;
-            margin-bottom: 24px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            background: white;
-            border-radius: 36px;
-            box-shadow: 0 20px 60px rgba(0,0,0,0.1);
-            overflow: hidden;
-        }
-
-        .product-image img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-        }
-
-        .product-name {
-            font-family: 'Nanum Myeongjo', serif;
-            font-size: 1.6rem;
-            font-weight: 700;
-            color: var(--black);
-            margin-bottom: 10px;
-        }
-
-        .product-desc {
-            font-size: 1.1rem;
-            color: var(--gray);
-            line-height: 1.8;
-            margin-bottom: 20px;
-        }
-
-        /* 가격 정보 */
-        .price-info {
-            margin: 16px 0;
-        }
-
-        .price-original {
-            font-size: 1.2rem;
-            color: #999;
-            text-decoration: line-through;
-        }
-
-        .price-arrow {
-            color: var(--green);
-            margin: 4px 0;
-        }
-
-        .price-current {
-            font-size: 2.2rem;
-            font-weight: 700;
-            color: var(--green);
-        }
-
-        .price-current span {
-            font-size: 1.1rem;
-        }
-
-        /* ========== 특징 배지 ========== */
-        .feature-badges {
-            display: flex;
-            justify-content: center;
-            gap: 10px;
-            margin-bottom: 20px;
-            flex-wrap: wrap;
-            max-width: 360px;
-        }
-
-        .feature-badge {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            gap: 5px;
-            padding: 12px 16px;
-            background: var(--green-pale);
-            border-radius: 16px;
-            min-width: 90px;
-        }
-
-        .feature-icon {
-            width: 36px;
-            height: 36px;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 1.1rem;
-        }
-
-        .feature-icon.green { background: var(--green); color: white; }
-        .feature-icon.orange { background: var(--accent); color: white; }
-        .feature-icon.red { background: #e53935; color: white; }
-
-        .feature-text {
-            font-size: 0.8rem;
-            font-weight: 600;
-            color: var(--black);
-            white-space: nowrap;
-        }
-
-        .feature-sub {
-            font-size: 0.7rem;
-            color: var(--gray);
-        }
-
-        /* ========== 제품 링크 ========== */
-        .product-link {
-            display: inline-flex;
-            align-items: center;
-            gap: 8px;
-            color: white;
-            background: var(--green);
-            font-size: 1rem;
-            font-weight: 600;
-            text-decoration: none;
-            padding: 14px 32px;
-            border-radius: 30px;
-            box-shadow: 0 8px 25px rgba(74, 103, 65, 0.25);
-        }
-
-        .product-link:active {
-            transform: scale(0.97);
-        }
-
-        .product-link svg {
-            width: 18px;
-            height: 18px;
-            fill: white;
-        }
-
-        /* ========== 상세 카드 ========== */
-        .detail-card {
-            padding: 60px 24px 80px;
-        }
-
-        .detail-content {
+        /* ========== 큰 이미지 ========== */
+        .big-image {
+            width: 90vw;
             max-width: 400px;
+            height: auto;
+            aspect-ratio: 1;
+            border-radius: 32px;
+            overflow: hidden;
+            margin: 24px 0;
+            box-shadow: 0 25px 80px rgba(0,0,0,0.2);
+        }
+
+        .big-image img {
             width: 100%;
+            height: 100%;
+            object-fit: cover;
         }
 
-        .detail-quote {
-            font-family: 'Nanum Myeongjo', serif;
-            font-size: 1.5rem;
-            line-height: 1.7;
-            color: var(--black);
-            margin-bottom: 32px;
+        .big-image.circle {
+            border-radius: 50%;
+            max-width: 320px;
         }
 
-        .detail-quote em {
-            font-style: normal;
-            color: var(--green);
-        }
-
-        .detail-points {
-            display: flex;
-            flex-direction: column;
-            gap: 14px;
-            margin-bottom: 28px;
-        }
-
-        .detail-point {
-            display: flex;
-            align-items: flex-start;
-            gap: 14px;
-            background: white;
-            padding: 18px;
-            border-radius: 16px;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.04);
-            text-align: left;
-        }
-
-        .detail-point-icon {
-            width: 44px;
-            height: 44px;
-            background: var(--green-light);
-            border-radius: 12px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 1.3rem;
-            flex-shrink: 0;
-        }
-
-        .detail-point-text {
-            flex: 1;
-        }
-
-        .detail-point-title {
-            font-weight: 600;
-            color: var(--black);
-            margin-bottom: 4px;
-            font-size: 1rem;
-        }
-
-        .detail-point-desc {
-            font-size: 0.9rem;
-            color: var(--gray);
-        }
-
-        .detail-cta {
+        /* ========== 강조 배지 ========== */
+        .highlight-badge {
             display: inline-flex;
             align-items: center;
-            gap: 8px;
-            background: var(--green);
+            gap: 10px;
+            background: var(--accent);
             color: white;
             padding: 14px 32px;
-            border-radius: 30px;
-            font-weight: 600;
-            text-decoration: none;
-            box-shadow: 0 8px 25px rgba(74, 103, 65, 0.25);
-        }
-
-        .detail-cta svg {
-            width: 18px;
-            height: 18px;
-            fill: white;
-        }
-
-        /* ========== 후기 카드 ========== */
-        .review-section {
-            max-width: 360px;
-            width: 100%;
-        }
-
-        .review-card {
-            background: white;
-            border-radius: 20px;
-            padding: 24px;
-            margin: 16px 0;
-            box-shadow: 0 8px 30px rgba(0,0,0,0.06);
-            text-align: left;
-        }
-
-        .review-stars {
-            color: var(--green);
-            font-size: 1.1rem;
-            margin-bottom: 12px;
-        }
-
-        .review-text {
-            font-size: 1.05rem;
-            line-height: 1.8;
-            color: var(--black);
-            margin-bottom: 12px;
-        }
-
-        .review-text strong {
-            color: var(--accent-dark);
-        }
-
-        .review-author {
-            font-size: 0.9rem;
-            color: var(--gray-light);
-        }
-
-        /* 평점 배지 */
-        .rating-badge {
-            display: inline-flex;
-            align-items: center;
-            gap: 10px;
-            background: linear-gradient(135deg, #fff8e1 0%, #ffe0b2 100%);
-            padding: 14px 28px;
-            border-radius: 30px;
-            margin: 16px 0;
-            box-shadow: 0 4px 15px rgba(255, 152, 0, 0.2);
-        }
-
-        .rating-score {
-            font-size: 2rem;
+            border-radius: 50px;
+            font-size: 1.2rem;
             font-weight: 700;
-            color: var(--accent-dark);
+            margin: 16px 0;
+            box-shadow: 0 8px 30px rgba(255, 107, 0, 0.4);
+            animation: bounce 2s infinite;
         }
 
-        .rating-text {
-            font-size: 0.9rem;
-            color: var(--gray);
-            text-align: left;
-            line-height: 1.4;
+        @keyframes bounce {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-5px); }
         }
 
-        /* ========== 철학 카드 ========== */
-        .philosophy-emphasis {
-            display: inline-block;
-            background: rgba(255,255,255,0.15);
-            padding: 8px 20px;
-            border-radius: 10px;
-            margin-top: 10px;
-        }
-
-        /* ========== 의견 섹션 ========== */
-        .opinion-section {
-            max-width: 380px;
-            width: 100%;
-        }
-
-        .write-area {
-            background: white;
-            border-radius: 24px;
-            padding: 24px;
-            box-shadow: 0 10px 40px rgba(0,0,0,0.06);
-            margin-bottom: 24px;
-        }
-
-        .write-label {
-            font-size: 0.9rem;
-            color: var(--gray);
-            margin-bottom: 12px;
-            text-align: left;
-        }
-
-        .write-input {
-            width: 100%;
-            border: 2px solid var(--green-light);
-            border-radius: 16px;
-            padding: 16px;
-            font-size: 1rem;
-            font-family: inherit;
-            resize: none;
-            min-height: 100px;
-            transition: border-color 0.3s;
-        }
-
-        .write-input:focus {
-            outline: none;
-            border-color: var(--green);
-        }
-
-        .write-footer {
-            display: flex;
-            gap: 10px;
-            margin-top: 12px;
-        }
-
-        .write-name {
-            flex: 1;
-            border: 2px solid var(--green-light);
-            border-radius: 12px;
-            padding: 12px 16px;
-            font-size: 0.95rem;
-            font-family: inherit;
-        }
-
-        .write-name:focus {
-            outline: none;
-            border-color: var(--green);
-        }
-
-        .write-submit {
-            display: flex;
-            align-items: center;
-            gap: 6px;
+        .highlight-badge.green {
             background: var(--green);
-            color: white;
-            border: none;
-            padding: 12px 24px;
-            border-radius: 12px;
-            font-size: 1rem;
-            font-weight: 600;
-            cursor: pointer;
-            transition: background 0.3s;
+            box-shadow: 0 8px 30px rgba(74, 103, 65, 0.4);
         }
 
-        .write-submit:hover {
-            background: #3d5636;
+        /* ========== 가격 강조 ========== */
+        .price-highlight {
+            background: white;
+            border-radius: 28px;
+            padding: 32px;
+            margin: 20px 0;
+            box-shadow: 0 15px 50px rgba(0,0,0,0.1);
+            border: 4px solid var(--green);
+            max-width: 340px;
         }
 
-        .write-submit:disabled {
-            background: #ccc;
-            cursor: not-allowed;
-        }
-
-        .write-submit svg {
-            width: 16px;
-            height: 16px;
-            fill: white;
-        }
-
-        .opinion-list-area {
-            background: var(--green-pale);
-            border-radius: 20px;
-            padding: 20px;
-        }
-
-        .opinion-list-title {
-            font-size: 0.9rem;
-            font-weight: 600;
+        .price-name {
+            font-size: 1.5rem;
+            font-weight: 700;
             color: var(--green);
             margin-bottom: 16px;
         }
 
-        #opinionList {
-            max-height: 280px;
+        .price-old {
+            font-size: 1.4rem;
+            color: #999;
+            text-decoration: line-through;
+        }
+
+        .price-new {
+            font-size: 3.2rem;
+            font-weight: 900;
+            color: var(--accent);
+            line-height: 1.2;
+        }
+
+        .price-new span {
+            font-size: 1.4rem;
+        }
+
+        .price-save {
+            display: inline-block;
+            background: var(--red);
+            color: white;
+            padding: 8px 20px;
+            border-radius: 20px;
+            font-size: 1.1rem;
+            font-weight: 700;
+            margin-top: 12px;
+        }
+
+        /* ========== 포인트 카드 (이미지화된 설득) ========== */
+        .point-cards {
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+            max-width: 380px;
+            width: 100%;
+        }
+
+        .point-card {
+            background: white;
+            border-radius: 20px;
+            padding: 24px;
+            display: flex;
+            align-items: center;
+            gap: 20px;
+            box-shadow: 0 8px 30px rgba(0,0,0,0.08);
+            text-align: left;
+        }
+
+        .point-icon {
+            width: 70px;
+            height: 70px;
+            background: var(--green-light);
+            border-radius: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2.2rem;
+            flex-shrink: 0;
+        }
+
+        .point-text {
+            font-size: 1.2rem;
+            font-weight: 700;
+            color: var(--black);
+            line-height: 1.5;
+        }
+
+        .point-text span {
+            color: var(--accent);
+        }
+
+        /* ========== 후기 강조 ========== */
+        .review-highlight {
+            background: white;
+            border-radius: 24px;
+            padding: 28px;
+            max-width: 360px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.1);
+            text-align: left;
+            border-left: 6px solid var(--green);
+        }
+
+        .review-quote {
+            font-size: 1.3rem;
+            line-height: 1.7;
+            color: var(--black);
+            margin-bottom: 16px;
+            font-weight: 500;
+        }
+
+        .review-quote strong {
+            color: var(--accent);
+            font-weight: 700;
+        }
+
+        .review-author {
+            font-size: 1rem;
+            color: var(--gray);
+        }
+
+        .review-stars {
+            color: var(--green);
+            font-size: 1.3rem;
+            margin-bottom: 12px;
+        }
+
+        /* ========== 평점 대형 ========== */
+        .rating-big {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 8px;
+            margin: 20px 0;
+        }
+
+        .rating-score {
+            font-size: 5rem;
+            font-weight: 900;
+            color: var(--accent);
+            line-height: 1;
+        }
+
+        .rating-stars {
+            font-size: 2rem;
+            color: var(--green);
+        }
+
+        .rating-count {
+            font-size: 1.2rem;
+            color: var(--gray);
+            font-weight: 600;
+        }
+
+        /* ========== CTA 버튼 ========== */
+        .cta-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 12px;
+            background: var(--green);
+            color: white;
+            font-size: 1.4rem;
+            font-weight: 700;
+            padding: 20px 48px;
+            border-radius: 60px;
+            text-decoration: none;
+            margin-top: 24px;
+            box-shadow: 0 12px 40px rgba(74, 103, 65, 0.4);
+            transition: transform 0.2s;
+        }
+
+        .cta-btn:active { transform: scale(0.97); }
+
+        .cta-btn svg {
+            width: 24px;
+            height: 24px;
+            fill: white;
+        }
+
+        /* ========== 의견 섹션 ========== */
+        .opinion-box {
+            max-width: 380px;
+            width: 100%;
+        }
+
+        .opinion-form {
+            background: white;
+            border-radius: 24px;
+            padding: 24px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.08);
+            margin-bottom: 20px;
+        }
+
+        .opinion-input {
+            width: 100%;
+            border: 3px solid var(--green-light);
+            border-radius: 16px;
+            padding: 18px;
+            font-size: 1.1rem;
+            font-family: inherit;
+            resize: none;
+            min-height: 100px;
+        }
+
+        .opinion-input:focus {
+            outline: none;
+            border-color: var(--green);
+        }
+
+        .opinion-footer {
+            display: flex;
+            gap: 12px;
+            margin-top: 14px;
+        }
+
+        .opinion-name {
+            flex: 1;
+            border: 3px solid var(--green-light);
+            border-radius: 14px;
+            padding: 14px 18px;
+            font-size: 1.05rem;
+            font-family: inherit;
+        }
+
+        .opinion-name:focus {
+            outline: none;
+            border-color: var(--green);
+        }
+
+        .opinion-submit {
+            background: var(--green);
+            color: white;
+            border: none;
+            padding: 14px 28px;
+            border-radius: 14px;
+            font-size: 1.1rem;
+            font-weight: 700;
+            cursor: pointer;
+        }
+
+        .opinion-list {
+            max-height: 250px;
             overflow-y: auto;
         }
 
-        .opinion-list-item {
+        .opinion-item {
             background: white;
-            border-radius: 14px;
-            padding: 16px;
-            margin-bottom: 10px;
+            border-radius: 16px;
+            padding: 18px;
+            margin-bottom: 12px;
             text-align: left;
-            border-left: 4px solid var(--green);
+            border-left: 5px solid var(--green);
+            box-shadow: 0 4px 15px rgba(0,0,0,0.05);
         }
 
-        .opinion-list-text {
-            font-size: 0.95rem;
+        .opinion-item-text {
+            font-size: 1.05rem;
             color: var(--black);
             line-height: 1.6;
-            margin-bottom: 6px;
+            margin-bottom: 8px;
         }
 
-        .opinion-list-meta {
-            font-size: 0.8rem;
-            color: var(--gray-light);
+        .opinion-item-meta {
+            font-size: 0.9rem;
+            color: var(--gray);
         }
 
-        .opinion-list-empty {
+        .opinion-empty {
             text-align: center;
-            color: var(--gray-light);
-            font-size: 0.95rem;
-            padding: 30px 20px;
+            padding: 30px;
+            color: var(--gray);
+            font-size: 1.1rem;
         }
 
-        /* 토스트 */
+        /* ========== 토스트 ========== */
         .toast {
             position: fixed;
-            bottom: 90px;
+            bottom: 100px;
             left: 50%;
-            transform: translateX(-50%) translateY(20px);
+            transform: translateX(-50%) translateY(30px);
             background: var(--green);
             color: white;
-            padding: 14px 28px;
-            border-radius: 30px;
-            font-size: 1rem;
-            font-weight: 500;
+            padding: 16px 32px;
+            border-radius: 50px;
+            font-size: 1.1rem;
+            font-weight: 600;
             opacity: 0;
-            transition: all 0.3s ease;
+            transition: all 0.3s;
             z-index: 2000;
-            box-shadow: 0 10px 30px rgba(74, 103, 65, 0.35);
         }
 
         .toast.show {
@@ -778,34 +521,57 @@
             transform: translateX(-50%) translateY(0);
         }
 
-        /* ========== CTA 버튼 ========== */
-        .cta-button {
-            display: inline-flex;
+        /* ========== 실시간 의견 띠 ========== */
+        .live-bar {
+            position: fixed;
+            bottom: 20px;
+            left: 0;
+            right: 0;
+            padding: 0 20px;
+            z-index: 99;
+            pointer-events: none;
+        }
+
+        .live-bar-inner {
+            max-width: 400px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 20px;
+            padding: 14px 20px;
+            box-shadow: 0 8px 30px rgba(0,0,0,0.15);
+            display: flex;
             align-items: center;
-            gap: 10px;
+            gap: 12px;
+            opacity: 0;
+            transform: translateY(20px);
+            transition: all 0.4s;
+        }
+
+        .live-bar.show .live-bar-inner {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .live-bar-label {
             background: var(--green);
             color: white;
-            font-size: 1.15rem;
-            font-weight: 600;
-            padding: 18px 44px;
-            border-radius: 50px;
-            text-decoration: none;
-            margin-top: 30px;
-            box-shadow: 0 12px 35px rgba(74, 103, 65, 0.35);
+            font-size: 0.75rem;
+            font-weight: 700;
+            padding: 6px 12px;
+            border-radius: 12px;
+            flex-shrink: 0;
         }
 
-        .cta-button:active {
-            transform: scale(0.97);
-        }
-
-        .cta-button svg {
-            width: 20px;
-            height: 20px;
-            fill: white;
+        .live-bar-text {
+            font-size: 1rem;
+            color: var(--black);
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
         }
 
         /* ========== 스크롤 인디케이터 ========== */
-        .scroll-indicator {
+        .scroll-dots {
             position: fixed;
             right: 16px;
             top: 50%;
@@ -813,365 +579,212 @@
             z-index: 100;
             display: flex;
             flex-direction: column;
-            gap: 8px;
+            gap: 10px;
         }
 
         .scroll-dot {
-            width: 8px;
-            height: 8px;
+            width: 10px;
+            height: 10px;
             border-radius: 50%;
-            background: rgba(0,0,0,0.15);
+            background: rgba(0,0,0,0.2);
             cursor: pointer;
-            transition: all 0.3s ease;
+            transition: all 0.3s;
         }
 
         .scroll-dot.active {
-            height: 24px;
-            border-radius: 4px;
+            height: 30px;
+            border-radius: 5px;
             background: var(--green);
         }
 
         /* ========== 반응형 ========== */
-        @media (min-width: 768px) {
-            .product-image {
-                width: 280px;
-                height: 280px;
-            }
-
-            .card {
-                padding: 100px 60px 120px;
-            }
-
-            .card-title {
-                font-size: clamp(2.2rem, 7vw, 3.5rem);
-            }
-
-            .intro-main {
-                font-size: clamp(2.5rem, 8vw, 4rem);
-            }
-
-            .detail-quote {
-                font-size: 1.7rem;
-            }
-        }
-
         @media (max-height: 700px) {
-            .product-image {
-                width: 180px;
-                height: 180px;
-            }
-
-            .card-title {
-                font-size: clamp(1.7rem, 7vw, 2.4rem);
-            }
-
-            .card {
-                padding: 70px 24px 90px;
-            }
-
-            .detail-quote {
-                font-size: 1.3rem;
-            }
-
-            .detail-point {
-                padding: 14px 16px;
-            }
+            .big-image { max-width: 280px; }
+            .title { font-size: clamp(2rem, 8vw, 2.8rem); }
+            .card { padding: 70px 20px 50px; }
         }
 
-        /* 스크롤바 숨기기 */
-        html::-webkit-scrollbar {
-            width: 0;
-            display: none;
-        }
+        html::-webkit-scrollbar { display: none; }
     </style>
 </head>
 <body>
 
-    <!-- 매거진 헤더 -->
-    <header class="magazine-header">
-        <div class="magazine-logo">두레<span>생협</span></div>
-        <div class="magazine-issue">2026 / Vol.04</div>
+    <!-- 헤더 -->
+    <header class="header">
+        <div class="header-logo">두레<span>생협</span></div>
+        <div class="live-counter">
+            <div class="live-dot"></div>
+            <span class="live-text">접속 중</span>
+            <span class="live-count" id="liveCount">1</span>
+        </div>
     </header>
 
+    <!-- 접속 알림 -->
+    <div class="join-alert" id="joinAlert">
+        <div class="join-alert-dot"></div>
+        <span class="join-alert-text" id="joinAlertText">새로운 조합원이 접속했습니다</span>
+    </div>
+
     <!-- 스크롤 인디케이터 -->
-    <div class="scroll-indicator" id="scrollIndicator"></div>
+    <div class="scroll-dots" id="scrollDots"></div>
 
     <!-- 1. 인트로 -->
     <section class="card card-dark" data-index="0">
-        <div class="intro-bg"></div>
-        <div class="intro-content">
-            <p class="intro-date">January 4th Week</p>
-            <h1 class="intro-main"><em>두레맛찬</em>을<br>소개합니다</h1>
-            <p class="intro-sub">건강한 재료, 진실된 정성<br>두레생협만을 위한 맛있는 반찬</p>
-            <div class="dure-badge">
-                <span>🥬</span> (주)등구나무
-            </div>
+        <p class="eyebrow">26년 1월 4주</p>
+        <h1 class="title"><em>두레맛찬</em></h1>
+        <div class="big-image circle">
+            <img src="https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/58425C.png" alt="산채나물">
+        </div>
+        <div class="highlight-badge">
+            🥬 건강한 재료, 진실된 정성
         </div>
     </section>
 
-    <!-- 2. 생산지 소개 -->
+    <!-- 2. 생산자 -->
     <section class="card card-warm" data-index="1">
-        <p class="card-eyebrow">Producer</p>
-        <div class="producer-image">
+        <p class="eyebrow">PRODUCER</p>
+        <div class="big-image">
             <img src="https://raw.githubusercontent.com/durewon-del/test/main/meal.png" alt="두레맛찬 생산자">
         </div>
-        <h2 class="card-title"><em>반찬 명장</em>의<br>손맛을 담았습니다</h2>
-        <p class="card-desc">(주)등구나무의 반찬 장인들<br>두레 사양으로 정성껏 만듭니다</p>
-        <div class="producer-badge">
-            <span>🏆</span> 두레생협에 돌풍 중!
+        <h2 class="title"><em>반찬 명장</em>의<br>손맛</h2>
+        <div class="highlight-badge green">
+            🏆 두레생협에 돌풍 중!
         </div>
     </section>
 
-    <!-- 3. 공감 -->
+    <!-- 3. 핵심 포인트 -->
     <section class="card card-cream" data-index="2">
-        <p class="card-eyebrow">For Busy Days</p>
-        <h2 class="card-title">나물 비빔밥 만들려면<br><em>이것저것 번거로워서</em><br>엄두가 안 났는데</h2>
-        <p class="card-desc">맛찬이 다 준비해뒀어요<br>밥만 있으면 됩니다</p>
+        <p class="eyebrow">WHY</p>
+        <h2 class="title">왜 <em>두레맛찬</em>?</h2>
+        <div class="point-cards">
+            <div class="point-card">
+                <div class="point-icon">🥗</div>
+                <div class="point-text">나물 <span>여러 가지</span><br>한 번에!</div>
+            </div>
+            <div class="point-card">
+                <div class="point-icon">🌶️</div>
+                <div class="point-text">고추장이<br><span>진짜 맛있어요</span></div>
+            </div>
+            <div class="point-card">
+                <div class="point-icon">👨‍👩‍👧</div>
+                <div class="point-text">채소 안 먹는 아이도<br><span>엄지척!</span></div>
+            </div>
+        </div>
     </section>
 
-    <!-- 4. 제품 1 - 산채나물 비빔세트 -->
+    <!-- 4. 상품 1 -->
     <section class="card card-cream" data-index="3">
-        <div class="product-image">
+        <p class="eyebrow">BEST</p>
+        <div class="big-image">
             <img src="https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/58425C.png" alt="산채나물 비빔세트">
         </div>
-        <h3 class="product-name">산채나물 비빔세트</h3>
-        <p class="product-desc">여러 가지 나물 + 고추장 세트<br>밥만 있으면 비빔밥 완성!</p>
-        
-        <div class="price-info">
-            <div class="price-original">14,200원</div>
-            <div class="price-arrow">↓</div>
-            <div class="price-current">13,500<span>원</span></div>
-        </div>
-        
-        <div class="feature-badges">
-            <div class="feature-badge">
-                <div class="feature-icon green">🥬</div>
-                <span class="feature-text">다양한 나물</span>
-            </div>
-            <div class="feature-badge">
-                <div class="feature-icon red">🌶️</div>
-                <span class="feature-text">고추장 포함</span>
-            </div>
-            <div class="feature-badge">
-                <div class="feature-icon orange">🍚</div>
-                <span class="feature-text">간편 조리</span>
-            </div>
-        </div>
-        
-        <a href="#" class="product-link">
-            바로가기
-            <svg viewBox="0 0 24 24"><path d="M8.59,16.58L13.17,12L8.59,7.41L10,6L16,12L10,18L8.59,16.58Z"/></svg>
-        </a>
-    </section>
-
-    <!-- 5. 산채나물 상세 -->
-    <section class="card card-nature detail-card" data-index="4">
-        <div class="detail-content">
-            <p class="card-eyebrow">Why This Product</p>
-            <div class="detail-quote">
-                한두 가지 나물만<br>
-                만들려고 해도<br>
-                <em>번거로웠거든요</em>
-            </div>
-            
-            <div class="detail-points">
-                <div class="detail-point">
-                    <div class="detail-point-icon">🥗</div>
-                    <div class="detail-point-text">
-                        <div class="detail-point-title">여러 나물을 한 번에</div>
-                        <div class="detail-point-desc">따로따로 준비할 필요 없이 한 세트로</div>
-                    </div>
-                </div>
-                <div class="detail-point">
-                    <div class="detail-point-icon">🌶️</div>
-                    <div class="detail-point-text">
-                        <div class="detail-point-title">고추장이 진짜 맛있어요</div>
-                        <div class="detail-point-desc">"따로 팔아주세요" 요청까지 있었어요</div>
-                    </div>
-                </div>
-                <div class="detail-point">
-                    <div class="detail-point-icon">👨‍👩‍👧</div>
-                    <div class="detail-point-text">
-                        <div class="detail-point-title">온 가족이 맛있게</div>
-                        <div class="detail-point-desc">채소 안 먹는 아이도 엄지척!</div>
-                    </div>
-                </div>
-            </div>
-            
-            <a href="#" class="detail-cta">
-                산채나물 비빔세트 보러가기
-                <svg viewBox="0 0 24 24"><path d="M8.59,16.58L13.17,12L8.59,7.41L10,6L16,12L10,18L8.59,16.58Z"/></svg>
-            </a>
+        <div class="price-highlight">
+            <div class="price-name">산채나물 비빔세트</div>
+            <div class="price-old">14,200원</div>
+            <div class="price-new">13,500<span>원</span></div>
+            <div class="price-save">700원 할인</div>
         </div>
     </section>
 
-    <!-- 6. 제품 2 - 시금치나물 -->
-    <section class="card card-cream" data-index="5">
-        <div class="product-image">
-            <img src="https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/58637C.jpg" alt="시금치나물(섬초)">
+    <!-- 5. 상품 2 -->
+    <section class="card card-warm" data-index="4">
+        <p class="eyebrow">RECOMMEND</p>
+        <div class="big-image">
+            <img src="https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/58637C.jpg" alt="시금치나물">
         </div>
-        <h3 class="product-name">시금치나물 (섬초)</h3>
-        <p class="product-desc">포슬포슬 잘 볶은 나물<br>100g / 반찬으로 딱!</p>
-        
-        <div class="price-info">
-            <div class="price-original">6,400원</div>
-            <div class="price-arrow">↓</div>
-            <div class="price-current">6,100<span>원</span></div>
-        </div>
-        
-        <div class="feature-badges">
-            <div class="feature-badge">
-                <div class="feature-icon green">🥬</div>
-                <span class="feature-text">섬초 100%</span>
-            </div>
-            <div class="feature-badge">
-                <div class="feature-icon orange">✨</div>
-                <span class="feature-text">포슬포슬</span>
-            </div>
-            <div class="feature-badge">
-                <div class="feature-icon green">💚</div>
-                <span class="feature-text">건강 반찬</span>
-            </div>
-        </div>
-        
-        <a href="#" class="product-link">
-            바로가기
-            <svg viewBox="0 0 24 24"><path d="M8.59,16.58L13.17,12L8.59,7.41L10,6L16,12L10,18L8.59,16.58Z"/></svg>
-        </a>
-    </section>
-
-    <!-- 7. 시금치나물 상세 -->
-    <section class="card card-nature detail-card" data-index="6">
-        <div class="detail-content">
-            <p class="card-eyebrow">Best Review</p>
-            <div class="detail-quote">
-                지금까지 사서 먹은<br>
-                나물 중에<br>
-                <em>제일 괜찮았어요</em>
-            </div>
-            
-            <div class="detail-points">
-                <div class="detail-point">
-                    <div class="detail-point-icon">✨</div>
-                    <div class="detail-point-text">
-                        <div class="detail-point-title">포슬포슬 잘 볶았어요</div>
-                        <div class="detail-point-desc">"레시피를 배우고 싶어요!!" 라는 후기</div>
-                    </div>
-                </div>
-                <div class="detail-point">
-                    <div class="detail-point-icon">🍚</div>
-                    <div class="detail-point-text">
-                        <div class="detail-point-title">양도 넉넉해요</div>
-                        <div class="detail-point-desc">여럿이 비벼 먹어도 충분</div>
-                    </div>
-                </div>
-                <div class="detail-point">
-                    <div class="detail-point-icon">💚</div>
-                    <div class="detail-point-text">
-                        <div class="detail-point-title">건강한 반찬</div>
-                        <div class="detail-point-desc">갱년기 식단으로도 강추!</div>
-                    </div>
-                </div>
-            </div>
-            
-            <a href="#" class="detail-cta">
-                시금치나물 보러가기
-                <svg viewBox="0 0 24 24"><path d="M8.59,16.58L13.17,12L8.59,7.41L10,6L16,12L10,18L8.59,16.58Z"/></svg>
-            </a>
+        <div class="price-highlight">
+            <div class="price-name">시금치나물 (섬초)</div>
+            <div class="price-old">6,400원</div>
+            <div class="price-new">6,100<span>원</span></div>
+            <div class="price-save">300원 할인</div>
         </div>
     </section>
 
-    <!-- 8. 후기 카드 -->
-    <section class="card card-gold" data-index="7">
-        <p class="card-eyebrow">Real Reviews</p>
-        <h2 class="card-title">조합원님들의<br><em>진짜 후기</em></h2>
-        
-        <div class="rating-badge">
-            <span class="rating-score">4.7</span>
-            <span class="rating-text">추천해요 7<br>아쉬워요 0</span>
+    <!-- 6. 후기 -->
+    <section class="card card-gold" data-index="5">
+        <p class="eyebrow">REVIEW</p>
+        <div class="rating-big">
+            <div class="rating-score">4.7</div>
+            <div class="rating-stars">★★★★★</div>
+            <div class="rating-count">추천 7 · 아쉬워요 0</div>
         </div>
-        
-        <div class="review-section">
-            <div class="review-card">
-                <div class="review-stars">★★★★★</div>
-                <p class="review-text">"맛도 있는 건강식이라 <strong>갱년기 식단으로 강추</strong>하고싶어요. 특히나 <strong>고추장이 정말로 맛있었어요.</strong>"</p>
-                <p class="review-author">- 김*희(울림두레생협)</p>
-            </div>
-            <div class="review-card">
-                <div class="review-stars">★★★★★</div>
-                <p class="review-text">"채소를 잘 안먹는 아들에게 비빔밥을 먹여보니 <strong>엄지척을 하네요.</strong> 여러가지 나물을 한번에 제공해주니 너무 고맙습니다."</p>
-                <p class="review-author">- 한*란(경기두레생협)</p>
-            </div>
+        <div class="review-highlight">
+            <div class="review-stars">★★★★★</div>
+            <p class="review-quote">"특히나 <strong>고추장이 정말로 맛있었어요.</strong> 갱년기 식단으로 강추!"</p>
+            <p class="review-author">- 김*희 (울림두레생협)</p>
         </div>
     </section>
 
-    <!-- 9. 철학 -->
-    <section class="card card-green" data-index="8">
-        <h2 class="card-title">
-            일반 반찬은<br>
-            '대충 만들어도'<br><br>
-            두레맛찬은<br>
-            <span class="philosophy-emphasis">'정성이 맛이다'</span>
+    <!-- 7. 후기 2 -->
+    <section class="card card-cream" data-index="6">
+        <p class="eyebrow">REVIEW</p>
+        <div class="review-highlight" style="margin-bottom: 20px;">
+            <div class="review-stars">★★★★★</div>
+            <p class="review-quote">"채소 안 먹는 아들이 <strong>엄지척을 하네요.</strong> 너무나도 고맙습니다."</p>
+            <p class="review-author">- 한*란 (경기두레생협)</p>
+        </div>
+        <div class="review-highlight">
+            <div class="review-stars">★★★★★</div>
+            <p class="review-quote">"나물을 어쩜 이렇게 <strong>포슬포슬 잘 볶았을까요?</strong> 레시피 배우고 싶어요!"</p>
+            <p class="review-author">- 임*영 (서울남부두레생협)</p>
+        </div>
+    </section>
+
+    <!-- 8. 철학 -->
+    <section class="card card-accent" data-index="7">
+        <h2 class="title" style="color: white;">
+            일반 반찬은<br>'대충'<br><br>
+            두레맛찬은<br><em>'정성'</em>
         </h2>
-        <p class="card-desc">건강한 재료, 진실된 정성<br>그게 두레맛찬 기준이에요</p>
+        <p class="desc">건강한 재료, 진실된 정성</p>
     </section>
 
-    <!-- 10. 의견 작성 -->
-    <section class="card card-cream" data-index="9">
-        <p class="card-eyebrow">Your Voice</p>
-        <h2 class="card-title"><em>두레맛찬</em><br>어떠셨나요?</h2>
-        
-        <div class="opinion-section">
-            <div class="write-area">
-                <div class="write-label">✍️ 생산자분들께 전달됩니다</div>
-                <textarea class="write-input" id="opinionText" placeholder="두레맛찬 나물에 대한 의견을 자유롭게 남겨주세요"></textarea>
-                <div class="write-footer">
-                    <input type="text" class="write-name" id="opinionName" placeholder="이름 (선택)">
-                    <button class="write-submit" id="submitBtn" onclick="submitOpinion()">
-                        등록
-                        <svg viewBox="0 0 24 24"><path d="M2,21L23,12L2,3V10L17,12L2,14V21Z"/></svg>
-                    </button>
+    <!-- 9. 의견 -->
+    <section class="card card-cream" data-index="8">
+        <p class="eyebrow">YOUR VOICE</p>
+        <h2 class="title"><em>의견</em> 남기기</h2>
+        <div class="opinion-box">
+            <div class="opinion-form">
+                <textarea class="opinion-input" id="opinionText" placeholder="두레맛찬 어떠셨나요?"></textarea>
+                <div class="opinion-footer">
+                    <input type="text" class="opinion-name" id="opinionName" placeholder="닉네임">
+                    <button class="opinion-submit" id="submitBtn">등록</button>
                 </div>
             </div>
-            
-            <div class="opinion-list-area">
-                <div class="opinion-list-title">💬 조합원님들의 이야기</div>
-                <div id="opinionList">
-                    <div class="opinion-list-empty">첫 번째 이야기를 남겨주세요</div>
-                </div>
+            <div class="opinion-list" id="opinionList">
+                <div class="opinion-empty">첫 의견을 남겨주세요!</div>
             </div>
         </div>
     </section>
 
-    <!-- 11. 마무리 -->
-    <section class="card card-warm" data-index="10">
-        <p class="card-eyebrow">Thank You</p>
-        <h2 class="card-title">건강한 재료<br>진실된 정성<br><em>두레맛찬</em></h2>
-        <p class="card-desc">(주)등구나무가 만드는<br>두레생협만을 위한 반찬</p>
-        <a href="#" class="cta-button">
-            <span>두레맛찬 보러가기</span>
+    <!-- 10. 마무리 -->
+    <section class="card card-green" data-index="9">
+        <p class="eyebrow" style="color: rgba(255,255,255,0.7);">THANK YOU</p>
+        <h2 class="title" style="color: white;">
+            <em>두레맛찬</em><br>
+            지금 바로
+        </h2>
+        <a href="#" class="cta-btn">
+            <span>보러가기</span>
             <svg viewBox="0 0 24 24"><path d="M8.59,16.58L13.17,12L8.59,7.41L10,6L16,12L10,18L8.59,16.58Z"/></svg>
         </a>
     </section>
 
     <!-- 실시간 의견 띠 -->
-    <div class="live-voice-bar" id="liveVoiceBar">
-        <div class="live-voice-inner">
-            <div class="live-voice-label">실시간 의견</div>
-            <div class="live-voice-content">
-                <p class="live-voice-text" id="liveVoiceText">조합원님들의 이야기</p>
-                <p class="live-voice-meta" id="liveVoiceMeta"></p>
-            </div>
+    <div class="live-bar" id="liveBar">
+        <div class="live-bar-inner">
+            <div class="live-bar-label">실시간</div>
+            <span class="live-bar-text" id="liveBarText">조합원님들의 의견</span>
         </div>
     </div>
 
     <!-- 토스트 -->
-    <div class="toast" id="toast">소중한 의견 감사합니다 💚</div>
+    <div class="toast" id="toast"></div>
 
-    <!-- Firebase SDK -->
+    <!-- Firebase -->
     <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
-        import { getFirestore, collection, addDoc, query, orderBy, limit, onSnapshot, serverTimestamp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
+        import { getFirestore, collection, addDoc, query, orderBy, limit, onSnapshot, serverTimestamp, doc, setDoc, deleteDoc } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
 
         const firebaseConfig = {
             apiKey: "AIzaSyDrb6CvMBn9jSfDeuwWseJywFHLbChNr4U",
@@ -1185,167 +798,178 @@
         const app = initializeApp(firebaseConfig);
         const db = getFirestore(app);
 
-        let opinions = [];
-        let shownOpinionIds = new Set();
+        // ========== 실시간 접속자 ==========
+        const visitorId = 'v_' + Math.random().toString(36).substr(2, 9);
+        const visitorRef = doc(db, 'matchan-visitors', visitorId);
+        let previousCount = 0;
 
-        window.submitOpinion = async function() {
-            const textEl = document.getElementById('opinionText');
-            const nameEl = document.getElementById('opinionName');
-            const submitBtn = document.getElementById('submitBtn');
-            
-            const text = textEl.value.trim();
-            const name = nameEl.value.trim() || '익명의 조합원';
-            
-            if (!text) {
-                showToast('의견을 입력해주세요');
-                return;
-            }
-            
-            submitBtn.disabled = true;
-            
-            try {
-                await addDoc(collection(db, "opinions"), {
-                    text: text,
-                    name: name,
-                    week: 'matchan-namul',
-                    createdAt: serverTimestamp()
-                });
-                
-                textEl.value = '';
-                nameEl.value = '';
-                showToast('소중한 의견 감사합니다 💚');
-            } catch (error) {
-                console.error("Error:", error);
-                showToast('잠시 후 다시 시도해주세요');
-            } finally {
-                submitBtn.disabled = false;
-            }
-        };
+        async function updatePresence() {
+            await setDoc(visitorRef, { 
+                lastSeen: serverTimestamp(),
+                joinedAt: Date.now()
+            });
+        }
 
-        const q = query(
-            collection(db, "opinions"), 
-            orderBy("createdAt", "desc"), 
-            limit(100)
-        );
+        updatePresence();
+        setInterval(updatePresence, 25000);
+        window.addEventListener('beforeunload', () => deleteDoc(visitorRef));
 
-        onSnapshot(q, (snapshot) => {
-            opinions = [];
+        // 접속자 수 감지 + 새 접속 알림
+        onSnapshot(collection(db, 'matchan-visitors'), (snapshot) => {
+            const now = Date.now();
+            let count = 0;
+            let newestJoin = 0;
+
             snapshot.forEach((doc) => {
                 const data = doc.data();
-                if (data.week === 'matchan-namul') {
+                if (data.lastSeen) {
+                    const lastSeen = data.lastSeen.toDate ? data.lastSeen.toDate().getTime() : now;
+                    if (now - lastSeen < 60000) {
+                        count++;
+                        if (data.joinedAt && data.joinedAt > newestJoin) {
+                            newestJoin = data.joinedAt;
+                        }
+                    }
+                }
+            });
+
+            document.getElementById('liveCount').textContent = Math.max(1, count);
+
+            // 새 접속자 알림
+            if (count > previousCount && previousCount > 0) {
+                showJoinAlert();
+            }
+            previousCount = count;
+        });
+
+        function showJoinAlert() {
+            const alert = document.getElementById('joinAlert');
+            const messages = [
+                '새로운 조합원이 접속했습니다',
+                '조합원님이 함께 보고 있어요',
+                '지금 인기 콘텐츠예요!',
+                '조합원님들이 관심 가지고 있어요'
+            ];
+            document.getElementById('joinAlertText').textContent = messages[Math.floor(Math.random() * messages.length)];
+            alert.classList.add('show');
+            setTimeout(() => alert.classList.remove('show'), 3000);
+        }
+
+        // ========== 의견 기능 ==========
+        let opinions = [];
+        let shownIds = new Set();
+
+        document.getElementById('submitBtn').onclick = async () => {
+            const text = document.getElementById('opinionText').value.trim();
+            const name = document.getElementById('opinionName').value.trim() || '익명';
+            if (!text) { showToast('의견을 입력해주세요'); return; }
+
+            document.getElementById('submitBtn').disabled = true;
+            try {
+                await addDoc(collection(db, "opinions"), {
+                    text, name, week: 'matchan-namul', createdAt: serverTimestamp()
+                });
+                document.getElementById('opinionText').value = '';
+                document.getElementById('opinionName').value = '';
+                showToast('감사합니다! 💚');
+            } catch (e) {
+                showToast('다시 시도해주세요');
+            }
+            document.getElementById('submitBtn').disabled = false;
+        };
+
+        onSnapshot(query(collection(db, "opinions"), orderBy("createdAt", "desc"), limit(100)), (snapshot) => {
+            opinions = [];
+            snapshot.forEach((doc) => {
+                const d = doc.data();
+                if (d.week === 'matchan-namul') {
                     opinions.push({
                         id: doc.id,
-                        text: data.text,
-                        name: data.name || '익명',
-                        date: data.createdAt ? formatDate(data.createdAt.toDate()) : '방금'
+                        text: d.text,
+                        name: d.name || '익명',
+                        date: d.createdAt ? formatDate(d.createdAt.toDate()) : '방금'
                     });
                 }
             });
-            updateOpinionList();
-            showRandomLiveVoice();
+            updateList();
+            showLiveBar();
         });
 
-        function updateOpinionList() {
-            const listEl = document.getElementById('opinionList');
-            if (opinions.length === 0) {
-                listEl.innerHTML = '<div class="opinion-list-empty">첫 번째 이야기를 남겨주세요</div>';
+        function updateList() {
+            const el = document.getElementById('opinionList');
+            if (!opinions.length) {
+                el.innerHTML = '<div class="opinion-empty">첫 의견을 남겨주세요!</div>';
                 return;
             }
-            
-            listEl.innerHTML = '';
-            opinions.slice(0, 20).forEach((op) => {
-                const item = document.createElement('div');
-                item.className = 'opinion-list-item';
-                item.innerHTML = `
-                    <p class="opinion-list-text">${escapeHtml(op.text)}</p>
-                    <p class="opinion-list-meta">${escapeHtml(op.name)} · ${op.date}</p>
-                `;
-                listEl.appendChild(item);
-            });
+            el.innerHTML = opinions.slice(0, 15).map(o => `
+                <div class="opinion-item">
+                    <div class="opinion-item-text">${escapeHtml(o.text)}</div>
+                    <div class="opinion-item-meta">${escapeHtml(o.name)} · ${o.date}</div>
+                </div>
+            `).join('');
         }
 
-        function showRandomLiveVoice() {
-            if (opinions.length === 0) return;
-            
-            const bar = document.getElementById('liveVoiceBar');
-            const textEl = document.getElementById('liveVoiceText');
-            const metaEl = document.getElementById('liveVoiceMeta');
-            
-            // 아직 안 보여준 의견 찾기
-            let unshown = opinions.filter(op => !shownOpinionIds.has(op.id));
-            if (unshown.length === 0) {
-                shownOpinionIds.clear();
-                unshown = opinions;
-            }
-            
-            const op = unshown[Math.floor(Math.random() * unshown.length)];
-            shownOpinionIds.add(op.id);
-            
-            textEl.textContent = op.text.length > 40 ? op.text.slice(0, 40) + '...' : op.text;
-            metaEl.textContent = `${op.name} · ${op.date}`;
-            
-            bar.classList.add('show');
-            setTimeout(() => bar.classList.remove('show'), 5000);
+        function showLiveBar() {
+            if (!opinions.length) return;
+            let unshown = opinions.filter(o => !shownIds.has(o.id));
+            if (!unshown.length) { shownIds.clear(); unshown = opinions; }
+            const o = unshown[Math.floor(Math.random() * unshown.length)];
+            shownIds.add(o.id);
+
+            document.getElementById('liveBarText').textContent = o.text.length > 35 ? o.text.slice(0, 35) + '...' : o.text;
+            document.getElementById('liveBar').classList.add('show');
+            setTimeout(() => document.getElementById('liveBar').classList.remove('show'), 5000);
         }
 
-        // 주기적으로 실시간 의견 띠 표시
-        setInterval(showRandomLiveVoice, 15000);
+        setInterval(showLiveBar, 12000);
 
-        function formatDate(date) {
-            const diff = Date.now() - date;
-            const m = Math.floor(diff / 60000);
-            const h = Math.floor(diff / 3600000);
-            const d = Math.floor(diff / 86400000);
-            
+        function formatDate(d) {
+            const diff = Date.now() - d;
+            const m = Math.floor(diff / 60000), h = Math.floor(diff / 3600000), day = Math.floor(diff / 86400000);
             if (m < 1) return '방금';
-            if (m < 60) return `${m}분 전`;
-            if (h < 24) return `${h}시간 전`;
-            if (d < 7) return `${d}일 전`;
-            return date.toLocaleDateString('ko-KR');
+            if (m < 60) return m + '분 전';
+            if (h < 24) return h + '시간 전';
+            return day + '일 전';
         }
 
-        function escapeHtml(text) {
-            const div = document.createElement('div');
-            div.textContent = text;
-            return div.innerHTML;
+        function escapeHtml(t) {
+            const d = document.createElement('div');
+            d.textContent = t;
+            return d.innerHTML;
         }
 
         function showToast(msg) {
-            const toast = document.getElementById('toast');
-            toast.textContent = msg;
-            toast.classList.add('show');
-            setTimeout(() => toast.classList.remove('show'), 2500);
+            const t = document.getElementById('toast');
+            t.textContent = msg;
+            t.classList.add('show');
+            setTimeout(() => t.classList.remove('show'), 2500);
         }
-
-        window.showToast = showToast;
     </script>
 
-    <!-- 스크롤 인디케이터 -->
+    <!-- 스크롤 -->
     <script>
         const cards = document.querySelectorAll('.card');
-        const indicator = document.getElementById('scrollIndicator');
-        
-        // 인디케이터 생성
+        const dotsEl = document.getElementById('scrollDots');
+
         cards.forEach((_, i) => {
             const dot = document.createElement('div');
             dot.className = 'scroll-dot' + (i === 0 ? ' active' : '');
             dot.onclick = () => cards[i].scrollIntoView({ behavior: 'smooth' });
-            indicator.appendChild(dot);
+            dotsEl.appendChild(dot);
         });
-        
-        // 스크롤 감지
+
         const observer = new IntersectionObserver((entries) => {
             entries.forEach(entry => {
                 if (entry.isIntersecting) {
-                    const index = parseInt(entry.target.dataset.index);
-                    document.querySelectorAll('.scroll-dot').forEach((dot, i) => {
-                        dot.classList.toggle('active', i === index);
+                    const idx = parseInt(entry.target.dataset.index);
+                    document.querySelectorAll('.scroll-dot').forEach((d, i) => {
+                        d.classList.toggle('active', i === idx);
                     });
                 }
             });
         }, { threshold: 0.5 });
-        
-        cards.forEach(card => observer.observe(card));
+
+        cards.forEach(c => observer.observe(c));
     </script>
 </body>
 </html>
