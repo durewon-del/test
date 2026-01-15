@@ -177,6 +177,35 @@
             background: linear-gradient(90deg, rgba(212, 168, 83, 0.3) 0%, rgba(212, 168, 83, 0.5) 50%, rgba(212, 168, 83, 0.3) 100%);
         }
 
+        /* 상품 2개 나란히 */
+        .product-duo {
+            display: flex;
+            gap: 16px;
+            margin-top: 16px;
+        }
+
+        .product-duo-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .product-duo-item img {
+            width: 130px;
+            height: 130px;
+            border-radius: 16px;
+            object-fit: cover;
+            border: 2px solid rgba(255,255,255,0.3);
+            box-shadow: 0 8px 25px rgba(0,0,0,0.2);
+        }
+
+        .product-duo-item span {
+            font-size: 0.85rem;
+            color: rgba(255,255,255,0.8);
+            font-weight: 500;
+        }
+
         .story-text {
             font-size: 1.05rem;
             color: rgba(255,255,255,0.75);
@@ -730,31 +759,33 @@
     <!-- 1. 인트로 -->
     <section class="card card-dark" data-index="0">
         <p class="eyebrow">26년 구정선물</p>
-        <h1 class="title">오늘부터<br><em>주문 가능합니다</em></h1>
+        <h1 class="title">더 깐깐하게<br><em>더 두레답게</em></h1>
         <div class="product-image gold-frame">
             <img src="https://raw.githubusercontent.com/durewon-del/test/main/APPLE_p.png" alt="알찬 사과배 선물세트">
         </div>
-        <div class="sale-badge">10% 할인 중</div>
-        <p class="story-text" style="font-size: 0.9rem; margin-top: 8px; color: rgba(255,255,255,0.6);">
-            26년 신규 생활재
+        <div class="sale-badge">명절택배 오픈!</div>
+        <p class="story-text" style="font-size: 1rem; margin-top: 8px; color: rgba(255,255,255,0.9);">
+            중요한 소식이 있어요!
         </p>
     </section>
 
     <!-- 2. 오픈 안내 -->
     <section class="card card-green" data-index="1">
-        <h2 class="title" style="color: white;"><em>온라인</em> 조합원님께<br>먼저 알려드려요</h2>
-        <div class="limited-box">
-            <div class="limited-label">두레 전체 물량</div>
-            <div class="limited-number">1,000<span>개</span></div>
+        <h2 class="title" style="color: white;">쉿!<br><em>온라인</em> 조합원님께<br>빠르게 알려드려요</h2>
+        <p class="story-text" style="color: rgba(255,255,255,0.95); font-size: 1.05rem; margin: 16px 0;">
+            신규로 만들어진 알찬 과일시리즈<br>
+            넘 좋아요. 수량이 없어요.
+        </p>
+        <div class="product-duo">
+            <div class="product-duo-item">
+                <img src="https://raw.githubusercontent.com/durewon-del/test/main/APPLE.png" alt="알찬 사과">
+                <span>알찬 사과</span>
+            </div>
+            <div class="product-duo-item">
+                <img src="https://raw.githubusercontent.com/durewon-del/test/main/APPLE_p.png" alt="알찬 사과배">
+                <span>알찬 사과배</span>
+            </div>
         </div>
-        <p class="story-text" style="color: rgba(255,255,255,0.9);">
-            알찬 시리즈<br>
-            포장도 가격도 너무 좋아서<br>
-            금방 다 나갈 것 같아요
-        </p>
-        <p class="story-text" style="color: rgba(255,255,255,0.6); font-size: 0.9rem; margin-top: 16px;">
-            - 온라인 점장 드림
-        </p>
     </section>
 
     <!-- 3. 포장 -->
