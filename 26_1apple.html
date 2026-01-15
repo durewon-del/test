@@ -249,6 +249,30 @@
             border: none;
         }
 
+        /* 원형 영상 컨테이너 */
+        .video-circle {
+            width: 55vw;
+            max-width: 220px;
+            aspect-ratio: 1;
+            border-radius: 50%;
+            overflow: hidden;
+            margin: 12px 0;
+            box-shadow: 0 12px 40px rgba(0,0,0,0.15);
+            border: 4px solid white;
+            background: #000;
+            position: relative;
+        }
+
+        .video-circle iframe {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 180%;
+            height: 180%;
+            border: none;
+        }
+
         /* ========== 할인 배지 ========== */
         .sale-badge {
             display: inline-block;
@@ -721,9 +745,12 @@
     <section class="card card-warm" data-index="3">
         <p class="eyebrow">알찬 사과 선물세트</p>
         <h2 class="title"><em>후지사과</em><br>6과가 들어가요</h2>
-        <div class="media-placeholder circle" style="background: linear-gradient(135deg, #fff 0%, #ffe0e0 100%); border-color: var(--red);">
-            <div class="media-placeholder-icon" style="color: var(--red);">🍎</div>
-            <div class="media-placeholder-text" style="color: var(--red);">후지사과 단면</div>
+        <div class="video-circle">
+            <iframe 
+                src="https://player.vimeo.com/video/1154574410?autoplay=1&loop=1&muted=1&background=1"
+                allow="autoplay; fullscreen"
+                allowfullscreen>
+            </iframe>
         </div>
         <div class="feature-box">
             <div class="feature-title"><span class="icon">✨</span> 후지사과</div>
@@ -772,9 +799,12 @@
     <section class="card card-warm" data-index="6">
         <p class="eyebrow">엔부사과</p>
         <h2 class="title">향기부터<br><em>달라요</em></h2>
-        <div class="media-placeholder circle" style="background: linear-gradient(135deg, #fff 0%, #ffe8e8 100%); border-color: var(--red);">
-            <div class="media-placeholder-icon" style="color: var(--red);">🍎</div>
-            <div class="media-placeholder-text" style="color: var(--red);">엔부사과 단면</div>
+        <div class="video-circle">
+            <iframe 
+                src="https://player.vimeo.com/video/1154574410?autoplay=1&loop=1&muted=1&background=1"
+                allow="autoplay; fullscreen"
+                allowfullscreen>
+            </iframe>
         </div>
         <div class="feature-box">
             <div class="feature-title"><span class="icon">🌸</span> 엔부사과</div>
@@ -785,25 +815,8 @@
         </div>
     </section>
 
-    <!-- 8. 양평배 단면 -->
-    <section class="card card-cream" data-index="7">
-        <p class="eyebrow">양평배</p>
-        <h2 class="title">시원하게<br><em>퍼지는 과즙</em></h2>
-        <div class="media-placeholder circle" style="background: linear-gradient(135deg, #fff 0%, #fff8e1 100%); border-color: var(--gold);">
-            <div class="media-placeholder-icon" style="color: var(--gold);">🍐</div>
-            <div class="media-placeholder-text" style="color: var(--gold);">양평배 단면</div>
-        </div>
-        <div class="feature-box">
-            <div class="feature-title"><span class="icon">💧</span> 양평배</div>
-            <div class="feature-desc">
-                입안 가득 <strong>시원한 과즙</strong><br>
-                깔끔한 단맛이 목을 타고
-            </div>
-        </div>
-    </section>
-
-    <!-- 9. 알찬 사과배 선물세트 가격 -->
-    <section class="card card-warm" data-index="8">
+    <!-- 8. 알찬 사과배 선물세트 가격 -->
+    <section class="card card-warm" data-index="7">
         <div class="product-image gold-frame">
             <img src="https://raw.githubusercontent.com/durewon-del/test/main/APPLE_p.png" alt="알찬 사과배 선물세트">
         </div>
@@ -829,8 +842,8 @@
         </div>
     </section>
 
-    <!-- 10. 실물 사진 -->
-    <section class="card card-cream" data-index="9">
+    <!-- 9. 실물 사진 -->
+    <section class="card card-cream" data-index="8">
         <h2 class="title">사진이요?<br><em>실물이 더 예뻐요</em></h2>
         <div class="media-placeholder" style="background: linear-gradient(135deg, #fff 0%, #f5f0e6 100%); border-color: var(--gold);">
             <div class="media-placeholder-icon" style="color: var(--gold);">📷</div>
@@ -838,8 +851,8 @@
         </div>
     </section>
 
-    <!-- 11. 감성 -->
-    <section class="card card-dark" data-index="10">
+    <!-- 10. 감성 -->
+    <section class="card card-dark" data-index="9">
         <p class="emotion-text">
             가격표 말고<br>
             <em>마음</em>을 보내세요<br><br>
@@ -848,8 +861,8 @@
         </p>
     </section>
 
-    <!-- 12. 해우소 (의견) -->
-    <section class="card card-cream" data-index="11">
+    <!-- 11. 해우소 (의견) -->
+    <section class="card card-cream" data-index="10">
         <h2 class="title">우리끼리<br><em>해우소</em></h2>
         <p class="opinion-intro">
             명절에 누구에게 보낼까?<br>
@@ -869,8 +882,8 @@
         </div>
     </section>
 
-    <!-- 13. CTA -->
-    <section class="card card-red" data-index="12">
+    <!-- 12. CTA -->
+    <section class="card card-red" data-index="11">
         <p class="eyebrow" style="color: rgba(255,255,255,0.7);">1,000개 한정 · 10% 할인</p>
         <h2 class="title" style="color: white;">망설이시면<br><em>없어요</em></h2>
         <a href="https://ecoop.or.kr/DureShop/goods/goodsView.do?goodsNo=58746" target="_blank" class="cta-btn">
