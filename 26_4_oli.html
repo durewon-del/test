@@ -252,6 +252,39 @@
             object-fit: cover;
         }
 
+        /* ========== 비디오/GIF 원형 ========== */
+        .video-circle {
+            width: 65vw;
+            max-width: 260px;
+            aspect-ratio: 1;
+            border-radius: 50%;
+            overflow: hidden;
+            margin: 16px 0;
+            border: 4px solid var(--olive);
+            box-shadow: 0 10px 40px rgba(88, 129, 87, 0.3);
+        }
+
+        .video-circle img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        /* ========== 전체 너비 이미지 ========== */
+        .full-image {
+            width: 100%;
+            max-width: 380px;
+            border-radius: 16px;
+            overflow: hidden;
+            box-shadow: 0 8px 30px rgba(0,0,0,0.1);
+        }
+
+        .full-image img {
+            width: 100%;
+            height: auto;
+            display: block;
+        }
+
         /* ========== 숫자 강조 ========== */
         .big-number {
             font-size: 4rem;
@@ -732,10 +765,10 @@
     <section class="card card-dark" data-index="0">
         <p class="eyebrow">26년 신규 생활재</p>
         <h1 class="title">매일 쓰는 기름,<br><span class="highlight-line" data-animate><em>어디서 왔나요?</em></span></h1>
-        <div class="product-image olive-frame">
-            <img src="https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/58044C.jpg" alt="사이공쿱 현미유">
+        <div class="video-circle">
+            <img src="https://raw.githubusercontent.com/durewon-del/test/main/58044_2.gif" alt="현미유">
         </div>
-        <p class="story-text" style="margin-top: 12px; font-size: 0.95rem;">
+        <p class="story-text" style="margin-top: 12px; font-size: 1.05rem;">
             협동조합이 만든 현미유<br>
             이야기가 있어요
         </p>
@@ -802,21 +835,28 @@
         <div class="check-list">
             <div class="check-item">
                 <span class="check-num">1차</span>
-                <span class="check-desc">베트남 현지 출하 전 검사</span>
+                <span class="check-desc">베트남 현지 생산 직후<br><strong style="color: #4ade80;">SGS 국제 공인 검사</strong></span>
             </div>
             <div class="check-item">
                 <span class="check-num">2차</span>
-                <span class="check-desc">한국 입고 후 재검사</span>
+                <span class="check-desc">한국 인천항 입항 즉시<br><strong style="color: #4ade80;">식약청 정밀 검사</strong></span>
             </div>
         </div>
-        <p class="story-text" style="font-size: 0.9rem; color: rgba(255,255,255,0.7); margin-top: 12px;">
-            깐깐하게 두 번 검사해서<br>
-            안심하고 드실 수 있어요
+        <p class="story-text" style="font-size: 1rem; color: rgba(255,255,255,0.7); margin-top: 12px;">
+            생산할 때 한 번, 들어올 때 한 번<br>
+            <strong style="color: white;">총 2회 엄격한 검사 통과!</strong>
         </p>
     </section>
 
+    <!-- 4-1. 벤조피렌 검사 결과 이미지 -->
+    <section class="card card-gold" data-index="4" style="padding: 60px 16px;">
+        <div class="full-image">
+            <img src="https://raw.githubusercontent.com/durewon-del/test/main/58044_gii.gif" alt="벤조피렌 검사 결과">
+        </div>
+    </section>
+
     <!-- 5. 연구 결과 -->
-    <section class="card card-olive" data-index="4">
+    <section class="card card-olive" data-index="5">
         <p class="eyebrow" style="color: rgba(255,255,255,0.7);">실제 연구 결과</p>
         <h2 class="title" style="color: white;">올리브유보다<br><em>더 좋았어요</em></h2>
         <div class="research-card">
@@ -835,7 +875,7 @@
     </section>
 
     <!-- 6. 가격 비교 (친환경 식품점 기준) -->
-    <section class="card card-warm" data-index="5">
+    <section class="card card-warm" data-index="6">
         <h2 class="title">친환경 식품점<br><em>가격 비교</em></h2>
         <div class="price-compare">
             <div class="price-compare-title">현미유 1L 기준</div>
@@ -858,8 +898,15 @@
         </div>
     </section>
 
+    <!-- 6-1. 직거래 설명 이미지 -->
+    <section class="card card-cream" data-index="7" style="padding: 60px 16px;">
+        <div class="full-image">
+            <img src="https://raw.githubusercontent.com/durewon-del/test/main/58044_gi.gif" alt="직거래로 거품 없는 가격">
+        </div>
+    </section>
+
     <!-- 7. 감성 - 협동의 가치 -->
-    <section class="card card-dark" data-index="6">
+    <section class="card card-dark" data-index="8">
         <p class="emotion-text">
             국제 협동으로<br>
             <em>우주최저</em> 가격<br><br>
@@ -874,7 +921,7 @@
     </section>
 
     <!-- 8. 상품 정보 -->
-    <section class="card card-cream" data-index="7">
+    <section class="card card-cream" data-index="9">
         <div class="product-image olive-frame">
             <img src="https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/58044C.jpg" alt="사이공쿱 현미유">
         </div>
@@ -891,7 +938,7 @@
     </section>
 
     <!-- 9. 해우소 -->
-    <section class="card card-cream" data-index="8">
+    <section class="card card-cream" data-index="10">
         <h2 class="title">우리끼리<br><em>해우소</em></h2>
         <p class="opinion-intro">
             조합원님은<br>
@@ -912,7 +959,7 @@
     </section>
 
     <!-- 10. CTA -->
-    <section class="card card-olive" data-index="9">
+    <section class="card card-olive" data-index="11">
         <p class="eyebrow" style="color: rgba(255,255,255,0.7);">협동조합 품질 · 합리적 가격</p>
         <h2 class="title" style="color: white;">부엌에서 시작하는<br><em>작은 연대</em></h2>
         <a href="https://ecoop.or.kr/DureShop/prod/goodsView.do?returnTypeGb=01&returnNo=58044&returnPlanNo=0" target="_blank" class="cta-btn">
